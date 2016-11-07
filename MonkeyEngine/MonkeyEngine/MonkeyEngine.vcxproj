@@ -18,6 +18,54 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Components\Base\Component.cpp" />
+    <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp" />
+    <ClCompile Include="Engine Base\Scene\Scene.cpp" />
+    <ClCompile Include="GameObject\GameObject.cpp" />
+    <ClCompile Include="Libraries\Math\Float3.cpp" />
+    <ClCompile Include="Libraries\Math\Float4.cpp" />
+    <ClCompile Include="Libraries\Math\Float4X4.cpp" />
+    <ClCompile Include="Libraries\Math\MathLibrary.cpp" />
+    <ClCompile Include="Libraries\Math\Quaternian.cpp" />
+    <ClCompile Include="Object\Object.cpp" />
+    <ClCompile Include="Renderer\Managers\ConstantBufferManager.cpp" />
+    <ClCompile Include="Renderer\Managers\IndexBufferManager.cpp" />
+    <ClCompile Include="Renderer\Managers\InputLayoutManager.cpp" />
+    <ClCompile Include="Renderer\Managers\ShaderManager.cpp" />
+    <ClCompile Include="Renderer\Managers\VertexBufferManager.cpp" />
+    <ClCompile Include="Renderer\Renderer.cpp" />
+    <ClCompile Include="Renderer\RenderSet\RenderShape.cpp" />
+    <ClCompile Include="Renderer\RenderSet\RenderNode.cpp" />
+    <ClCompile Include="Renderer\RenderSet\RenderSet.cpp" />
+    <ClCompile Include="Renderer\RenderSet\RenderContext.cpp" />
+    <ClCompile Include="Renderer\RenderSet\RenderTexture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Components\Base\Component.h" />
+    <ClInclude Include="Engine Base\Game Engine\MountainDew.h" />
+    <ClInclude Include="Engine Base\Scene\Scene.h" />
+    <ClInclude Include="GameObject\GameObject.h" />
+    <ClInclude Include="Libraries\Math\Color.h" />
+    <ClInclude Include="Libraries\Math\Float3.h" />
+    <ClInclude Include="Libraries\Math\Float4.h" />
+    <ClInclude Include="Libraries\Math\Float4X4.h" />
+    <ClInclude Include="Libraries\Math\MathLibrary.h" />
+    <ClInclude Include="Libraries\Math\Quaternian.h" />
+    <ClInclude Include="Object\Object.h" />
+    <ClInclude Include="Renderer\Managers\ConstantBufferManager.h" />
+    <ClInclude Include="Renderer\Managers\IndexBufferManager.h" />
+    <ClInclude Include="Renderer\Managers\InputLayoutManager.h" />
+    <ClInclude Include="Renderer\Managers\ShaderManager.h" />
+    <ClInclude Include="Renderer\Managers\VertexBufferManager.h" />
+    <ClInclude Include="Renderer\Renderer.h" />
+    <ClInclude Include="Renderer\RenderSet\RenderShape.h" />
+    <ClInclude Include="Renderer\RenderSet\RenderNode.h" />
+    <ClInclude Include="Renderer\RenderSet\RenderSet.h" />
+    <ClInclude Include="Renderer\RenderSet\RenderContext.h" />
+    <ClInclude Include="Renderer\RenderSet\RenderTexture.h" />
+    <ClInclude Include="ReturnValues.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1BAFC61D-3EFA-46F5-B9E4-39C5F20C6B04}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -89,6 +137,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -103,6 +152,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -119,6 +169,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -137,6 +188,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,8 +197,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,17 +1,186 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Engine Base">
+      <UniqueIdentifier>{eeece361-d7fb-4a57-bc4f-27168e0c0bc7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{a9b2c7e6-0a53-48a2-915b-f0c24d3297fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="GameObejct">
+      <UniqueIdentifier>{fb6176a6-1fe7-4443-b75f-a3d15f6c3471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{fb446b08-b080-4a09-bc18-ab147576b2f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Base\GameEngine">
+      <UniqueIdentifier>{6562271c-6616-4ecc-b4ec-ac0e6b03453d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{8f266d68-f3a6-4153-9f2c-f340d758df3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Base">
+      <UniqueIdentifier>{463a36fc-8b03-488f-8406-4c370e0ef2bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Base\Scene">
+      <UniqueIdentifier>{a211ba53-d9cd-4fbd-81b9-94d2590cec2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Managers">
+      <UniqueIdentifier>{f0a63ffd-5bf7-4e17-bafb-ef7345bc1f82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\RenderSet">
+      <UniqueIdentifier>{645cff8d-a4b3-45c6-86fa-edb424f90dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{729a2b61-168f-4b18-95b2-5518ae8e43d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Collision">
+      <UniqueIdentifier>{119d878e-6d13-4fea-a1f0-6016f3a3f919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Physics">
+      <UniqueIdentifier>{e8364492-b53b-47fb-af60-79f3220e8cdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Math">
+      <UniqueIdentifier>{003a7617-c84a-4d6f-9fa8-f5e32a262745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{46a35eb8-6875-4eaa-b27a-0e570e23b9f5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
+      <Filter>Engine Base\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GameObject.cpp">
+      <Filter>GameObejct</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Base\Component.cpp">
+      <Filter>Components\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine Base\Scene\Scene.cpp">
+      <Filter>Engine Base\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Managers\ShaderManager.cpp">
+      <Filter>Renderer\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Managers\InputLayoutManager.cpp">
+      <Filter>Renderer\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Managers\VertexBufferManager.cpp">
+      <Filter>Renderer\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Managers\IndexBufferManager.cpp">
+      <Filter>Renderer\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Managers\ConstantBufferManager.cpp">
+      <Filter>Renderer\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\RenderSet\RenderNode.cpp">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\RenderSet\RenderSet.cpp">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Renderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\RenderSet\RenderTexture.cpp">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\Math\Float3.cpp">
+      <Filter>Libraries\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\Math\Float4.cpp">
+      <Filter>Libraries\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\Math\Float4X4.cpp">
+      <Filter>Libraries\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\Math\Quaternian.cpp">
+      <Filter>Libraries\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\Math\MathLibrary.cpp">
+      <Filter>Libraries\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\RenderSet\RenderContext.cpp">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\RenderSet\RenderShape.cpp">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine Base\Game Engine\MountainDew.h">
+      <Filter>Engine Base\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GameObject.h">
+      <Filter>GameObejct</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Base\Component.h">
+      <Filter>Components\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine Base\Scene\Scene.h">
+      <Filter>Engine Base\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Managers\ShaderManager.h">
+      <Filter>Renderer\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Managers\InputLayoutManager.h">
+      <Filter>Renderer\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Managers\VertexBufferManager.h">
+      <Filter>Renderer\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Managers\IndexBufferManager.h">
+      <Filter>Renderer\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Managers\ConstantBufferManager.h">
+      <Filter>Renderer\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RenderSet\RenderSet.h">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RenderSet\RenderNode.h">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Renderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RenderSet\RenderTexture.h">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Math\Float3.h">
+      <Filter>Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Math\Float4.h">
+      <Filter>Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Math\Float4X4.h">
+      <Filter>Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Math\Quaternian.h">
+      <Filter>Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Math\Color.h">
+      <Filter>Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\Math\MathLibrary.h">
+      <Filter>Libraries\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ReturnValues.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RenderSet\RenderContext.h">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RenderSet\RenderShape.h">
+      <Filter>Renderer\RenderSet</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
