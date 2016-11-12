@@ -1,11 +1,14 @@
 #pragma once
 #include "RenderNode.h"
-class RenderTexture : public RenderNode
+namespace MERenderer
 {
-private:
+	class RenderTexture : public RenderNode
+	{
+	private:
 
-public:
-	RenderTexture();
-	~RenderTexture();
-};
+	public:
+		RenderTexture();
+		~RenderTexture();
+	};
 
+}

@@ -2,11 +2,15 @@
 
 
 
-RenderShape::RenderShape()
+namespace MERenderer
 {
-}
+	RenderShape::RenderShape()
+	{
+	}
 
 
-RenderShape::~RenderShape()
-{
+	RenderShape::~RenderShape()
+	{
+	}
+
 }

@@ -2,11 +2,15 @@
 
 
 
-Component::Component()
+namespace MEObject
 {
-}
+	Component::Component()
+	{
+	}
 
 
-Component::~Component()
-{
+	Component::~Component()
+	{
+	}
+
 }

@@ -46,6 +46,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{46a35eb8-6875-4eaa-b27a-0e570e23b9f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\Containers">
+      <UniqueIdentifier>{54157760-a770-4f3b-808e-e4d6b20b943d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -110,6 +113,18 @@
     </ClCompile>
     <ClCompile Include="Renderer\RenderSet\RenderShape.cpp">
       <Filter>Renderer\RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Containers\Mesh.cpp">
+      <Filter>Renderer\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Containers\VertexBuffer.cpp">
+      <Filter>Renderer\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Containers\ConstantBuffer.cpp">
+      <Filter>Renderer\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Containers\IndexBuffer.cpp">
+      <Filter>Renderer\Containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +196,18 @@
     </ClInclude>
     <ClInclude Include="Renderer\RenderSet\RenderShape.h">
       <Filter>Renderer\RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Containers\Mesh.h">
+      <Filter>Renderer\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Containers\VertexBuffer.h">
+      <Filter>Renderer\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Containers\ConstantBuffer.h">
+      <Filter>Renderer\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Containers\IndexBuffer.h">
+      <Filter>Renderer\Containers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

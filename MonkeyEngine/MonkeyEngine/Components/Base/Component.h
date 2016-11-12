@@ -1,11 +1,14 @@
 #pragma once
 #include "../../Object/Object.h"
-class Component : public Object
+namespace MEObject
 {
-private:
+	class Component : public Object
+	{
+	private:
 
-public:
-	Component();
-	~Component();
-};
+	public:
+		Component();
+		~Component();
+	};
+}
 
