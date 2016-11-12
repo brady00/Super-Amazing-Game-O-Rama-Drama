@@ -18,11 +18,13 @@ namespace MERenderer
 	public:
 		RenderMesh();
 		~RenderMesh();
-		void Draw();
-		bool Load(std::string _VertexFileName);
 		const std::string& GetVertexFileName();
+		void Draw();
 		bool AddTexture(std::string _TextureFileName);
+		bool Load(std::string _VertexFileName);
+	private:
 		bool TextureExsits(std::string _TextureFileName);
+		bool LoadTexture(std::string _TextureFileName, RenderTexture*& _Texture);
 	};
 
 }

@@ -13,4 +13,9 @@ namespace MERenderer
 	{
 	}
 
+
+	ID3D11ShaderResourceView* RenderTexture::GetDiffuseTexture()
+	{
+		return m_d3DiffuseTexture;
+	}
 }
