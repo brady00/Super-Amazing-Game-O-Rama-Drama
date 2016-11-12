@@ -1,14 +1,22 @@
 #pragma once
 #include <string>
+#include "../ReturnValues.h"
 using namespace std;
-class Object
+namespace MEObject
 {
-private:
-	string m_sName;
-	unsigned int m_uiFlags;
-public:
-	Object();
-	~Object();
-};
+	class Object
+	{
+	private:
+		string m_sName;
+		unsigned int m_uiFlags;
+	public:
+		Object();
+		~Object();
+	protected:
+		virtual void Initialize() {};
+		virtual MEReturnValues::RETURNVALUE Update() { return MEReturnValues::NOTHING; };
+		virtual void ShutDown() {};
+	};
 
+}
  

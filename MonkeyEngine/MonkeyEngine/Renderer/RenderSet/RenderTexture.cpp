@@ -2,11 +2,15 @@
 
 
 
-RenderTexture::RenderTexture()
+namespace MERenderer
 {
-}
+	RenderTexture::RenderTexture()
+	{
+	}
 
 
-RenderTexture::~RenderTexture()
-{
+	RenderTexture::~RenderTexture()
+	{
+	}
+
 }

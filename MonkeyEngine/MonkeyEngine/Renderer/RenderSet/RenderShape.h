@@ -1,11 +1,15 @@
 #pragma once
 #include "RenderNode.h"
-class RenderShape : public RenderNode
+namespace MERenderer
 {
-private:
+	class RenderShape : public RenderNode
+	{
+	private:
 
-public:
-	RenderShape();
-	~RenderShape();
-};
+	public:
+		RenderShape();
+		~RenderShape();
+	};
 
+
+}

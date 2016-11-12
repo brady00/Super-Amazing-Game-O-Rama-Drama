@@ -1,12 +1,15 @@
 #include "Object.h"
 
-
-
-Object::Object()
+namespace MEObject
 {
-}
 
 
-Object::~Object()
-{
+	Object::Object()
+	{
+	}
+
+
+	Object::~Object()
+	{
+	}
 }

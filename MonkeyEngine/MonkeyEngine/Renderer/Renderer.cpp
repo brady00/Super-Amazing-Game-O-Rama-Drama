@@ -7,13 +7,33 @@
 
 namespace MERenderer
 {
-	Renderer::Renderer()
+	ID3D11Device* Renderer::m_d3Device = nullptr;
+	ID3D11DeviceContext* Renderer::m_d3DeviceContext = nullptr;
+	IDXGISwapChain*	Renderer::m_d3SwapChain = nullptr;
+	ID3D11RenderTargetView* Renderer::m_d3RenderTargetView = nullptr;
+	ID3D11Texture2D* Renderer::m_d3RenderTarget = nullptr;
+	ID3D11DepthStencilView* Renderer::m_d3DepthStencilState = nullptr;
+	D3D11_VIEWPORT*	Renderer::m_d3ViewPort = nullptr;
+	IDXGIOutput* Renderer::m_d3Output = nullptr;
+	UINT Renderer::m_uiScreenHeight = 0;
+	UINT Renderer::m_uiScreenWidth = 0;
+	UINT Renderer::m_uiScreenXPositionOffset = 0;
+	UINT Renderer::m_uiScreenYPositionOffset = 0;
+#ifdef _DEBUG
+	bool Renderer::m_bFullScreen = false;
+#else
+	bool Renderer::m_bFullScreen = true;
+
+#endif
+	Renderer::Renderer() : m_pShaderManager(nullptr), m_pInputLayoutManager(nullptr), m_pVertexBufferManager(nullptr), m_pIndexBufferManager(nullptr), m_pConstantBufferManager(nullptr), m_pTransparentObjects(nullptr), m_pNonTranparentObjects(nullptr)
 	{
+
 	}
 
 
 	Renderer::~Renderer()
 	{
+
 	}
 
 	void Renderer::Initialize(HWND _window, UINT _ScreenWidth, UINT _ScreenHeight)
@@ -29,7 +49,7 @@ namespace MERenderer
 		desc.BufferDesc.Width = _ScreenWidth;
 		desc.SampleDesc.Count = 1;
 		desc.OutputWindow = _window;
-		desc.Windowed = true;
+		desc.Windowed = !m_bFullScreen;
 #ifdef _DEBUG
 		UINT flags = D3D11_CREATE_DEVICE_FLAG::D3D11_CREATE_DEVICE_DEBUG;
 #else

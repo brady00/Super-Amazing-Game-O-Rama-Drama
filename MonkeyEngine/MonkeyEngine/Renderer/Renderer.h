@@ -50,6 +50,7 @@ namespace MERenderer
 		static UINT m_uiScreenWidth;
 		static UINT m_uiScreenXPositionOffset;
 		static UINT m_uiScreenYPositionOffset;
+		static bool m_bFullScreen;
 	};
 }
 
