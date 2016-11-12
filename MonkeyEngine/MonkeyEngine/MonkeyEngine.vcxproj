@@ -31,7 +31,6 @@
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Renderer\Containers\ConstantBuffer.cpp" />
     <ClCompile Include="Renderer\Containers\IndexBuffer.cpp" />
-    <ClCompile Include="Renderer\Containers\Mesh.cpp" />
     <ClCompile Include="Renderer\Containers\VertexBuffer.cpp" />
     <ClCompile Include="Renderer\Managers\ConstantBufferManager.cpp" />
     <ClCompile Include="Renderer\Managers\IndexBufferManager.cpp" />
@@ -39,6 +38,7 @@
     <ClCompile Include="Renderer\Managers\ShaderManager.cpp" />
     <ClCompile Include="Renderer\Managers\VertexBufferManager.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
+    <ClCompile Include="Renderer\RenderSet\RenderMesh.cpp" />
     <ClCompile Include="Renderer\RenderSet\RenderShape.cpp" />
     <ClCompile Include="Renderer\RenderSet\RenderNode.cpp" />
     <ClCompile Include="Renderer\RenderSet\RenderSet.cpp" />
@@ -59,7 +59,6 @@
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="Renderer\Containers\ConstantBuffer.h" />
     <ClInclude Include="Renderer\Containers\IndexBuffer.h" />
-    <ClInclude Include="Renderer\Containers\Mesh.h" />
     <ClInclude Include="Renderer\Containers\VertexBuffer.h" />
     <ClInclude Include="Renderer\Managers\ConstantBufferManager.h" />
     <ClInclude Include="Renderer\Managers\IndexBufferManager.h" />
@@ -67,6 +66,7 @@
     <ClInclude Include="Renderer\Managers\ShaderManager.h" />
     <ClInclude Include="Renderer\Managers\VertexBufferManager.h" />
     <ClInclude Include="Renderer\Renderer.h" />
+    <ClInclude Include="Renderer\RenderSet\RenderMesh.h" />
     <ClInclude Include="Renderer\RenderSet\RenderShape.h" />
     <ClInclude Include="Renderer\RenderSet\RenderNode.h" />
     <ClInclude Include="Renderer\RenderSet\RenderSet.h" />

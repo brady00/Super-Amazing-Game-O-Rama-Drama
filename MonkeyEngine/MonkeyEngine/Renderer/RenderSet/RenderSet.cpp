@@ -30,4 +30,9 @@ namespace MERenderer
 		_Node->SetNext(m_pHead);
 		m_pHead = _Node;
 	}
+
+	const RenderNode* RenderSet::getHead()
+	{
+		return m_pHead;
+	}
 }

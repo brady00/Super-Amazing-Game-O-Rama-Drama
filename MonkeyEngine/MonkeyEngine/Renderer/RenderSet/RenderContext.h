@@ -4,26 +4,20 @@
 namespace MERenderer
 {
 	class RenderSet;
-	class Mesh;
+	class RenderMesh;
 	class RenderContext : public RenderNode
 	{
 	private:
-		RenderSet* m_pRenderTextures;
-		Mesh* m_pMesh;
+		RenderSet* m_pRenderMeshes;
 	public:
 		RenderContext();
-		RenderContext(Mesh* _Mesh);
+		RenderContext();
 		~RenderContext();
-
-		Mesh* GetMesh();
-		void SetMesh(Mesh* _Mesh);
-
 		void Draw();
-		bool AddTexture(std::string _Texture);
-		bool TextureExists(std::string _Texture);
-		bool LoadMesh(std::string _VertexFileName, std::string _TextureFileName);
+		bool AddMesh(std::string VertexFileName);
+		bool MeshExists(std::string VertexFileName);
 	private:
-		ID3D11ShaderResourceView* LoadTexture(std::string _FileName);
+		bool LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh);
 	};
 }
 

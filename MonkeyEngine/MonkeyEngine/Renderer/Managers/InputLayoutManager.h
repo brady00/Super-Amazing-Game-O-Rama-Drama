@@ -16,11 +16,15 @@ namespace MERenderer
 		eVERTEX_MAX
 	};
 	extern std::string VertexFormatString[eVERTEX_MAX];
-	struct VERTEX_POS
+	struct VERTEX
+	{
+
+	};
+	struct VERTEX_POS : public VERTEX
 	{
 		DirectX::XMFLOAT3 position;
 	};
-	struct VERTEX_POSCOLOR
+	struct VERTEX_POSCOLOR : public VERTEX
 	{
 		DirectX::XMFLOAT3 position;  
 		DirectX::XMFLOAT4 color;	   
@@ -30,13 +34,13 @@ namespace MERenderer
 		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT2 texcoord; 
 	};
-	struct VERTEX_POSNORMTEX
+	struct VERTEX_POSNORMTEX : public VERTEX
 	{
 		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT3 normal;  
 		DirectX::XMFLOAT2 texcoord;
 	};
-	struct VERTEX_POSNORMTANTEX
+	struct VERTEX_POSNORMTANTEX : public VERTEX
 	{
 		DirectX::XMFLOAT3 position; 
 		DirectX::XMFLOAT3 normal;
@@ -44,13 +48,13 @@ namespace MERenderer
 		DirectX::XMFLOAT3 tangent;
 		float determinant;   
 	};
-	struct VERTEX_POSBONEWEIGHT
+	struct VERTEX_POSBONEWEIGHT : public VERTEX
 	{
 		DirectX::XMFLOAT3 position;
 		DirectX::XMINT4   bone;
 		DirectX::XMFLOAT4 weights;
 	};
-	struct VERTEX_POSBONEWEIGHTNORMTEX
+	struct VERTEX_POSBONEWEIGHTNORMTEX : public VERTEX
 	{
 		DirectX::XMFLOAT3 position;
 		DirectX::XMINT4   bone;
@@ -58,7 +62,7 @@ namespace MERenderer
 		DirectX::XMFLOAT3 normal;
 		DirectX::XMFLOAT2 texcoord;
 	};
-	struct VERTEX_POSBONEWEIGHTNORMTANTEX
+	struct VERTEX_POSBONEWEIGHTNORMTANTEX : public VERTEX
 	{
 		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT3 normal;

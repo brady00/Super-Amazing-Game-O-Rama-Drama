@@ -13,6 +13,7 @@ namespace MERenderer
 
 		void Draw();
 		void AddNode(RenderNode* _Node);
+		const RenderNode* getHead();
 	};
 }
 

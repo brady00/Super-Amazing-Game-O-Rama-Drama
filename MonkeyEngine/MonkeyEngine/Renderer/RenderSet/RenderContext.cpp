@@ -1,17 +1,16 @@
 #include "RenderContext.h"
-#include "../Containers/Mesh.h"
+#include "RenderMesh.h"
 #include "RenderSet.h"
-#include "RenderTexture.h"
 
 
 namespace MERenderer
 {
-	RenderContext::RenderContext() : m_pMesh(nullptr), m_pRenderTextures(nullptr)
+	RenderContext::RenderContext() :m_pRenderMeshes(nullptr)
 	{
 
 	}
 
-	RenderContext::RenderContext(Mesh* _Mesh) : m_pMesh(_Mesh), m_pRenderTextures(nullptr)
+	RenderContext::RenderContext() : m_pRenderMeshes(nullptr)
 	{
 
 	}
@@ -22,39 +21,45 @@ namespace MERenderer
 
 	}
 
-	Mesh* RenderContext::GetMesh()
-	{
-		return m_pMesh;
-	}
-
-	void RenderContext::SetMesh(Mesh* _Mesh)
-	{
-		m_pMesh = _Mesh;
-	}
-
 	void RenderContext::Draw()
 	{
 		//context switching
-		m_pRenderTextures->Draw();
+		//input layout
+		//blend state
+		//rasterizer
+		//depthbuffer
+		m_pRenderMeshes->Draw();
 	}
 
-	bool RenderContext::AddTexture(std::string _Texture)
+	bool RenderContext::AddMesh(std::string VertexFileName)
 	{
+		if (!MeshExists(VertexFileName))
+		{
+			RenderMesh* _Mesh;
+			if (!LoadMesh(VertexFileName, _Mesh))
+				return false;
+			m_pRenderMeshes->AddNode(_Mesh);
+		}
 		return true;
 	}
 
-	bool RenderContext::TextureExists(std::string _Texture)
+	bool RenderContext::MeshExists(std::string _VertexFileName)
 	{
+		RenderMesh* temp = (RenderMesh*)m_pRenderMeshes->getHead();
+		while (temp)
+		{
+			if (temp->GetVertexFileName() == _VertexFileName)
+				return true;
+			temp = (RenderMesh*)temp->GetNext();
+		}
 		return false;
 	}
 
-	bool RenderContext::LoadMesh(std::string _VertexFileName, std::string _TextureFileName)
+	bool RenderContext::LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh)
 	{
+		_Mesh = new RenderMesh;
+		if (!_Mesh->Load(_VertexFileName))
+			return false;
 		return true;
-	}
-
-	ID3D11ShaderResourceView* RenderContext::LoadTexture(std::string _FileName)
-	{
-		return nullptr;
 	}
 }

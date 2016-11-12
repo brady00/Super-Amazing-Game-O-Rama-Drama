@@ -114,9 +114,6 @@
     <ClCompile Include="Renderer\RenderSet\RenderShape.cpp">
       <Filter>Renderer\RenderSet</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Containers\Mesh.cpp">
-      <Filter>Renderer\Containers</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Containers\VertexBuffer.cpp">
       <Filter>Renderer\Containers</Filter>
     </ClCompile>
@@ -125,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="Renderer\Containers\IndexBuffer.cpp">
       <Filter>Renderer\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\RenderSet\RenderMesh.cpp">
+      <Filter>Renderer\RenderSet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,9 +197,6 @@
     <ClInclude Include="Renderer\RenderSet\RenderShape.h">
       <Filter>Renderer\RenderSet</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Containers\Mesh.h">
-      <Filter>Renderer\Containers</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer\Containers\VertexBuffer.h">
       <Filter>Renderer\Containers</Filter>
     </ClInclude>
@@ -208,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="Renderer\Containers\IndexBuffer.h">
       <Filter>Renderer\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RenderSet\RenderMesh.h">
+      <Filter>Renderer\RenderSet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
