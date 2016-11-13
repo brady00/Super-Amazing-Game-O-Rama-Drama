@@ -31,10 +31,12 @@
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Renderer\Containers\ConstantBuffer.cpp" />
     <ClCompile Include="Renderer\Containers\IndexBuffer.cpp" />
-    <ClCompile Include="Renderer\Containers\VertexBuffer.cpp" />
+    <ClCompile Include="Renderer\Managers\BlendStateManager.cpp" />
     <ClCompile Include="Renderer\Managers\ConstantBufferManager.cpp" />
+    <ClCompile Include="Renderer\Managers\DepthStencilStateManager.cpp" />
     <ClCompile Include="Renderer\Managers\IndexBufferManager.cpp" />
     <ClCompile Include="Renderer\Managers\InputLayoutManager.cpp" />
+    <ClCompile Include="Renderer\Managers\RasterizerStateManager.cpp" />
     <ClCompile Include="Renderer\Managers\ShaderManager.cpp" />
     <ClCompile Include="Renderer\Managers\VertexBufferManager.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
@@ -60,9 +62,13 @@
     <ClInclude Include="Renderer\Containers\ConstantBuffer.h" />
     <ClInclude Include="Renderer\Containers\IndexBuffer.h" />
     <ClInclude Include="Renderer\Containers\VertexBuffer.h" />
+    <ClInclude Include="Renderer\Containers\VertexBuffer.hpp" />
+    <ClInclude Include="Renderer\Managers\BlendStateManager.h" />
     <ClInclude Include="Renderer\Managers\ConstantBufferManager.h" />
+    <ClInclude Include="Renderer\Managers\DepthStencilStateManager.h" />
     <ClInclude Include="Renderer\Managers\IndexBufferManager.h" />
     <ClInclude Include="Renderer\Managers\InputLayoutManager.h" />
+    <ClInclude Include="Renderer\Managers\RasterizerStateManager.h" />
     <ClInclude Include="Renderer\Managers\ShaderManager.h" />
     <ClInclude Include="Renderer\Managers\VertexBufferManager.h" />
     <ClInclude Include="Renderer\Renderer.h" />

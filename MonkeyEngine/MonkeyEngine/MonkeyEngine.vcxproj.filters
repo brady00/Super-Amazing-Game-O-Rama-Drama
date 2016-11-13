@@ -114,9 +114,6 @@
     <ClCompile Include="Renderer\RenderSet\RenderShape.cpp">
       <Filter>Renderer\RenderSet</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Containers\VertexBuffer.cpp">
-      <Filter>Renderer\Containers</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Containers\ConstantBuffer.cpp">
       <Filter>Renderer\Containers</Filter>
     </ClCompile>
@@ -125,6 +122,15 @@
     </ClCompile>
     <ClCompile Include="Renderer\RenderSet\RenderMesh.cpp">
       <Filter>Renderer\RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Managers\BlendStateManager.cpp">
+      <Filter>Renderer\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Managers\DepthStencilStateManager.cpp">
+      <Filter>Renderer\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Managers\RasterizerStateManager.cpp">
+      <Filter>Renderer\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +214,18 @@
     </ClInclude>
     <ClInclude Include="Renderer\RenderSet\RenderMesh.h">
       <Filter>Renderer\RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Managers\BlendStateManager.h">
+      <Filter>Renderer\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Managers\DepthStencilStateManager.h">
+      <Filter>Renderer\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Managers\RasterizerStateManager.h">
+      <Filter>Renderer\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Containers\VertexBuffer.hpp">
+      <Filter>Renderer\Containers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

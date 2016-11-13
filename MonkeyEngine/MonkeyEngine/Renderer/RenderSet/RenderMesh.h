@@ -6,6 +6,7 @@
 namespace MERenderer
 {
 	struct VERTEX;
+	class RenderTexture;
 	class RenderMesh : public RenderNode
 	{
 	private:

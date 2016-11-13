@@ -54,7 +54,7 @@ namespace MERenderer
 			RenderShape* temp = (RenderShape*)m_pRenderShapes->getHead();
 			while (temp)
 			{
-				if (temp->GetRenderComp == _RenderComp || temp->GetAnimationComp == _AnimationComp)
+				if (temp->GetRenderComp() == _RenderComp || temp->GetAnimationComp() == _AnimationComp)
 					if (!LoadShape(_RenderComp, _AnimationComp, temp))
 						return false;
 				temp = (RenderShape*)temp->GetNext();
@@ -68,7 +68,7 @@ namespace MERenderer
 		RenderShape* temp = (RenderShape*)m_pRenderShapes->getHead();
 		while (temp)
 		{
-			if (temp->GetRenderComp == _RenderComp || temp->GetAnimationComp == _AnimationComp)
+			if (temp->GetRenderComp() == _RenderComp || temp->GetAnimationComp() == _AnimationComp)
 				return true;
 			temp = (RenderShape*)temp->GetNext();
 		}
