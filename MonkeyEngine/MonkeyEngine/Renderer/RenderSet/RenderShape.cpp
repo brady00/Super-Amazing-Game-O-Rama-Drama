@@ -1,5 +1,5 @@
 #include "RenderShape.h"
-
+#include "../Renderer.h"
 
 
 namespace MERenderer
@@ -13,22 +13,45 @@ namespace MERenderer
 	{
 	}
 
-	void* RenderShape::GetRenderComp()
+	MEObject::RenderComponent* RenderShape::GetRenderComp()
 	{
-		return nullptr;
+		return m_pRenderComponent;
 	}
 
-	void* RenderShape::GetAnimationComp()
+	MEObject::AnimationComponent* RenderShape::GetAnimationComp()
 	{
-		return nullptr;
+		return m_pAnimationComponent;
 	}
 
-	void RenderShape::SetRenderComp(void* _RenderComp)
+	void RenderShape::SetRenderComp(MEObject::RenderComponent* _RenderComp)
 	{
-
+		m_pRenderComponent = _RenderComp;
 	}
-	void RenderShape::SetAnimationComp(void* _AnimationComp)
-	{
 
+	void RenderShape::SetAnimationComp(MEObject::AnimationComponent* _AnimationComp)
+	{
+		m_pAnimationComponent = _AnimationComp;
+	}
+
+	void RenderShape::Draw()
+	{
+		//setworld matrix
+		//drawindexed5
+	}
+
+	bool RenderShape::Load(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp)
+	{
+		if (m_pRenderComponent != _RenderComp)
+		{
+			if (m_pRenderComponent)
+				delete m_pRenderComponent;
+			m_pRenderComponent = _RenderComp;
+		}
+		if (m_pAnimationComponent != _AnimationComp)
+		{
+			if (m_pAnimationComponent)
+				delete m_pAnimationComponent;
+			m_pAnimationComponent = _AnimationComp;
+		}
 	}
 }

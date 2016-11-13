@@ -10,6 +10,7 @@ namespace MEObject
 }
 namespace MERenderer
 {
+	class RenderShape;
 	class RenderTexture : public RenderNode
 	{
 	private:
@@ -26,9 +27,9 @@ namespace MERenderer
 		const std::string& GetTextureFileName();
 		bool AddShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp);
 		bool ShapeExsits(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp);
-		bool LoadShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp, RenderShape*& _Shape);
 		ID3D11ShaderResourceView* GetDiffuseTexture();
 		void SetDiffuseTexture(ID3D11ShaderResourceView* _Diffuse);
+		bool LoadShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp, RenderShape*& _Shape);
 	};
 
 }

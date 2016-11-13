@@ -1,9 +1,5 @@
 #include "Renderer.h"
-#include "Managers/ConstantBufferManager.h"
-#include "Managers/IndexBufferManager.h"
-#include "Managers/InputLayoutManager.h"
-#include "Managers/ShaderManager.h"
-#include "Managers/VertexBufferManager.h"
+#include "RenderSet\RenderSet.h"
 
 namespace MERenderer
 {
@@ -69,6 +65,9 @@ namespace MERenderer
 
 	MEReturnValues::RETURNVALUE Renderer::Update()
 	{
+		m_pNonTranparentObjects->Draw();
+		m_pTransparentObjects->Draw();
+		m_d3SwapChain->Present(0, 0);
 		return MEReturnValues::RENDERRETURN;
 	}
 

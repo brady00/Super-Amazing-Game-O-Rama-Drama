@@ -45,21 +45,20 @@ namespace MERenderer
 		if (!ShapeExsits(_RenderComp, _AnimationComp))
 		{
 			RenderShape* _Shape;
-			if (!LoadShape(_RenderComp, _AnimationComp))
+			if (!LoadShape(_RenderComp, _AnimationComp, _Shape))
 				return false;
 			m_pRenderShapes->AddNode(_Shape);
 		}
-		RenderShape* temp = (RenderShape*)m_pRenderShapes->getHead();
-		while (temp)
+		else
 		{
-			if (temp->GetRenderComp == _RenderComp || temp->GetAnimationComp == _AnimationComp)
+			RenderShape* temp = (RenderShape*)m_pRenderShapes->getHead();
+			while (temp)
 			{
-				if (temp->GetRenderComp != _RenderComp)
-					temp->SetRenderComp(_RenderComp);
-				else
-					temp->SetAnimationComp(_AnimationComp);
+				if (temp->GetRenderComp == _RenderComp || temp->GetAnimationComp == _AnimationComp)
+					if (!LoadShape(_RenderComp, _AnimationComp, temp))
+						return false;
+				temp = (RenderShape*)temp->GetNext();
 			}
-			temp = (RenderShape*)temp->GetNext();
 		}
 		return true;
 	}
@@ -69,7 +68,7 @@ namespace MERenderer
 		RenderShape* temp = (RenderShape*)m_pRenderShapes->getHead();
 		while (temp)
 		{
-			if (temp->GetRenderComp == _RenderComp && temp->GetAnimationComp == _AnimationComp)
+			if (temp->GetRenderComp == _RenderComp || temp->GetAnimationComp == _AnimationComp)
 				return true;
 			temp = (RenderShape*)temp->GetNext();
 		}
@@ -79,7 +78,7 @@ namespace MERenderer
 	bool RenderTexture::LoadShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp, RenderShape*& _Shape)
 	{
 		_Shape = new RenderShape;
-
+		return _Shape->Load(_RenderComp, _AnimationComp);
 	}
 
 	ID3D11ShaderResourceView* RenderTexture::GetDiffuseTexture()
