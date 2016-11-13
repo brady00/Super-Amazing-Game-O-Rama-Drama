@@ -9,6 +9,10 @@ namespace MERenderer
 	public:
 		RenderShape();
 		~RenderShape();
+		void* GetRenderComp();
+		void* GetAnimationComp();
+		void SetRenderComp(void* _RenderComp);
+		void SetAnimationComp(void* _AnimationComp);
 	};
 
 

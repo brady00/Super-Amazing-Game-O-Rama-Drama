@@ -58,8 +58,6 @@ namespace MERenderer
 	bool RenderContext::LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh)
 	{
 		_Mesh = new RenderMesh;
-		if (!_Mesh->Load(_VertexFileName))
-			return false;
-		return true;
+		_Mesh->Load(_VertexFileName);
 	}
 }

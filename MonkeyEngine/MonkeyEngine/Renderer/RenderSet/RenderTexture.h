@@ -3,6 +3,11 @@
 #include "RenderSet.h"
 #include <d3d11.h>
 #include <string>
+namespace MEObject
+{
+	class RenderComponent;
+	class AnimationComponent;
+}
 namespace MERenderer
 {
 	class RenderTexture : public RenderNode
@@ -18,10 +23,12 @@ namespace MERenderer
 		~RenderTexture();
 		void Draw();
 		bool Load(std::string _TextureFileName);
-		const std::string& GetVertexFileName();
-		bool AddTexture(std::string _TextureFileName);
-		bool TextureExsits(std::string _TextureFileName);
+		const std::string& GetTextureFileName();
+		bool AddShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp);
+		bool ShapeExsits(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp);
+		bool LoadShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp, RenderShape*& _Shape);
 		ID3D11ShaderResourceView* GetDiffuseTexture();
+		void SetDiffuseTexture(ID3D11ShaderResourceView* _Diffuse);
 	};
 
 }

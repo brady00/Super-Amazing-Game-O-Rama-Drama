@@ -1,9 +1,6 @@
 #include "RenderMesh.h"
 #include "RenderTexture.h"
 #include "../Managers/InputLayoutManager.h"
-#include "../../../DirectXTK/Inc/WICTextureLoader.h"
-#include "../../../DirectXTK/Inc/DDSTextureLoader.h"
-#include "../Renderer.h"
 namespace MERenderer
 {
 	RenderMesh::RenderMesh()
@@ -18,7 +15,11 @@ namespace MERenderer
 
 	void RenderMesh::Draw()
 	{
-
+		//context switching
+		//vertex buffer
+		//index buffer
+		//shaders
+		m_pRenderTextures->Draw();
 	}
 
 	bool RenderMesh::Load(std::string _VertexFileName)
@@ -49,7 +50,7 @@ namespace MERenderer
 		RenderTexture* temp = (RenderTexture*)m_pRenderTextures->getHead();
 		while (temp)
 		{
-			if (temp->GetVertexFileName() == _TextureFileName)
+			if (temp->GetTextureFileName() == _TextureFileName)
 				return true;
 			temp = (RenderTexture*)temp->GetNext();
 		}
@@ -59,6 +60,6 @@ namespace MERenderer
 	bool RenderMesh::LoadTexture(std::string _TextureFileName, RenderTexture*& _Texture)
 	{
 		_Texture = new RenderTexture;
-		DirectX::CreateWICTextureFromFile(Renderer::m_d3Device, _TextureFileName, nullptr, _Texture->GetDiffuseTexture());
+		return _Texture->Load(_TextureFileName);
 	}
 }
