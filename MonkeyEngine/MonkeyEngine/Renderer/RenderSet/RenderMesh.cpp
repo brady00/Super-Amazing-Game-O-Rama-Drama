@@ -62,4 +62,34 @@ namespace MERenderer
 		_Texture = new RenderTexture;
 		return _Texture->Load(_TextureFileName);
 	}
+
+	const VERTEX* RenderMesh::GetVerticies()
+	{
+		return m_vVerticies;
+	}
+
+	const unsigned int* RenderMesh::GetIndicies()
+	{
+		return m_vIndicies;
+	}
+
+	const unsigned int RenderMesh::RenderMesh::GetNumVerticies()
+	{
+		return m_uiNumVerticies;
+	}
+
+	const unsigned int RenderMesh::GetNumIndicies()
+	{
+		return m_uiNumIndicies;
+	}
+
+	const unsigned int RenderMesh::GetStartIndexLocation()
+	{
+		return m_uiStartIndexLocation;
+	}
+
+	const int RenderMesh::GetBaseVertexLocation()
+	{
+		return m_iBaseVertexLocation;
+	}
 }
