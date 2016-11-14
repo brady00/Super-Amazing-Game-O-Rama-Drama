@@ -11,7 +11,6 @@ namespace MERenderer
 		RenderSet* m_pRenderMeshes;
 	public:
 		RenderContext();
-		RenderContext();
 		~RenderContext();
 		void Draw();
 		bool AddMesh(std::string VertexFileName);

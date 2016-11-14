@@ -1,6 +1,7 @@
 #include "RenderMesh.h"
 #include "RenderTexture.h"
 #include "../Managers/InputLayoutManager.h"
+#include "../../Utils/FileExporter.h"
 namespace MERenderer
 {
 	RenderMesh::RenderMesh()
@@ -25,7 +26,11 @@ namespace MERenderer
 	bool RenderMesh::Load(std::string _VertexFileName)
 	{
 		m_sVertexFileName = _VertexFileName;
-		return true;
+		std::string tempfilename(&m_sVertexFileName[m_sVertexFileName.length() - 3]);
+		if (tempfilename == ".obj" || tempfilename == ".OBJ")
+			return MEExporter::FileExporter::LoadOBJ(m_sVertexFileName, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies);
+		else if (tempfilename == ".fbx" || tempfilename == ".FBX")
+			return MEExporter::FileExporter::LoadFBX(m_sVertexFileName, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies);
 	}
 
 	const std::string& RenderMesh::GetVertexFileName()

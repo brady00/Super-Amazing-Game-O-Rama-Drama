@@ -132,6 +132,9 @@
     <ClCompile Include="Renderer\Managers\RasterizerStateManager.cpp">
       <Filter>Renderer\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\FileExporter.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine Base\Game Engine\MountainDew.h">
@@ -194,9 +197,6 @@
     <ClInclude Include="Libraries\Math\MathLibrary.h">
       <Filter>Libraries\Math</Filter>
     </ClInclude>
-    <ClInclude Include="ReturnValues.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer\RenderSet\RenderContext.h">
       <Filter>Renderer\RenderSet</Filter>
     </ClInclude>
@@ -226,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="Renderer\Containers\VertexBuffer.hpp">
       <Filter>Renderer\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\FileExporter.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\ReturnValues.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

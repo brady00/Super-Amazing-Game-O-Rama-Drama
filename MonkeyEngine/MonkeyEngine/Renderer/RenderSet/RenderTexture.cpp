@@ -33,6 +33,7 @@ namespace MERenderer
 			std::wstring temp(_TextureFileName.begin(), _TextureFileName.end());
 			CreateWICTextureFromFile(Renderer::m_d3Device, temp.c_str(), nullptr, &m_d3DiffuseTexture);
 		}
+		return true;
 	}
 
 	const std::string& RenderTexture::GetTextureFileName()

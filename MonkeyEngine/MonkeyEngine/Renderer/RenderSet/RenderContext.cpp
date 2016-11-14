@@ -10,12 +10,6 @@ namespace MERenderer
 
 	}
 
-	RenderContext::RenderContext() : m_pRenderMeshes(nullptr)
-	{
-
-	}
-
-
 	RenderContext::~RenderContext()
 	{
 
@@ -58,6 +52,6 @@ namespace MERenderer
 	bool RenderContext::LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh)
 	{
 		_Mesh = new RenderMesh;
-		_Mesh->Load(_VertexFileName);
+		return _Mesh->Load(_VertexFileName);
 	}
 }

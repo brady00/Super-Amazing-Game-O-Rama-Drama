@@ -29,7 +29,7 @@ namespace MERenderer
 		DirectX::XMFLOAT3 position;  
 		DirectX::XMFLOAT4 color;	   
 	};
-	struct VERTEX_POSTEX
+	struct VERTEX_POSTEX : public VERTEX
 	{
 		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT2 texcoord; 

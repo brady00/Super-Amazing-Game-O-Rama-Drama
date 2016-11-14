@@ -46,6 +46,7 @@
     <ClCompile Include="Renderer\RenderSet\RenderSet.cpp" />
     <ClCompile Include="Renderer\RenderSet\RenderContext.cpp" />
     <ClCompile Include="Renderer\RenderSet\RenderTexture.cpp" />
+    <ClCompile Include="Utils\FileExporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Base\Component.h" />
@@ -78,7 +79,8 @@
     <ClInclude Include="Renderer\RenderSet\RenderSet.h" />
     <ClInclude Include="Renderer\RenderSet\RenderContext.h" />
     <ClInclude Include="Renderer\RenderSet\RenderTexture.h" />
-    <ClInclude Include="ReturnValues.h" />
+    <ClInclude Include="Utils\FileExporter.h" />
+    <ClInclude Include="Utils\ReturnValues.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1BAFC61D-3EFA-46F5-B9E4-39C5F20C6B04}</ProjectGuid>
