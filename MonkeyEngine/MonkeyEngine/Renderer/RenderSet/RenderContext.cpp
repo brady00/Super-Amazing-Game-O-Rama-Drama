@@ -1,7 +1,6 @@
 #include "RenderContext.h"
 #include "RenderMesh.h"
 #include "RenderSet.h"
-#include "../Managers/InputLayoutManager.h"
 #include "../Managers/BlendStateManager.h"
 #include "../Managers/RasterizerStateManager.h"
 #include "../Managers/DepthStencilStateManager.h"
@@ -23,7 +22,7 @@ namespace MERenderer
 	{
 		//context switching
 		//input layout
-		InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POSNORMTEX);
+		Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POSNORMTEX));
 		//blend state
 		BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default);
 		//rasterizer

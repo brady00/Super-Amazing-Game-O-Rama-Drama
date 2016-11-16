@@ -40,8 +40,8 @@ namespace MERenderer
 	void InputLayoutManager::Initialize(ID3D11Device* _Device)
 	{
 		std::ifstream load;
-		load.open("VertexLayout_POS_VS.cso", std::ios_base::binary);
-		//load.open("VertexLayout_POS_VS.cso",std::ios_base::binary);
+		load.open("POS_VS.cso", std::ios_base::binary);
+		//load.open("POS_VS.cso",std::ios_base::binary);
 		load.seekg(0, std::ios_base::end);
 		size_t vs_byte_code_size = size_t(load.tellg());
 		char *vs_byte_code = new char[vs_byte_code_size];
@@ -59,7 +59,7 @@ namespace MERenderer
 		delete[] vs_byte_code;
 
 		// VERTEX_POSCOLOR
-		load.open("VertexLayout_POSCOLOR_VS.cso",std::ios_base::binary);
+		load.open("POSCOLOR_VS.cso",std::ios_base::binary);
 		load.seekg(0,std::ios_base::end);
 		vs_byte_code_size = size_t(load.tellg());
 		vs_byte_code = new char[vs_byte_code_size];
@@ -77,7 +77,7 @@ namespace MERenderer
 		delete[] vs_byte_code;
 
 		//VERTEX_POSTEX
-		load.open("VertexLayout_POSTEX_VS.cso",std::ios_base::binary);
+		load.open("POSTEX_VS.cso",std::ios_base::binary);
 		load.seekg(0,std::ios_base::end);
 		vs_byte_code_size = size_t(load.tellg());
 		vs_byte_code = new char[vs_byte_code_size];
@@ -96,7 +96,7 @@ namespace MERenderer
 		delete[] vs_byte_code;
 
 		//VERTEX_POSNORMTEX
-		load.open("VertexLayout_POSNORMTEX_VS.cso",std::ios_base::binary);
+		load.open("POSNORMTEX_VS.cso",std::ios_base::binary);
 		load.seekg(0,std::ios_base::end);
 		vs_byte_code_size = size_t(load.tellg());
 		vs_byte_code = new char[vs_byte_code_size];
@@ -116,7 +116,7 @@ namespace MERenderer
 		delete[] vs_byte_code;
 
 		//VERTEX_POSNORMTANTEX
-		load.open("VertexLayout_POSNORMTANTEX_VS.cso",std::ios_base::binary);
+		load.open("POSNORMTANTEX_VS.cso",std::ios_base::binary);
 		load.seekg(0,std::ios_base::end);
 		vs_byte_code_size = size_t(load.tellg());
 		vs_byte_code = new char[vs_byte_code_size];
@@ -137,7 +137,7 @@ namespace MERenderer
 		delete[] vs_byte_code;
 
 		//VERTEX_POSBONEWEIGHT
-		load.open("VertexLayout_POSBONEWEIGHT_VS.cso",std::ios_base::binary);
+		load.open("POSBONEWEIGHT_VS.cso",std::ios_base::binary);
 		load.seekg(0,std::ios_base::end);
 		vs_byte_code_size = size_t(load.tellg());
 		vs_byte_code = new char[vs_byte_code_size];
@@ -157,7 +157,7 @@ namespace MERenderer
 
 
 		//VERTEX_POSBONEWEIGHTNORMTEX
-		load.open("VertexLayout_POSBONEWEIGHTNORMTEX_VS.cso",std::ios_base::binary);
+		load.open("POSBONEWEIGHTNORMTEX_VS.cso",std::ios_base::binary);
 		load.seekg(0,std::ios_base::end);
 		vs_byte_code_size = size_t(load.tellg());
 		vs_byte_code = new char[vs_byte_code_size];
@@ -178,7 +178,7 @@ namespace MERenderer
 		delete[] vs_byte_code;
 
 		//VERTEX_POSBONEWEIGHTNORMTANTEX
-		load.open("VertexLayout_POSBONEWEIGHTNORMTANTEX_VS.cso",std::ios_base::binary);
+		load.open("POSBONEWEIGHTNORMTANTEX_VS.cso",std::ios_base::binary);
 		load.seekg(0,std::ios_base::end);
 		vs_byte_code_size = size_t(load.tellg());
 		vs_byte_code = new char[vs_byte_code_size];

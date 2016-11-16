@@ -1,6 +1,7 @@
 #pragma once
 #include "RenderNode.h"
 #include <string>
+#include "../Managers/InputLayoutManager.h"
 namespace MERenderer
 {
 	class RenderSet;

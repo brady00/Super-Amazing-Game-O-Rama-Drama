@@ -33,12 +33,12 @@ namespace MERenderer
 		~ShaderManager();
 		static ShaderManager* GetInstance();
 		static void DeleteInstance();
-		const ID3D11VertexShader* GetVertexShader(ShaderType _Type);
-		const ID3D11PixelShader* GetPixelShader(ShaderType _Type);
-		const ID3D11GeometryShader* GetGeometryShader(ShaderType _Type);
-		const ID3D11DomainShader* GetDomainShader(ShaderType _Type);
-		const ID3D11HullShader* GetHullShader(ShaderType _Type);
-
+		ID3D11VertexShader* GetVertexShader(ShaderType _Type);
+		ID3D11PixelShader* GetPixelShader(ShaderType _Type);
+		ID3D11GeometryShader* GetGeometryShader(ShaderType _Type);
+		ID3D11DomainShader* GetDomainShader(ShaderType _Type);
+		ID3D11HullShader* GetHullShader(ShaderType _Type);
+		bool LoadShaderData(char **byteCode, size_t &byteCodeSize, const char *fileName);
 	};
 }
 
