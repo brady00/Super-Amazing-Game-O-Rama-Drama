@@ -1,6 +1,10 @@
 #include "RenderContext.h"
 #include "RenderMesh.h"
 #include "RenderSet.h"
+#include "../Managers/InputLayoutManager.h"
+#include "../Managers/BlendStateManager.h"
+#include "../Managers/RasterizerStateManager.h"
+#include "../Managers/DepthStencilStateManager.h"
 
 
 namespace MERenderer
@@ -19,39 +23,42 @@ namespace MERenderer
 	{
 		//context switching
 		//input layout
+		InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POSNORMTEX);
 		//blend state
+		BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default);
 		//rasterizer
+		RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_Default);
 		//depthbuffer
+		DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_Default);
 		m_pRenderMeshes->Draw();
 	}
 
-	bool RenderContext::AddMesh(std::string VertexFileName)
+	RenderMesh* RenderContext::AddMesh(std::string VertexFileName, VertexFormat _VertexFormat)
 	{
-		if (!MeshExists(VertexFileName))
+		RenderMesh* _Mesh = MeshExists(VertexFileName);
+		if (_Mesh == nullptr)
 		{
-			RenderMesh* _Mesh;
-			if (!LoadMesh(VertexFileName, _Mesh))
-				return false;
+			LoadMesh(VertexFileName, _Mesh, _VertexFormat);
 			m_pRenderMeshes->AddNode(_Mesh);
 		}
-		return true;
+		return _Mesh;
 	}
 
-	bool RenderContext::MeshExists(std::string _VertexFileName)
+	RenderMesh* RenderContext::MeshExists(std::string _VertexFileName)
 	{
 		RenderMesh* temp = (RenderMesh*)m_pRenderMeshes->getHead();
 		while (temp)
 		{
 			if (temp->GetVertexFileName() == _VertexFileName)
-				return true;
+				return temp;
 			temp = (RenderMesh*)temp->GetNext();
 		}
-		return false;
+		return nullptr;
 	}
 
-	bool RenderContext::LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh)
+	bool RenderContext::LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh, VertexFormat _VertexFormat)
 	{
 		_Mesh = new RenderMesh;
-		return _Mesh->Load(_VertexFileName);
+		return _Mesh->Load(_VertexFileName, _VertexFormat);
 	}
 }

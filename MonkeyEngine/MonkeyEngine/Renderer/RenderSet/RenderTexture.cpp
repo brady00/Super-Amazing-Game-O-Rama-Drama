@@ -17,7 +17,8 @@ namespace MERenderer
 
 	void RenderTexture::Draw()
 	{
-
+		Renderer::m_d3DeviceContext->PSSetShaderResources(0, 1, &m_d3DiffuseTexture);
+		m_pRenderShapes->Draw();
 	}
 
 	bool RenderTexture::Load(std::string _TextureFileName)

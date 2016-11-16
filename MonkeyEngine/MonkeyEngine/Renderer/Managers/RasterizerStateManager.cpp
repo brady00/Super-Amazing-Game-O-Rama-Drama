@@ -14,14 +14,14 @@ namespace MERenderer
 	{
 	}
 
-	RasterizerStateManager &RasterizerStateManager::GetInstance()
+	RasterizerStateManager* RasterizerStateManager::GetInstance()
 	{
 		if (!m_pInstance)
 		{
 			m_pInstance = new RasterizerStateManager;
 			m_pInstance->CreateStates();
 		}
-		return *m_pInstance;
+		return m_pInstance;
 	}
 
 	void RasterizerStateManager::DeleteInstance()
@@ -43,7 +43,6 @@ namespace MERenderer
 	void RasterizerStateManager::CreateStates()
 	{
 		D3D11_RASTERIZER_DESC desc;
-
 		desc.FillMode = D3D11_FILL_SOLID;
 		desc.CullMode = D3D11_CULL_BACK;
 		desc.FrontCounterClockwise = FALSE;
@@ -55,16 +54,17 @@ namespace MERenderer
 		desc.MultisampleEnable = FALSE;
 		desc.AntialiasedLineEnable = FALSE;
 		Renderer::m_d3Device->CreateRasterizerState(&desc, &m_vRasterStates[RS_Default].p);
-
 		desc.FillMode = D3D11_FILL_WIREFRAME;
 		Renderer::m_d3Device->CreateRasterizerState(&desc, &m_vRasterStates[RS_LINE].p);
 		desc.FillMode = D3D11_FILL_SOLID;
-
 		desc.FrontCounterClockwise = TRUE;
 		Renderer::m_d3Device->CreateRasterizerState(&desc, &m_vRasterStates[RS_CCW].p);
-
 		desc.CullMode = D3D11_CULL_NONE;
 		Renderer::m_d3Device->CreateRasterizerState(&desc, &m_vRasterStates[RS_NOCULL].p);
+	}
 
+	RasterizerStateManager::RasterStates RasterizerStateManager::GetCurrentState()
+	{
+		return m_eCurrentState;
 	}
 }

@@ -14,12 +14,12 @@ namespace MEExporter
 
 	}
 
-	bool FileExporter::LoadFBX(std::string _FileName, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
+	bool FileExporter::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
 	{
 		return true;
 	}
 
-	bool FileExporter::LoadOBJ(std::string _FileName, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
+	bool FileExporter::LoadOBJ(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
 	{
 		std::string finalPath(_FileName);
 		std::vector<XMFLOAT3> temp_vertices;
@@ -74,14 +74,50 @@ namespace MEExporter
 				vertexIndices.push_back(m_vertexindex[2]);
 			}
 		}
-		_Verticies = new MERenderer::VERTEX_POSNORMTEX[temp_vertices.size()];
-		_NumVerticies = (unsigned int)temp_vertices.size();
-		for (unsigned int i = 0; i < temp_vertices.size(); i++)
+		switch (_VertexFormat)
 		{
-			((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position = temp_vertices[i];
-			((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal = temp_normals[i];
-			((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].texcoord = temp_uvs[i];
+		case MERenderer::eVERTEX_POS:
+			_Verticies = new MERenderer::VERTEX_POS[temp_vertices.size()];
+			for (unsigned int i = 0; i < temp_vertices.size(); i++)
+			{
+				((MERenderer::VERTEX_POS*)_Verticies)[i].position = temp_vertices[i];
+			}
+			break;
+		case MERenderer::eVERTEX_POSCOLOR:
+			_Verticies = new MERenderer::VERTEX_POSCOLOR[temp_vertices.size()];
+			for (unsigned int i = 0; i < temp_vertices.size(); i++)
+			{
+				((MERenderer::VERTEX_POSCOLOR*)_Verticies)[i].position = temp_vertices[i];
+				((MERenderer::VERTEX_POSCOLOR*)_Verticies)[i].color = XMFLOAT4(1, 1, 1, 1);
+			}
+			break;
+		case MERenderer::eVERTEX_POSTEX:
+			_Verticies = new MERenderer::VERTEX_POSTEX[temp_vertices.size()];
+			for (unsigned int i = 0; i < temp_vertices.size(); i++)
+			{
+				((MERenderer::VERTEX_POSTEX*)_Verticies)[i].position = temp_vertices[i];
+				((MERenderer::VERTEX_POSTEX*)_Verticies)[i].texcoord = temp_uvs[i];
+			}
+			break;
+		case MERenderer::eVERTEX_POSNORMTEX:
+			_Verticies = new MERenderer::VERTEX_POSNORMTEX[temp_vertices.size()];
+			for (unsigned int i = 0; i < temp_vertices.size(); i++)
+			{
+				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position = temp_vertices[i];
+				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal = temp_normals[i];
+				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].texcoord = temp_uvs[i];
+			}
+			break;
+		case MERenderer::eVERTEX_POSNORMTANTEX:
+		case MERenderer::eVERTEX_POSBONEWEIGHT:
+		case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
+		case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
+		case MERenderer::eVERTEX_MAX:
+		default:
+			return false;
 		}
+
+		_NumVerticies = (unsigned int)temp_vertices.size();
 		_Indicies = new unsigned int[vertexIndices.size()];
 		_NumIndicies = (unsigned int)vertexIndices.size();
 		for (unsigned int i = 0; i < temp_vertices.size(); i++)

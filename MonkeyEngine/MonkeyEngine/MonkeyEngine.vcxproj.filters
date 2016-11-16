@@ -75,9 +75,6 @@
     <ClCompile Include="Renderer\Managers\VertexBufferManager.cpp">
       <Filter>Renderer\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Managers\IndexBufferManager.cpp">
-      <Filter>Renderer\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Managers\ConstantBufferManager.cpp">
       <Filter>Renderer\Managers</Filter>
     </ClCompile>
@@ -159,9 +156,6 @@
       <Filter>Renderer\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Managers\VertexBufferManager.h">
-      <Filter>Renderer\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Managers\IndexBufferManager.h">
       <Filter>Renderer\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Managers\ConstantBufferManager.h">

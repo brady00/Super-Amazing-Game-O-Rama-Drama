@@ -3,6 +3,7 @@
 #include "RenderSet.h"
 #include <d3d11.h>
 #include <vector>
+#include "../Managers/VertexBufferManager.h"
 namespace MERenderer
 {
 	struct VERTEX;
@@ -18,14 +19,15 @@ namespace MERenderer
 		int m_iBaseVertexLocation;
 		std::string m_sVertexFileName;
 		RenderSet* m_pRenderTextures;
+		VertexFormat m_eVertexFormat;
 	public:
 		RenderMesh();
 		~RenderMesh();
 		const std::string& GetVertexFileName();
 		void Draw();
-		bool AddTexture(std::string _TextureFileName);
-		bool Load(std::string _VertexFileName);
-		bool TextureExsits(std::string _TextureFileName);
+		RenderTexture* AddTexture(std::string _TextureFileName);
+		bool Load(std::string _VertexFileName, VertexFormat _VertexFormat);
+		RenderTexture* TextureExsits(std::string _TextureFileName);
 		bool LoadTexture(std::string _TextureFileName, RenderTexture*& _Texture);
 		const VERTEX* GetVerticies();
 		const unsigned int* GetIndicies();
@@ -33,6 +35,7 @@ namespace MERenderer
 		const unsigned int GetNumIndicies();
 		const unsigned int GetStartIndexLocation();
 		const int GetBaseVertexLocation();
+		const VertexFormat GetVertexFormat();
 	};
 
 }

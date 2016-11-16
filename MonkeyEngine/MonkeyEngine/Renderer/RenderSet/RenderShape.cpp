@@ -36,7 +36,7 @@ namespace MERenderer
 	void RenderShape::Draw()
 	{
 		//setworld matrix
-		//drawindexed5
+		//drawindexed
 	}
 
 	bool RenderShape::Load(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp)

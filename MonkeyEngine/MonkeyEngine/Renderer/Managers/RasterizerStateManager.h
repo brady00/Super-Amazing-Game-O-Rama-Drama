@@ -18,9 +18,9 @@ namespace MERenderer
 		UINT m_vStencilRefs[RS_COUNT];
 		RasterStates m_eCurrentState;
 		void CreateStates();
-	private:
+	public:
 		~RasterizerStateManager(void);
-		static RasterizerStateManager &GetInstance();
+		static RasterizerStateManager* GetInstance();
 		static void DeleteInstance();
 		bool ApplyState(RasterStates state);
 		RasterStates GetCurrentState();

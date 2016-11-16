@@ -34,7 +34,6 @@
     <ClCompile Include="Renderer\Managers\BlendStateManager.cpp" />
     <ClCompile Include="Renderer\Managers\ConstantBufferManager.cpp" />
     <ClCompile Include="Renderer\Managers\DepthStencilStateManager.cpp" />
-    <ClCompile Include="Renderer\Managers\IndexBufferManager.cpp" />
     <ClCompile Include="Renderer\Managers\InputLayoutManager.cpp" />
     <ClCompile Include="Renderer\Managers\RasterizerStateManager.cpp" />
     <ClCompile Include="Renderer\Managers\ShaderManager.cpp" />
@@ -67,7 +66,6 @@
     <ClInclude Include="Renderer\Managers\BlendStateManager.h" />
     <ClInclude Include="Renderer\Managers\ConstantBufferManager.h" />
     <ClInclude Include="Renderer\Managers\DepthStencilStateManager.h" />
-    <ClInclude Include="Renderer\Managers\IndexBufferManager.h" />
     <ClInclude Include="Renderer\Managers\InputLayoutManager.h" />
     <ClInclude Include="Renderer\Managers\RasterizerStateManager.h" />
     <ClInclude Include="Renderer\Managers\ShaderManager.h" />

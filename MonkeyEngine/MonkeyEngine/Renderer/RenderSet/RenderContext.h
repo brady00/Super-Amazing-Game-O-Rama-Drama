@@ -13,9 +13,9 @@ namespace MERenderer
 		RenderContext();
 		~RenderContext();
 		void Draw();
-		bool AddMesh(std::string VertexFileName);
-		bool MeshExists(std::string VertexFileName);
-		bool LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh);
+		RenderMesh* AddMesh(std::string VertexFileName, VertexFormat _VertexFormat);
+		RenderMesh* MeshExists(std::string VertexFileName);
+		bool LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh, VertexFormat _VertexFormat);
 	};
 }
 

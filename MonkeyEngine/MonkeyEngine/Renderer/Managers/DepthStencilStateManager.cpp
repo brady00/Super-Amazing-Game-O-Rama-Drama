@@ -14,14 +14,14 @@ namespace MERenderer
 	{
 	}
 
-	DepthStencilStateManager &DepthStencilStateManager::GetInstance()
+	DepthStencilStateManager* DepthStencilStateManager::GetInstance()
 	{
 		if (!m_pInstance)
 		{
 			m_pInstance = new DepthStencilStateManager;
 			m_pInstance->CreateStates();
 		}
-		return *m_pInstance;
+		return m_pInstance;
 	}
 
 	void DepthStencilStateManager::DeleteInstance()
@@ -69,5 +69,10 @@ namespace MERenderer
 		m_vStencilRefs[DSS_LightOutsideFinal] = 0x2;
 		Renderer::m_d3Device->CreateDepthStencilState(&dssDesc, &m_vDepthStates[DSS_LightInsideFinal].p);
 		m_vStencilRefs[DSS_LightInsideFinal] = 0x1;
+	}
+
+	DepthStencilStateManager::DSStates DepthStencilStateManager::GetCurrentState()
+	{
+		return m_eCurrentState;
 	}
 }

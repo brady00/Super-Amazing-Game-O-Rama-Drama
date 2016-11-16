@@ -24,7 +24,7 @@ namespace MERenderer
 		void CreateStates();
 	public:
 		~DepthStencilStateManager(void);
-		static DepthStencilStateManager &GetInstance();
+		static DepthStencilStateManager* GetInstance();
 		static void DeleteInstance();
 		bool ApplyState(DSStates state);
 		DSStates GetCurrentState();
