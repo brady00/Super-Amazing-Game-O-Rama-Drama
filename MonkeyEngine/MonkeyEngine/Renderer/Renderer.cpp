@@ -9,7 +9,7 @@ namespace MERenderer
 	ID3D11RenderTargetView* Renderer::m_d3RenderTargetView = nullptr;
 	ID3D11Texture2D* Renderer::m_d3RenderTarget = nullptr;
 	ID3D11DepthStencilView* Renderer::m_d3DepthStencilState = nullptr;
-	D3D11_VIEWPORT*	Renderer::m_d3ViewPort = nullptr;
+	D3D11_VIEWPORT	Renderer::m_d3ViewPort;
 	IDXGIOutput* Renderer::m_d3Output = nullptr;
 	UINT Renderer::m_uiScreenHeight = 0;
 	UINT Renderer::m_uiScreenWidth = 0;
@@ -21,7 +21,7 @@ namespace MERenderer
 	bool Renderer::m_bFullScreen = true;
 
 #endif
-	Renderer::Renderer() : m_pShaderManager(nullptr), m_pInputLayoutManager(nullptr), m_pVertexBufferManager(nullptr), m_pIndexBufferManager(nullptr), m_pConstantBufferManager(nullptr), m_pTransparentObjects(nullptr), m_pNonTranparentObjects(nullptr)
+	Renderer::Renderer() : m_pTransparentObjects(nullptr), m_pNonTranparentObjects(nullptr)
 	{
 
 	}
@@ -55,12 +55,14 @@ namespace MERenderer
 		m_d3SwapChain->GetBuffer(0, __uuidof(m_d3RenderTarget), reinterpret_cast<void**>(&m_d3RenderTarget));
 		m_d3Device->CreateRenderTargetView(m_d3RenderTarget, NULL, &m_d3RenderTargetView);
 		m_d3SwapChain->GetDesc(&desc);
-		m_d3ViewPort->Height = (FLOAT)desc.BufferDesc.Height;
-		m_d3ViewPort->Width = (FLOAT)desc.BufferDesc.Width / 2;
-		m_d3ViewPort->TopLeftX = 0;
-		m_d3ViewPort->TopLeftY = 0;
-		m_d3ViewPort->MinDepth = 0;
-		m_d3ViewPort->MaxDepth = 1;
+		m_d3ViewPort.Height = (FLOAT)desc.BufferDesc.Height;
+		m_d3ViewPort.Width = (FLOAT)desc.BufferDesc.Width / 2;
+		m_d3ViewPort.TopLeftX = 0;
+		m_d3ViewPort.TopLeftY = 0;
+		m_d3ViewPort.MinDepth = 0;
+		m_d3ViewPort.MaxDepth = 1;
+		m_pNonTranparentObjects = new RenderSet;
+		m_pTransparentObjects = new RenderSet;
 	}
 
 	MEReturnValues::RETURNVALUE Renderer::Update()
@@ -73,7 +75,15 @@ namespace MERenderer
 
 	void Renderer::Shutdown()
 	{
-
+		delete m_pNonTranparentObjects;
+		delete m_pTransparentObjects;
+		ReleaseCOM(m_d3Device);
+		ReleaseCOM(m_d3DeviceContext);
+		ReleaseCOM(m_d3SwapChain);
+		ReleaseCOM(m_d3RenderTargetView);
+		ReleaseCOM(m_d3RenderTarget);
+		ReleaseCOM(m_d3DepthStencilState);
+		ReleaseCOM(m_d3Output);
 	}
 
 	bool Renderer::Register(Object* _Object)

@@ -5,9 +5,9 @@ namespace MERenderer
 {
 	BlendStateManager *BlendStateManager::m_pInstance = 0;
 
-	BlendStateManager::BlendStateManager()
+	BlendStateManager::BlendStateManager() : m_eCurrentState(BS_COUNT)
 	{
-		m_eCurrentState = BS_COUNT;
+
 	}
 
 

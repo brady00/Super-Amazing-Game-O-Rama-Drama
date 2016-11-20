@@ -82,10 +82,10 @@ namespace MERenderer
 		InputLayoutManager &operator=(const InputLayoutManager &&) {}
 		static InputLayoutManager* m_pInstance;
 		ID3D11InputLayout* m_pInputLayouts[eVERTEX_MAX];
-		void Initialize(ID3D11Device* _Device);
+		void Initialize();
 	public:
 		~InputLayoutManager();
-		static InputLayoutManager* GetInstance(ID3D11Device* _Device = nullptr);
+		static InputLayoutManager* GetInstance();
 		static void DeleteInstance();
 		ID3D11InputLayout* GetInputLayout(VertexFormat index);
 	};

@@ -2,15 +2,15 @@
 namespace MERenderer
 {
 	template <typename VertexFormat>
-	VertexBuffer<VertexFormat>::VertexBuffer(void)
+	VertexBuffer<VertexFormat>::VertexBuffer()
 	{
 		m_D3VertexBuffer = 0;
 	}
 
 	template <typename VertexFormat>
-	VertexBuffer<VertexFormat>::~VertexBuffer(void)
+	VertexBuffer<VertexFormat>::~VertexBuffer()
 	{
-		//ReleaseCOM(vertexBufferPtr);
+		ReleaseCOM(m_D3VertexBuffer);
 	}
 
 	template <typename VertexFormat>
@@ -50,5 +50,11 @@ namespace MERenderer
 			ret = oldBuffeSize;
 		}
 		return (UINT)ret;
+	}
+
+	template <typename VertexFormat>
+	ID3D11Buffer* const VertexBuffer<VertexFormat>::GetVertexBuffer()
+	{
+		return m_D3VertexBuffer;
 	}
 }

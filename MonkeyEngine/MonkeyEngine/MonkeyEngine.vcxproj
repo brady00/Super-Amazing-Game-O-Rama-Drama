@@ -29,7 +29,6 @@
     <ClCompile Include="Libraries\Math\MathLibrary.cpp" />
     <ClCompile Include="Libraries\Math\Quaternian.cpp" />
     <ClCompile Include="Object\Object.cpp" />
-    <ClCompile Include="Renderer\Containers\ConstantBuffer.cpp" />
     <ClCompile Include="Renderer\Containers\IndexBuffer.cpp" />
     <ClCompile Include="Renderer\Managers\BlendStateManager.cpp" />
     <ClCompile Include="Renderer\Managers\ConstantBufferManager.cpp" />
@@ -60,6 +59,7 @@
     <ClInclude Include="Libraries\Math\Quaternian.h" />
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="Renderer\Containers\ConstantBuffer.h" />
+    <ClInclude Include="Renderer\Containers\ConstantBuffer.hpp" />
     <ClInclude Include="Renderer\Containers\IndexBuffer.h" />
     <ClInclude Include="Renderer\Containers\VertexBuffer.h" />
     <ClInclude Include="Renderer\Containers\VertexBuffer.hpp" />
@@ -77,6 +77,9 @@
     <ClInclude Include="Renderer\RenderSet\RenderSet.h" />
     <ClInclude Include="Renderer\RenderSet\RenderContext.h" />
     <ClInclude Include="Renderer\RenderSet\RenderTexture.h" />
+    <ClInclude Include="Renderer\ShaderBuffers\ConstantBuffers.h" />
+    <ClInclude Include="Renderer\ShaderBuffers\LightBuffers.h" />
+    <ClInclude Include="Renderer\ShaderBuffers\SharedDefines.h" />
     <ClInclude Include="Utils\FileExporter.h" />
     <ClInclude Include="Utils\ReturnValues.h" />
   </ItemGroup>
@@ -152,10 +155,13 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>E:\Super-Amazing-Game-O-Rama-Drama\MonkeyEngine\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Super-Amazing-Game-O-Rama-Drama\MonkeyEngine\DirectXTK\Bin\Desktop_2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -167,10 +173,13 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>E:\Super-Amazing-Game-O-Rama-Drama\MonkeyEngine\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Super-Amazing-Game-O-Rama-Drama\MonkeyEngine\DirectXTK\Bin\Desktop_2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

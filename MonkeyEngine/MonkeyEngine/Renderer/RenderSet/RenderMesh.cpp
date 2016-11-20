@@ -6,7 +6,7 @@
 #include "../Managers/ShaderManager.h"
 namespace MERenderer
 {
-	RenderMesh::RenderMesh()
+	RenderMesh::RenderMesh() : m_vVerticies(nullptr), m_uiNumVerticies(0), m_vIndicies(nullptr), m_uiNumIndicies(0), m_uiStartIndexLocation(0), m_iBaseVertexLocation(0), m_pRenderTextures(nullptr), m_eVertexFormat(eVERTEX_MAX)
 	{
 
 	}
@@ -168,6 +168,11 @@ namespace MERenderer
 
 	RenderTexture* RenderMesh::TextureExsits(std::string _TextureFileName)
 	{
+		if (m_pRenderTextures == nullptr)
+		{
+			m_pRenderTextures = new RenderSet;
+			return nullptr;
+		}
 		RenderTexture* temp = (RenderTexture*)m_pRenderTextures->getHead();
 		while (temp)
 		{

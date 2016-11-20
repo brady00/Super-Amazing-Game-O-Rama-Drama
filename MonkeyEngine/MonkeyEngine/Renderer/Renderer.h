@@ -7,6 +7,7 @@
 #pragma comment(lib, "d3d11.lib")
 namespace MERenderer
 {
+#define ReleaseCOM(x) { if(x){ x->Release(); x = 0; } }
 	class RenderSet;
 	class Canvas;
 	class ShaderManager;
@@ -20,11 +21,6 @@ namespace MERenderer
 	class Renderer
 	{
 	private:
-		ShaderManager* m_pShaderManager;
-		InputLayoutManager* m_pInputLayoutManager;
-		VertexBufferManager* m_pVertexBufferManager;
-		IndexBufferManager* m_pIndexBufferManager;
-		ConstantBufferManager* m_pConstantBufferManager;
 		RenderSet* m_pNonTranparentObjects;
 		RenderSet* m_pTransparentObjects;
 		std::vector<Canvas*> m_vCanvases;
@@ -44,7 +40,7 @@ namespace MERenderer
 		static ID3D11RenderTargetView* m_d3RenderTargetView;
 		static ID3D11Texture2D* m_d3RenderTarget;
 		static ID3D11DepthStencilView* m_d3DepthStencilState;
-		static D3D11_VIEWPORT* m_d3ViewPort;
+		static D3D11_VIEWPORT m_d3ViewPort;
 		static IDXGIOutput* m_d3Output;
 		static UINT m_uiScreenHeight;
 		static UINT m_uiScreenWidth;

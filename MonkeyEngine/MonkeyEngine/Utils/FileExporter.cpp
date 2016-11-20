@@ -1,4 +1,5 @@
 #include "FileExporter.h"
+#include <fstream>
 using namespace DirectX;
 namespace MEExporter
 {
@@ -7,7 +8,6 @@ namespace MEExporter
 	{
 
 	}
-
 
 	FileExporter::~FileExporter()
 	{
@@ -122,6 +122,19 @@ namespace MEExporter
 		_NumIndicies = (unsigned int)vertexIndices.size();
 		for (unsigned int i = 0; i < temp_vertices.size(); i++)
 			_Indicies[i] = vertexIndices[i];
+		std::string filepart(&finalPath[finalPath.length() - 3]);
+		std::ofstream out;
+		out.open(filepart + std::string(".Bobj"));
+		if (out.is_open())
+		{
+			out.write((const char*)& _NumVerticies, sizeof(unsigned int));
+			out.write((const char*)_Verticies, _NumVerticies);
+			out.write((const char*)& _NumIndicies, sizeof(unsigned int));
+			out.write((const char*)_Indicies, _NumIndicies);
+			out.close();
+		}
+		else
+			return false;
 		return true;
 	}
 }

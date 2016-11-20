@@ -6,13 +6,15 @@
 
 namespace MERenderer
 {
-	RenderTexture::RenderTexture()
+	RenderTexture::RenderTexture() : m_d3DiffuseTexture(nullptr), m_pRenderShapes(nullptr)
 	{
+
 	}
 
 
 	RenderTexture::~RenderTexture()
 	{
+		ReleaseCOM(m_d3DiffuseTexture);
 	}
 
 	void RenderTexture::Draw()
@@ -27,12 +29,12 @@ namespace MERenderer
 		if (extention == ".dds" || extention == ".DDS")
 		{
 			std::wstring temp(_TextureFileName.begin(), _TextureFileName.end());
-			CreateDDSTextureFromFile(Renderer::m_d3Device, temp.c_str(), nullptr, &m_d3DiffuseTexture);
+			DirectX::CreateDDSTextureFromFile(Renderer::m_d3Device, temp.c_str(), nullptr, &m_d3DiffuseTexture);
 		}
 		else
 		{
 			std::wstring temp(_TextureFileName.begin(), _TextureFileName.end());
-			CreateWICTextureFromFile(Renderer::m_d3Device, temp.c_str(), nullptr, &m_d3DiffuseTexture);
+			DirectX::CreateWICTextureFromFile(Renderer::m_d3Device, temp.c_str(), nullptr, &m_d3DiffuseTexture);
 		}
 		return true;
 	}

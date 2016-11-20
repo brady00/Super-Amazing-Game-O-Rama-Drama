@@ -45,6 +45,11 @@ namespace MERenderer
 
 	RenderMesh* RenderContext::MeshExists(std::string _VertexFileName)
 	{
+		if (m_pRenderMeshes == nullptr)
+		{
+			m_pRenderMeshes = new RenderSet;
+			return nullptr;
+		}
 		RenderMesh* temp = (RenderMesh*)m_pRenderMeshes->getHead();
 		while (temp)
 		{

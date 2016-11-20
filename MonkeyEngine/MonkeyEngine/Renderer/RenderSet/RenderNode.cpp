@@ -4,7 +4,7 @@
 
 namespace MERenderer
 {
-	RenderNode::RenderNode()
+	RenderNode::RenderNode() : m_pNext(nullptr)
 	{
 
 	}

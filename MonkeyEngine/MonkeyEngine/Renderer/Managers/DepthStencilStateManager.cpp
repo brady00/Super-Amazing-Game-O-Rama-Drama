@@ -4,13 +4,13 @@ namespace MERenderer
 {
 	DepthStencilStateManager *DepthStencilStateManager::m_pInstance = 0;
 
-	DepthStencilStateManager::DepthStencilStateManager(void)
+	DepthStencilStateManager::DepthStencilStateManager() : m_eCurrentState(DSS_COUNT)
 	{
-		m_eCurrentState = DSS_COUNT;
+
 	}
 
 
-	DepthStencilStateManager::~DepthStencilStateManager(void)
+	DepthStencilStateManager::~DepthStencilStateManager()
 	{
 	}
 

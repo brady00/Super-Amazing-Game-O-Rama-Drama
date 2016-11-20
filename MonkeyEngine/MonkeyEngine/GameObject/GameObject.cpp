@@ -18,6 +18,9 @@ namespace MEObject
 
 	MEReturnValues::RETURNVALUE GameObject::Update()
 	{
+		for (unsigned int i = 0; i < NumComponents; i++)
+			for (unsigned int j = 0; j < m_vComponents[i].size(); j++)
+				m_vComponents[i][j]->Update();
 		return MEReturnValues::NOTHING;
 	}
 

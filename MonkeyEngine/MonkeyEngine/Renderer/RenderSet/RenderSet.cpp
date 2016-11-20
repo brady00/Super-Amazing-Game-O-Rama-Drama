@@ -4,7 +4,7 @@
 
 namespace MERenderer
 {
-	RenderSet::RenderSet()
+	RenderSet::RenderSet() : m_pHead(nullptr)
 	{
 
 	}

@@ -16,6 +16,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR commandLin
 		}
 		MountainDew::GetInstance()->Update();
 	}
+	MountainDew::GetInstance()->Shutdown();
 	MountainDew::DestroyInstance();
 	return (int)msg.wParam;
 }
@@ -66,4 +67,10 @@ void MountainDew::Initialize(HINSTANCE hInstance, int nCmdShow)
 void MountainDew::Update()
 {
 	m_pRenderer->Update();
+}
+
+void MountainDew::Shutdown()
+{
+	m_pRenderer->Shutdown();
+	delete m_pRenderer;
 }

@@ -11,7 +11,7 @@ namespace MERenderer
 
 	IndexBuffer::~IndexBuffer(void)
 	{
-		//ReleaseCOM(m_d3IndexBuffer);
+		ReleaseCOM(m_d3IndexBuffer);
 	}
 
 	IndexBuffer* IndexBuffer::GetInstance()
@@ -63,5 +63,10 @@ namespace MERenderer
 			Renderer::m_d3Device->CreateBuffer(&ibd, &iinitData, &m_d3IndexBuffer);
 		}
 		return ret;
+	}
+
+	ID3D11Buffer* const IndexBuffer::GetIndicies()
+	{
+		return m_d3IndexBuffer;
 	}
 }

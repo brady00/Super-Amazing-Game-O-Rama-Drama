@@ -7,8 +7,13 @@ namespace MERenderer
 	{
 	public:
 		enum DSStates {
-			DSS_Default = 0, DSS_LessEqual, DSS_NoDepth,
-			DSS_DeferredLight1, DSS_DeferredLight2, DSS_LightOutsideFinal, DSS_LightInsideFinal,
+			DSS_Default = 0, 
+			DSS_LessEqual, 
+			DSS_NoDepth,
+			DSS_DeferredLight1, 
+			DSS_DeferredLight2,
+			DSS_LightOutsideFinal, 
+			DSS_LightInsideFinal,
 			DSS_COUNT
 		};
 	private:

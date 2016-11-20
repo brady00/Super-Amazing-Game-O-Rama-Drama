@@ -1,12 +1,20 @@
 #include "InputLayoutManager.h"
 #include <fstream>
-
+#include "../Renderer.h"
 
 namespace MERenderer
 {
-	std::string MERenderer::VertexFormatString[] = { "VERTEX_POS", "VERTEX_POSCOLOR", "VERTEX_POSTEX",
-		"VERTEX_POSNORMTEX", "VERTEX_POSNORMTANTEX", "VERTEX_POSBONEWEIGHT", "VERTEX_POSBONEWEIGHTNORMTEX",
-		"VERTEX_POSBONEWEIGHTNORMTANTEX" };
+	std::string MERenderer::VertexFormatString[] = 
+	{ 
+		"VERTEX_POS", 
+		"VERTEX_POSCOLOR", 
+		"VERTEX_POSTEX",
+		"VERTEX_POSNORMTEX", 
+		"VERTEX_POSNORMTANTEX", 
+		"VERTEX_POSBONEWEIGHT", 
+		"VERTEX_POSBONEWEIGHTNORMTEX",
+		"VERTEX_POSBONEWEIGHTNORMTANTEX" 
+	};
 	InputLayoutManager* InputLayoutManager::m_pInstance = nullptr;
 	InputLayoutManager::InputLayoutManager(void)
 	{
@@ -16,18 +24,16 @@ namespace MERenderer
 
 	InputLayoutManager::~InputLayoutManager(void)
 	{
-		for (VertexFormat index = VertexFormat(0); index < eVERTEX_MAX; index = VertexFormat(index + 1))
-		{
-			//ReleaseCOM(m_pInputLayouts[index]);
-		}
+		for (unsigned int i = 0; i < eVERTEX_MAX; i = i++)
+			ReleaseCOM(m_pInputLayouts[i]);
 	}
 
-	InputLayoutManager* InputLayoutManager::GetInstance(ID3D11Device* _Device)
+	InputLayoutManager* InputLayoutManager::GetInstance()
 	{
 		if (0 == m_pInstance)
 		{
 			m_pInstance = new InputLayoutManager;
-			m_pInstance->Initialize(_Device);
+			m_pInstance->Initialize();
 		}
 		return m_pInstance;
 	}
@@ -37,7 +43,7 @@ namespace MERenderer
 		m_pInstance = 0;
 	}
 
-	void InputLayoutManager::Initialize(ID3D11Device* _Device)
+	void InputLayoutManager::Initialize()
 	{
 		std::ifstream load;
 		load.open("POS_VS.cso", std::ios_base::binary);
@@ -55,7 +61,7 @@ namespace MERenderer
 		{
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
-		_Device->CreateInputLayout(vertexPosDesc, VERTEX_POS_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POS]);
+		Renderer::m_d3Device->CreateInputLayout(vertexPosDesc, VERTEX_POS_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POS]);
 		delete[] vs_byte_code;
 
 		// VERTEX_POSCOLOR
@@ -73,7 +79,7 @@ namespace MERenderer
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
-		_Device->CreateInputLayout(vertePosColorxDesc, VERTEX_POSCOLOR_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSCOLOR]);
+		Renderer::m_d3Device->CreateInputLayout(vertePosColorxDesc, VERTEX_POSCOLOR_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSCOLOR]);
 		delete[] vs_byte_code;
 
 		//VERTEX_POSTEX
@@ -92,7 +98,7 @@ namespace MERenderer
 			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 
 		};
-		_Device->CreateInputLayout(vertexPosTexDesc, VERTEX_POSTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSTEX]);
+		Renderer::m_d3Device->CreateInputLayout(vertexPosTexDesc, VERTEX_POSTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSTEX]);
 		delete[] vs_byte_code;
 
 		//VERTEX_POSNORMTEX
@@ -112,7 +118,7 @@ namespace MERenderer
 			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
 
-		_Device->CreateInputLayout(vertexPosNormTexDesc, VERTEX_POSNORMTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSNORMTEX]);
+		Renderer::m_d3Device->CreateInputLayout(vertexPosNormTexDesc, VERTEX_POSNORMTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSNORMTEX]);
 		delete[] vs_byte_code;
 
 		//VERTEX_POSNORMTANTEX
@@ -133,7 +139,7 @@ namespace MERenderer
 			{ "TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "TANGENT", 1, DXGI_FORMAT_R32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
-		_Device->CreateInputLayout(vertexPosNormTanTexDesc, VERTEX_POSNORMTANTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSNORMTANTEX]);
+		Renderer::m_d3Device->CreateInputLayout(vertexPosNormTanTexDesc, VERTEX_POSNORMTANTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSNORMTANTEX]);
 		delete[] vs_byte_code;
 
 		//VERTEX_POSBONEWEIGHT
@@ -152,7 +158,7 @@ namespace MERenderer
 			{ "BONEIDS", 0, DXGI_FORMAT_R32G32B32A32_SINT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "BONEWEIGHTS", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
-		_Device->CreateInputLayout(vertexPosBoneWeightDesc, VERTEX_POSBONEWEIGHT_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSBONEWEIGHT]);
+		Renderer::m_d3Device->CreateInputLayout(vertexPosBoneWeightDesc, VERTEX_POSBONEWEIGHT_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSBONEWEIGHT]);
 		delete[] vs_byte_code;
 
 
@@ -174,7 +180,7 @@ namespace MERenderer
 			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
-		_Device->CreateInputLayout(vertexPosBoneWeightNormTexDesc, VERTEX_POSBONEWEIGHTNORMTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSBONEWEIGHTNORMTEX]);
+		Renderer::m_d3Device->CreateInputLayout(vertexPosBoneWeightNormTexDesc, VERTEX_POSBONEWEIGHTNORMTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSBONEWEIGHTNORMTEX]);
 		delete[] vs_byte_code;
 
 		//VERTEX_POSBONEWEIGHTNORMTANTEX
@@ -197,7 +203,12 @@ namespace MERenderer
 			{ "TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "TANGENT", 1, DXGI_FORMAT_R32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
-		_Device->CreateInputLayout(vertexPosBoneWeightNormTanTexDesc, VERTEX_POSBONEWEIGHTNORMTANTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSBONEWEIGHTNORMTANTEX]);
+		Renderer::m_d3Device->CreateInputLayout(vertexPosBoneWeightNormTanTexDesc, VERTEX_POSBONEWEIGHTNORMTANTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSBONEWEIGHTNORMTANTEX]);
 		delete[] vs_byte_code;
+	}
+
+	ID3D11InputLayout* InputLayoutManager::GetInputLayout(VertexFormat index)
+	{
+		return m_pInputLayouts[index];
 	}
 }

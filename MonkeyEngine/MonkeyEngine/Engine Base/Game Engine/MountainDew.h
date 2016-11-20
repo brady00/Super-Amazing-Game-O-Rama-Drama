@@ -23,6 +23,7 @@ public:
 	static void DestroyInstance() { if (m_pGamePtr) delete m_pGamePtr; m_pGamePtr = m_pGamePtr; }
 	void Initialize(HINSTANCE, int);
 	void Update();
+	void Shutdown();
 	~MountainDew() {};
 };
 

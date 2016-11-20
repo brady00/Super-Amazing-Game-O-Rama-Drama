@@ -49,6 +49,9 @@
     <Filter Include="Renderer\Containers">
       <UniqueIdentifier>{54157760-a770-4f3b-808e-e4d6b20b943d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\ShaderBuffers">
+      <UniqueIdentifier>{b26e5c2c-03f5-49b3-887e-9b2418528dac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -110,9 +113,6 @@
     </ClCompile>
     <ClCompile Include="Renderer\RenderSet\RenderShape.cpp">
       <Filter>Renderer\RenderSet</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\Containers\ConstantBuffer.cpp">
-      <Filter>Renderer\Containers</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\Containers\IndexBuffer.cpp">
       <Filter>Renderer\Containers</Filter>
@@ -226,6 +226,18 @@
     </ClInclude>
     <ClInclude Include="Utils\ReturnValues.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\ShaderBuffers\ConstantBuffers.h">
+      <Filter>Renderer\ShaderBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\ShaderBuffers\SharedDefines.h">
+      <Filter>Renderer\ShaderBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\ShaderBuffers\LightBuffers.h">
+      <Filter>Renderer\ShaderBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Containers\ConstantBuffer.hpp">
+      <Filter>Renderer\Containers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

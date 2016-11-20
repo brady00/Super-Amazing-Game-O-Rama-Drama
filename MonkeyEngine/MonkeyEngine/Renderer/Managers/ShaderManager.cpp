@@ -4,6 +4,8 @@
 
 namespace MERenderer
 {
+	ShaderManager* ShaderManager::m_pInstance = nullptr;
+	
 	ShaderManager::ShaderManager()
 	{
 
@@ -12,7 +14,14 @@ namespace MERenderer
 
 	ShaderManager::~ShaderManager()
 	{
-
+		for (unsigned int i = 0; i < eShader_MAX; i++)
+		{
+			ReleaseCOM(m_d3VertexShaders[i]);
+			ReleaseCOM(m_d3PixelShaders[i]);
+			ReleaseCOM(m_d3GeometryShaders[i]);
+			ReleaseCOM(m_d3DomainShaders[i]);
+			ReleaseCOM(m_d3HullShaders[i]);
+		}
 	}
 
 	ShaderManager* ShaderManager::GetInstance()
