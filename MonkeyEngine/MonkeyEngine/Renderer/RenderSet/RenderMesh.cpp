@@ -106,7 +106,8 @@ namespace MERenderer
 	bool RenderMesh::Load(std::string _VertexFileName, VertexFormat _VertexFormat)
 	{
 		m_sVertexFileName = _VertexFileName;
-		std::string tempfilename(&m_sVertexFileName[m_sVertexFileName.length() - 3]);
+		m_eVertexFormat = _VertexFormat;
+		std::string tempfilename(&m_sVertexFileName[m_sVertexFileName.length() - 4]);
 		if (tempfilename == ".obj" || tempfilename == ".OBJ")
 		{
 			if (!MEExporter::FileExporter::LoadOBJ(m_sVertexFileName, m_eVertexFormat, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))

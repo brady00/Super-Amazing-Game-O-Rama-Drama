@@ -1,5 +1,8 @@
 #include "Renderer.h"
 #include "RenderSet\RenderSet.h"
+#include "RenderSet\RenderContext.h"
+#include "RenderSet\RenderMesh.h"
+#include "RenderSet\RenderTexture.h"
 
 namespace MERenderer
 {
@@ -63,12 +66,19 @@ namespace MERenderer
 		m_d3ViewPort.MaxDepth = 1;
 		m_pNonTranparentObjects = new RenderSet;
 		m_pTransparentObjects = new RenderSet;
+		m_pRenderContext = new RenderContext;
+		m_pRenderContext->Load(VertexFormat::eVERTEX_POSNORMTEX, BlendStateManager::BS_Default, RasterizerStateManager::RS_Default, DepthStencilStateManager::DSS_Default);
+		RenderMesh* tempMesh = m_pRenderContext->AddMesh("Assets/BasicCriypticman.obj", VertexFormat::eVERTEX_POSNORMTEX);
+		RenderTexture* tempTex = tempMesh->AddTexture("Assets/images.png");
+		tempTex->AddShape(nullptr, nullptr);
+	
 	}
 
 	MEReturnValues::RETURNVALUE Renderer::Update()
 	{
 		m_pNonTranparentObjects->Draw();
 		m_pTransparentObjects->Draw();
+		m_pRenderContext->Draw();
 		m_d3SwapChain->Present(0, 0);
 		return MEReturnValues::RENDERRETURN;
 	}

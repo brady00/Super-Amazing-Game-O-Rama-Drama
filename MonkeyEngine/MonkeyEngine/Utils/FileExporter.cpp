@@ -122,7 +122,8 @@ namespace MEExporter
 		_NumIndicies = (unsigned int)vertexIndices.size();
 		for (unsigned int i = 0; i < temp_vertices.size(); i++)
 			_Indicies[i] = vertexIndices[i];
-		std::string filepart(&finalPath[finalPath.length() - 3]);
+		std::string filepart;
+		filepart.append(finalPath.c_str(), finalPath.length() - 4);
 		std::ofstream out;
 		out.open(filepart + std::string(".Bobj"));
 		if (out.is_open())

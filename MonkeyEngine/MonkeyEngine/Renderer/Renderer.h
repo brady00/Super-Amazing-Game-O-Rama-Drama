@@ -17,6 +17,7 @@ namespace MERenderer
 	class ConstantBufferManager;
 	class Object;
 	class Camera;
+	class RenderContext;
 	using namespace DirectX;
 	class Renderer
 	{
@@ -26,6 +27,8 @@ namespace MERenderer
 		std::vector<Canvas*> m_vCanvases;
 		std::vector<Camera*> m_vCameras;
 		unsigned int m_uiActiveCamera;
+		//debug Object
+		RenderContext* m_pRenderContext;
 	public:
 		Renderer();
 		~Renderer();

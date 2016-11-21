@@ -1,14 +1,12 @@
 #include "RenderContext.h"
 #include "RenderMesh.h"
 #include "RenderSet.h"
-#include "../Managers/BlendStateManager.h"
-#include "../Managers/RasterizerStateManager.h"
-#include "../Managers/DepthStencilStateManager.h"
+
 
 
 namespace MERenderer
 {
-	RenderContext::RenderContext() :m_pRenderMeshes(nullptr)
+	RenderContext::RenderContext() : m_pRenderMeshes(nullptr), m_VertexFormat(eVERTEX_MAX), m_BlendState(BlendStateManager::BS_Default), m_RasterState(RasterizerStateManager::RS_Default), m_DSState(DepthStencilStateManager::DSS_Default)
 	{
 
 	}
@@ -22,13 +20,13 @@ namespace MERenderer
 	{
 		//context switching
 		//input layout
-		Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POSNORMTEX));
+		Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(m_VertexFormat));
 		//blend state
-		BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default);
+		BlendStateManager::GetInstance()->ApplyState(m_BlendState);
 		//rasterizer
-		RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_Default);
+		RasterizerStateManager::GetInstance()->ApplyState(m_RasterState);
 		//depthbuffer
-		DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_Default);
+		DepthStencilStateManager::GetInstance()->ApplyState(m_DSState);
 		m_pRenderMeshes->Draw();
 	}
 
@@ -64,5 +62,14 @@ namespace MERenderer
 	{
 		_Mesh = new RenderMesh;
 		return _Mesh->Load(_VertexFileName, _VertexFormat);
+	}
+
+	bool RenderContext::Load(VertexFormat _VertexFormat, BlendStateManager::BStates _BlendState, RasterizerStateManager::RasterStates _RasterState, DepthStencilStateManager::DSStates _DSState)
+	{
+		m_VertexFormat = _VertexFormat;
+		m_BlendState = _BlendState;
+		m_RasterState = _RasterState;
+		m_DSState = _DSState;
+		return true;
 	}
 }
