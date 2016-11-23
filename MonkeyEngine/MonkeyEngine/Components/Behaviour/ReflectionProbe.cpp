@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "ReflectionProbe.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

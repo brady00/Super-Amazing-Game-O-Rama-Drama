@@ -1,16 +1,9 @@
-#include "Component.h"
+#include "Animation.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
 
-
-	Component::~Component()
-	{
-	}
 
 }

@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "AudioHighPassFilter.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

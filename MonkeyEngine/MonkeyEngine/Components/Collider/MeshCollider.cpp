@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "MeshCollider.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

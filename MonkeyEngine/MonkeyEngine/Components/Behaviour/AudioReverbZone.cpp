@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "AudioReverbZone.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

@@ -20,6 +20,40 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Components\Base\Component.cpp" />
+    <ClCompile Include="Components\Behaviour\Animation.cpp" />
+    <ClCompile Include="Components\Behaviour\Animator.cpp" />
+    <ClCompile Include="Components\Behaviour\AudioChorusFilter.cpp" />
+    <ClCompile Include="Components\Behaviour\AudioDistortionFilter.cpp" />
+    <ClCompile Include="Components\Behaviour\AudioEchoFilter.cpp" />
+    <ClCompile Include="Components\Behaviour\AudioHighPassFilter.cpp" />
+    <ClCompile Include="Components\Behaviour\AudioListener.cpp" />
+    <ClCompile Include="Components\Behaviour\AudioLowPassFilter.cpp" />
+    <ClCompile Include="Components\Behaviour\AudioReverbFilter.cpp" />
+    <ClCompile Include="Components\Behaviour\AudioReverbZone.cpp" />
+    <ClCompile Include="Components\Behaviour\AudioSource.cpp" />
+    <ClCompile Include="Components\Behaviour\Behaviour.cpp" />
+    <ClCompile Include="Components\Behaviour\Camera.cpp" />
+    <ClCompile Include="Components\Behaviour\Canvas.cpp" />
+    <ClCompile Include="Components\Behaviour\ConstantForce.cpp" />
+    <ClCompile Include="Components\Behaviour\FlareLayer.cpp" />
+    <ClCompile Include="Components\Behaviour\Light.cpp" />
+    <ClCompile Include="Components\Behaviour\LightProbeGroup.cpp" />
+    <ClCompile Include="Components\Behaviour\LightProbeProxyVolume.cpp" />
+    <ClCompile Include="Components\Behaviour\NavMeshAgent.cpp" />
+    <ClCompile Include="Components\Behaviour\NavMeshObstacle.cpp" />
+    <ClCompile Include="Components\Behaviour\NetworkView.cpp" />
+    <ClCompile Include="Components\Behaviour\Projector.cpp" />
+    <ClCompile Include="Components\Behaviour\ReflectionProbe.cpp" />
+    <ClCompile Include="Components\Behaviour\Script.cpp" />
+    <ClCompile Include="Components\Behaviour\Skybox.cpp" />
+    <ClCompile Include="Components\Behaviour\Terrain.cpp" />
+    <ClCompile Include="Components\Collider\BoxCollider.cpp" />
+    <ClCompile Include="Components\Collider\CapsuleCollider.cpp" />
+    <ClCompile Include="Components\Collider\Collider.cpp" />
+    <ClCompile Include="Components\Collider\MeshCollider.cpp" />
+    <ClCompile Include="Components\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Components\Collider\TerrainCollider.cpp" />
+    <ClCompile Include="Components\Collider\WheelCollider.cpp" />
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp" />
     <ClCompile Include="Engine Base\Scene\Scene.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
@@ -48,6 +82,40 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Base\Component.h" />
+    <ClInclude Include="Components\Behaviour\Animation.h" />
+    <ClInclude Include="Components\Behaviour\Animator.h" />
+    <ClInclude Include="Components\Behaviour\AudioChorusFilter.h" />
+    <ClInclude Include="Components\Behaviour\AudioDistortionFilter.h" />
+    <ClInclude Include="Components\Behaviour\AudioEchoFilter.h" />
+    <ClInclude Include="Components\Behaviour\AudioHighPassFilter.h" />
+    <ClInclude Include="Components\Behaviour\AudioListener.h" />
+    <ClInclude Include="Components\Behaviour\AudioLowPassFilter.h" />
+    <ClInclude Include="Components\Behaviour\AudioReverbFilter.h" />
+    <ClInclude Include="Components\Behaviour\AudioReverbZone.h" />
+    <ClInclude Include="Components\Behaviour\AudioSource.h" />
+    <ClInclude Include="Components\Behaviour\Behaviour.h" />
+    <ClInclude Include="Components\Behaviour\Camera.h" />
+    <ClInclude Include="Components\Behaviour\Canvas.h" />
+    <ClInclude Include="Components\Behaviour\ConstantForce.h" />
+    <ClInclude Include="Components\Behaviour\FlareLayer.h" />
+    <ClInclude Include="Components\Behaviour\Light.h" />
+    <ClInclude Include="Components\Behaviour\LightProbeGroup.h" />
+    <ClInclude Include="Components\Behaviour\LightProbeProxyVolume.h" />
+    <ClInclude Include="Components\Behaviour\NavMeshAgent.h" />
+    <ClInclude Include="Components\Behaviour\NavMeshObstacle.h" />
+    <ClInclude Include="Components\Behaviour\NetworkView.h" />
+    <ClInclude Include="Components\Behaviour\Projector.h" />
+    <ClInclude Include="Components\Behaviour\ReflectionProbe.h" />
+    <ClInclude Include="Components\Behaviour\Script.h" />
+    <ClInclude Include="Components\Behaviour\Skybox.h" />
+    <ClInclude Include="Components\Behaviour\Terrain.h" />
+    <ClInclude Include="Components\Collider\BoxCollider.h" />
+    <ClInclude Include="Components\Collider\CapsuleCollider.h" />
+    <ClInclude Include="Components\Collider\Collider.h" />
+    <ClInclude Include="Components\Collider\MeshCollider.h" />
+    <ClInclude Include="Components\Collider\SphereCollider.h" />
+    <ClInclude Include="Components\Collider\TerrainCollider.h" />
+    <ClInclude Include="Components\Collider\WheelCollider.h" />
     <ClInclude Include="Engine Base\Game Engine\MountainDew.h" />
     <ClInclude Include="Engine Base\Scene\Scene.h" />
     <ClInclude Include="GameObject\GameObject.h" />
@@ -155,13 +223,13 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>E:\Super-Amazing-Game-O-Rama-Drama\MonkeyEngine\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:\Super-Amazing-Game-O-Rama-Drama\MonkeyEngine\DirectXTK\Bin\Desktop_2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\DirectXTK\Bin\Desktop_2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -173,13 +241,13 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>E:\Super-Amazing-Game-O-Rama-Drama\MonkeyEngine\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:\Super-Amazing-Game-O-Rama-Drama\MonkeyEngine\DirectXTK\Bin\Desktop_2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\DirectXTK\Bin\Desktop_2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

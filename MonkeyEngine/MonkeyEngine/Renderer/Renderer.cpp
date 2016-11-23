@@ -78,13 +78,14 @@ namespace MERenderer
 	{
 		m_pNonTranparentObjects->Draw();
 		m_pTransparentObjects->Draw();
-		m_pRenderContext->Draw();
+		//m_pRenderContext->Draw();
 		m_d3SwapChain->Present(0, 0);
 		return MEReturnValues::RENDERRETURN;
 	}
 
 	void Renderer::Shutdown()
 	{
+		delete m_pRenderContext;
 		delete m_pNonTranparentObjects;
 		delete m_pTransparentObjects;
 		ReleaseCOM(m_d3Device);

@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "Terrain.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

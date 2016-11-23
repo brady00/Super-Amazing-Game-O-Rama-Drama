@@ -52,6 +52,39 @@
     <Filter Include="Renderer\ShaderBuffers">
       <UniqueIdentifier>{b26e5c2c-03f5-49b3-887e-9b2418528dac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\Effector2D">
+      <UniqueIdentifier>{badd6153-b843-4a5e-b8eb-e401835fdba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Joint">
+      <UniqueIdentifier>{96633c92-1ddd-48f2-8b2c-fb1b55796aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Joint2D">
+      <UniqueIdentifier>{ea503e08-3150-4660-b3cb-af705ca68bfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\PhysicsUpdateBehaviour2D">
+      <UniqueIdentifier>{a6432d38-90a0-4f64-b2e9-cf9e3e92c354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Behaviour">
+      <UniqueIdentifier>{b607b80f-8970-47c2-a80e-8d10c426b29f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\GUI">
+      <UniqueIdentifier>{878be5e8-0465-4677-9bee-0cfe27071f80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Collider2D">
+      <UniqueIdentifier>{8f96c7cb-b855-4bd1-96ac-0b6fa048384c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Transform">
+      <UniqueIdentifier>{8d226e16-f043-4214-9bf4-259bc56e9b16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Renderer">
+      <UniqueIdentifier>{c5b17275-60a5-48e5-99b6-537c93e81c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Misc">
+      <UniqueIdentifier>{e527231f-5d33-464d-9fac-445f8ce044ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Collider">
+      <UniqueIdentifier>{3262ae65-19c2-4d3e-bae1-4fbf2bd5c109}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -131,6 +164,108 @@
     </ClCompile>
     <ClCompile Include="Utils\FileExporter.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Animation.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Animator.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\AudioChorusFilter.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\AudioDistortionFilter.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\AudioEchoFilter.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\AudioHighPassFilter.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\AudioListener.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\AudioLowPassFilter.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\AudioReverbFilter.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\AudioReverbZone.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\AudioSource.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Behaviour.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Camera.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Canvas.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\ConstantForce.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\FlareLayer.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Light.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\LightProbeGroup.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\LightProbeProxyVolume.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\NavMeshAgent.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\NavMeshObstacle.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\NetworkView.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Projector.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\ReflectionProbe.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Script.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Skybox.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Behaviour\Terrain.cpp">
+      <Filter>Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider\BoxCollider.cpp">
+      <Filter>Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider\CapsuleCollider.cpp">
+      <Filter>Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider\Collider.cpp">
+      <Filter>Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider\MeshCollider.cpp">
+      <Filter>Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider\SphereCollider.cpp">
+      <Filter>Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider\TerrainCollider.cpp">
+      <Filter>Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider\WheelCollider.cpp">
+      <Filter>Components\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +373,108 @@
     </ClInclude>
     <ClInclude Include="Renderer\Containers\ConstantBuffer.hpp">
       <Filter>Renderer\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Animation.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Animator.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\AudioChorusFilter.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\AudioDistortionFilter.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\AudioEchoFilter.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\AudioHighPassFilter.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\AudioListener.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\AudioLowPassFilter.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\AudioReverbFilter.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\AudioReverbZone.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\AudioSource.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Behaviour.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Camera.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Canvas.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\ConstantForce.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\FlareLayer.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Light.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\LightProbeGroup.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\LightProbeProxyVolume.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\NavMeshAgent.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\NavMeshObstacle.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\NetworkView.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Projector.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\ReflectionProbe.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Script.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Skybox.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Behaviour\Terrain.h">
+      <Filter>Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider\BoxCollider.h">
+      <Filter>Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider\CapsuleCollider.h">
+      <Filter>Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider\Collider.h">
+      <Filter>Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider\MeshCollider.h">
+      <Filter>Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider\SphereCollider.h">
+      <Filter>Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider\TerrainCollider.h">
+      <Filter>Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider\WheelCollider.h">
+      <Filter>Components\Collider</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
