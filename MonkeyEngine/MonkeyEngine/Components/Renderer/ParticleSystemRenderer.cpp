@@ -1,16 +1,6 @@
-#include "Component.h"
-
-
+#include "ParticleSystemRenderer.h"
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

@@ -1,16 +1,6 @@
-#include "Component.h"
-
-
+#include "MeshRenderer.h"
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

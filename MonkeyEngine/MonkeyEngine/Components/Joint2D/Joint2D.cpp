@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "Joint2D.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

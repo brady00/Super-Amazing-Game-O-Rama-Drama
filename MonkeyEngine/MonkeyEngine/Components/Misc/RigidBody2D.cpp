@@ -1,16 +1,6 @@
-#include "Component.h"
-
-
+#include "RigidBody2D.h"
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

@@ -1,16 +1,6 @@
-#include "Component.h"
-
-
+#include "SkinnedMeshRenderer.h"
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

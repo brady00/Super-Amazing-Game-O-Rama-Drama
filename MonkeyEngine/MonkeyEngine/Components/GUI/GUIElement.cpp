@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "GUIElement.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

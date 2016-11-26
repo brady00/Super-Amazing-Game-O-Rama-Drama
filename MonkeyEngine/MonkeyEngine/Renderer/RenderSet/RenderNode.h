@@ -8,7 +8,7 @@ namespace MERenderer
 		RenderNode* m_pNext;
 	public:
 		RenderNode();
-		~RenderNode();
+		virtual ~RenderNode();
 		RenderNode* GetNext();
 		void SetNext(RenderNode* _Next);
 		virtual void Draw();

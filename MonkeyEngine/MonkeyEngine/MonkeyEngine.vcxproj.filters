@@ -85,6 +85,9 @@
     <Filter Include="Components\Collider">
       <UniqueIdentifier>{3262ae65-19c2-4d3e-bae1-4fbf2bd5c109}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\Shaders">
+      <UniqueIdentifier>{1fb39151-8c77-4645-8c98-795c2ff204b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -266,6 +269,171 @@
     </ClCompile>
     <ClCompile Include="Components\Collider\WheelCollider.cpp">
       <Filter>Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider2D\BoxCollider2D.cpp">
+      <Filter>Components\Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider2D\CircleCollider2D.cpp">
+      <Filter>Components\Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider2D\Collider2D.cpp">
+      <Filter>Components\Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider2D\EdgeCollider2D.cpp">
+      <Filter>Components\Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider2D\PolygonCollider2D.cpp">
+      <Filter>Components\Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Effector2D\AreaEffector2D.cpp">
+      <Filter>Components\Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Effector2D\BuoyancyEffector2D.cpp">
+      <Filter>Components\Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Effector2D\Effector2D.cpp">
+      <Filter>Components\Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Effector2D\PlatformEffector2D.cpp">
+      <Filter>Components\Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Effector2D\PointEffector2D.cpp">
+      <Filter>Components\Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Effector2D\SurfaceEffector2D.cpp">
+      <Filter>Components\Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\GUI\GUIElement.cpp">
+      <Filter>Components\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\GUI\GUILayer.cpp">
+      <Filter>Components\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\GUI\GUIText.cpp">
+      <Filter>Components\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\GUI\GUITexture.cpp">
+      <Filter>Components\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint\CharacterJoint.cpp">
+      <Filter>Components\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint\ConfigurableJoint.cpp">
+      <Filter>Components\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint\FixedJoint.cpp">
+      <Filter>Components\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint\HingeJoint.cpp">
+      <Filter>Components\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint\Joint.cpp">
+      <Filter>Components\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint\SpringJoint.cpp">
+      <Filter>Components\Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\AnchoredJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\DistanceJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\FixedJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\FrictionJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\HingeJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\Joint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\RelativeJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\SliderJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\SpringJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\TargetJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Joint2D\WheelJoint2D.cpp">
+      <Filter>Components\Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\CanvasGroup.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\CanvasRenderer.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\Cloth.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\LODGroup.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\OcclusionArea.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\OcclusionPortal.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\OffMeshLink.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\ParticleSystem.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\RigidBody.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\RigidBody2D.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\TextMesh.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\Tree.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PhyscicsUpdateBehaviour2D\ConstantForce2D.cpp">
+      <Filter>Components\PhysicsUpdateBehaviour2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PhyscicsUpdateBehaviour2D\PhysicsUpdateBehaviour2D.cpp">
+      <Filter>Components\PhysicsUpdateBehaviour2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Renderer\LineRenderer.cpp">
+      <Filter>Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Renderer\MeshRenderer.cpp">
+      <Filter>Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Renderer\ParticleSystemRenderer.cpp">
+      <Filter>Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Renderer\SkinnedMeshRenderer.cpp">
+      <Filter>Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Renderer\SpriteRenderer.cpp">
+      <Filter>Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Renderer\TrailRenderer.cpp">
+      <Filter>Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Transform\RectTransform.cpp">
+      <Filter>Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Transform\Transform.cpp">
+      <Filter>Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Renderer\CompRenderer.cpp">
+      <Filter>Components\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -476,5 +644,201 @@
     <ClInclude Include="Components\Collider\WheelCollider.h">
       <Filter>Components\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="Components\Collider2D\BoxCollider2D.h">
+      <Filter>Components\Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider2D\CircleCollider2D.h">
+      <Filter>Components\Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider2D\Collider2D.h">
+      <Filter>Components\Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider2D\EdgeCollider2D.h">
+      <Filter>Components\Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider2D\PolygonCollider2D.h">
+      <Filter>Components\Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Effector2D\AreaEffector2D.h">
+      <Filter>Components\Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Effector2D\BuoyancyEffector2D.h">
+      <Filter>Components\Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Effector2D\Effector2D.h">
+      <Filter>Components\Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Effector2D\PlatformEffector2D.h">
+      <Filter>Components\Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Effector2D\PointEffector2D.h">
+      <Filter>Components\Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Effector2D\SurfaceEffector2D.h">
+      <Filter>Components\Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\GUI\GUIElement.h">
+      <Filter>Components\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\GUI\GUILayer.h">
+      <Filter>Components\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\GUI\GUIText.h">
+      <Filter>Components\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\GUI\GUITexture.h">
+      <Filter>Components\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint\CharacterJoint.h">
+      <Filter>Components\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint\ConfigurableJoint.h">
+      <Filter>Components\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint\FixedJoint.h">
+      <Filter>Components\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint\HingeJoint.h">
+      <Filter>Components\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint\Joint.h">
+      <Filter>Components\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint\SpringJoint.h">
+      <Filter>Components\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\AnchoredJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\DistanceJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\FixedJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\FrictionJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\HingeJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\Joint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\RelativeJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\SliderJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\SpringJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\TargetJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Joint2D\WheelJoint2D.h">
+      <Filter>Components\Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\CanvasGroup.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\CanvasRenderer.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\Cloth.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\LODGroup.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\OcclusionArea.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\OcclusionPortal.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\OffMeshLink.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\ParticleSystem.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\RigidBody.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\RigidBody2D.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\TextMesh.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\Tree.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PhyscicsUpdateBehaviour2D\ConstantForce2D.h">
+      <Filter>Components\PhysicsUpdateBehaviour2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PhyscicsUpdateBehaviour2D\PhysicsUpdateBehaviour2D.h">
+      <Filter>Components\PhysicsUpdateBehaviour2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Renderer\LineRenderer.h">
+      <Filter>Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Renderer\MeshRenderer.h">
+      <Filter>Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Renderer\ParticleSystemRenderer.h">
+      <Filter>Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Renderer\SkinnedMeshRenderer.h">
+      <Filter>Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Renderer\SpriteRenderer.h">
+      <Filter>Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Renderer\TrailRenderer.h">
+      <Filter>Components\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Transform\RectTransform.h">
+      <Filter>Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Transform\Transform.h">
+      <Filter>Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Renderer\CompRenderer.h">
+      <Filter>Components\Renderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Renderer\Shaders\POS_VS.hlsl">
+      <Filter>Renderer\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSBONEWEIGHT_VS.hlsl">
+      <Filter>Renderer\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSBONEWEIGHTNORMTANTEX_VS.hlsl">
+      <Filter>Renderer\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSCOLOR_VS.hlsl">
+      <Filter>Renderer\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSNORMTANTEX_VS.hlsl">
+      <Filter>Renderer\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSNORMTEX_VS.hlsl">
+      <Filter>Renderer\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSTEX_VS.hlsl">
+      <Filter>Renderer\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSBONEWEIGHTNORMTEX_VS.hlsl">
+      <Filter>Renderer\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Renderer\Shaders\VertexLayouts.hlsli">
+      <Filter>Renderer\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

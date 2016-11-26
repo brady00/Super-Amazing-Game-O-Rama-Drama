@@ -47,6 +47,11 @@
     <ClCompile Include="Components\Behaviour\Script.cpp" />
     <ClCompile Include="Components\Behaviour\Skybox.cpp" />
     <ClCompile Include="Components\Behaviour\Terrain.cpp" />
+    <ClCompile Include="Components\Collider2D\BoxCollider2D.cpp" />
+    <ClCompile Include="Components\Collider2D\CircleCollider2D.cpp" />
+    <ClCompile Include="Components\Collider2D\Collider2D.cpp" />
+    <ClCompile Include="Components\Collider2D\EdgeCollider2D.cpp" />
+    <ClCompile Include="Components\Collider2D\PolygonCollider2D.cpp" />
     <ClCompile Include="Components\Collider\BoxCollider.cpp" />
     <ClCompile Include="Components\Collider\CapsuleCollider.cpp" />
     <ClCompile Include="Components\Collider\Collider.cpp" />
@@ -54,6 +59,56 @@
     <ClCompile Include="Components\Collider\SphereCollider.cpp" />
     <ClCompile Include="Components\Collider\TerrainCollider.cpp" />
     <ClCompile Include="Components\Collider\WheelCollider.cpp" />
+    <ClCompile Include="Components\Effector2D\AreaEffector2D.cpp" />
+    <ClCompile Include="Components\Effector2D\BuoyancyEffector2D.cpp" />
+    <ClCompile Include="Components\Effector2D\Effector2D.cpp" />
+    <ClCompile Include="Components\Effector2D\PlatformEffector2D.cpp" />
+    <ClCompile Include="Components\Effector2D\PointEffector2D.cpp" />
+    <ClCompile Include="Components\Effector2D\SurfaceEffector2D.cpp" />
+    <ClCompile Include="Components\GUI\GUIElement.cpp" />
+    <ClCompile Include="Components\GUI\GUILayer.cpp" />
+    <ClCompile Include="Components\GUI\GUIText.cpp" />
+    <ClCompile Include="Components\GUI\GUITexture.cpp" />
+    <ClCompile Include="Components\Joint2D\AnchoredJoint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\DistanceJoint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\FixedJoint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\FrictionJoint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\HingeJoint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\Joint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\RelativeJoint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\SliderJoint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\SpringJoint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\TargetJoint2D.cpp" />
+    <ClCompile Include="Components\Joint2D\WheelJoint2D.cpp" />
+    <ClCompile Include="Components\Joint\CharacterJoint.cpp" />
+    <ClCompile Include="Components\Joint\ConfigurableJoint.cpp" />
+    <ClCompile Include="Components\Joint\FixedJoint.cpp" />
+    <ClCompile Include="Components\Joint\HingeJoint.cpp" />
+    <ClCompile Include="Components\Joint\Joint.cpp" />
+    <ClCompile Include="Components\Joint\SpringJoint.cpp" />
+    <ClCompile Include="Components\Misc\CanvasGroup.cpp" />
+    <ClCompile Include="Components\Misc\CanvasRenderer.cpp" />
+    <ClCompile Include="Components\Misc\Cloth.cpp" />
+    <ClCompile Include="Components\Misc\LODGroup.cpp" />
+    <ClCompile Include="Components\Misc\OcclusionArea.cpp" />
+    <ClCompile Include="Components\Misc\OcclusionPortal.cpp" />
+    <ClCompile Include="Components\Misc\OffMeshLink.cpp" />
+    <ClCompile Include="Components\Misc\ParticleSystem.cpp" />
+    <ClCompile Include="Components\Misc\RigidBody.cpp" />
+    <ClCompile Include="Components\Misc\RigidBody2D.cpp" />
+    <ClCompile Include="Components\Misc\TextMesh.cpp" />
+    <ClCompile Include="Components\Misc\Tree.cpp" />
+    <ClCompile Include="Components\PhyscicsUpdateBehaviour2D\ConstantForce2D.cpp" />
+    <ClCompile Include="Components\PhyscicsUpdateBehaviour2D\PhysicsUpdateBehaviour2D.cpp" />
+    <ClCompile Include="Components\Renderer\LineRenderer.cpp" />
+    <ClCompile Include="Components\Renderer\MeshRenderer.cpp" />
+    <ClCompile Include="Components\Renderer\ParticleSystemRenderer.cpp" />
+    <ClCompile Include="Components\Renderer\CompRenderer.cpp" />
+    <ClCompile Include="Components\Renderer\SkinnedMeshRenderer.cpp" />
+    <ClCompile Include="Components\Renderer\SpriteRenderer.cpp" />
+    <ClCompile Include="Components\Renderer\TrailRenderer.cpp" />
+    <ClCompile Include="Components\Transform\RectTransform.cpp" />
+    <ClCompile Include="Components\Transform\Transform.cpp" />
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp" />
     <ClCompile Include="Engine Base\Scene\Scene.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
@@ -109,6 +164,11 @@
     <ClInclude Include="Components\Behaviour\Script.h" />
     <ClInclude Include="Components\Behaviour\Skybox.h" />
     <ClInclude Include="Components\Behaviour\Terrain.h" />
+    <ClInclude Include="Components\Collider2D\BoxCollider2D.h" />
+    <ClInclude Include="Components\Collider2D\CircleCollider2D.h" />
+    <ClInclude Include="Components\Collider2D\Collider2D.h" />
+    <ClInclude Include="Components\Collider2D\EdgeCollider2D.h" />
+    <ClInclude Include="Components\Collider2D\PolygonCollider2D.h" />
     <ClInclude Include="Components\Collider\BoxCollider.h" />
     <ClInclude Include="Components\Collider\CapsuleCollider.h" />
     <ClInclude Include="Components\Collider\Collider.h" />
@@ -116,6 +176,56 @@
     <ClInclude Include="Components\Collider\SphereCollider.h" />
     <ClInclude Include="Components\Collider\TerrainCollider.h" />
     <ClInclude Include="Components\Collider\WheelCollider.h" />
+    <ClInclude Include="Components\Effector2D\AreaEffector2D.h" />
+    <ClInclude Include="Components\Effector2D\BuoyancyEffector2D.h" />
+    <ClInclude Include="Components\Effector2D\Effector2D.h" />
+    <ClInclude Include="Components\Effector2D\PlatformEffector2D.h" />
+    <ClInclude Include="Components\Effector2D\PointEffector2D.h" />
+    <ClInclude Include="Components\Effector2D\SurfaceEffector2D.h" />
+    <ClInclude Include="Components\GUI\GUIElement.h" />
+    <ClInclude Include="Components\GUI\GUILayer.h" />
+    <ClInclude Include="Components\GUI\GUIText.h" />
+    <ClInclude Include="Components\GUI\GUITexture.h" />
+    <ClInclude Include="Components\Joint2D\AnchoredJoint2D.h" />
+    <ClInclude Include="Components\Joint2D\DistanceJoint2D.h" />
+    <ClInclude Include="Components\Joint2D\FixedJoint2D.h" />
+    <ClInclude Include="Components\Joint2D\FrictionJoint2D.h" />
+    <ClInclude Include="Components\Joint2D\HingeJoint2D.h" />
+    <ClInclude Include="Components\Joint2D\Joint2D.h" />
+    <ClInclude Include="Components\Joint2D\RelativeJoint2D.h" />
+    <ClInclude Include="Components\Joint2D\SliderJoint2D.h" />
+    <ClInclude Include="Components\Joint2D\SpringJoint2D.h" />
+    <ClInclude Include="Components\Joint2D\TargetJoint2D.h" />
+    <ClInclude Include="Components\Joint2D\WheelJoint2D.h" />
+    <ClInclude Include="Components\Joint\CharacterJoint.h" />
+    <ClInclude Include="Components\Joint\ConfigurableJoint.h" />
+    <ClInclude Include="Components\Joint\FixedJoint.h" />
+    <ClInclude Include="Components\Joint\HingeJoint.h" />
+    <ClInclude Include="Components\Joint\Joint.h" />
+    <ClInclude Include="Components\Joint\SpringJoint.h" />
+    <ClInclude Include="Components\Misc\CanvasGroup.h" />
+    <ClInclude Include="Components\Misc\CanvasRenderer.h" />
+    <ClInclude Include="Components\Misc\Cloth.h" />
+    <ClInclude Include="Components\Misc\LODGroup.h" />
+    <ClInclude Include="Components\Misc\OcclusionArea.h" />
+    <ClInclude Include="Components\Misc\OcclusionPortal.h" />
+    <ClInclude Include="Components\Misc\OffMeshLink.h" />
+    <ClInclude Include="Components\Misc\ParticleSystem.h" />
+    <ClInclude Include="Components\Misc\RigidBody.h" />
+    <ClInclude Include="Components\Misc\RigidBody2D.h" />
+    <ClInclude Include="Components\Misc\TextMesh.h" />
+    <ClInclude Include="Components\Misc\Tree.h" />
+    <ClInclude Include="Components\PhyscicsUpdateBehaviour2D\ConstantForce2D.h" />
+    <ClInclude Include="Components\PhyscicsUpdateBehaviour2D\PhysicsUpdateBehaviour2D.h" />
+    <ClInclude Include="Components\Renderer\LineRenderer.h" />
+    <ClInclude Include="Components\Renderer\MeshRenderer.h" />
+    <ClInclude Include="Components\Renderer\ParticleSystemRenderer.h" />
+    <ClInclude Include="Components\Renderer\CompRenderer.h" />
+    <ClInclude Include="Components\Renderer\SkinnedMeshRenderer.h" />
+    <ClInclude Include="Components\Renderer\SpriteRenderer.h" />
+    <ClInclude Include="Components\Renderer\TrailRenderer.h" />
+    <ClInclude Include="Components\Transform\RectTransform.h" />
+    <ClInclude Include="Components\Transform\Transform.h" />
     <ClInclude Include="Engine Base\Game Engine\MountainDew.h" />
     <ClInclude Include="Engine Base\Scene\Scene.h" />
     <ClInclude Include="GameObject\GameObject.h" />
@@ -150,6 +260,77 @@
     <ClInclude Include="Renderer\ShaderBuffers\SharedDefines.h" />
     <ClInclude Include="Utils\FileExporter.h" />
     <ClInclude Include="Utils\ReturnValues.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Renderer\Shaders\POSBONEWEIGHTNORMTEX_VS.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSBONEWEIGHTNORMTANTEX_VS.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSBONEWEIGHT_VS.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSCOLOR_VS.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSNORMTANTEX_VS.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSNORMTEX_VS.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSTEX_VS.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POS_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Assets/ShaderCSO/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Renderer\Shaders\VertexLayouts.hlsli" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1BAFC61D-3EFA-46F5-B9E4-39C5F20C6B04}</ProjectGuid>

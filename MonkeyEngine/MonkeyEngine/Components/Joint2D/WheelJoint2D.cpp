@@ -1,16 +1,6 @@
-#include "Component.h"
-
-
+#include "WheelJoint2D.h"
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

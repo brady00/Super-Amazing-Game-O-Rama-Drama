@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "AreaEffector2D.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

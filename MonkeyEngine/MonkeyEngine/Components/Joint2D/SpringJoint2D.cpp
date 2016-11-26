@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "SpringJoint2D.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

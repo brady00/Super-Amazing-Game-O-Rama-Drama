@@ -13,7 +13,12 @@ namespace MERenderer
 
 	RenderMesh::~RenderMesh()
 	{
-
+		VertexBufferManager::DeleteInstance();
+		IndexBuffer::DeleteInstance();
+		ShaderManager::DeleteInstance();
+		delete[] m_vVerticies;
+		delete[] m_vIndicies;
+		delete m_pRenderTextures;
 	}
 
 	void RenderMesh::Draw()

@@ -1,16 +1,6 @@
-#include "Component.h"
-
-
+#include "RectTransform.h"
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

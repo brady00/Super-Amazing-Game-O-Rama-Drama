@@ -78,7 +78,7 @@ namespace MERenderer
 	{
 		m_pNonTranparentObjects->Draw();
 		m_pTransparentObjects->Draw();
-		//m_pRenderContext->Draw();
+		m_pRenderContext->Draw();
 		m_d3SwapChain->Present(0, 0);
 		return MEReturnValues::RENDERRETURN;
 	}

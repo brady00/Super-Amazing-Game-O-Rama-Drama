@@ -14,6 +14,7 @@ namespace MERenderer
 
 	RenderTexture::~RenderTexture()
 	{
+		delete m_pRenderShapes;
 		ReleaseCOM(m_d3DiffuseTexture);
 	}
 
@@ -50,7 +51,10 @@ namespace MERenderer
 		{
 			RenderShape* _Shape;
 			if (!LoadShape(_RenderComp, _AnimationComp, _Shape))
+			{
+				delete _Shape;
 				return false;
+			}
 			m_pRenderShapes->AddNode(_Shape);
 		}
 		else

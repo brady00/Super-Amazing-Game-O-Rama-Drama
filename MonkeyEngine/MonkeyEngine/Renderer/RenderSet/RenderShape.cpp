@@ -12,7 +12,7 @@ namespace MERenderer
 
 	RenderShape::~RenderShape()
 	{
-
+		ConstantBufferManager::DeleteInstance();
 	}
 
 	MEObject::RenderComponent* RenderShape::GetRenderComp()

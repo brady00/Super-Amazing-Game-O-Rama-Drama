@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "ConfigurableJoint.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

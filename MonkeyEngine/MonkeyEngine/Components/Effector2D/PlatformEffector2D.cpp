@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "PlatformEffector2D.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "FrictionJoint2D.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

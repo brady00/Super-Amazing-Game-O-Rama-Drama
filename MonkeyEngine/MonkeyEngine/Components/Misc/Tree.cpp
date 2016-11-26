@@ -1,16 +1,6 @@
-#include "Component.h"
-
-
+#include "Tree.h"
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

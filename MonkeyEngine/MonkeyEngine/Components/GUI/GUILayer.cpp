@@ -1,16 +1,8 @@
-#include "Component.h"
+#include "GUILayer.h"
 
 
 
 namespace MEObject
 {
-	Component::Component()
-	{
-	}
-
-
-	Component::~Component()
-	{
-	}
 
 }

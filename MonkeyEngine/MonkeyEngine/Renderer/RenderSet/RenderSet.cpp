@@ -12,13 +12,18 @@ namespace MERenderer
 
 	RenderSet::~RenderSet()
 	{
-
+		while (m_pHead != nullptr)
+		{
+			RenderNode* temp = m_pHead->GetNext();
+			delete m_pHead;
+			m_pHead = temp;
+		}
 	}
 
 	void RenderSet::Draw()
 	{
 		RenderNode* draw = m_pHead;
-		while (m_pHead != nullptr)
+		while (draw != nullptr)
 		{
 			draw->Draw();
 			draw = draw->GetNext();
