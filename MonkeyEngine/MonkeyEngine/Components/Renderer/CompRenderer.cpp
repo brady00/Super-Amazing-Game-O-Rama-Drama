@@ -2,5 +2,13 @@
 
 namespace MEObject
 {
+	CompRenderer::CompRenderer()
+	{
 
+	}
+
+	CompRenderer::~CompRenderer()
+	{
+
+	}
 }
