@@ -3,6 +3,7 @@
 #include "RenderSet\RenderContext.h"
 #include "RenderSet\RenderMesh.h"
 #include "RenderSet\RenderTexture.h"
+#include "Managers\ConstantBufferManager.h"
 
 namespace MERenderer
 {
@@ -67,15 +68,17 @@ namespace MERenderer
 		m_pNonTranparentObjects = new RenderSet;
 		m_pTransparentObjects = new RenderSet;
 		m_pRenderContext = new RenderContext;
+		ConstantBufferManager::GetInstance()->CreateBuffers();
+		//test code
 		m_pRenderContext->Load(VertexFormat::eVERTEX_POSNORMTEX, BlendStateManager::BS_Default, RasterizerStateManager::RS_Default, DepthStencilStateManager::DSS_Default);
-		RenderMesh* tempMesh = m_pRenderContext->AddMesh("Assets/BasicCriypticman.obj", VertexFormat::eVERTEX_POSNORMTEX);
+		RenderMesh* tempMesh = m_pRenderContext->AddMesh("Assets/testObj.obj", VertexFormat::eVERTEX_POSNORMTEX);
 		RenderTexture* tempTex = tempMesh->AddTexture("Assets/images.png");
 		tempTex->AddShape(nullptr, nullptr);
-	
 	}
 
 	MEReturnValues::RETURNVALUE Renderer::Update()
 	{
+		m_d3DeviceContext->OMSetRenderTargets(1, &m_d3RenderTargetView, m_d3DepthStencilState);
 		m_pNonTranparentObjects->Draw();
 		m_pTransparentObjects->Draw();
 		m_pRenderContext->Draw();

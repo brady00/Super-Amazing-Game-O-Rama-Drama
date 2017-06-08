@@ -133,6 +133,9 @@
     <ClCompile Include="Renderer\RenderSet\RenderSet.cpp" />
     <ClCompile Include="Renderer\RenderSet\RenderContext.cpp" />
     <ClCompile Include="Renderer\RenderSet\RenderTexture.cpp" />
+    <ClCompile Include="Renderer\TextureLoaders\DDSTextureLoader.cpp" />
+    <ClCompile Include="Renderer\TextureLoaders\pch.cpp" />
+    <ClCompile Include="Renderer\TextureLoaders\WICTextureLoader.cpp" />
     <ClCompile Include="Utils\FileExporter.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -258,10 +261,23 @@
     <ClInclude Include="Renderer\ShaderBuffers\ConstantBuffers.h" />
     <ClInclude Include="Renderer\ShaderBuffers\LightBuffers.h" />
     <ClInclude Include="Renderer\ShaderBuffers\SharedDefines.h" />
+    <ClInclude Include="Renderer\TextureLoaders\dds.h" />
+    <ClInclude Include="Renderer\TextureLoaders\DDSTextureLoader.h" />
+    <ClInclude Include="Renderer\TextureLoaders\DirectXHelpers.h" />
+    <ClInclude Include="Renderer\TextureLoaders\LoaderHelpers.h" />
+    <ClInclude Include="Renderer\TextureLoaders\pch.h" />
+    <ClInclude Include="Renderer\TextureLoaders\PlatformHelpers.h" />
+    <ClInclude Include="Renderer\TextureLoaders\WICTextureLoader.h" />
     <ClInclude Include="Utils\FileExporter.h" />
     <ClInclude Include="Utils\ReturnValues.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Default_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Renderer\Shaders\POSBONEWEIGHTNORMTEX_VS.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
@@ -419,16 +435,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>..\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\DirectXTK\Bin\Desktop_2015\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

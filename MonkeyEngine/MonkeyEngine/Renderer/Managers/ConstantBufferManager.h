@@ -27,11 +27,11 @@ namespace MERenderer
 		ConstantBuffer<cbSpotLightShadowData>	m_SpotLightWithShadowCBuffer;
 		ConstantBuffer<cbSpotLight>				m_SpotLightCBuffer;
 		ConstantBuffer<cbForwardLights>			m_ForwardLightsCBuffer;
-		void CreateBuffers();
 	public:
 		~ConstantBufferManager(void);
 		static ConstantBufferManager* GetInstance();
 		static void DeleteInstance();
+		void CreateBuffers();
 		ConstantBuffer<cbPerObject>				&GetPerObjectCBuffer();
 		ConstantBuffer<cbPerCamera>				&GetPerCameraCBuffer();
 		ConstantBuffer<cbMisc>					&GetMiscCBuffer();

@@ -12,7 +12,7 @@ namespace MERenderer
 
 	RenderShape::~RenderShape()
 	{
-		ConstantBufferManager::DeleteInstance();
+		
 	}
 
 	MEObject::RenderComponent* RenderShape::GetRenderComp()
@@ -41,13 +41,13 @@ namespace MERenderer
 		temp.World = m_XMWorldMatrix;
 		ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&temp, sizeof(temp));
 		//drawindexed
-		Renderer::m_d3DeviceContext->DrawIndexed(0, 0, 0);
+		Renderer::m_d3DeviceContext->DrawIndexed(2383, 0, 0);
 	}
 
 	bool RenderShape::Load(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp)
 	{
-		if (_RenderComp == nullptr && _AnimationComp == nullptr)
-			return false;
+		//if (_RenderComp == nullptr && _AnimationComp == nullptr)
+		//	return false;
 		if (m_pRenderComponent != _RenderComp)
 		{
 			//if (m_pRenderComponent)

@@ -1,5 +1,5 @@
 #include "MountainDew.h"
-#include <vld.h>
+
 MountainDew* MountainDew::m_pGamePtr = nullptr;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR commandLine, int nCmdShow)

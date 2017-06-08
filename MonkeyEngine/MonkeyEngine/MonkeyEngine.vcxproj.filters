@@ -88,6 +88,18 @@
     <Filter Include="Renderer\Shaders">
       <UniqueIdentifier>{1fb39151-8c77-4645-8c98-795c2ff204b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\TextureLoaders">
+      <UniqueIdentifier>{6fa9192e-6f1b-4de6-a287-8089bf9690d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Shaders\VS">
+      <UniqueIdentifier>{21af9121-5b73-4559-881f-52cee5091843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Shaders\PS">
+      <UniqueIdentifier>{e6bf7937-7bdb-4b00-b6cb-902f75f61950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\TextureLoaders\Helpers">
+      <UniqueIdentifier>{2fbe467a-7916-48e9-9c37-a95ea0a2c6b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -434,6 +446,15 @@
     </ClCompile>
     <ClCompile Include="Components\Renderer\CompRenderer.cpp">
       <Filter>Components\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\TextureLoaders\DDSTextureLoader.cpp">
+      <Filter>Renderer\TextureLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\TextureLoaders\WICTextureLoader.cpp">
+      <Filter>Renderer\TextureLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\TextureLoaders\pch.cpp">
+      <Filter>Renderer\TextureLoaders\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -809,36 +830,60 @@
     <ClInclude Include="Components\Renderer\CompRenderer.h">
       <Filter>Components\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\TextureLoaders\DDSTextureLoader.h">
+      <Filter>Renderer\TextureLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextureLoaders\WICTextureLoader.h">
+      <Filter>Renderer\TextureLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextureLoaders\PlatformHelpers.h">
+      <Filter>Renderer\TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextureLoaders\DirectXHelpers.h">
+      <Filter>Renderer\TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextureLoaders\LoaderHelpers.h">
+      <Filter>Renderer\TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextureLoaders\pch.h">
+      <Filter>Renderer\TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextureLoaders\dds.h">
+      <Filter>Renderer\TextureLoaders\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Renderer\Shaders\POS_VS.hlsl">
-      <Filter>Renderer\Shaders</Filter>
+      <Filter>Renderer\Shaders\VS</Filter>
     </FxCompile>
     <FxCompile Include="Renderer\Shaders\POSBONEWEIGHT_VS.hlsl">
-      <Filter>Renderer\Shaders</Filter>
+      <Filter>Renderer\Shaders\VS</Filter>
     </FxCompile>
     <FxCompile Include="Renderer\Shaders\POSBONEWEIGHTNORMTANTEX_VS.hlsl">
-      <Filter>Renderer\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Renderer\Shaders\POSCOLOR_VS.hlsl">
-      <Filter>Renderer\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Renderer\Shaders\POSNORMTANTEX_VS.hlsl">
-      <Filter>Renderer\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Renderer\Shaders\POSNORMTEX_VS.hlsl">
-      <Filter>Renderer\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Renderer\Shaders\POSTEX_VS.hlsl">
-      <Filter>Renderer\Shaders</Filter>
+      <Filter>Renderer\Shaders\VS</Filter>
     </FxCompile>
     <FxCompile Include="Renderer\Shaders\POSBONEWEIGHTNORMTEX_VS.hlsl">
-      <Filter>Renderer\Shaders</Filter>
+      <Filter>Renderer\Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSCOLOR_VS.hlsl">
+      <Filter>Renderer\Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSNORMTANTEX_VS.hlsl">
+      <Filter>Renderer\Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSNORMTEX_VS.hlsl">
+      <Filter>Renderer\Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\POSTEX_VS.hlsl">
+      <Filter>Renderer\Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Default_PS.hlsl">
+      <Filter>Renderer\Shaders\PS</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Renderer\Shaders\VertexLayouts.hlsli">
-      <Filter>Renderer\Shaders</Filter>
+      <Filter>Renderer\Shaders\VS</Filter>
     </None>
   </ItemGroup>
 </Project>
