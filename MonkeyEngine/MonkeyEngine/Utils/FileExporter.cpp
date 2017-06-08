@@ -1,6 +1,5 @@
 #include "FileExporter.h"
 #include <fstream>
-#include <sstream>
 using namespace DirectX;
 namespace MEExporter
 {
@@ -38,14 +37,13 @@ namespace MEExporter
 				FileIn.read((char*)(&_Indicies[i]), sizeof(unsigned int));
 			return true;
 		}
+		std::string finalPath(_FileName);
 		std::vector<XMFLOAT3> temp_vertices;
 		std::vector<XMFLOAT2> temp_uvs;
 		std::vector<XMFLOAT3> temp_normals;
-		std::string finalPath(_FileName);
 		std::vector< unsigned int > vertexIndices;
-		std::vector< unsigned int > normalIndices;
-		std::vector< unsigned int > uvIndices;
-		FILE* file = fopen(finalPath.c_str(), "r");
+		FILE* file = nullptr;
+		fopen_s(&file, finalPath.c_str(), "r");
 		if (file == NULL)
 			return false;
 		while (true)
@@ -77,75 +75,77 @@ namespace MEExporter
 			}
 			else if (strcmp(lineheader, "f") == 0)
 			{
-				std::string vertex1, vertex2, vertex3;
-				unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
-	
-				vertexIndices.push_back(vertexIndex[0] - 1);
-				vertexIndices.push_back(vertexIndex[1] - 1);
-				vertexIndices.push_back(vertexIndex[2] - 1);
-				uvIndices.push_back(uvIndex[0] - 1);
-				uvIndices.push_back(uvIndex[1] - 1);
-				uvIndices.push_back(uvIndex[2] - 1);
-				normalIndices.push_back(normalIndex[0] - 1);
-				normalIndices.push_back(normalIndex[1] - 1);
-				normalIndices.push_back(normalIndex[2] - 1);
+				std::string m_vertex1, m_vertex2, m_vertex3;
+				unsigned int m_vertexindex[3], m_UVIndex[3], normalIndex[3];
+				int matches = fscanf_s(file, " %d/%d/%d %d/%d/%d %d/%d/%d \n", &m_vertexindex[0], &m_UVIndex[0], &normalIndex[0], &m_vertexindex[1], &m_UVIndex[1], &normalIndex[1], &m_vertexindex[2], &m_UVIndex[2], &normalIndex[2]);
+				if (matches != 9)
+					return false;
+
+				vertexIndices.push_back(m_vertexindex[0]);
+				vertexIndices.push_back(m_vertexindex[1]);
+				vertexIndices.push_back(m_vertexindex[2]);
 			}
 		}
-		_Indicies = new unsigned int[temp_vertices.size()];
-		unsigned int polygonCount = (unsigned int)vertexIndices.size();
-		bool isDuplicate;
-		bool isCreated = false;
-		unsigned int selectedVertex;
-		_Verticies = new MERenderer::VERTEX_POSNORMTEX[temp_vertices.size()];
-		for (unsigned int i = 0; i < polygonCount; i+=3)
+		switch (_VertexFormat)
 		{
-			for (int i2 = 0; i2 < 3; i2++)
+		case MERenderer::eVERTEX_POS:
+			_Verticies = new MERenderer::VERTEX_POS[temp_vertices.size()];
+			for (unsigned int i = 0; i < temp_vertices.size(); i++)
 			{
-				isDuplicate = false;
-				isCreated = false;
-				selectedVertex = vertexIndices[i + i2];
-
-				for (int i3 = 0; i3 < temp_vertices.size(); i3++)
-				{
-					XMFLOAT3 temppos = ((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i3].position;
-					XMFLOAT3 temppos2 = temp_vertices[selectedVertex];
-					XMFLOAT3 tempnorm = ((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i3].normal;
-					XMFLOAT3 tempnorm2 = temp_normals[normalIndices[i + i2]];
-					XMFLOAT2 tempuv = ((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i3].texcoord;
-					XMFLOAT2 tempuv2 = temp_uvs[uvIndices[i + i2]];
-					if (temppos.x == temppos2.x && temppos.y == temppos2.y && temppos.z == temppos2.z &&
-						tempnorm.x == tempnorm2.x && tempnorm.y == tempnorm2.y && tempnorm.z == tempnorm2.z &&
-						tempuv.x == tempuv2.x && tempuv.y == tempuv2.y)
-					{
-						_Indicies[selectedVertex] = i3;
-						isDuplicate = true;
-						break;
-					}
-				}
-
-				if (isDuplicate)
-					continue;
-
-				_Indicies[selectedVertex] = selectedVertex;
-
-				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[selectedVertex].position = temp_vertices[selectedVertex];
-				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[selectedVertex].normal = temp_normals[normalIndices[i + i2]];
-				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[selectedVertex].texcoord = temp_uvs[uvIndices[i + i2]];
-				_NumVerticies++;
+				((MERenderer::VERTEX_POS*)_Verticies)[i].position = temp_vertices[i];
 			}
+			break;
+		case MERenderer::eVERTEX_POSCOLOR:
+			_Verticies = new MERenderer::VERTEX_POSCOLOR[temp_vertices.size()];
+			for (unsigned int i = 0; i < temp_vertices.size(); i++)
+			{
+				((MERenderer::VERTEX_POSCOLOR*)_Verticies)[i].position = temp_vertices[i];
+				((MERenderer::VERTEX_POSCOLOR*)_Verticies)[i].color = XMFLOAT4(1, 1, 1, 1);
+			}
+			break;
+		case MERenderer::eVERTEX_POSTEX:
+			_Verticies = new MERenderer::VERTEX_POSTEX[temp_vertices.size()];
+			for (unsigned int i = 0; i < temp_vertices.size(); i++)
+			{
+				((MERenderer::VERTEX_POSTEX*)_Verticies)[i].position = temp_vertices[i];
+				((MERenderer::VERTEX_POSTEX*)_Verticies)[i].texcoord = temp_uvs[i];
+			}
+			break;
+		case MERenderer::eVERTEX_POSNORMTEX:
+			_Verticies = new MERenderer::VERTEX_POSNORMTEX[temp_vertices.size()];
+			for (unsigned int i = 0; i < temp_vertices.size(); i++)
+			{
+				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position = temp_vertices[i];
+				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal = temp_normals[i];
+				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].texcoord = temp_uvs[i];
+			}
+			break;
+		case MERenderer::eVERTEX_POSNORMTANTEX:
+		case MERenderer::eVERTEX_POSBONEWEIGHT:
+		case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
+		case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
+		case MERenderer::eVERTEX_MAX:
+		default:
+			return false;
 		}
-		_NumIndicies = (unsigned int)temp_vertices.size();
+
+		_NumVerticies = (unsigned int)temp_vertices.size();
+		_Indicies = new unsigned int[vertexIndices.size()];
+		_NumIndicies = (unsigned int)vertexIndices.size();
+		for (unsigned int i = 0; i < temp_vertices.size(); i++)
+			_Indicies[i] = vertexIndices[i];
+		std::string filepart;
+		filepart.append(finalPath.c_str(), finalPath.length() - 4);
 		std::ofstream out;
 		out.open(filepart + std::string(".Bobj"));
 		if (out.is_open())
 		{
-			out.write((const char*)& _NumVerticies, sizeof(unsigned int));
-			for(unsigned int i = 0; i < _NumVerticies; i++)
-				out.write((const char*)&(_Verticies[i]), sizeof(MERenderer::VERTEX_POSNORMTEX));
-			out.write((const char*)& _NumIndicies, sizeof(unsigned int));
+			out.write((char*)& _NumVerticies, sizeof(unsigned int));
+			for (unsigned int i = 0; i < _NumVerticies; i++)
+				out.write((char*)&(_Verticies[i]), sizeof(MERenderer::VERTEX_POSNORMTEX));
+			out.write((char*)& _NumIndicies, sizeof(unsigned int));
 			for (unsigned int i = 0; i < _NumIndicies; i++)
-				out.write((const char*)(&_Indicies[i]), sizeof(unsigned int));
+				out.write((char*)(&_Indicies[i]), sizeof(unsigned int));
 			out.close();
 		}
 		else
