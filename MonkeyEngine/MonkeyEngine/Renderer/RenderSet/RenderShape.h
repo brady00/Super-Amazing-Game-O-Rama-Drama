@@ -3,8 +3,8 @@
 #include <DirectXMath.h>
 namespace MEObject
 {
-	class RenderComponent;
-	class AnimationComponent;
+	class CompRenderer;
+	class Animator;
 }
 namespace MERenderer
 {
@@ -12,17 +12,17 @@ namespace MERenderer
 	{
 	private:
 		DirectX::XMFLOAT4X4 m_XMWorldMatrix;
-		MEObject::RenderComponent* m_pRenderComponent;
-		MEObject::AnimationComponent* m_pAnimationComponent;
+		MEObject::CompRenderer* m_pRenderComponent;
+		MEObject::Animator* m_pAnimationComponent;
 	public:
 		RenderShape();
 		~RenderShape();
-		MEObject::RenderComponent* GetRenderComp();
-		MEObject::AnimationComponent* GetAnimationComp();
-		void SetRenderComp(MEObject::RenderComponent* _RenderComp);
-		void SetAnimationComp(MEObject::AnimationComponent* _AnimationComp);
+		MEObject::CompRenderer* GetRenderComp();
+		MEObject::Animator* GetAnimationComp();
+		void SetRenderComp(MEObject::CompRenderer* _RenderComp);
+		void SetAnimationComp(MEObject::Animator* _AnimationComp);
 		void Draw();
-		bool Load(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp);
+		bool Load(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp);
 	};
 
 

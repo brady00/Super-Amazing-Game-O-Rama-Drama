@@ -65,7 +65,7 @@ namespace MERenderer
 		return m_TextureFileName;
 	}
 
-	bool RenderTexture::AddShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp)
+	bool RenderTexture::AddShape(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp)
 	{
 		if (!ShapeExsits(_RenderComp, _AnimationComp))
 		{
@@ -91,7 +91,7 @@ namespace MERenderer
 		return true;
 	}
 
-	bool RenderTexture::ShapeExsits(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp)
+	bool RenderTexture::ShapeExsits(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp)
 	{
 		if (m_pRenderShapes == nullptr)
 		{
@@ -108,7 +108,7 @@ namespace MERenderer
 		return false;
 	}
 
-	bool RenderTexture::LoadShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp, RenderShape*& _Shape)
+	bool RenderTexture::LoadShape(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp, RenderShape*& _Shape)
 	{
 		_Shape = new RenderShape;
 		return _Shape->Load(_RenderComp, _AnimationComp);

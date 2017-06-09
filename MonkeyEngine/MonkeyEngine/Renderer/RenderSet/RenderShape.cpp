@@ -15,22 +15,22 @@ namespace MERenderer
 		
 	}
 
-	MEObject::RenderComponent* RenderShape::GetRenderComp()
+	MEObject::CompRenderer* RenderShape::GetRenderComp()
 	{
 		return m_pRenderComponent;
 	}
 
-	MEObject::AnimationComponent* RenderShape::GetAnimationComp()
+	MEObject::Animator* RenderShape::GetAnimationComp()
 	{
 		return m_pAnimationComponent;
 	}
 
-	void RenderShape::SetRenderComp(MEObject::RenderComponent* _RenderComp)
+	void RenderShape::SetRenderComp(MEObject::CompRenderer* _RenderComp)
 	{
 		m_pRenderComponent = _RenderComp;
 	}
 
-	void RenderShape::SetAnimationComp(MEObject::AnimationComponent* _AnimationComp)
+	void RenderShape::SetAnimationComp(MEObject::Animator* _AnimationComp)
 	{
 		m_pAnimationComponent = _AnimationComp;
 	}
@@ -47,7 +47,7 @@ namespace MERenderer
 			Renderer::m_d3DeviceContext->DrawIndexed(2383, 0, 0);
 	}
 
-	bool RenderShape::Load(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp)
+	bool RenderShape::Load(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp)
 	{
 		//if (_RenderComp == nullptr && _AnimationComp == nullptr)
 		//	return false;

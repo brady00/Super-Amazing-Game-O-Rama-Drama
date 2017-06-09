@@ -5,8 +5,8 @@
 #include <string>
 namespace MEObject
 {
-	class RenderComponent;
-	class AnimationComponent;
+	class CompRenderer;
+	class Animator;
 }
 namespace MERenderer
 {
@@ -26,11 +26,11 @@ namespace MERenderer
 		void Draw();
 		bool Load(std::string _TextureFileName);
 		const std::string& GetTextureFileName();
-		bool AddShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp);
-		bool ShapeExsits(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp);
+		bool AddShape(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp);
+		bool ShapeExsits(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp);
 		ID3D11ShaderResourceView* GetDiffuseTexture();
 		void SetDiffuseTexture(ID3D11ShaderResourceView* _Diffuse);
-		bool LoadShape(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp, RenderShape*& _Shape);
+		bool LoadShape(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp, RenderShape*& _Shape);
 	};
 
 }

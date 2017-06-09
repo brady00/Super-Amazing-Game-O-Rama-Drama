@@ -402,12 +402,6 @@
     <ClCompile Include="Components\Misc\ParticleSystem.cpp">
       <Filter>Components\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Misc\RigidBody.cpp">
-      <Filter>Components\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Misc\RigidBody2D.cpp">
-      <Filter>Components\Misc</Filter>
-    </ClCompile>
     <ClCompile Include="Components\Misc\TextMesh.cpp">
       <Filter>Components\Misc</Filter>
     </ClCompile>
@@ -455,6 +449,12 @@
     </ClCompile>
     <ClCompile Include="Renderer\TextureLoaders\pch.cpp">
       <Filter>Renderer\TextureLoaders\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\RigidBody.cpp">
+      <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Misc\RigidBody2D.cpp">
+      <Filter>Components\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -785,12 +785,6 @@
     <ClInclude Include="Components\Misc\ParticleSystem.h">
       <Filter>Components\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Misc\RigidBody.h">
-      <Filter>Components\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Misc\RigidBody2D.h">
-      <Filter>Components\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="Components\Misc\TextMesh.h">
       <Filter>Components\Misc</Filter>
     </ClInclude>
@@ -850,6 +844,12 @@
     </ClInclude>
     <ClInclude Include="Renderer\TextureLoaders\dds.h">
       <Filter>Renderer\TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\RigidBody.h">
+      <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Misc\RigidBody2D.h">
+      <Filter>Components\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
