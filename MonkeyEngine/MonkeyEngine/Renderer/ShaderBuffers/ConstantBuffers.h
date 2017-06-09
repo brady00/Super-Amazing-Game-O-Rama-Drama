@@ -3,7 +3,7 @@
 
 #pragma region World Matrix Constant buffer
 CONSTANT_BUFFER_BEGIN(cbPerObject, b0)
-	float4x4	World;
+	float4x4	world;
 #ifdef __cplusplus
 	const static int REGISTER_SLOT = 0;
 #endif

@@ -14,7 +14,8 @@ namespace MERenderer
 	class RenderTexture : public RenderNode
 	{
 	private:
-		ID3D11ShaderResourceView* m_d3DiffuseTexture;
+		ID3D11ShaderResourceView*	m_d3DiffuseTexture;
+		ID3D11SamplerState*			m_d3SamplerState;
 		//normal map
 		//other mapping
 		std::string m_TextureFileName;

@@ -64,40 +64,47 @@ namespace MERenderer
 		{
 			HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSCOLOR]);
 			delete[] byteCode;
+			byteCode = nullptr;
 		}
 		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSTEX_VS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSTEX]);
 			delete[] byteCode;
+			byteCode = nullptr;
 		}
 		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSNORMTEX_VS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSNORMTEX]);
 			delete[] byteCode;
+			byteCode = nullptr;
 		}
 		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSNORMTANTEX_VS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSNORMTANTEX]);
 			delete[] byteCode;
+			byteCode = nullptr;
 		}
 		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSBONEWEIGHT_VS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSBONEWEIGHT]);
 			delete[] byteCode;
+			byteCode = nullptr;
 		}
 		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_VS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSBONEWEIGHTNORMTEX]);
 			delete[] byteCode;
+			byteCode = nullptr;
 		}
 		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_VS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSBONEWEIGHTNORMTANTEX]);
 			delete[] byteCode;
+			byteCode = nullptr;
 		}
 #pragma endregion
 #pragma region PixelShaders
-		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POS_PS.cso"))
+		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/Default_PS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POS]);
 			delete[] byteCode;
@@ -274,7 +281,7 @@ namespace MERenderer
 
 	ID3D11PixelShader* ShaderManager::GetPixelShader(ShaderType _Type)
 	{
-		return m_d3PixelShaders[_Type];
+		return m_d3PixelShaders[eShader_POS];
 	}
 
 	ID3D11GeometryShader* ShaderManager::GetGeometryShader(ShaderType _Type)

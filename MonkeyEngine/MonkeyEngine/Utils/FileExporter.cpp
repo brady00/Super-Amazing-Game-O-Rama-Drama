@@ -30,11 +30,11 @@ namespace MEExporter
 			FileIn.read((char*)& _NumVerticies, sizeof(unsigned int));
 			_Verticies = new MERenderer::VERTEX_POSNORMTEX[_NumVerticies];
 			for (unsigned int i = 0; i < _NumVerticies; i++)
-				FileIn.read((char*)&(_Verticies[i]), sizeof(MERenderer::VERTEX_POSNORMTEX));
-			FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
-			_Indicies = new unsigned int[_NumIndicies];
-			for (unsigned int i = 0; i < _NumIndicies; i++)
-				FileIn.read((char*)(&_Indicies[i]), sizeof(unsigned int));
+			{
+				FileIn.read((char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
+				FileIn.read((char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal), sizeof(DirectX::XMFLOAT3));
+				FileIn.read((char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].texcoord), sizeof(DirectX::XMFLOAT2));
+			}
 			return true;
 		}
 		std::string finalPath(_FileName);
@@ -42,6 +42,8 @@ namespace MEExporter
 		std::vector<XMFLOAT2> temp_uvs;
 		std::vector<XMFLOAT3> temp_normals;
 		std::vector< unsigned int > vertexIndices;
+		std::vector< unsigned int > normalIndices;
+		std::vector< unsigned int > uvIndices;
 		FILE* file = nullptr;
 		fopen_s(&file, finalPath.c_str(), "r");
 		if (file == NULL)
@@ -77,75 +79,46 @@ namespace MEExporter
 			{
 				std::string m_vertex1, m_vertex2, m_vertex3;
 				unsigned int m_vertexindex[3], m_UVIndex[3], normalIndex[3];
-				int matches = fscanf_s(file, " %d/%d/%d %d/%d/%d %d/%d/%d \n", &m_vertexindex[0], &m_UVIndex[0], &normalIndex[0], &m_vertexindex[1], &m_UVIndex[1], &normalIndex[1], &m_vertexindex[2], &m_UVIndex[2], &normalIndex[2]);
+				int matches = fscanf_s(file, " %i/%i/%i %i/%i/%i %i/%i/%i \n", 
+					&m_vertexindex[0], &m_UVIndex[0], &normalIndex[0], 
+					&m_vertexindex[1], &m_UVIndex[1], &normalIndex[1],
+					&m_vertexindex[2], &m_UVIndex[2], &normalIndex[2]);
 				if (matches != 9)
 					return false;
 
-				vertexIndices.push_back(m_vertexindex[0]);
-				vertexIndices.push_back(m_vertexindex[1]);
-				vertexIndices.push_back(m_vertexindex[2]);
+				vertexIndices.push_back(m_vertexindex[0] - 1);
+				vertexIndices.push_back(m_vertexindex[1] - 1);
+				vertexIndices.push_back(m_vertexindex[2] - 1);
+				normalIndices.push_back(normalIndex[0] - 1);
+				normalIndices.push_back(normalIndex[1] - 1);
+				normalIndices.push_back(normalIndex[2] - 1);
+				uvIndices.push_back(m_UVIndex[0] - 1);
+				uvIndices.push_back(m_UVIndex[1] - 1);
+				uvIndices.push_back(m_UVIndex[2] - 1);
 			}
 		}
-		switch (_VertexFormat)
+		_Verticies = new MERenderer::VERTEX_POSNORMTEX[vertexIndices.size()];
+		for (unsigned int i = 0; i < vertexIndices.size(); i++)
 		{
-		case MERenderer::eVERTEX_POS:
-			_Verticies = new MERenderer::VERTEX_POS[temp_vertices.size()];
-			for (unsigned int i = 0; i < temp_vertices.size(); i++)
-			{
-				((MERenderer::VERTEX_POS*)_Verticies)[i].position = temp_vertices[i];
-			}
-			break;
-		case MERenderer::eVERTEX_POSCOLOR:
-			_Verticies = new MERenderer::VERTEX_POSCOLOR[temp_vertices.size()];
-			for (unsigned int i = 0; i < temp_vertices.size(); i++)
-			{
-				((MERenderer::VERTEX_POSCOLOR*)_Verticies)[i].position = temp_vertices[i];
-				((MERenderer::VERTEX_POSCOLOR*)_Verticies)[i].color = XMFLOAT4(1, 1, 1, 1);
-			}
-			break;
-		case MERenderer::eVERTEX_POSTEX:
-			_Verticies = new MERenderer::VERTEX_POSTEX[temp_vertices.size()];
-			for (unsigned int i = 0; i < temp_vertices.size(); i++)
-			{
-				((MERenderer::VERTEX_POSTEX*)_Verticies)[i].position = temp_vertices[i];
-				((MERenderer::VERTEX_POSTEX*)_Verticies)[i].texcoord = temp_uvs[i];
-			}
-			break;
-		case MERenderer::eVERTEX_POSNORMTEX:
-			_Verticies = new MERenderer::VERTEX_POSNORMTEX[temp_vertices.size()];
-			for (unsigned int i = 0; i < temp_vertices.size(); i++)
-			{
-				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position = temp_vertices[i];
-				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal = temp_normals[i];
-				((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].texcoord = temp_uvs[i];
-			}
-			break;
-		case MERenderer::eVERTEX_POSNORMTANTEX:
-		case MERenderer::eVERTEX_POSBONEWEIGHT:
-		case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
-		case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
-		case MERenderer::eVERTEX_MAX:
-		default:
-			return false;
+			((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position = temp_vertices[vertexIndices[i]];
+			((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal = temp_normals[normalIndices[i]];
+			((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].texcoord = temp_uvs[uvIndices[i]];
 		}
 
-		_NumVerticies = (unsigned int)temp_vertices.size();
-		_Indicies = new unsigned int[vertexIndices.size()];
-		_NumIndicies = (unsigned int)vertexIndices.size();
-		for (unsigned int i = 0; i < temp_vertices.size(); i++)
-			_Indicies[i] = vertexIndices[i];
-		std::string filepart;
-		filepart.append(finalPath.c_str(), finalPath.length() - 4);
+		_NumVerticies = (unsigned int)vertexIndices.size();
+		_NumIndicies = 0;
+
 		std::ofstream out;
-		out.open(filepart + std::string(".Bobj"));
+		out.open(filepart + std::string(".Bobj"), std::ios_base::binary);
 		if (out.is_open())
 		{
-			out.write((char*)& _NumVerticies, sizeof(unsigned int));
+			out.write((const char*)& _NumVerticies, sizeof(unsigned int));
 			for (unsigned int i = 0; i < _NumVerticies; i++)
-				out.write((char*)&(_Verticies[i]), sizeof(MERenderer::VERTEX_POSNORMTEX));
-			out.write((char*)& _NumIndicies, sizeof(unsigned int));
-			for (unsigned int i = 0; i < _NumIndicies; i++)
-				out.write((char*)(&_Indicies[i]), sizeof(unsigned int));
+			{
+				out.write((const char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
+				out.write((const char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal), sizeof(DirectX::XMFLOAT3));
+				out.write((const char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].texcoord), sizeof(DirectX::XMFLOAT2));
+			}
 			out.close();
 		}
 		else

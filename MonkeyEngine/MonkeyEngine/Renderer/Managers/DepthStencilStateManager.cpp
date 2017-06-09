@@ -69,6 +69,7 @@ namespace MERenderer
 		m_vStencilRefs[DSS_LightOutsideFinal] = 0x2;
 		Renderer::m_d3Device->CreateDepthStencilState(&dssDesc, &m_vDepthStates[DSS_LightInsideFinal].p);
 		m_vStencilRefs[DSS_LightInsideFinal] = 0x1;
+
 	}
 
 	DepthStencilStateManager::DSStates DepthStencilStateManager::GetCurrentState()

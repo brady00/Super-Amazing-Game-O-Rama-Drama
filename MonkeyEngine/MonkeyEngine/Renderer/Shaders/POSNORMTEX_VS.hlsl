@@ -1,5 +1,14 @@
+#pragma pack_matrix(row_major)
 #include "VertexLayouts.hlsli"
-float4 main( VERTEX_POSNORMTEX pos ) : SV_POSITION
+#include "../ShaderBuffers/ConstantBuffers.h"
+
+
+
+TwoDVertexOut main( VERTEX_POSNORMTEX vertIn )
 {
-	return float4(pos.position,1);
+	TwoDVertexOut vertOut;
+	//loat4 temppos = mul(float4(vertIn.position,1), world);
+	vertOut.position = float4(vertIn.position,1);
+	vertOut.texCoord = vertIn.texCoord;
+	return vertOut;
 }

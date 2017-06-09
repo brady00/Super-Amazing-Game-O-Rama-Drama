@@ -877,7 +877,7 @@
     <FxCompile Include="Renderer\Shaders\POSTEX_VS.hlsl">
       <Filter>Renderer\Shaders\VS</Filter>
     </FxCompile>
-    <FxCompile Include="Default_PS.hlsl">
+    <FxCompile Include="Renderer\Shaders\Default_PS.hlsl">
       <Filter>Renderer\Shaders\PS</Filter>
     </FxCompile>
   </ItemGroup>

@@ -102,9 +102,9 @@ namespace MERenderer
 		//shaders
 		Renderer::m_d3DeviceContext->VSSetShader(ShaderManager::GetInstance()->GetVertexShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 		Renderer::m_d3DeviceContext->PSSetShader(ShaderManager::GetInstance()->GetPixelShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
-		Renderer::m_d3DeviceContext->GSSetShader(ShaderManager::GetInstance()->GetGeometryShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
-		Renderer::m_d3DeviceContext->DSSetShader(ShaderManager::GetInstance()->GetDomainShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
-		Renderer::m_d3DeviceContext->HSSetShader(ShaderManager::GetInstance()->GetHullShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
+		//Renderer::m_d3DeviceContext->GSSetShader(ShaderManager::GetInstance()->GetGeometryShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
+		//Renderer::m_d3DeviceContext->DSSetShader(ShaderManager::GetInstance()->GetDomainShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
+		//Renderer::m_d3DeviceContext->HSSetShader(ShaderManager::GetInstance()->GetHullShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 		m_pRenderTextures->Draw();
 	}
 
@@ -122,6 +122,7 @@ namespace MERenderer
 		{
 			if (!MEExporter::FileExporter::LoadFBX(m_sVertexFileName, m_eVertexFormat, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))
 				return false;
+			IndexBuffer::GetInstance()->AddIndicies(m_vIndicies, m_uiNumIndicies);
 		}
 		switch (m_eVertexFormat)
 		{
@@ -152,7 +153,6 @@ namespace MERenderer
 		default:
 			break;
 		}
-		IndexBuffer::GetInstance()->AddIndicies(m_vIndicies, m_uiNumIndicies);
 		return true;
 	}
 

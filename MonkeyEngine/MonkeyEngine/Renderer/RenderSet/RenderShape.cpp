@@ -6,7 +6,7 @@ namespace MERenderer
 {
 	RenderShape::RenderShape() : m_pRenderComponent(nullptr), m_pAnimationComponent(nullptr)
 	{
-		m_XMWorldMatrix = XMFLOAT4X4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+		m_XMWorldMatrix = XMFLOAT4X4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 10, 1);
 	}
 
 
@@ -38,10 +38,13 @@ namespace MERenderer
 	void RenderShape::Draw()
 	{
 		cbPerObject temp = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetBufferValue();
-		temp.World = m_XMWorldMatrix;
+		temp.world = m_XMWorldMatrix;
 		ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&temp, sizeof(temp));
 		//drawindexed
-		Renderer::m_d3DeviceContext->DrawIndexed(2383, 0, 0);
+		if(true)
+			Renderer::m_d3DeviceContext->Draw(13932, 0);
+		else
+			Renderer::m_d3DeviceContext->DrawIndexed(2383, 0, 0);
 	}
 
 	bool RenderShape::Load(MEObject::RenderComponent* _RenderComp, MEObject::AnimationComponent* _AnimationComp)
