@@ -4,6 +4,7 @@
 #include "RenderSet\RenderMesh.h"
 #include "RenderSet\RenderTexture.h"
 #include "Managers\ConstantBufferManager.h"
+#include "DebugCamera\DebugCamera.h"
 
 namespace MERenderer
 {
@@ -98,6 +99,8 @@ namespace MERenderer
 		RenderMesh* tempMesh = m_pRenderContext->AddMesh("Assets/testObj.obj", VertexFormat::eVERTEX_POSNORMTEX);
 		RenderTexture* tempTex = tempMesh->AddTexture("Assets/images.png");
 		tempTex->AddShape(nullptr, nullptr);
+		m_pDebugCamera = new DebugCamera;
+		m_pDebugCamera->Initialize(XMFLOAT4X4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), 0.1f, 999999.9f, 90.0f, (float)_ScreenHeight, (float)_ScreenWidth);
 	}
 
 	MEReturnValues::RETURNVALUE Renderer::Update()
@@ -107,6 +110,7 @@ namespace MERenderer
 		m_d3DeviceContext->OMSetRenderTargets(1, &m_d3RenderTargetView, m_d3DepthStencilView);
 		m_d3DeviceContext->ClearRenderTargetView(m_d3RenderTargetView, color);
 		m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		m_pDebugCamera->Update();
 		m_pNonTranparentObjects->Draw();
 		m_pTransparentObjects->Draw();
 		m_pRenderContext->Draw();

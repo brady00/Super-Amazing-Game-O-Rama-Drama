@@ -7,8 +7,9 @@
 TwoDVertexOut main( VERTEX_POSNORMTEX vertIn )
 {
 	TwoDVertexOut vertOut;
-	//loat4 temppos = mul(float4(vertIn.position,1), world);
-	vertOut.position = float4(vertIn.position,1);
+	float4 temppos = mul(float4(vertIn.position, 1), world);
+	temppos = mul(temppos, InvViewProj);
+	vertOut.position = temppos;
 	vertOut.texCoord = vertIn.texCoord;
 	return vertOut;
 }

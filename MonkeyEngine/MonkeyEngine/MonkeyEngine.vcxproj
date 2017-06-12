@@ -119,6 +119,7 @@
     <ClCompile Include="Libraries\Math\Quaternian.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Renderer\Containers\IndexBuffer.cpp" />
+    <ClCompile Include="Renderer\DebugCamera\DebugCamera.cpp" />
     <ClCompile Include="Renderer\Managers\BlendStateManager.cpp" />
     <ClCompile Include="Renderer\Managers\ConstantBufferManager.cpp" />
     <ClCompile Include="Renderer\Managers\DepthStencilStateManager.cpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="Renderer\Containers\IndexBuffer.h" />
     <ClInclude Include="Renderer\Containers\VertexBuffer.h" />
     <ClInclude Include="Renderer\Containers\VertexBuffer.hpp" />
+    <ClInclude Include="Renderer\DebugCamera\DebugCamera.h" />
     <ClInclude Include="Renderer\Managers\BlendStateManager.h" />
     <ClInclude Include="Renderer\Managers\ConstantBufferManager.h" />
     <ClInclude Include="Renderer\Managers\DepthStencilStateManager.h" />

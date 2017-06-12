@@ -40,7 +40,6 @@ namespace MERenderer
 		Renderer::m_d3DeviceContext->Map(m_D3ConstantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &edit);
 		memcpy(edit.pData, temp, _Size);
 		Renderer::m_d3DeviceContext->Unmap(m_D3ConstantBuffer, 0);
-		Renderer::m_d3DeviceContext->VSSetConstantBuffers(0, 1, &m_D3ConstantBuffer);
 	}
 
 	template <typename BufferType>

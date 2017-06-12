@@ -18,6 +18,7 @@ namespace MERenderer
 	class Object;
 	class Camera;
 	class RenderContext;
+	class DebugCamera;
 	using namespace DirectX;
 	class Renderer
 	{
@@ -29,6 +30,7 @@ namespace MERenderer
 		unsigned int m_uiActiveCamera;
 		//debug Object
 		RenderContext* m_pRenderContext;
+		DebugCamera* m_pDebugCamera;
 	public:
 		Renderer();
 		~Renderer();

@@ -40,6 +40,8 @@ namespace MERenderer
 		cbPerObject temp = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetBufferValue();
 		temp.world = m_XMWorldMatrix;
 		ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&temp, sizeof(temp));
+		ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
+		Renderer::m_d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
 		//drawindexed
 		if(true)
 			Renderer::m_d3DeviceContext->Draw(13932, 0);

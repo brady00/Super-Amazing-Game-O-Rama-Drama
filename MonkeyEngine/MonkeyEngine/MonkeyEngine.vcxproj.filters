@@ -100,6 +100,9 @@
     <Filter Include="Renderer\TextureLoaders\Helpers">
       <UniqueIdentifier>{2fbe467a-7916-48e9-9c37-a95ea0a2c6b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\DebugCamera">
+      <UniqueIdentifier>{97631e65-e7b0-4874-bf3e-294aef2e7114}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -455,6 +458,9 @@
     </ClCompile>
     <ClCompile Include="Components\Misc\RigidBody2D.cpp">
       <Filter>Components\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\DebugCamera\DebugCamera.cpp">
+      <Filter>Renderer\DebugCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -850,6 +856,9 @@
     </ClInclude>
     <ClInclude Include="Components\Misc\RigidBody2D.h">
       <Filter>Components\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\DebugCamera\DebugCamera.h">
+      <Filter>Renderer\DebugCamera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
