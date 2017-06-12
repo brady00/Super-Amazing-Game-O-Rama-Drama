@@ -95,6 +95,7 @@ namespace MERenderer
 		m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
 
 		//test code
+		m_pNonTranparentObjects->AddNode(m_pRenderContext);
 		m_pRenderContext->Load(VertexFormat::eVERTEX_POSNORMTEX, BlendStateManager::BS_Alpha, RasterizerStateManager::RS_NOCULL, DepthStencilStateManager::DSS_Default);
 		RenderMesh* tempMesh = m_pRenderContext->AddMesh("Assets/testObj.obj", VertexFormat::eVERTEX_POSNORMTEX);
 		RenderTexture* tempTex = tempMesh->AddTexture("Assets/images.png");
@@ -113,14 +114,12 @@ namespace MERenderer
 		m_pDebugCamera->Update();
 		m_pNonTranparentObjects->Draw();
 		m_pTransparentObjects->Draw();
-		m_pRenderContext->Draw();
 		m_d3SwapChain->Present(0, 0);
 		return MEReturnValues::RENDERRETURN;
 	}
 
 	void Renderer::Shutdown()
 	{
-		delete m_pRenderContext;
 		delete m_pNonTranparentObjects;
 		delete m_pTransparentObjects;
 		ReleaseCOM(m_d3Device);

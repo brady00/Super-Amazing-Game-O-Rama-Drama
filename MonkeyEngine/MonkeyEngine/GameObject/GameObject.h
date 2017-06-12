@@ -5,6 +5,7 @@ class Scene;
 namespace MEObject
 {
 	class Transform;
+	class Component;
 	class GameObject : public Object
 	{
 	public:
@@ -114,8 +115,8 @@ namespace MEObject
 		unsigned int m_uiLayer;
 		Scene* m_pScene;
 		std::vector<std::string> m_vTags;
-		Object* m_pTransform;
-		std::vector<Object*> m_vComponents[eNumComponents];
+		Transform* m_pTransform;
+		std::vector<Component*> m_vComponents[eNumComponents];
 	public:
 		GameObject();
 		~GameObject();

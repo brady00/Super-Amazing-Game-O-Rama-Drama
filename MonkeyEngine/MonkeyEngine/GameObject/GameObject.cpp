@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "../Components/Renderer/CompRenderer.h"
+#include "../Components/Transform/Transform.h"
 
 namespace MEObject
 {
@@ -39,9 +40,11 @@ namespace MEObject
 
 	void GameObject::SetActiveInHeirarchy()
 	{
-		//if parent
-		//getParentActive
-		//ActiveinHeirarchy = ParentActive && Active
+		bool active = false;
+		if (m_pTransform->GetParent())
+			m_bActiveInHeirarchy = m_pTransform->GetParent()->GetGameObject()->GetActive() && m_bActiveSelf;
+		else
+			m_bActiveInHeirarchy = m_bActiveSelf;
 	}
 
 	void GameObject::SetActive(bool _Active)
@@ -97,12 +100,12 @@ namespace MEObject
 
 	void GameObject::SetTrasform(Transform* _Transform)
 	{
-		m_pTransform = (Object*)_Transform;
+		m_pTransform = _Transform;
 	}
 
 	Transform* GameObject::GetTransform()
 	{
-		return (Transform*)m_pTransform;
+		return m_pTransform;
 	}
 
 	template <>
@@ -140,19 +143,25 @@ namespace MEObject
 	template <>
 	CompRenderer* GameObject::GetComponent()
 	{
-		return (CompRenderer*)m_vComponents[eCompRenderer][0];
+		if(m_vComponents[eCompRenderer].size() != 0)
+			return (CompRenderer*)m_vComponents[eCompRenderer][0];
+		return nullptr;
 	}
 
 	template <typename CompType>
 	CompType* GameObject::GetComponentinCildren()
 	{
-
+		if (m_pTransform->GetChild())
+			return m_pTransform->GetChild()->GetGameObject()->GetComponent<CompType>();
+		return nullptr;
 	}
 
 	template <typename CompType>
 	CompType* GameObject::GetComponentinParent()
 	{
-
+		if (m_pTransform->GetParent())
+			return m_pTransform->GetParent()->GetGameObject()->GetComponent<CompType>();
+		return nullptr;
 	}
 
 	template <>
@@ -168,12 +177,16 @@ namespace MEObject
 	template <typename CompType>
 	std::vector<CompType*> GameObject::GetComponentsinCildren()
 	{
-
+		if (m_pTransform->GetChild())
+			return m_pTransform->GetChild()->GetGameObject()->GetComponents();
+		return std::vector<CompType*>();
 	}
 
 	template <typename CompType>
 	std::vector<CompType*> GameObject::GetComponentsinParent()
 	{
-
+		if (m_pTransform->GetParent())
+			m_pTransform->GetParent()->GetGameObject()->GetComponents();
+		return std::vector<CompType*>();
 	}
 }

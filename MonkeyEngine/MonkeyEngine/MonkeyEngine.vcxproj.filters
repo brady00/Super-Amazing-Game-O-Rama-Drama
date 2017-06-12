@@ -180,9 +180,6 @@
     <ClCompile Include="Renderer\Managers\RasterizerStateManager.cpp">
       <Filter>Renderer\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\FileExporter.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Components\Behaviour\Animation.cpp">
       <Filter>Components\Behaviour</Filter>
     </ClCompile>
@@ -462,6 +459,9 @@
     <ClCompile Include="Renderer\DebugCamera\DebugCamera.cpp">
       <Filter>Renderer\DebugCamera</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\FileIO.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine Base\Game Engine\MountainDew.h">
@@ -550,9 +550,6 @@
     </ClInclude>
     <ClInclude Include="Renderer\Containers\VertexBuffer.hpp">
       <Filter>Renderer\Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\FileExporter.h">
-      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\ReturnValues.h">
       <Filter>Utils</Filter>
@@ -859,6 +856,9 @@
     </ClInclude>
     <ClInclude Include="Renderer\DebugCamera\DebugCamera.h">
       <Filter>Renderer\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\FileIO.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

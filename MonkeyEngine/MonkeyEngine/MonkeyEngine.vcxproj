@@ -137,7 +137,7 @@
     <ClCompile Include="Renderer\TextureLoaders\DDSTextureLoader.cpp" />
     <ClCompile Include="Renderer\TextureLoaders\pch.cpp" />
     <ClCompile Include="Renderer\TextureLoaders\WICTextureLoader.cpp" />
-    <ClCompile Include="Utils\FileExporter.cpp" />
+    <ClCompile Include="Utils\FileIO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Base\Component.h" />
@@ -270,7 +270,7 @@
     <ClInclude Include="Renderer\TextureLoaders\pch.h" />
     <ClInclude Include="Renderer\TextureLoaders\PlatformHelpers.h" />
     <ClInclude Include="Renderer\TextureLoaders\WICTextureLoader.h" />
-    <ClInclude Include="Utils\FileExporter.h" />
+    <ClInclude Include="Utils\FileIO.h" />
     <ClInclude Include="Utils\ReturnValues.h" />
   </ItemGroup>
   <ItemGroup>

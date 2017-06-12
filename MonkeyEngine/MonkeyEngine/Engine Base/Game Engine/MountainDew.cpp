@@ -66,6 +66,8 @@ void MountainDew::Initialize(HINSTANCE hInstance, int nCmdShow)
 
 void MountainDew::Update()
 {
+	if (GetAsyncKeyState(VK_ESCAPE))
+		PostQuitMessage(0);
 	m_pRenderer->Update();
 }
 

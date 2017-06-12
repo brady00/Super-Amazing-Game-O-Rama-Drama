@@ -1,11 +1,13 @@
 #pragma once
 #include "../../Object/Object.h"
 #include "../../GameObject/GameObject.h"
+
 namespace MEObject
 {
 	class Transform;
 	class Component : public Object
 	{
+		friend class GameObject;
 	private:
 		GameObject* m_pGameObject;
 	public:
@@ -17,6 +19,7 @@ namespace MEObject
 		void SendMessage(std::string _Message);
 		void SendMessageUpwards(std::string _Message);
 		bool CompareTag(std::string _Tag);
+		GameObject* GetGameObject();
 		template <typename CompType>
 		CompType* GetComponent();
 		template <typename CompType>
@@ -29,10 +32,10 @@ namespace MEObject
 		std::vector<CompType*> GetComponentsinCildren();
 		template <typename CompType>
 		std::vector<CompType*> GetComponentsinParent();
-	protected:
-		void Initialize() {};
-		MEReturnValues::RETURNVALUE Update() { return MEReturnValues::NOTHING; };
-		void ShutDown() {};
+	private:
+		virtual void Initialize() {};
+		virtual MEReturnValues::RETURNVALUE Update() { return MEReturnValues::NOTHING; };
+		virtual void ShutDown() {};
 	};
 }
 

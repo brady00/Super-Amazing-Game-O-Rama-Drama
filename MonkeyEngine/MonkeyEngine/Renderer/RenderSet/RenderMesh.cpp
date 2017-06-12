@@ -1,7 +1,7 @@
 #include "RenderMesh.h"
 #include "RenderTexture.h"
 #include "../Managers/InputLayoutManager.h"
-#include "../../Utils/FileExporter.h"
+#include "../../Utils/FileIO.h"
 #include "../Containers/IndexBuffer.h"
 #include "../Managers/ShaderManager.h"
 namespace MERenderer
@@ -115,12 +115,12 @@ namespace MERenderer
 		std::string tempfilename(&m_sVertexFileName[m_sVertexFileName.length() - 4]);
 		if (tempfilename == ".obj" || tempfilename == ".OBJ")
 		{
-			if (!MEExporter::FileExporter::LoadOBJ(m_sVertexFileName, m_eVertexFormat, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))
+			if (!MEExporter::FileIO::LoadOBJ(m_sVertexFileName, m_eVertexFormat, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))
 				return false;
 		}
 		else if (tempfilename == ".fbx" || tempfilename == ".FBX")
 		{
-			if (!MEExporter::FileExporter::LoadFBX(m_sVertexFileName, m_eVertexFormat, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))
+			if (!MEExporter::FileIO::LoadFBX(m_sVertexFileName, m_eVertexFormat, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))
 				return false;
 			IndexBuffer::GetInstance()->AddIndicies(m_vIndicies, m_uiNumIndicies);
 		}

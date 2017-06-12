@@ -1,25 +1,25 @@
-#include "FileExporter.h"
+#include "FileIO.h"
 #include <fstream>
 using namespace DirectX;
 namespace MEExporter
 {
 
-	FileExporter::FileExporter()
+	FileIO::FileIO()
 	{
 
 	}
 
-	FileExporter::~FileExporter()
+	FileIO::~FileIO()
 	{
 
 	}
 
-	bool FileExporter::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
+	bool FileIO::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
 	{
 		return true;
 	}
 
-	bool FileExporter::LoadOBJ(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
+	bool FileIO::LoadOBJ(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
 	{
 		std::string filepart;
 		std::ifstream FileIn;

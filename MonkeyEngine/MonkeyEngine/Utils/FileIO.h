@@ -4,13 +4,13 @@
 #include <vector>
 namespace MEExporter
 {
-	class FileExporter
+	class FileIO
 	{
 	private:
 
 	public:
-		FileExporter();
-		~FileExporter();
+		FileIO();
+		~FileIO();
 		static bool LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies);
 		static bool LoadOBJ(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies);
 	};
