@@ -1,7 +1,8 @@
 #pragma once
 #include <Windows.h>
 #include "../../Renderer/Renderer.h"
-
+#include <thread>
+class Scene;
 class MountainDew
 {
 private:
@@ -13,6 +14,9 @@ private:
 	LONG m_uiScreenHeight = 1080;
 	LONG m_uiScreenWidth = 1920;
 	MERenderer::Renderer* m_pRenderer = nullptr;
+	Scene* m_pScene;
+	std::thread m_tGameThread;
+	bool m_bShuttingDown = false;
 	MountainDew() {};
 	MountainDew(const MountainDew&) {};
 	MountainDew(const MountainDew&&) {};
@@ -25,5 +29,6 @@ public:
 	void Update();
 	void Shutdown();
 	~MountainDew() {};
+	void UpdateGame();
 };
 

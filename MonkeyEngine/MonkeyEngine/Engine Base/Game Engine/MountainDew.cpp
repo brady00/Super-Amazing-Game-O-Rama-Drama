@@ -1,4 +1,5 @@
 #include "MountainDew.h"
+#include "../Scene/Scene.h"
 
 MountainDew* MountainDew::m_pGamePtr = nullptr;
 
@@ -32,6 +33,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
+}
+
+void MountainDew::UpdateGame()
+{
+	while (!m_bShuttingDown)
+	{
+		m_pScene->Update();
+	}
 }
 
 void MountainDew::Initialize(HINSTANCE hInstance, int nCmdShow)
