@@ -42,9 +42,11 @@ namespace MERenderer
 		static ID3D11Device* m_d3Device;
 		static ID3D11DeviceContext* m_d3DeviceContext;
 		static IDXGISwapChain* m_d3SwapChain;
-		static ID3D11RenderTargetView* m_d3RenderTargetView;
+		static ID3D11RenderTargetView* m_d3BackBufferTargetView;
 		static ID3D11Texture2D* m_d3DepthBuffer;
-		static ID3D11Texture2D* m_d3RenderTarget;
+		static ID3D11Texture2D* m_d3GbufferTarget[2];
+		static ID3D11RenderTargetView* m_d3GBufferTargetView[2];
+		static ID3D11ShaderResourceView* m_d3GBufferShaderView[2];
 		static ID3D11DepthStencilView* m_d3DepthStencilView;
 		static D3D11_VIEWPORT m_d3ViewPort;
 		static IDXGIOutput* m_d3Output;
@@ -53,6 +55,7 @@ namespace MERenderer
 		static UINT m_uiScreenXPositionOffset;
 		static UINT m_uiScreenYPositionOffset;
 		static bool m_bFullScreen;
+		const unsigned int m_uiBufferCount = 2;
 	};
 }
 
