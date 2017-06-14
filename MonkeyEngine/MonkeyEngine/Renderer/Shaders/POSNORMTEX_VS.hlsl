@@ -11,6 +11,6 @@ GBufferVertexOut main( VERTEX_POSNORMTEX vertIn )
 	temppos = mul(temppos, InvViewProj);
 	vertOut.position = temppos;
 	vertOut.texCoord = vertIn.texCoord;
-	vertOut.normal = vertIn.normal;
+	vertOut.normal = normalize(mul(vertIn.normal, (float3x3)world));
 	return vertOut;
 }

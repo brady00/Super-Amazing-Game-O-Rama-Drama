@@ -96,7 +96,7 @@ namespace MERenderer
 
 		//test code
 		m_pNonTranparentObjects->AddNode(m_pRenderContext);
-		m_pRenderContext->Load(VertexFormat::eVERTEX_POSNORMTEX, BlendStateManager::BS_Alpha, RasterizerStateManager::RS_NOCULL, DepthStencilStateManager::DSS_Default);
+		m_pRenderContext->Load(VertexFormat::eVERTEX_POSNORMTEX, BlendStateManager::BS_Default, RasterizerStateManager::RS_Default, DepthStencilStateManager::DSS_Default);
 		RenderMesh* tempMesh = m_pRenderContext->AddMesh("Assets/testObj.obj", VertexFormat::eVERTEX_POSNORMTEX);
 		RenderTexture* tempTex = tempMesh->AddTexture("Assets/images.png");
 		tempTex->AddShape(nullptr, nullptr);
