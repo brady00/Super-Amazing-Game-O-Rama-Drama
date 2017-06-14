@@ -5,6 +5,7 @@
 #include "RenderSet\RenderTexture.h"
 #include "Managers\ConstantBufferManager.h"
 #include "DebugCamera\DebugCamera.h"
+#include "Containers\DefferedRenderTarget.h"
 
 namespace MERenderer
 {
@@ -12,9 +13,6 @@ namespace MERenderer
 	ID3D11DeviceContext* Renderer::m_d3DeviceContext = nullptr;
 	IDXGISwapChain*	Renderer::m_d3SwapChain = nullptr;
 	ID3D11RenderTargetView* Renderer::m_d3BackBufferTargetView = nullptr;
-	ID3D11Texture2D* Renderer::m_d3GbufferTarget[2] = { nullptr, nullptr };
-	ID3D11ShaderResourceView* Renderer::m_d3GBufferShaderView[2] = { nullptr, nullptr };
-	ID3D11RenderTargetView* Renderer::m_d3GBufferTargetView[2] = { nullptr, nullptr };
 	ID3D11Texture2D* Renderer::m_d3DepthBuffer = nullptr;
 	ID3D11DepthStencilView* Renderer::m_d3DepthStencilView = nullptr;
 	D3D11_VIEWPORT	Renderer::m_d3ViewPort;
@@ -96,32 +94,6 @@ namespace MERenderer
 		depthViewDesc.Texture2D.MipSlice = 0;
 		m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
 
-		D3D11_TEXTURE2D_DESC textureDesc;
-		textureDesc.Width = _ScreenHeight;
-		textureDesc.Height = _ScreenWidth;
-		textureDesc.MipLevels = 1;
-		textureDesc.ArraySize = 1;
-		textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-		textureDesc.SampleDesc.Count = 1;
-		textureDesc.Usage = D3D11_USAGE_DEFAULT;
-		textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-		textureDesc.CPUAccessFlags = 0;
-		textureDesc.MiscFlags = 0;
-		for (unsigned int i = 0; i < m_uiBufferCount; i++)
-			m_d3Device->CreateTexture2D(&textureDesc, NULL, &m_d3GbufferTarget[i]);
-		D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
-		renderTargetViewDesc.Format = textureDesc.Format;
-		renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-		renderTargetViewDesc.Texture2D.MipSlice = 0;
-		for (unsigned int i = 0; i < m_uiBufferCount; i++)
-			m_d3Device->CreateRenderTargetView(m_d3GbufferTarget[i], &renderTargetViewDesc, &m_d3GBufferTargetView[i]);
-		D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
-		shaderResourceViewDesc.Format = textureDesc.Format;
-		shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-		shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
-		shaderResourceViewDesc.Texture2D.MipLevels = 1;
-		for (unsigned int i = 0; i < m_uiBufferCount; i++)
-			m_d3Device->CreateShaderResourceView(m_d3GbufferTarget[i], &shaderResourceViewDesc, &m_d3GBufferShaderView[i]);
 		//test code
 		m_pNonTranparentObjects->AddNode(m_pRenderContext);
 		m_pRenderContext->Load(VertexFormat::eVERTEX_POSNORMTEX, BlendStateManager::BS_Alpha, RasterizerStateManager::RS_NOCULL, DepthStencilStateManager::DSS_Default);
@@ -130,21 +102,27 @@ namespace MERenderer
 		tempTex->AddShape(nullptr, nullptr);
 		m_pDebugCamera = new DebugCamera;
 		m_pDebugCamera->Initialize(XMFLOAT4X4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), 0.1f, 999999.9f, 90.0f, (float)_ScreenHeight, (float)_ScreenWidth);
+		m_pDeferredRenderTarget = new DefferedRenderTarget;
+		m_pDeferredRenderTarget->Initialize(m_d3Device, _ScreenHeight, _ScreenWidth);
 	}
 
 	MEReturnValues::RETURNVALUE Renderer::Update()
 	{
-		float color[] = { 0,0,1,1 };
 		m_d3DeviceContext->RSSetViewports(1, &m_d3ViewPort);
-		m_d3DeviceContext->OMSetRenderTargets(m_uiBufferCount, m_d3GBufferTargetView, m_d3DepthStencilView);
-		for(unsigned int i = 0; i < m_uiBufferCount; i++)
-			m_d3DeviceContext->ClearRenderTargetView(m_d3GBufferTargetView[i], color);
 		m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
 		m_pDebugCamera->Update();
 		m_pNonTranparentObjects->Draw();
 		m_pTransparentObjects->Draw();
 		//draw lights
+		//set backbuffer
+		float color[] = { 0,0,1,1 };
+		m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		m_d3DeviceContext->OMSetRenderTargets(1, &m_d3BackBufferTargetView, m_d3DepthStencilView);
+		m_d3DeviceContext->ClearRenderTargetView(m_d3BackBufferTargetView, color);
+
 		//draw quad
+		m_pDeferredRenderTarget->Update(m_d3DeviceContext);
 		m_d3SwapChain->Present(0, 0);
 		return MEReturnValues::RENDERRETURN;
 	}
@@ -153,14 +131,10 @@ namespace MERenderer
 	{
 		delete m_pNonTranparentObjects;
 		delete m_pTransparentObjects;
+		m_pDeferredRenderTarget->Shutdown();
+		delete m_pDeferredRenderTarget;
 		ReleaseCOM(m_d3Device);
 		ReleaseCOM(m_d3DeviceContext);
-		for (unsigned int i = 0; i < m_uiBufferCount; i++)
-			ReleaseCOM(m_d3GBufferTargetView[i]);
-		for (unsigned int i = 0; i < m_uiBufferCount; i++)
-			ReleaseCOM(m_d3GBufferShaderView[i]);
-		for (unsigned int i = 0; i < m_uiBufferCount; i++)
-			ReleaseCOM(m_d3GbufferTarget[i]);
 		ReleaseCOM(m_d3SwapChain);
 		ReleaseCOM(m_d3DepthBuffer);
 		ReleaseCOM(m_d3BackBufferTargetView);

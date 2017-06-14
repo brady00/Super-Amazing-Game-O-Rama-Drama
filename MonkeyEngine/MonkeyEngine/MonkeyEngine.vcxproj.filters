@@ -462,6 +462,9 @@
     <ClCompile Include="Utils\FileIO.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Containers\DefferedRenderTarget.cpp">
+      <Filter>Renderer\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine Base\Game Engine\MountainDew.h">
@@ -860,6 +863,9 @@
     <ClInclude Include="Utils\FileIO.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\Containers\DefferedRenderTarget.h">
+      <Filter>Renderer\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Renderer\Shaders\POS_VS.hlsl">
@@ -887,6 +893,9 @@
       <Filter>Renderer\Shaders\VS</Filter>
     </FxCompile>
     <FxCompile Include="Renderer\Shaders\Default_PS.hlsl">
+      <Filter>Renderer\Shaders\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="Renderer\Shaders\GBuffer_PS.hlsl">
       <Filter>Renderer\Shaders\PS</Filter>
     </FxCompile>
   </ItemGroup>

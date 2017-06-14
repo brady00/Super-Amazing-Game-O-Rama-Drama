@@ -4,7 +4,10 @@
 Texture2D ShaderTexture;
 SamplerState Sampler;
 
-float4 main(TwoDVertexOut vertIn) : SV_TARGET
+ForwardFragOut main(GBufferVertexOut vertIn)
 {
-	return ShaderTexture.Sample(Sampler, vertIn.texCoord);
+	ForwardFragOut output = (ForwardFragOut)0;
+	output.diffuse = ShaderTexture.Sample(Sampler, vertIn.texCoord);
+	output.normal = float4(vertIn.normal,1);
+	return output;
 }

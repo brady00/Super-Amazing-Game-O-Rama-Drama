@@ -19,6 +19,7 @@ namespace MERenderer
 	class Camera;
 	class RenderContext;
 	class DebugCamera;
+	class DefferedRenderTarget;
 	using namespace DirectX;
 	class Renderer
 	{
@@ -31,6 +32,7 @@ namespace MERenderer
 		//debug Object
 		RenderContext* m_pRenderContext;
 		DebugCamera* m_pDebugCamera;
+		DefferedRenderTarget* m_pDeferredRenderTarget;
 	public:
 		Renderer();
 		~Renderer();
@@ -44,9 +46,6 @@ namespace MERenderer
 		static IDXGISwapChain* m_d3SwapChain;
 		static ID3D11RenderTargetView* m_d3BackBufferTargetView;
 		static ID3D11Texture2D* m_d3DepthBuffer;
-		static ID3D11Texture2D* m_d3GbufferTarget[2];
-		static ID3D11RenderTargetView* m_d3GBufferTargetView[2];
-		static ID3D11ShaderResourceView* m_d3GBufferShaderView[2];
 		static ID3D11DepthStencilView* m_d3DepthStencilView;
 		static D3D11_VIEWPORT m_d3ViewPort;
 		static IDXGIOutput* m_d3Output;
@@ -55,7 +54,7 @@ namespace MERenderer
 		static UINT m_uiScreenXPositionOffset;
 		static UINT m_uiScreenYPositionOffset;
 		static bool m_bFullScreen;
-		const unsigned int m_uiBufferCount = 2;
+
 	};
 }
 

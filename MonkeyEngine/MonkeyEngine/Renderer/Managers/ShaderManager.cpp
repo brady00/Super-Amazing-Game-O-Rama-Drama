@@ -104,7 +104,7 @@ namespace MERenderer
 		}
 #pragma endregion
 #pragma region PixelShaders
-		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/Default_PS.cso"))
+		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POS_PS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POS]);
 			delete[] byteCode;
@@ -114,12 +114,12 @@ namespace MERenderer
 			HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSCOLOR]);
 			delete[] byteCode;
 		}
-		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSTEX_PS.cso"))
+		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/GBuffer_PS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSTEX]);
 			delete[] byteCode;
 		}
-		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSNORMTEX_PS.cso"))
+		if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/Default_PS.cso"))
 		{
 			HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSNORMTEX]);
 			delete[] byteCode;
@@ -281,7 +281,7 @@ namespace MERenderer
 
 	ID3D11PixelShader* ShaderManager::GetPixelShader(ShaderType _Type)
 	{
-		return m_d3PixelShaders[eShader_POS];
+		return m_d3PixelShaders[_Type];
 	}
 
 	ID3D11GeometryShader* ShaderManager::GetGeometryShader(ShaderType _Type)

@@ -88,4 +88,9 @@ namespace MERenderer
 		Renderer::m_d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
 		m_pPrevMousePos = curPos;
 	}
+
+	XMFLOAT4X4 DebugCamera::GetViewMatrix()
+	{
+		return m_xmViewMatrix;
+	}
 }

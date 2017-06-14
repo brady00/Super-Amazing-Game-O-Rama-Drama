@@ -15,6 +15,7 @@ namespace MERenderer
 		~DebugCamera();
 		void Initialize(XMFLOAT4X4 _WorldMatrix, float _NearPlane, float _FarPlane, float _FOV, float _WindowHeight, float _WindowWidth);
 		void Update();
+		XMFLOAT4X4 GetViewMatrix();
 	};
 }
 

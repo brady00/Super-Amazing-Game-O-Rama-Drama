@@ -110,7 +110,7 @@ struct VertexWithPositionOut
 struct GBufferVertexOut
 {
 	float4 position			: SV_POSITION;
-	float3 normalW			: NORMAL0;
+	float3 normal			: NORMAL0;
 	float2 texCoord			: TEXCOORD0;
 	float2 depthDiv			: TEXCOORD1;
 };
@@ -258,6 +258,6 @@ struct ForwardFragOut
 {
 	float4 diffuse : SV_TARGET0;
 	float4 normal : SV_TARGET1;
-	float4 depth : SV_TARGET2;
+	//float4 depth : SV_TARGET2;
 };
 #endif 
