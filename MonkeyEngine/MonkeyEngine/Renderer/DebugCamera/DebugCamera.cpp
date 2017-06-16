@@ -1,6 +1,6 @@
 #include "DebugCamera.h"
 #include "../Managers/ConstantBufferManager.h"
-
+#include "../../Utils/Time.h"
 
 namespace MERenderer
 {
@@ -27,11 +27,11 @@ namespace MERenderer
 		GetCursorPos(&curPos);
 		if (m_pPrevMousePos.x != curPos.x || m_pPrevMousePos.y != curPos.y)
 		{
-			XMMATRIX temp = XMMatrixRotationRollPitchYaw(XMConvertToRadians((float)(curPos.y - m_pPrevMousePos.y)), 0, 0);
+			XMMATRIX temp = XMMatrixRotationRollPitchYaw(XMConvertToRadians(((float)(curPos.y - m_pPrevMousePos.y)) * Time::DeltaTime * 2.5f), 0, 0);
 			temp = XMMatrixMultiply(temp, XMLoadFloat4x4(&m_xmViewMatrix));
 			XMStoreFloat4x4(&m_xmViewMatrix, temp);
 		
-			temp = XMMatrixRotationRollPitchYaw(0, XMConvertToRadians((float)(curPos.x - m_pPrevMousePos.x)), 0);
+			temp = XMMatrixRotationRollPitchYaw(0, XMConvertToRadians(((float)(curPos.x - m_pPrevMousePos.x))) * Time::DeltaTime * 2.5f, 0);
 			XMFLOAT4X4 tempView = m_xmViewMatrix;
 			tempView._41 = 0;
 			tempView._42 = 0;
@@ -46,37 +46,37 @@ namespace MERenderer
 		}
 		if (GetAsyncKeyState('W'))
 		{
-			XMMATRIX temp = XMMatrixTranslation(0, 0,/*delta time*/ 0.05f);
+			XMMATRIX temp = XMMatrixTranslation(0, 0, Time::DeltaTime);
 			temp = XMMatrixMultiply(temp, XMLoadFloat4x4(&m_xmViewMatrix));
 			XMStoreFloat4x4(&m_xmViewMatrix, temp);
 		}
 		if (GetAsyncKeyState('A'))
 		{
-			XMMATRIX temp = XMMatrixTranslation(/*delta time*/ -0.05f, 0, 0);
+			XMMATRIX temp = XMMatrixTranslation(-Time::DeltaTime, 0, 0);
 			temp = XMMatrixMultiply(temp, XMLoadFloat4x4(&m_xmViewMatrix));
 			XMStoreFloat4x4(&m_xmViewMatrix, temp);
 		}
 		if (GetAsyncKeyState('S'))
 		{
-			XMMATRIX temp = XMMatrixTranslation(0, 0,/*delta time*/ -0.05f);
+			XMMATRIX temp = XMMatrixTranslation(0, 0,-Time::DeltaTime);
 			temp = XMMatrixMultiply(temp, XMLoadFloat4x4(&m_xmViewMatrix));
 			XMStoreFloat4x4(&m_xmViewMatrix, temp);
 		}
 		if (GetAsyncKeyState('D'))
 		{
-			XMMATRIX temp = XMMatrixTranslation(/*delta time*/ 0.05f, 0, 0);
+			XMMATRIX temp = XMMatrixTranslation(Time::DeltaTime, 0, 0);
 			temp = XMMatrixMultiply(temp, XMLoadFloat4x4(&m_xmViewMatrix));
 			XMStoreFloat4x4(&m_xmViewMatrix, temp);
 		}
 		if (GetAsyncKeyState('R'))
 		{
-			XMMATRIX temp = XMMatrixTranslation(0, /*delta time*/ 0.05f, 0);
+			XMMATRIX temp = XMMatrixTranslation(0, Time::DeltaTime, 0);
 			temp = XMMatrixMultiply(temp, XMLoadFloat4x4(&m_xmViewMatrix));
 			XMStoreFloat4x4(&m_xmViewMatrix, temp);
 		}
 		if (GetAsyncKeyState('F'))
 		{
-			XMMATRIX temp = XMMatrixTranslation(0, /*delta time*/ -0.05f, 0);
+			XMMATRIX temp = XMMatrixTranslation(0, -Time::DeltaTime, 0);
 			temp = XMMatrixMultiply(temp, XMLoadFloat4x4(&m_xmViewMatrix));
 			XMStoreFloat4x4(&m_xmViewMatrix, temp);
 		}

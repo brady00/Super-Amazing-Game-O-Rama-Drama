@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "../Components/Renderer/CompRenderer.h"
 #include "../Components/Transform/Transform.h"
+#include "../Utils/ComponentObjectFactory.h"
 
 namespace MEObject
 {
@@ -109,10 +110,9 @@ namespace MEObject
 	}
 
 	template <>
-	void GameObject::AddComponent<CompRenderer>()
+	void GameObject::AddComponent<CompRenderer>(CompRenderer* _Component)
 	{
-		CompRenderer* newComp = new CompRenderer;
-		m_vComponents[eCompRenderer].push_back(newComp);
+		m_vComponents[eCompRenderer].push_back(_Component);
 	}
 
 	void GameObject::BroadcastMessage(std::string _Message)
@@ -120,7 +120,7 @@ namespace MEObject
 
 	}
 
-	void GameObject::SendMessage(std::string _Message)
+	void GameObject::SendMessageString(std::string _Message)
 	{
 
 	}

@@ -30,7 +30,7 @@ namespace MEObject
 
 	}
 
-	void Component::SendMessage(std::string _Message)
+	void Component::SendMessageString(std::string _Message)
 	{
 
 	}

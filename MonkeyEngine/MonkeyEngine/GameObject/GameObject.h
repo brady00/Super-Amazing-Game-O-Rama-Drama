@@ -133,9 +133,9 @@ namespace MEObject
 		void SetTrasform(Transform* _Transform);
 		Transform* GetTransform();
 		template <typename CompType>
-		void AddComponent();
+		void AddComponent(CompType* _Component);
 		void BroadcastMessage(std::string _Message);
-		void SendMessage(std::string _Message);
+		void SendMessageString(std::string _Message);
 		void SendMessageUpwards(std::string _Message);
 		bool CompareTag(std::string _Tag);
 		template <typename CompType>

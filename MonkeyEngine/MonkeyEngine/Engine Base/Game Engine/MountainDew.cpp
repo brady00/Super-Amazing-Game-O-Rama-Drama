@@ -1,5 +1,6 @@
 #include "MountainDew.h"
 #include "../Scene/Scene.h"
+#include "../../Utils/Time.h"
 
 MountainDew* MountainDew::m_pGamePtr = nullptr;
 
@@ -71,12 +72,14 @@ void MountainDew::Initialize(HINSTANCE hInstance, int nCmdShow)
 	UpdateWindow(m_HWnd);
 	m_pRenderer = new MERenderer::Renderer;
 	m_pRenderer->Initialize(m_HWnd, m_uiScreenWidth, m_uiScreenHeight);
+	Time::Initialize();
 }
 
 void MountainDew::Update()
 {
 	if (GetAsyncKeyState(VK_ESCAPE))
 		PostQuitMessage(0);
+	Time::Update();
 	m_pRenderer->Update();
 }
 

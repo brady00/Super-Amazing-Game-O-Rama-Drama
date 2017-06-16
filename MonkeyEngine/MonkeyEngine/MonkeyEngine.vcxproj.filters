@@ -465,6 +465,10 @@
     <ClCompile Include="Renderer\Containers\DefferedRenderTarget.cpp">
       <Filter>Renderer\Containers</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\ComponentObjectFactory.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine Base\Game Engine\MountainDew.h">
@@ -866,6 +870,10 @@
     <ClInclude Include="Renderer\Containers\DefferedRenderTarget.h">
       <Filter>Renderer\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\ComponentObjectFactory.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Time.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Renderer\Shaders\POS_VS.hlsl">

@@ -13,7 +13,6 @@ Scene::~Scene()
 
 void Scene::initialize()
 {
-
 }
 
 MEReturnValues::RETURNVALUE Scene::Update()

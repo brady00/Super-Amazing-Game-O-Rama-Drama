@@ -11,4 +11,9 @@ namespace MEObject
 	{
 
 	}
+
+	void CompRenderer::Initialize()
+	{
+
+	}
 }

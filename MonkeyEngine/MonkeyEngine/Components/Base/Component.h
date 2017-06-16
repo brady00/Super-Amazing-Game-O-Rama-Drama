@@ -16,7 +16,7 @@ namespace MEObject
 		Transform* GetTransform();
 		std::vector<std::string>& GetTags();
 		void BroadcastMessage(std::string _Message);
-		void SendMessage(std::string _Message);
+		void SendMessageString(std::string _Message);
 		void SendMessageUpwards(std::string _Message);
 		bool CompareTag(std::string _Tag);
 		GameObject* GetGameObject();

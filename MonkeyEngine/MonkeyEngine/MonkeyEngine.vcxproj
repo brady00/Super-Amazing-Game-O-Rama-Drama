@@ -138,7 +138,9 @@
     <ClCompile Include="Renderer\TextureLoaders\DDSTextureLoader.cpp" />
     <ClCompile Include="Renderer\TextureLoaders\pch.cpp" />
     <ClCompile Include="Renderer\TextureLoaders\WICTextureLoader.cpp" />
+    <ClCompile Include="Utils\ComponentObjectFactory.cpp" />
     <ClCompile Include="Utils\FileIO.cpp" />
+    <ClCompile Include="Utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Base\Component.h" />
@@ -272,8 +274,10 @@
     <ClInclude Include="Renderer\TextureLoaders\pch.h" />
     <ClInclude Include="Renderer\TextureLoaders\PlatformHelpers.h" />
     <ClInclude Include="Renderer\TextureLoaders\WICTextureLoader.h" />
+    <ClInclude Include="Utils\ComponentObjectFactory.h" />
     <ClInclude Include="Utils\FileIO.h" />
     <ClInclude Include="Utils\ReturnValues.h" />
+    <ClInclude Include="Utils\Time.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Renderer\Shaders\Default_PS.hlsl">
