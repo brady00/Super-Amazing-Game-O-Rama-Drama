@@ -1,9 +1,21 @@
 #include "FileIO.h"
 #include <fstream>
+#include <algorithm>
 #include "ComponentObjectFactory.h"
-using namespace DirectX;
 namespace MEFileIO
 {
+	FbxManager* FileIO::m_fbxManager = nullptr;
+	FbxScene* FileIO::m_fbxScene = nullptr;
+	bool FileIO::m_bHasAnimation = false;
+	std::unordered_map<unsigned int, CtrlPoint*> FileIO::m_mControlPoints;
+	unsigned int FileIO::m_uiTriangleCount = 0;
+	std::vector<Triangle> FileIO::m_vTriangles;
+	std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> FileIO::m_vVertices;
+	Skeleton FileIO::m_Skeleton;
+	std::unordered_map<unsigned int, Material*> FileIO::m_mMaterialLookUp;
+	FbxLongLong FileIO::m_lAnimationLength = 0;
+	std::string FileIO::m_sAnimationName;
+
 	const std::unordered_map<std::string, compFuntion> FileIO::componentFunctions =
 	{
 		{"Transform", &FileIO::LoadTranform},
@@ -28,6 +40,26 @@ namespace MEFileIO
 
 	bool FileIO::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
 	{
+		FbxManager* fbxManager = FbxManager::Create();
+		if (!fbxManager)
+			return false;
+		FbxIOSettings* fbxIOSettings = FbxIOSettings::Create(fbxManager, IOSROOT);
+		fbxManager->SetIOSettings(fbxIOSettings);
+		FbxScene* fbxScene = FbxScene::Create(fbxManager, "myScene");
+		FbxImporter* fbxImporter = FbxImporter::Create(fbxManager, "myImporter");
+		if (!fbxImporter)
+			return false;
+		if (!fbxImporter->Initialize(_FileName.c_str(), -1, fbxManager->GetIOSettings()))
+			return false;
+		if (!fbxImporter->Import(fbxScene))
+			return false;
+		fbxImporter->Destroy();
+		ProcessSkeletonHierarchy(fbxScene->GetRootNode());
+		if (m_Skeleton.mJoints.empty())
+			m_bHasAnimation = false;
+		ProcessGeometry(fbxScene->GetRootNode());
+		Optimize();
+
 		return true;
 	}
 
@@ -155,7 +187,10 @@ namespace MEFileIO
 			{
 				//Objects
 				MEObject::GameObject* Object = new MEObject::GameObject;
-				LoadGameObject(child, Object);
+				if (!LoadGameObject(child, Object))
+					delete Object;
+				else
+					_GameObjects.push_back(Object);
 			}
 			default:
 				break;
@@ -173,6 +208,8 @@ namespace MEFileIO
 			MEObject::Component* comp = nullptr;
 			if (componentFunctions.at(std::string(child->Name()))(child, comp))
 				_Object->AddComponent(comp, componentIDS.at(std::string(child->Name())));
+			else
+				return false;
 			child = child->NextSiblingElement();
 		}
 		_Object->SetActive(_ObjectRoot->BoolAttribute("Active"));
@@ -215,8 +252,682 @@ namespace MEFileIO
 		_Object = new MEObject::Transform(pos, rot, scale);
 		return true;
 	}
+
 	bool FileIO::LoadRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
 	{
 		return false;
 	}
+
+	void FileIO::ProcessSkeletonHierarchy(FbxNode* inRootNode)
+	{
+
+		for (int childIndex = 0; childIndex < inRootNode->GetChildCount(); ++childIndex)
+		{
+			FbxNode* currNode = inRootNode->GetChild(childIndex);
+			ProcessSkeletonHierarchyRecursively(currNode, 0, 0, -1);
+		}
+	}
+
+	void FileIO::ProcessSkeletonHierarchyRecursively(FbxNode* inNode, int inDepth, int myIndex, int inParentIndex)
+	{
+		if (inNode->GetNodeAttribute() && inNode->GetNodeAttribute()->GetAttributeType() && inNode->GetNodeAttribute()->GetAttributeType() == FbxNodeAttribute::eSkeleton)
+		{
+			Joint currJoint;
+			currJoint.mParentIndex = inParentIndex;
+			currJoint.mName = inNode->GetName();
+			m_Skeleton.mJoints.push_back(currJoint);
+		}
+		for (int i = 0; i < inNode->GetChildCount(); i++)
+			ProcessSkeletonHierarchyRecursively(inNode->GetChild(i), inDepth + 1, (unsigned int)m_Skeleton.mJoints.size(), myIndex);
+	}
+
+	void FileIO::ProcessControlPoints(FbxNode* inNode)
+	{
+		FbxMesh* currMesh = inNode->GetMesh();
+		unsigned int ctrlPointCount = currMesh->GetControlPointsCount();
+		for (unsigned int i = 0; i < ctrlPointCount; ++i)
+		{
+			CtrlPoint* currCtrlPoint = new CtrlPoint();
+			XMFLOAT3 currPosition;
+			currPosition.x = static_cast<float>(currMesh->GetControlPointAt(i).mData[0]);
+			currPosition.y = static_cast<float>(currMesh->GetControlPointAt(i).mData[1]);
+			currPosition.z = static_cast<float>(currMesh->GetControlPointAt(i).mData[2]);
+			currCtrlPoint->mPosition = currPosition;
+			m_mControlPoints[i] = currCtrlPoint;
+		}
+	}
+
+	void FileIO::ProcessJointsAndAnimations(FbxNode* inNode)
+	{
+		FbxMesh* currMesh = inNode->GetMesh();
+		unsigned int numOfDeformers = currMesh->GetDeformerCount();
+		if (!inNode)
+			throw std::exception("Null for mesh geometry");
+		const FbxVector4 lT = inNode->GetGeometricTranslation(FbxNode::eSourcePivot);
+		const FbxVector4 lR = inNode->GetGeometricRotation(FbxNode::eSourcePivot);
+		const FbxVector4 lS = inNode->GetGeometricScaling(FbxNode::eSourcePivot);
+		FbxAMatrix geometryTransform = FbxAMatrix(lT, lR, lS);
+		for (unsigned int deformerIndex = 0; deformerIndex < numOfDeformers; ++deformerIndex)
+		{
+			FbxSkin* currSkin = reinterpret_cast<FbxSkin*>(currMesh->GetDeformer(deformerIndex, FbxDeformer::eSkin));
+			if (!currSkin)
+				continue;
+			unsigned int numOfClusters = currSkin->GetClusterCount();
+			for (unsigned int clusterIndex = 0; clusterIndex < numOfClusters; ++clusterIndex)
+			{
+				FbxCluster* currCluster = currSkin->GetCluster(clusterIndex);
+				std::string currJointName = currCluster->GetLink()->GetName();
+				unsigned int currJointIndex = FindJointIndexUsingName(currJointName);
+				FbxAMatrix transformMatrix;
+				FbxAMatrix transformLinkMatrix;
+				FbxAMatrix globalBindposeInverseMatrix;
+				currCluster->GetTransformMatrix(transformMatrix);
+				currCluster->GetTransformLinkMatrix(transformLinkMatrix);	
+				globalBindposeInverseMatrix = transformLinkMatrix.Inverse() * transformMatrix * geometryTransform;
+				m_Skeleton.mJoints[currJointIndex].mGlobalBindposeInverse = globalBindposeInverseMatrix;
+				m_Skeleton.mJoints[currJointIndex].mNode = currCluster->GetLink();
+				unsigned int numOfIndices = currCluster->GetControlPointIndicesCount();
+				for (unsigned int i = 0; i < numOfIndices; ++i)
+				{
+					BlendingIndexWeightPair currBlendingIndexWeightPair;
+					currBlendingIndexWeightPair.mBlendingIndex = currJointIndex;
+					currBlendingIndexWeightPair.mBlendingWeight = currCluster->GetControlPointWeights()[i];
+					m_mControlPoints[currCluster->GetControlPointIndices()[i]]->mBlendingInfo.push_back(currBlendingIndexWeightPair);
+				}
+				FbxAnimStack* currAnimStack = m_fbxScene->GetSrcObject<FbxAnimStack>(0);
+				FbxString animStackName = currAnimStack->GetName();
+				m_sAnimationName = animStackName.Buffer();
+				FbxTakeInfo* takeInfo = m_fbxScene->GetTakeInfo(animStackName);
+				FbxTime start = takeInfo->mLocalTimeSpan.GetStart();
+				FbxTime end = takeInfo->mLocalTimeSpan.GetStop();
+				m_lAnimationLength = end.GetFrameCount(FbxTime::eFrames24) - start.GetFrameCount(FbxTime::eFrames24) + 1;
+				Keyframe** currAnim = &m_Skeleton.mJoints[currJointIndex].mAnimation;
+				for (FbxLongLong i = start.GetFrameCount(FbxTime::eFrames24); i <= end.GetFrameCount(FbxTime::eFrames24); ++i)
+				{
+					FbxTime currTime;
+					currTime.SetFrame(i, FbxTime::eFrames24);
+					*currAnim = new Keyframe();
+					(*currAnim)->mFrameNum = i;
+					FbxAMatrix currentTransformOffset = inNode->EvaluateGlobalTransform(currTime) * geometryTransform;
+					(*currAnim)->mGlobalTransform = currentTransformOffset.Inverse() * currCluster->GetLink()->EvaluateGlobalTransform(currTime);
+					currAnim = &((*currAnim)->mNext);
+				}
+			}
+		}
+		BlendingIndexWeightPair currBlendingIndexWeightPair;
+		currBlendingIndexWeightPair.mBlendingIndex = 0;
+		currBlendingIndexWeightPair.mBlendingWeight = 0;
+		for (auto itr = m_mControlPoints.begin(); itr != m_mControlPoints.end(); ++itr)
+			for (unsigned int i = (unsigned int)(itr->second->mBlendingInfo.size()); i <= 4; ++i)
+				itr->second->mBlendingInfo.push_back(currBlendingIndexWeightPair);
+	}
+
+	unsigned int FileIO::FindJointIndexUsingName(const std::string& inJointName)
+	{
+		for (unsigned int i = 0; i < m_Skeleton.mJoints.size(); ++i)
+			if (m_Skeleton.mJoints[i].mName == inJointName)
+				return i;
+		throw std::exception("Skeleton information in FBX file is corrupted.");
+	}
+
+	void FileIO::ProcessMesh(FbxNode* inNode)
+	{
+		FbxMesh* currMesh = inNode->GetMesh();
+		m_uiTriangleCount = currMesh->GetPolygonCount();
+		int vertexCounter = 0;
+		m_vTriangles.reserve(m_uiTriangleCount);
+		for (unsigned int i = 0; i < m_uiTriangleCount; ++i)
+		{
+			XMFLOAT3 normal[3];
+			XMFLOAT3 tangent[3];
+			XMFLOAT3 binormal[3];
+			XMFLOAT2 UV[3][2];
+			Triangle currTriangle;
+			m_vTriangles.push_back(currTriangle);
+
+			for (unsigned int j = 0; j < 3; ++j)
+			{
+				int ctrlPointIndex = currMesh->GetPolygonVertex(i, j);
+				CtrlPoint* currCtrlPoint = m_mControlPoints[ctrlPointIndex];
+				ReadNormal(currMesh, ctrlPointIndex, vertexCounter, normal[j]);
+				for (int k = 0; k < 1; ++k)
+					ReadUV(currMesh, ctrlPointIndex, currMesh->GetTextureUVIndex(i, j), k, UV[j][k]);
+				MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX temp;
+				temp.position = currCtrlPoint->mPosition;
+				temp.normal = normal[j];
+				temp.texcoord = UV[j][0];
+				temp.bone = XMINT4(0, 0, 0, 0);
+				temp.weights = XMFLOAT4(0, 0, 0, 0);
+				for (unsigned int i = 0; i < currCtrlPoint->mBlendingInfo.size(); ++i)
+				{
+					switch (i)
+					{
+					case 0:
+						temp.bone.x = currCtrlPoint->mBlendingInfo[0].mBlendingIndex;
+						temp.weights.x = (float)currCtrlPoint->mBlendingInfo[0].mBlendingWeight;
+					case 1:
+						temp.bone.y = currCtrlPoint->mBlendingInfo[1].mBlendingIndex;
+						temp.weights.y = (float)currCtrlPoint->mBlendingInfo[1].mBlendingWeight;
+					case 2:
+						temp.bone.z = currCtrlPoint->mBlendingInfo[2].mBlendingIndex;
+						temp.weights.z = (float)currCtrlPoint->mBlendingInfo[2].mBlendingWeight;
+					case 3:
+						temp.bone.w = currCtrlPoint->mBlendingInfo[3].mBlendingIndex;
+						temp.weights.w = (float)currCtrlPoint->mBlendingInfo[3].mBlendingWeight;
+					default:
+						break;
+					}
+				}
+				m_vVertices.push_back(temp);
+				m_vTriangles.back().mIndices.push_back(vertexCounter);
+				++vertexCounter;
+			}
+		}
+		for (auto itr = m_mControlPoints.begin(); itr != m_mControlPoints.end(); ++itr)
+			delete itr->second;
+		m_mControlPoints.clear();
+	}
+
+	void FileIO::ReadUV(FbxMesh* inMesh, int inCtrlPointIndex, int inTextureUVIndex, int inUVLayer, XMFLOAT2& outUV)
+	{
+		if (inUVLayer >= 2 || inMesh->GetElementUVCount() <= inUVLayer)
+		{
+			throw std::exception("Invalid UV Layer Number");
+		}
+		FbxGeometryElementUV* vertexUV = inMesh->GetElementUV(inUVLayer);
+
+		switch (vertexUV->GetMappingMode())
+		{
+		case FbxGeometryElement::eByControlPoint:
+			switch (vertexUV->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			{
+				outUV.x = static_cast<float>(vertexUV->GetDirectArray().GetAt(inCtrlPointIndex).mData[0]);
+				outUV.y = static_cast<float>(vertexUV->GetDirectArray().GetAt(inCtrlPointIndex).mData[1]);
+			}
+			break;
+
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				int index = vertexUV->GetIndexArray().GetAt(inCtrlPointIndex);
+				outUV.x = static_cast<float>(vertexUV->GetDirectArray().GetAt(index).mData[0]);
+				outUV.y = static_cast<float>(vertexUV->GetDirectArray().GetAt(index).mData[1]);
+			}
+			break;
+
+			default:
+				throw std::exception("Invalid Reference");
+			}
+			break;
+
+		case FbxGeometryElement::eByPolygonVertex:
+			switch (vertexUV->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				outUV.x = static_cast<float>(vertexUV->GetDirectArray().GetAt(inTextureUVIndex).mData[0]);
+				outUV.y = static_cast<float>(vertexUV->GetDirectArray().GetAt(inTextureUVIndex).mData[1]);
+			}
+			break;
+
+			default:
+				throw std::exception("Invalid Reference");
+			}
+			break;
+		}
+	}
+
+	void FileIO::ReadNormal(FbxMesh* inMesh, int inCtrlPointIndex, int inVertexCounter, XMFLOAT3& outNormal)
+	{
+		if (inMesh->GetElementNormalCount() < 1)
+		{
+			throw std::exception("Invalid Normal Number");
+		}
+
+		FbxGeometryElementNormal* vertexNormal = inMesh->GetElementNormal(0);
+		switch (vertexNormal->GetMappingMode())
+		{
+		case FbxGeometryElement::eByControlPoint:
+			switch (vertexNormal->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			{
+				outNormal.x = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[0]);
+				outNormal.y = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[1]);
+				outNormal.z = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[2]);
+			}
+			break;
+
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				int index = vertexNormal->GetIndexArray().GetAt(inCtrlPointIndex);
+				outNormal.x = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[0]);
+				outNormal.y = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[1]);
+				outNormal.z = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[2]);
+			}
+			break;
+
+			default:
+				throw std::exception("Invalid Reference");
+			}
+			break;
+
+		case FbxGeometryElement::eByPolygonVertex:
+			switch (vertexNormal->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			{
+				outNormal.x = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inVertexCounter).mData[0]);
+				outNormal.y = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inVertexCounter).mData[1]);
+				outNormal.z = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inVertexCounter).mData[2]);
+			}
+			break;
+
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				int index = vertexNormal->GetIndexArray().GetAt(inVertexCounter);
+				outNormal.x = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[0]);
+				outNormal.y = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[1]);
+				outNormal.z = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[2]);
+			}
+			break;
+
+			default:
+				throw std::exception("Invalid Reference");
+			}
+			break;
+		}
+	}
+
+	void FileIO::ReadBinormal(FbxMesh* inMesh, int inCtrlPointIndex, int inVertexCounter, XMFLOAT3& outBinormal)
+	{
+		if (inMesh->GetElementBinormalCount() < 1)
+		{
+			throw std::exception("Invalid Binormal Number");
+		}
+
+		FbxGeometryElementBinormal* vertexBinormal = inMesh->GetElementBinormal(0);
+		switch (vertexBinormal->GetMappingMode())
+		{
+		case FbxGeometryElement::eByControlPoint:
+			switch (vertexBinormal->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			{
+				outBinormal.x = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[0]);
+				outBinormal.y = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[1]);
+				outBinormal.z = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[2]);
+			}
+			break;
+
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				int index = vertexBinormal->GetIndexArray().GetAt(inCtrlPointIndex);
+				outBinormal.x = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(index).mData[0]);
+				outBinormal.y = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(index).mData[1]);
+				outBinormal.z = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(index).mData[2]);
+			}
+			break;
+
+			default:
+				throw std::exception("Invalid Reference");
+			}
+			break;
+
+		case FbxGeometryElement::eByPolygonVertex:
+			switch (vertexBinormal->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			{
+				outBinormal.x = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(inVertexCounter).mData[0]);
+				outBinormal.y = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(inVertexCounter).mData[1]);
+				outBinormal.z = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(inVertexCounter).mData[2]);
+			}
+			break;
+
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				int index = vertexBinormal->GetIndexArray().GetAt(inVertexCounter);
+				outBinormal.x = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(index).mData[0]);
+				outBinormal.y = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(index).mData[1]);
+				outBinormal.z = static_cast<float>(vertexBinormal->GetDirectArray().GetAt(index).mData[2]);
+			}
+			break;
+
+			default:
+				throw std::exception("Invalid Reference");
+			}
+			break;
+		}
+	}
+
+	void FileIO::ReadTangent(FbxMesh* inMesh, int inCtrlPointIndex, int inVertexCounter, XMFLOAT3& outTangent)
+	{
+		if (inMesh->GetElementTangentCount() < 1)
+		{
+			throw std::exception("Invalid Tangent Number");
+		}
+
+		FbxGeometryElementTangent* vertexTangent = inMesh->GetElementTangent(0);
+		switch (vertexTangent->GetMappingMode())
+		{
+		case FbxGeometryElement::eByControlPoint:
+			switch (vertexTangent->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			{
+				outTangent.x = static_cast<float>(vertexTangent->GetDirectArray().GetAt(inCtrlPointIndex).mData[0]);
+				outTangent.y = static_cast<float>(vertexTangent->GetDirectArray().GetAt(inCtrlPointIndex).mData[1]);
+				outTangent.z = static_cast<float>(vertexTangent->GetDirectArray().GetAt(inCtrlPointIndex).mData[2]);
+			}
+			break;
+
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				int index = vertexTangent->GetIndexArray().GetAt(inCtrlPointIndex);
+				outTangent.x = static_cast<float>(vertexTangent->GetDirectArray().GetAt(index).mData[0]);
+				outTangent.y = static_cast<float>(vertexTangent->GetDirectArray().GetAt(index).mData[1]);
+				outTangent.z = static_cast<float>(vertexTangent->GetDirectArray().GetAt(index).mData[2]);
+			}
+			break;
+
+			default:
+				throw std::exception("Invalid Reference");
+			}
+			break;
+
+		case FbxGeometryElement::eByPolygonVertex:
+			switch (vertexTangent->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			{
+				outTangent.x = static_cast<float>(vertexTangent->GetDirectArray().GetAt(inVertexCounter).mData[0]);
+				outTangent.y = static_cast<float>(vertexTangent->GetDirectArray().GetAt(inVertexCounter).mData[1]);
+				outTangent.z = static_cast<float>(vertexTangent->GetDirectArray().GetAt(inVertexCounter).mData[2]);
+			}
+			break;
+
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				int index = vertexTangent->GetIndexArray().GetAt(inVertexCounter);
+				outTangent.x = static_cast<float>(vertexTangent->GetDirectArray().GetAt(index).mData[0]);
+				outTangent.y = static_cast<float>(vertexTangent->GetDirectArray().GetAt(index).mData[1]);
+				outTangent.z = static_cast<float>(vertexTangent->GetDirectArray().GetAt(index).mData[2]);
+			}
+			break;
+
+			default:
+				throw std::exception("Invalid Reference");
+			}
+			break;
+		}
+	}
+
+	void FileIO::ProcessGeometry(FbxNode* inNode)
+	{
+		if (inNode->GetNodeAttribute())
+		{
+			switch (inNode->GetNodeAttribute()->GetAttributeType())
+			{
+			case FbxNodeAttribute::eMesh:
+				ProcessControlPoints(inNode);
+				if (m_bHasAnimation)
+				{
+					ProcessJointsAndAnimations(inNode);
+				}
+				ProcessMesh(inNode);
+				AssociateMaterialToMesh(inNode);
+				ProcessMaterials(inNode);
+				break;
+			}
+		}
+
+		for (int i = 0; i < inNode->GetChildCount(); ++i)
+		{
+			ProcessGeometry(inNode->GetChild(i));
+		}
+	}
+
+	void FileIO::Optimize()
+	{
+		std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> uniqueVertices;
+		for (unsigned int i = 0; i < m_vTriangles.size(); ++i)
+			for (unsigned int j = 0; j < 3; ++j)
+				if (FindVertex(m_vVertices[i * 3 + j], uniqueVertices) == -1)
+					uniqueVertices.push_back(m_vVertices[i * 3 + j]);
+		for (unsigned int i = 0; i < m_vTriangles.size(); ++i)
+			for (unsigned int j = 0; j < 3; ++j)
+				m_vTriangles[i].mIndices[j] = FindVertex(m_vVertices[i * 3 + j], uniqueVertices);
+		m_vVertices.clear();
+		m_vVertices = uniqueVertices;
+		uniqueVertices.clear();
+		std::sort(m_vTriangles.begin(), m_vTriangles.end());
+	}
+
+	int FileIO::FindVertex(const MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX& inTargetVertex, const std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX>& uniqueVertices)
+	{
+		for (unsigned int i = 0; i < uniqueVertices.size(); ++i)
+		{
+			if (inTargetVertex.bone.x == uniqueVertices[i].bone.x && 
+				inTargetVertex.bone.y == uniqueVertices[i].bone.y &&
+				inTargetVertex.bone.z == uniqueVertices[i].bone.z &&
+				inTargetVertex.bone.w == uniqueVertices[i].bone.w &&
+				inTargetVertex.determinant == uniqueVertices[i].determinant &&
+				inTargetVertex.normal.x == uniqueVertices[i].normal.x &&
+				inTargetVertex.normal.y == uniqueVertices[i].normal.y &&
+				inTargetVertex.normal.z == uniqueVertices[i].normal.z &&
+				inTargetVertex.position.x == uniqueVertices[i].position.x &&
+				inTargetVertex.position.y == uniqueVertices[i].position.y &&
+				inTargetVertex.position.z == uniqueVertices[i].position.z &&
+				inTargetVertex.tangent.x == uniqueVertices[i].tangent.x &&
+				inTargetVertex.tangent.y == uniqueVertices[i].tangent.y &&
+				inTargetVertex.tangent.z == uniqueVertices[i].tangent.z &&
+				inTargetVertex.texcoord.x == uniqueVertices[i].texcoord.x &&
+				inTargetVertex.texcoord.y == uniqueVertices[i].texcoord.y &&
+				inTargetVertex.weights.x == uniqueVertices[i].weights.x &&
+				inTargetVertex.weights.y == uniqueVertices[i].weights.y &&
+				inTargetVertex.weights.z == uniqueVertices[i].weights.z &&
+				inTargetVertex.weights.w == uniqueVertices[i].weights.w)
+			{
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	void FileIO::AssociateMaterialToMesh(FbxNode* inNode)
+	{
+		FbxLayerElementArrayTemplate<int>* materialIndices;
+		FbxGeometryElement::EMappingMode materialMappingMode = FbxGeometryElement::eNone;
+		FbxMesh* currMesh = inNode->GetMesh();
+
+		if (currMesh->GetElementMaterial())
+		{
+			materialIndices = &(currMesh->GetElementMaterial()->GetIndexArray());
+			materialMappingMode = currMesh->GetElementMaterial()->GetMappingMode();
+
+			if (materialIndices)
+			{
+				switch (materialMappingMode)
+				{
+				case FbxGeometryElement::eByPolygon:
+				{
+					if (materialIndices->GetCount() == m_uiTriangleCount)
+					{
+						for (unsigned int i = 0; i < m_uiTriangleCount; ++i)
+						{
+							unsigned int materialIndex = materialIndices->GetAt(i);
+							m_vTriangles[i].mMaterialIndex = materialIndex;
+						}
+					}
+				}
+				break;
+
+				case FbxGeometryElement::eAllSame:
+				{
+					unsigned int materialIndex = materialIndices->GetAt(0);
+					for (unsigned int i = 0; i < m_uiTriangleCount; ++i)
+					{
+						m_vTriangles[i].mMaterialIndex = materialIndex;
+					}
+				}
+				break;
+
+				default:
+					throw std::exception("Invalid mapping mode for material\n");
+				}
+			}
+		}
+	}
+
+	void FileIO::ProcessMaterials(FbxNode* inNode)
+	{
+		unsigned int materialCount = inNode->GetMaterialCount();
+
+		for (unsigned int i = 0; i < materialCount; ++i)
+		{
+			FbxSurfaceMaterial* surfaceMaterial = inNode->GetMaterial(i);
+			ProcessMaterialAttribute(surfaceMaterial, i);
+			ProcessMaterialTexture(surfaceMaterial, m_mMaterialLookUp[i]);
+		}
+	}
+
+	void FileIO::ProcessMaterialAttribute(FbxSurfaceMaterial* inMaterial, unsigned int inMaterialIndex)
+	{
+		FbxDouble3 double3;
+		FbxDouble double1;
+		if (inMaterial->GetClassId().Is(FbxSurfacePhong::ClassId))
+		{
+			PhongMaterial* currMaterial = new PhongMaterial();
+
+			// Amibent Color
+			double3 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->Ambient;
+			currMaterial->mAmbient.x = static_cast<float>(double3.mData[0]);
+			currMaterial->mAmbient.y = static_cast<float>(double3.mData[1]);
+			currMaterial->mAmbient.z = static_cast<float>(double3.mData[2]);
+
+			// Diffuse Color
+			double3 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->Diffuse;
+			currMaterial->mDiffuse.x = static_cast<float>(double3.mData[0]);
+			currMaterial->mDiffuse.y = static_cast<float>(double3.mData[1]);
+			currMaterial->mDiffuse.z = static_cast<float>(double3.mData[2]);
+
+			// Specular Color
+			double3 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->Specular;
+			currMaterial->mSpecular.x = static_cast<float>(double3.mData[0]);
+			currMaterial->mSpecular.y = static_cast<float>(double3.mData[1]);
+			currMaterial->mSpecular.z = static_cast<float>(double3.mData[2]);
+
+			// Emissive Color
+			double3 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->Emissive;
+			currMaterial->mEmissive.x = static_cast<float>(double3.mData[0]);
+			currMaterial->mEmissive.y = static_cast<float>(double3.mData[1]);
+			currMaterial->mEmissive.z = static_cast<float>(double3.mData[2]);
+
+			// Reflection
+			double3 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->Reflection;
+			currMaterial->mReflection.x = static_cast<float>(double3.mData[0]);
+			currMaterial->mReflection.y = static_cast<float>(double3.mData[1]);
+			currMaterial->mReflection.z = static_cast<float>(double3.mData[2]);
+
+			// Transparency Factor
+			double1 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->TransparencyFactor;
+			currMaterial->mTransparencyFactor = double1;
+
+			// Shininess
+			double1 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->Shininess;
+			currMaterial->mShininess = double1;
+
+			// Specular Factor
+			double1 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->SpecularFactor;
+			currMaterial->mSpecularPower = double1;
+
+
+			// Reflection Factor
+			double1 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->ReflectionFactor;
+			currMaterial->mReflectionFactor = double1;
+
+			m_mMaterialLookUp[inMaterialIndex] = currMaterial;
+		}
+		else if (inMaterial->GetClassId().Is(FbxSurfaceLambert::ClassId))
+		{
+			Material* currMaterial = new Material();
+
+			// Amibent Color
+			double3 = reinterpret_cast<FbxSurfaceLambert *>(inMaterial)->Ambient;
+			currMaterial->mAmbient.x = static_cast<float>(double3.mData[0]);
+			currMaterial->mAmbient.y = static_cast<float>(double3.mData[1]);
+			currMaterial->mAmbient.z = static_cast<float>(double3.mData[2]);
+
+			// Diffuse Color
+			double3 = reinterpret_cast<FbxSurfaceLambert *>(inMaterial)->Diffuse;
+			currMaterial->mDiffuse.x = static_cast<float>(double3.mData[0]);
+			currMaterial->mDiffuse.y = static_cast<float>(double3.mData[1]);
+			currMaterial->mDiffuse.z = static_cast<float>(double3.mData[2]);
+
+			// Emissive Color
+			double3 = reinterpret_cast<FbxSurfaceLambert *>(inMaterial)->Emissive;
+			currMaterial->mEmissive.x = static_cast<float>(double3.mData[0]);
+			currMaterial->mEmissive.y = static_cast<float>(double3.mData[1]);
+			currMaterial->mEmissive.z = static_cast<float>(double3.mData[2]);
+
+			// Transparency Factor
+			double1 = reinterpret_cast<FbxSurfaceLambert *>(inMaterial)->TransparencyFactor;
+			currMaterial->mTransparencyFactor = double1;
+
+			m_mMaterialLookUp[inMaterialIndex] = currMaterial;
+		}
+	}
+
+	void FileIO::ProcessMaterialTexture(FbxSurfaceMaterial* inMaterial, Material* ioMaterial)
+	{
+		unsigned int textureIndex = 0;
+		FbxProperty property;
+
+		FBXSDK_FOR_EACH_TEXTURE(textureIndex)
+		{
+			property = inMaterial->FindProperty(FbxLayerElement::sTextureChannelNames[textureIndex]);
+			if (property.IsValid())
+			{
+				unsigned int textureCount = property.GetSrcObjectCount<FbxTexture>();
+				for (unsigned int i = 0; i < textureCount; ++i)
+				{
+					FbxLayeredTexture* layeredTexture = property.GetSrcObject<FbxLayeredTexture>(i);
+					if (layeredTexture)
+					{
+						throw std::exception("Layered Texture is currently unsupported\n");
+					}
+					else
+					{
+						FbxTexture* texture = property.GetSrcObject<FbxTexture>(i);
+						if (texture)
+						{
+							std::string textureType = property.GetNameAsCStr();
+							FbxFileTexture* fileTexture = FbxCast<FbxFileTexture>(texture);
+
+							if (fileTexture)
+							{
+								if (textureType == "DiffuseColor")
+								{
+									ioMaterial->mDiffuseMapName = fileTexture->GetFileName();
+								}
+								else if (textureType == "SpecularColor")
+								{
+									ioMaterial->mSpecularMapName = fileTexture->GetFileName();
+								}
+								else if (textureType == "Bump")
+								{
+									ioMaterial->mNormalMapName = fileTexture->GetFileName();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 }
