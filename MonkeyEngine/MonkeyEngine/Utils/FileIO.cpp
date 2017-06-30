@@ -4,6 +4,17 @@
 using namespace DirectX;
 namespace MEFileIO
 {
+	const std::unordered_map<std::string, compFuntion> FileIO::componentFunctions =
+	{
+		{"Transform", &FileIO::LoadTranform},
+		{"Renderer", &FileIO::LoadRenderer}
+	};
+
+	const std::unordered_map<std::string, MEObject::GameObject::COMPONENT_ID> FileIO::componentIDS =
+	{
+		{ "Transform", MEObject::GameObject::COMPONENT_ID::eTransform },
+		{ "Renderer", MEObject::GameObject::COMPONENT_ID::eCompRenderer }
+	};
 
 	FileIO::FileIO()
 	{
@@ -156,13 +167,56 @@ namespace MEFileIO
 
 	bool FileIO::LoadGameObject(XMLElement* _ObjectRoot, MEObject::GameObject* _Object)
 	{
-		//attributes of the gameobject itself
 		XMLElement* child = _ObjectRoot->FirstChildElement();
 		while (child)
 		{
-			
+			MEObject::Component* comp = nullptr;
+			if (componentFunctions.at(std::string(child->Name()))(child, comp))
+				_Object->AddComponent(comp, componentIDS.at(std::string(child->Name())));
 			child = child->NextSiblingElement();
 		}
+		_Object->SetActive(_ObjectRoot->BoolAttribute("Active"));
+		_Object->SetLayer(_ObjectRoot->IntAttribute("Layer"));
+		_Object->SetName(_ObjectRoot->Attribute("Name"));
+		_Object->SetStatic(_ObjectRoot->BoolAttribute("Static"));
 		return true;
+	}
+
+	bool FileIO::LoadTranform(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
+	{
+		XMFLOAT3 pos, rot, scale;
+		XMLElement* child = _ObjectRoot->FirstChildElement();
+		if (child && !strcmp(child->Name(), "Position"))
+		{
+			pos.x = child->FloatAttribute("X");
+			pos.y = child->FloatAttribute("Y");
+			pos.z = child->FloatAttribute("Z");
+		}
+		else
+			return false;
+		child = child->NextSiblingElement();
+		if (child && !strcmp(child->Name(), "Rotation"))
+		{
+			rot.x = child->FloatAttribute("X");
+			rot.y = child->FloatAttribute("Y");
+			rot.z = child->FloatAttribute("Z");
+		}
+		else
+			return false;
+		child = child->NextSiblingElement();
+		if (child && !strcmp(child->Name(), "Scale"))
+		{
+			scale.x = child->FloatAttribute("X");
+			scale.y = child->FloatAttribute("Y");
+			scale.z = child->FloatAttribute("Z");
+		}
+		else
+			return false;
+		_Object = new MEObject::Transform(pos, rot, scale);
+		return true;
+	}
+	bool FileIO::LoadRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
+	{
+		return false;
 	}
 }

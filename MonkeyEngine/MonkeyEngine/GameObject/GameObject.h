@@ -130,10 +130,8 @@ namespace MEObject
 		Scene* GetScene();
 		void AddTag(std::string _Tag);
 		std::vector<std::string>& GetTags();
-		void SetTrasform(Transform* _Transform);
 		Transform* GetTransform();
-		template <typename CompType>
-		void AddComponent(CompType* _Component);
+		void AddComponent(Component* _Component, COMPONENT_ID _ID);
 		void BroadcastMessage(std::string _Message);
 		void SendMessageString(std::string _Message);
 		void SendMessageUpwards(std::string _Message);

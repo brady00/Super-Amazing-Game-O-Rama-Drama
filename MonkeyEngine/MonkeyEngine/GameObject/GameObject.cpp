@@ -105,21 +105,20 @@ namespace MEObject
 		return m_vTags;
 	}
 
-	void GameObject::SetTrasform(Transform* _Transform)
-	{
-		m_pTransform = _Transform;
-	}
-
 	Transform* GameObject::GetTransform()
 	{
 		return m_pTransform;
 	}
 
-	template <>
-	void GameObject::AddComponent<CompRenderer>(CompRenderer* _Component)
+	void GameObject::AddComponent(Component* _Component, COMPONENT_ID _ID)
 	{
-		m_vComponents[eCompRenderer].push_back(_Component);
+		if (_ID == eTransform)
+			m_pTransform = (Transform*)_Component;
+		else
+			m_vComponents[_ID].push_back(_Component);
+		_Component->m_pGameObject = this;
 	}
+
 
 	void GameObject::BroadcastMessage(std::string _Message)
 	{
