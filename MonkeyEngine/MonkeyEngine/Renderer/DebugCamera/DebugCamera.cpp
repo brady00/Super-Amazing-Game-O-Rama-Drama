@@ -15,7 +15,6 @@ namespace MERenderer
 
 	void DebugCamera::Initialize(XMFLOAT4X4 _WorldMatrix, float _NearPlane, float _FarPlane, float _FOV, float _WindowHeight, float _WindowWidth)
 	{
-		//StoreFloat4x4(&m_xmViewMatrix, XMMatrixInverse(nullptr, XMLoadFloat4x4(&_WorldMatrix)));
 		m_xmViewMatrix = _WorldMatrix;
 		XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(_FOV), _WindowHeight / _WindowWidth, _NearPlane, _FarPlane));
 		GetCursorPos(&m_pPrevMousePos);

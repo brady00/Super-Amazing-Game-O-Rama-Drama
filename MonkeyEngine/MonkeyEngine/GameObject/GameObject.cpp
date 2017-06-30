@@ -2,6 +2,7 @@
 #include "../Components/Renderer/CompRenderer.h"
 #include "../Components/Transform/Transform.h"
 #include "../Utils/ComponentObjectFactory.h"
+#include "../Components/Behaviour/Behaviour.h"
 
 namespace MEObject
 {
@@ -24,10 +25,15 @@ namespace MEObject
 
 	MEReturnValues::RETURNVALUE GameObject::Update()
 	{
+		if (!m_bActiveInHeirarchy)
+			return MEReturnValues::NOTHING;
 		m_pTransform->Update();
-		for (unsigned int i = 0; i < eNumComponents; i++)
+		for (unsigned int i = 0; i < eNumComponents - 1; i++)
 			for (unsigned int j = 0; j < m_vComponents[i].size(); j++)
 				m_vComponents[i][j]->Update();
+		for (unsigned int i = 0; i < m_vComponents[eScript].size(); i++)
+			if (((Behaviour*)m_vComponents[eScript][i])->GetEnabled())
+				m_vComponents[eScript][i]->Update();
 		return MEReturnValues::NOTHING;
 	}
 
@@ -117,17 +123,39 @@ namespace MEObject
 
 	void GameObject::BroadcastMessage(std::string _Message)
 	{
-
+		SendMessageUpwards(_Message);
+		SendMessageString(_Message);
+		SendMessageDownwards(_Message);
 	}
 
 	void GameObject::SendMessageString(std::string _Message)
 	{
-
+		for (unsigned int i = 0; i < eNumComponents; i++)
+			for (unsigned int j = 0; j < m_vComponents[i].size(); j++)
+				m_vComponents[i][j]->RecieveMessage(_Message);
 	}
 
 	void GameObject::SendMessageUpwards(std::string _Message)
 	{
+		GameObject* parent = GetTransform()->GetParent()->GetGameObject();
+		while (parent)
+		{
+			parent->RecieveMessage(_Message);
+			parent = parent->GetTransform()->GetParent()->GetGameObject();
+		}
+	}
 
+	void GameObject::SendMessageDownwards(std::string _Message)
+	{
+		std::vector<Transform*>& children = GetTransform()->GetChildren();
+		for (unsigned int i = 0; i < children.size(); i++)
+			children[i]->GetGameObject()->SendMessageDownwards(_Message);
+	}
+
+	void GameObject::RecieveMessage(std::string _Message)
+	{
+		SendMessageString(_Message);
+		//do message things
 	}
 
 	bool GameObject::CompareTag(std::string _Tag)

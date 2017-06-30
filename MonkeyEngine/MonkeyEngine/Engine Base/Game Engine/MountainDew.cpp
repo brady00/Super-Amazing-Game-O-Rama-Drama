@@ -1,6 +1,7 @@
 #include "MountainDew.h"
 #include "../Scene/Scene.h"
 #include "../../Utils/Time.h"
+#include "../../Utils/FileIO.h"
 
 MountainDew* MountainDew::m_pGamePtr = nullptr;
 
@@ -73,6 +74,8 @@ void MountainDew::Initialize(HINSTANCE hInstance, int nCmdShow)
 	m_pRenderer = new MERenderer::Renderer;
 	m_pRenderer->Initialize(m_HWnd, m_uiScreenWidth, m_uiScreenHeight);
 	Time::Initialize();
+	std::vector<MEObject::GameObject*> objects;
+	MEFileIO::FileIO::LoadScene("Assets/Scenes/TestScene.mes", objects);
 }
 
 void MountainDew::Update()

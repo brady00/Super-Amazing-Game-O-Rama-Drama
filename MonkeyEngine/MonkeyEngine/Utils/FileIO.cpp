@@ -1,7 +1,8 @@
 #include "FileIO.h"
 #include <fstream>
+#include "ComponentObjectFactory.h"
 using namespace DirectX;
-namespace MEExporter
+namespace MEFileIO
 {
 
 	FileIO::FileIO()
@@ -123,6 +124,45 @@ namespace MEExporter
 		}
 		else
 			return false;
+		return true;
+	}
+
+	bool FileIO::LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects)
+	{
+		tinyxml2::XMLDocument doc;
+		doc.LoadFile(_FileName.c_str());
+		XMLElement* root = doc.FirstChildElement();
+		if (!root)
+			return false;
+		XMLElement* child = root->FirstChildElement();
+		while (child)
+		{
+			switch (child->Name()[0])
+			{
+				//Scene Specific data
+			case 'G':
+			{
+				//Objects
+				MEObject::GameObject* Object = new MEObject::GameObject;
+				LoadGameObject(child, Object);
+			}
+			default:
+				break;
+			}
+			child = child->NextSiblingElement();
+		}
+		return true;
+	}
+
+	bool FileIO::LoadGameObject(XMLElement* _ObjectRoot, MEObject::GameObject* _Object)
+	{
+		//attributes of the gameobject itself
+		XMLElement* child = _ObjectRoot->FirstChildElement();
+		while (child)
+		{
+			
+			child = child->NextSiblingElement();
+		}
 		return true;
 	}
 }

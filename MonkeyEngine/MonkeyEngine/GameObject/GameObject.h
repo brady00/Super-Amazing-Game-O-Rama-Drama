@@ -68,7 +68,6 @@ namespace MEObject
 			eMeshCollider,
 			eMeshFilter,
 			eMeshRenderer,
-			eMonoBehaviour /* Script */,
 			eNavMeshAgent,
 			eNavMeshObstacle,
 			eNetworkView,
@@ -106,6 +105,7 @@ namespace MEObject
 			eWheelCollider,
 			eWheelJoint2D,
 			eWindZone,
+			eScript,
 			eNumComponents
 		};
 	private:
@@ -137,6 +137,8 @@ namespace MEObject
 		void BroadcastMessage(std::string _Message);
 		void SendMessageString(std::string _Message);
 		void SendMessageUpwards(std::string _Message);
+		void SendMessageDownwards(std::string _Message);
+		void RecieveMessage(std::string _Message);
 		bool CompareTag(std::string _Tag);
 		template <typename CompType>
 		CompType* GetComponent();

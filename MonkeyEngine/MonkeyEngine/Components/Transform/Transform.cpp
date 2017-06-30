@@ -41,6 +41,8 @@ namespace MEObject
 	MEReturnValues::RETURNVALUE Transform::Update()
 	{
 		UpdateTransform();
+		for (unsigned int i = 0; i < m_vChildren.size(); i++)
+			m_vChildren[i]->Update();
 		return MEReturnValues::TRANSFORMRETURN; 
 	}
 

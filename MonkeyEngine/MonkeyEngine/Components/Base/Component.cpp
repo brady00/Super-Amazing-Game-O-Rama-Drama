@@ -27,17 +27,21 @@ namespace MEObject
 
 	void Component::BroadcastMessage(std::string _Message)
 	{
-
-	}
-
-	void Component::SendMessageString(std::string _Message)
-	{
-
+		m_pGameObject->RecieveMessage(_Message);
+		m_pGameObject->SendMessageUpwards(_Message);
+		m_pGameObject->SendMessageString(_Message);
+		m_pGameObject->SendMessageDownwards(_Message); (_Message);
 	}
 
 	void Component::SendMessageUpwards(std::string _Message)
 	{
+		m_pGameObject->RecieveMessage(_Message);
+		m_pGameObject->SendMessageUpwards(_Message);
+	}
 
+	void Component::RecieveMessage(std::string _Message)
+	{
+		//do message things
 	}
 
 	bool Component::CompareTag(std::string _Tag)

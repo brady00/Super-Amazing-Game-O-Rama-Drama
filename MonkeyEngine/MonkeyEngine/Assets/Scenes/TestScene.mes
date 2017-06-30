@@ -1,0 +1,19 @@
+<MonkeyEngineScene>
+  <GameObject Name="foo" Static="false" Active="true" Layer="1">
+    <Transform>
+      <Position x="0" y="0" z="0"/>
+      <Rotation x="0" y="0" z="0"/>
+      <Scale x="1" y="1" z="1"/>
+    </Transform>
+    <Renderer>
+      <BlendState/>
+      <RasterState/>
+      <DepthStencilState/>
+      <VertexFileName/>
+      <TextureFileName/>
+    </Renderer>
+  </GameObject>
+  <GameObject Name="foo2" Static="true" Active="true" Layer="1"/>
+  <GameObject Name="foo3" Static="false" Active="false" Layer="1"/>
+  <GameObject Name="foo4" Static="false" Active="true" Layer="2"/>
+</MonkeyEngineScene>

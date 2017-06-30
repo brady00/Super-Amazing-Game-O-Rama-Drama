@@ -103,6 +103,9 @@
     <Filter Include="Renderer\DebugCamera">
       <UniqueIdentifier>{97631e65-e7b0-4874-bf3e-294aef2e7114}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libraries\XMLParser">
+      <UniqueIdentifier>{7dc01736-0ff1-4783-a422-f2ffebf6525d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -468,7 +471,12 @@
     <ClCompile Include="Utils\ComponentObjectFactory.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\Time.cpp" />
+    <ClCompile Include="Utils\Time.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\XMLParser\tinyxml2.cpp">
+      <Filter>Libraries\XMLParser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine Base\Game Engine\MountainDew.h">
@@ -873,7 +881,12 @@
     <ClInclude Include="Utils\ComponentObjectFactory.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Time.h" />
+    <ClInclude Include="Utils\Time.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\XMLParser\tinyxml2.h">
+      <Filter>Libraries\XMLParser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Renderer\Shaders\POS_VS.hlsl">

@@ -117,6 +117,7 @@
     <ClCompile Include="Libraries\Math\Float4X4.cpp" />
     <ClCompile Include="Libraries\Math\MathLibrary.cpp" />
     <ClCompile Include="Libraries\Math\Quaternian.cpp" />
+    <ClCompile Include="Libraries\XMLParser\tinyxml2.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Renderer\Containers\DefferedRenderTarget.cpp" />
     <ClCompile Include="Renderer\Containers\IndexBuffer.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="Libraries\Math\Float4X4.h" />
     <ClInclude Include="Libraries\Math\MathLibrary.h" />
     <ClInclude Include="Libraries\Math\Quaternian.h" />
+    <ClInclude Include="Libraries\XMLParser\tinyxml2.h" />
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="Renderer\Containers\ConstantBuffer.h" />
     <ClInclude Include="Renderer\Containers\ConstantBuffer.hpp" />
