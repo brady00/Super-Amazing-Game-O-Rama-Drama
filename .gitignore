@@ -17,6 +17,3 @@
 *.exe
 *.out
 *.app
-
-*Debug/
-*Release/

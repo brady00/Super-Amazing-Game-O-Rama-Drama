@@ -3,10 +3,11 @@
 #include <vector>
 #include <unordered_map>
 #include "../GameObject/GameObject.h"
+#include "../Components/Renderer/CompRenderer.h"
 #include "../Renderer/Managers/InputLayoutManager.h"
 #include "../Libraries/XMLParser/tinyxml2.h"
 #include "fbxsdk.h"
-#pragma comment(lib, "libfbxsdk.lib")
+#pragma comment(lib, "libfbxsdk")
 using namespace DirectX;
 using namespace tinyxml2;
 
@@ -90,29 +91,6 @@ namespace MEFileIO
 		}
 	};
 
-	struct Material
-	{
-		std::string mName;
-		XMFLOAT3 mAmbient;
-		XMFLOAT3 mDiffuse;
-		XMFLOAT3 mEmissive;
-		double mTransparencyFactor;
-		std::string mDiffuseMapName;
-		std::string mEmissiveMapName;
-		std::string mGlossMapName;
-		std::string mNormalMapName;
-		std::string mSpecularMapName;
-	};
-
-	struct PhongMaterial : public Material
-	{
-		XMFLOAT3 mSpecular;
-		XMFLOAT3 mReflection;
-		double mSpecularPower;
-		double mShininess;
-		double mReflectionFactor;
-	};
-
 	typedef bool(*compFuntion)(XMLElement*, MEObject::Component*&);
 	class FileIO
 	{
@@ -151,7 +129,7 @@ namespace MEFileIO
 		static void AssociateMaterialToMesh(FbxNode* inNode);
 		static void ProcessMaterials(FbxNode* inNode);
 		static void ProcessMaterialAttribute(FbxSurfaceMaterial* inMaterial, unsigned int inMaterialIndex);
-		static void ProcessMaterialTexture(FbxSurfaceMaterial* inMaterial, Material* ioMaterial);
+		static void ProcessMaterialTexture(FbxSurfaceMaterial* inMaterial, MEObject::Material* ioMaterial);
 		//FBX Loading Variables
 		static FbxManager* m_fbxManager;
 		static FbxScene* m_fbxScene;
@@ -161,7 +139,7 @@ namespace MEFileIO
 		static std::vector<Triangle> m_vTriangles;
 		static std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> m_vVertices;
 		static Skeleton m_Skeleton;
-		static std::unordered_map<unsigned int, Material*> m_mMaterialLookUp;
+		static std::unordered_map<unsigned int, MEObject::Material*> m_mMaterialLookUp;
 		static FbxLongLong m_lAnimationLength;
 		static std::string m_sAnimationName;
 

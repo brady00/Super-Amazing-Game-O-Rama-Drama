@@ -29,6 +29,7 @@ namespace MEObject
 		XMFLOAT3& GetPosition();
 		XMFLOAT3& GetRotation();
 		XMFLOAT3& GetScale();
+		XMFLOAT4X4 GetMatrix();
 	};
 }
 

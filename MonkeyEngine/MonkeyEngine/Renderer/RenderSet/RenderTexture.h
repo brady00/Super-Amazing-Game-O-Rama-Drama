@@ -3,11 +3,6 @@
 #include "RenderSet.h"
 #include <d3d11.h>
 #include <string>
-namespace MEObject
-{
-	class CompRenderer;
-	class Animator;
-}
 namespace MERenderer
 {
 	class RenderShape;
@@ -26,11 +21,10 @@ namespace MERenderer
 		void Draw();
 		bool Load(std::string _TextureFileName);
 		const std::string& GetTextureFileName();
-		bool AddShape(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp);
-		bool ShapeExsits(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp);
+		bool AddShape();
 		ID3D11ShaderResourceView* GetDiffuseTexture();
 		void SetDiffuseTexture(ID3D11ShaderResourceView* _Diffuse);
-		bool LoadShape(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp, RenderShape*& _Shape);
+		bool LoadShape(RenderShape*& _Shape);
 	};
 
 }

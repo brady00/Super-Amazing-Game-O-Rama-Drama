@@ -1,5 +1,5 @@
 #include "RenderTexture.h"
-#include "RenderShape.h"
+#include "../../Components/Renderer/CompRenderer.h"
 #include "../TextureLoaders/WICTextureLoader.h"
 #include "../TextureLoaders/DDSTextureLoader.h"
 #include "../Renderer.h"
@@ -65,53 +65,29 @@ namespace MERenderer
 		return m_TextureFileName;
 	}
 
-	bool RenderTexture::AddShape(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp)
-	{
-		if (!ShapeExsits(_RenderComp, _AnimationComp))
-		{
-			RenderShape* _Shape;
-			if (!LoadShape(_RenderComp, _AnimationComp, _Shape))
-			{
-				delete _Shape;
-				return false;
-			}
-			m_pRenderShapes->AddNode(_Shape);
-		}
-		else
-		{
-			RenderShape* temp = (RenderShape*)m_pRenderShapes->getHead();
-			while (temp)
-			{
-				if (temp->GetRenderComp() == _RenderComp || temp->GetAnimationComp() == _AnimationComp)
-					if (!LoadShape(_RenderComp, _AnimationComp, temp))
-						return false;
-				temp = (RenderShape*)temp->GetNext();
-			}
-		}
-		return true;
-	}
-
-	bool RenderTexture::ShapeExsits(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp)
+	bool RenderTexture::AddShape()
 	{
 		if (m_pRenderShapes == nullptr)
 		{
 			m_pRenderShapes = new RenderSet;
-			return nullptr;
+			return false;
 		}
-		RenderShape* temp = (RenderShape*)m_pRenderShapes->getHead();
-		while (temp)
+		RenderShape* _Shape;
+		if (!LoadShape(_Shape))
 		{
-			if (temp->GetRenderComp() == _RenderComp || temp->GetAnimationComp() == _AnimationComp)
-				return true;
-			temp = (RenderShape*)temp->GetNext();
+			delete _Shape;
+			return false;
 		}
-		return false;
+		m_pRenderShapes->AddNode(_Shape);
+		return true;
 	}
 
-	bool RenderTexture::LoadShape(MEObject::CompRenderer* _RenderComp, MEObject::Animator* _AnimationComp, RenderShape*& _Shape)
+	//RenderShapeType????
+	bool RenderTexture::LoadShape(RenderShape*& _Shape)
 	{
-		_Shape = new RenderShape;
-		return _Shape->Load(_RenderComp, _AnimationComp);
+		_Shape = new MEObject::CompRenderer;
+		//call the Specific Renderer's Load while loading the object into the scene
+		return true;
 	}
 
 	ID3D11ShaderResourceView* RenderTexture::GetDiffuseTexture()

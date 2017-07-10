@@ -99,7 +99,7 @@ namespace MERenderer
 		m_pRenderContext->Load(VertexFormat::eVERTEX_POSNORMTEX, BlendStateManager::BS_Default, RasterizerStateManager::RS_Default, DepthStencilStateManager::DSS_Default);
 		RenderMesh* tempMesh = m_pRenderContext->AddMesh("Assets/testObj.obj", VertexFormat::eVERTEX_POSNORMTEX);
 		RenderTexture* tempTex = tempMesh->AddTexture("Assets/images.png");
-		tempTex->AddShape(nullptr, nullptr);
+		tempTex->AddShape();
 
 		m_pDebugCamera = new DebugCamera;
 		m_pDebugCamera->Initialize(XMFLOAT4X4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), 0.1f, 999999.9f, 90.0f, (float)_ScreenHeight, (float)_ScreenWidth);

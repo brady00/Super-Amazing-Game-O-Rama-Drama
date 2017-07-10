@@ -6,13 +6,13 @@ namespace MEFileIO
 {
 	FbxManager* FileIO::m_fbxManager = nullptr;
 	FbxScene* FileIO::m_fbxScene = nullptr;
-	bool FileIO::m_bHasAnimation = false;
+	bool FileIO::m_bHasAnimation = true;
 	std::unordered_map<unsigned int, CtrlPoint*> FileIO::m_mControlPoints;
 	unsigned int FileIO::m_uiTriangleCount = 0;
 	std::vector<Triangle> FileIO::m_vTriangles;
 	std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> FileIO::m_vVertices;
 	Skeleton FileIO::m_Skeleton;
-	std::unordered_map<unsigned int, Material*> FileIO::m_mMaterialLookUp;
+	std::unordered_map<unsigned int, MEObject::Material*> FileIO::m_mMaterialLookUp;
 	FbxLongLong FileIO::m_lAnimationLength = 0;
 	std::string FileIO::m_sAnimationName;
 
@@ -45,21 +45,29 @@ namespace MEFileIO
 			return false;
 		FbxIOSettings* fbxIOSettings = FbxIOSettings::Create(fbxManager, IOSROOT);
 		fbxManager->SetIOSettings(fbxIOSettings);
-		FbxScene* fbxScene = FbxScene::Create(fbxManager, "myScene");
+		m_fbxScene = FbxScene::Create(fbxManager, "myScene");
 		FbxImporter* fbxImporter = FbxImporter::Create(fbxManager, "myImporter");
 		if (!fbxImporter)
 			return false;
 		if (!fbxImporter->Initialize(_FileName.c_str(), -1, fbxManager->GetIOSettings()))
 			return false;
-		if (!fbxImporter->Import(fbxScene))
+		if (!fbxImporter->Import(m_fbxScene))
 			return false;
 		fbxImporter->Destroy();
-		ProcessSkeletonHierarchy(fbxScene->GetRootNode());
+		ProcessSkeletonHierarchy(m_fbxScene->GetRootNode());
 		if (m_Skeleton.mJoints.empty())
 			m_bHasAnimation = false;
-		ProcessGeometry(fbxScene->GetRootNode());
+		ProcessGeometry(m_fbxScene->GetRootNode());
 		Optimize();
-
+		_NumVerticies = (unsigned int)m_vVertices.size();
+		_Verticies = new MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX[_NumVerticies];
+		for (unsigned int i = 0; i < m_vVertices.size(); i++)
+			_Verticies[i] = m_vVertices[i];
+		_NumIndicies = (unsigned int)m_vTriangles.size() * 3;
+		_Indicies = new unsigned int[_NumIndicies];
+		for (unsigned int i = 0; i < m_vTriangles.size(); ++i)
+			for (unsigned int j = 0; j < 3; ++j)
+				_Indicies[i * 3 + j] = m_vTriangles[i].mIndices[j];
 		return true;
 	}
 
@@ -255,6 +263,7 @@ namespace MEFileIO
 
 	bool FileIO::LoadRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
 	{
+		 
 		return false;
 	}
 
@@ -710,26 +719,27 @@ namespace MEFileIO
 	{
 		for (unsigned int i = 0; i < uniqueVertices.size(); ++i)
 		{
-			if (inTargetVertex.bone.x == uniqueVertices[i].bone.x && 
-				inTargetVertex.bone.y == uniqueVertices[i].bone.y &&
-				inTargetVertex.bone.z == uniqueVertices[i].bone.z &&
-				inTargetVertex.bone.w == uniqueVertices[i].bone.w &&
-				inTargetVertex.determinant == uniqueVertices[i].determinant &&
-				inTargetVertex.normal.x == uniqueVertices[i].normal.x &&
-				inTargetVertex.normal.y == uniqueVertices[i].normal.y &&
-				inTargetVertex.normal.z == uniqueVertices[i].normal.z &&
-				inTargetVertex.position.x == uniqueVertices[i].position.x &&
-				inTargetVertex.position.y == uniqueVertices[i].position.y &&
-				inTargetVertex.position.z == uniqueVertices[i].position.z &&
-				inTargetVertex.tangent.x == uniqueVertices[i].tangent.x &&
-				inTargetVertex.tangent.y == uniqueVertices[i].tangent.y &&
-				inTargetVertex.tangent.z == uniqueVertices[i].tangent.z &&
-				inTargetVertex.texcoord.x == uniqueVertices[i].texcoord.x &&
-				inTargetVertex.texcoord.y == uniqueVertices[i].texcoord.y &&
-				inTargetVertex.weights.x == uniqueVertices[i].weights.x &&
-				inTargetVertex.weights.y == uniqueVertices[i].weights.y &&
-				inTargetVertex.weights.z == uniqueVertices[i].weights.z &&
-				inTargetVertex.weights.w == uniqueVertices[i].weights.w)
+			MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX temp = uniqueVertices[i];
+			if (inTargetVertex.bone.x == temp.bone.x && 
+				inTargetVertex.bone.y == temp.bone.y &&
+				inTargetVertex.bone.z == temp.bone.z &&
+				inTargetVertex.bone.w == temp.bone.w &&
+				inTargetVertex.determinant == temp.determinant &&
+				inTargetVertex.normal.x == temp.normal.x &&
+				inTargetVertex.normal.y == temp.normal.y &&
+				inTargetVertex.normal.z == temp.normal.z &&
+				inTargetVertex.position.x == temp.position.x &&
+				inTargetVertex.position.y == temp.position.y &&
+				inTargetVertex.position.z == temp.position.z &&
+				inTargetVertex.tangent.x == temp.tangent.x &&
+				inTargetVertex.tangent.y == temp.tangent.y &&
+				inTargetVertex.tangent.z == temp.tangent.z &&
+				inTargetVertex.texcoord.x == temp.texcoord.x &&
+				inTargetVertex.texcoord.y == temp.texcoord.y &&
+				inTargetVertex.weights.x == temp.weights.x &&
+				inTargetVertex.weights.y == temp.weights.y &&
+				inTargetVertex.weights.z == temp.weights.z &&
+				inTargetVertex.weights.w == temp.weights.w)
 			{
 				return i;
 			}
@@ -799,9 +809,9 @@ namespace MEFileIO
 	{
 		FbxDouble3 double3;
 		FbxDouble double1;
+		MEObject::Material* currMaterial = new MEObject::Material();
 		if (inMaterial->GetClassId().Is(FbxSurfacePhong::ClassId))
 		{
-			PhongMaterial* currMaterial = new PhongMaterial();
 
 			// Amibent Color
 			double3 = reinterpret_cast<FbxSurfacePhong *>(inMaterial)->Ambient;
@@ -854,7 +864,6 @@ namespace MEFileIO
 		}
 		else if (inMaterial->GetClassId().Is(FbxSurfaceLambert::ClassId))
 		{
-			Material* currMaterial = new Material();
 
 			// Amibent Color
 			double3 = reinterpret_cast<FbxSurfaceLambert *>(inMaterial)->Ambient;
@@ -882,7 +891,7 @@ namespace MEFileIO
 		}
 	}
 
-	void FileIO::ProcessMaterialTexture(FbxSurfaceMaterial* inMaterial, Material* ioMaterial)
+	void FileIO::ProcessMaterialTexture(FbxSurfaceMaterial* inMaterial, MEObject::Material* ioMaterial)
 	{
 		unsigned int textureIndex = 0;
 		FbxProperty property;

@@ -79,4 +79,24 @@ namespace MEObject
 		return m_vChildren;
 	}
 
+	XMFLOAT3& Transform::GetPosition()
+	{
+		return m_xmPosition;
+	}
+
+	XMFLOAT3& Transform::GetRotation()
+	{
+		return m_xmRotation;
+	}
+
+	XMFLOAT3& Transform::GetScale()
+	{
+		return m_xmScale;
+	}
+
+	XMFLOAT4X4 Transform::GetMatrix()
+	{
+		return m_xmWorldMatrix;
+	}
+
 }

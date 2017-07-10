@@ -165,9 +165,6 @@
     <ClCompile Include="Renderer\RenderSet\RenderContext.cpp">
       <Filter>Renderer\RenderSet</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\RenderSet\RenderShape.cpp">
-      <Filter>Renderer\RenderSet</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Containers\IndexBuffer.cpp">
       <Filter>Renderer\Containers</Filter>
     </ClCompile>
