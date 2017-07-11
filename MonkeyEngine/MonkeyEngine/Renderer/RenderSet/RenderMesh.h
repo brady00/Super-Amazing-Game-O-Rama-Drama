@@ -4,12 +4,17 @@
 #include <d3d11.h>
 #include <vector>
 #include "../Managers/VertexBufferManager.h"
+namespace MEFileIO
+{
+	class FileIO;
+}
 namespace MERenderer
 {
 	struct VERTEX;
 	class RenderTexture;
 	class RenderMesh : public RenderNode
 	{
+		friend class MEFileIO::FileIO;
 	private:
 		VERTEX* m_vVerticies;
 		unsigned int m_uiNumVerticies;
@@ -26,16 +31,9 @@ namespace MERenderer
 		const std::string& GetVertexFileName();
 		void Draw();
 		RenderTexture* AddTexture(std::string _TextureFileName);
-		bool Load(std::string _VertexFileName, VertexFormat _VertexFormat);
+		bool Load(std::string _VertexFileName, VertexFormat& _VertexFormat);
 		RenderTexture* TextureExsits(std::string _TextureFileName);
 		bool LoadTexture(std::string _TextureFileName, RenderTexture*& _Texture);
-		const VERTEX* GetVerticies();
-		const unsigned int* GetIndicies();
-		const unsigned int GetNumVerticies();
-		const unsigned int GetNumIndicies();
-		const unsigned int GetStartIndexLocation();
-		const int GetBaseVertexLocation();
-		const VertexFormat GetVertexFormat();
 	};
 
 }

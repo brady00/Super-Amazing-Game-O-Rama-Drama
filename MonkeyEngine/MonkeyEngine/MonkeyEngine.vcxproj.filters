@@ -884,6 +884,9 @@
     <ClInclude Include="Libraries\XMLParser\tinyxml2.h">
       <Filter>Libraries\XMLParser</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\Containers\Material.h">
+      <Filter>Renderer\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Renderer\Shaders\POS_VS.hlsl">

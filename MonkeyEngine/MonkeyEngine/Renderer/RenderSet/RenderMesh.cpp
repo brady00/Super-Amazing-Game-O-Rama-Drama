@@ -32,7 +32,9 @@ namespace MERenderer
 			UINT Stride = sizeof(VERTEX_POS);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+			Renderer::m_DeviceContextMutex.unlock();
 			break;
 		}
 		case MERenderer::eVERTEX_POSCOLOR:
@@ -40,7 +42,9 @@ namespace MERenderer
 			UINT Stride = sizeof(VERTEX_POSCOLOR);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionColorBuffer().GetVertexBuffer();
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+			Renderer::m_DeviceContextMutex.unlock();			
 			break;
 		}
 		case MERenderer::eVERTEX_POSTEX:
@@ -48,7 +52,9 @@ namespace MERenderer
 			UINT Stride = sizeof(VERTEX_POSTEX);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionTexBuffer().GetVertexBuffer();
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+			Renderer::m_DeviceContextMutex.unlock();			
 			break;
 		}
 		case MERenderer::eVERTEX_POSNORMTEX:
@@ -56,7 +62,9 @@ namespace MERenderer
 			UINT Stride = sizeof(VERTEX_POSNORMTEX);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosNormTexBuffer().GetVertexBuffer();
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+			Renderer::m_DeviceContextMutex.unlock();			
 			break;
 		}
 		case MERenderer::eVERTEX_POSNORMTANTEX:
@@ -64,7 +72,9 @@ namespace MERenderer
 			UINT Stride = sizeof(VERTEX_POSNORMTANTEX);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().GetVertexBuffer();
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+			Renderer::m_DeviceContextMutex.unlock();			
 			break;
 		}
 		case MERenderer::eVERTEX_POSBONEWEIGHT:
@@ -72,7 +82,9 @@ namespace MERenderer
 			UINT Stride = sizeof(VERTEX_POSBONEWEIGHT);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().GetVertexBuffer();
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+			Renderer::m_DeviceContextMutex.unlock();			
 			break;
 		}
 		case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
@@ -80,7 +92,9 @@ namespace MERenderer
 			UINT Stride = sizeof(VERTEX_POSBONEWEIGHTNORMTEX);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().GetVertexBuffer();
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+			Renderer::m_DeviceContextMutex.unlock();			
 			break;
 		}
 		case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
@@ -88,7 +102,9 @@ namespace MERenderer
 			UINT Stride = sizeof(VERTEX_POSBONEWEIGHTNORMTANTEX);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().GetVertexBuffer();
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+			Renderer::m_DeviceContextMutex.unlock();			
 			break;
 		}
 		default:
@@ -96,6 +112,7 @@ namespace MERenderer
 		}
 		//index buffer
 		ID3D11Buffer* indexbuff = IndexBuffer::GetInstance()->GetIndicies();
+		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->IASetIndexBuffer(indexbuff, DXGI_FORMAT_R32_UINT, 0);
 		//primitive topology
 		Renderer::m_d3DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -105,24 +122,26 @@ namespace MERenderer
 		//Renderer::m_d3DeviceContext->GSSetShader(ShaderManager::GetInstance()->GetGeometryShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 		//Renderer::m_d3DeviceContext->DSSetShader(ShaderManager::GetInstance()->GetDomainShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 		//Renderer::m_d3DeviceContext->HSSetShader(ShaderManager::GetInstance()->GetHullShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
+		Renderer::m_DeviceContextMutex.unlock();
 		m_pRenderTextures->Draw();
 	}
 
-	bool RenderMesh::Load(std::string _VertexFileName, VertexFormat _VertexFormat)
+	bool RenderMesh::Load(std::string _VertexFileName, VertexFormat& _VertexFormat)
 	{
 		m_sVertexFileName = _VertexFileName;
-		m_eVertexFormat = _VertexFormat;
 		std::string tempfilename(&m_sVertexFileName[m_sVertexFileName.length() - 4]);
 		if (tempfilename == ".obj" || tempfilename == ".OBJ")
 		{
 			if (!MEFileIO::FileIO::LoadOBJ(m_sVertexFileName, m_eVertexFormat, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))
 				return false;
+			m_eVertexFormat = _VertexFormat = MERenderer::eVERTEX_POSNORMTEX;
 		}
 		else if (tempfilename == ".fbx" || tempfilename == ".FBX")
 		{
 			if (!MEFileIO::FileIO::LoadFBX(m_sVertexFileName, m_eVertexFormat, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))
 				return false;
 			IndexBuffer::GetInstance()->AddIndicies(m_vIndicies, m_uiNumIndicies);
+			m_eVertexFormat = _VertexFormat = MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX;
 		}
 		switch (m_eVertexFormat)
 		{
@@ -193,40 +212,5 @@ namespace MERenderer
 	{
 		_Texture = new RenderTexture;
 		return _Texture->Load(_TextureFileName);
-	}
-
-	const VERTEX* RenderMesh::GetVerticies()
-	{
-		return m_vVerticies;
-	}
-
-	const unsigned int* RenderMesh::GetIndicies()
-	{
-		return m_vIndicies;
-	}
-
-	const unsigned int RenderMesh::RenderMesh::GetNumVerticies()
-	{
-		return m_uiNumVerticies;
-	}
-
-	const unsigned int RenderMesh::GetNumIndicies()
-	{
-		return m_uiNumIndicies;
-	}
-
-	const unsigned int RenderMesh::GetStartIndexLocation()
-	{
-		return m_uiStartIndexLocation;
-	}
-
-	const int RenderMesh::GetBaseVertexLocation()
-	{
-		return m_iBaseVertexLocation;
-	}
-
-	const VertexFormat RenderMesh::GetVertexFormat()
-	{
-		return m_eVertexFormat;
 	}
 }

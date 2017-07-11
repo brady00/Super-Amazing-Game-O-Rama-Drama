@@ -35,7 +35,9 @@ namespace MERenderer
 		if (state >= RS_COUNT)
 			return false;
 
+		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->RSSetState(m_vRasterStates[state]);
+		Renderer::m_DeviceContextMutex.unlock();
 		m_eCurrentState = state;
 		return true;
 	}

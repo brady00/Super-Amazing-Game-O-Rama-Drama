@@ -8,6 +8,7 @@ namespace MEObject
 	class Component;
 	class GameObject : public Object
 	{
+		friend class Scene;
 	public:
 		enum COMPONENT_ID
 		{
@@ -150,12 +151,10 @@ namespace MEObject
 		std::vector<CompType*> GetComponentsinCildren();
 		template <typename CompType>
 		std::vector<CompType*> GetComponentsinParent();
-	protected:
+	private:
 		void Initialize();
 		MEReturnValues::RETURNVALUE Update();
 		void ShutDown();
-	//helpers
-	private:
 		void SetActiveInHeirarchy();
 	};
 }

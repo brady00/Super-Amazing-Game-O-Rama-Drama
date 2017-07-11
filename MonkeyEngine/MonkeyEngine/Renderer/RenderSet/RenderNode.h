@@ -11,7 +11,7 @@ namespace MERenderer
 		virtual ~RenderNode();
 		RenderNode* GetNext();
 		void SetNext(RenderNode* _Next);
-		virtual void Draw();
+		virtual void Draw() = 0;
 	};
 }
 

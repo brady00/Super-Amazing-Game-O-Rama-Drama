@@ -93,22 +93,26 @@ namespace MERenderer
 
 	}
 
-	void DefferedRenderTarget::Update(ID3D11DeviceContext* _DeviceContext)
+	void DefferedRenderTarget::Update()
 	{
-		_DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(VertexFormat::eVERTEX_POSTEX));
+		Renderer::m_DeviceContextMutex.lock();
+		Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(VertexFormat::eVERTEX_POSTEX));
+		Renderer::m_DeviceContextMutex.unlock();
 		BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default);
 		RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL);
 		DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_NoDepth);
 		UINT Stride = sizeof(VERTEX_POSTEX);
 		UINT Offset = 0;
 		ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionTexBuffer().GetVertexBuffer();
+		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 		Renderer::m_d3DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		Renderer::m_d3DeviceContext->VSSetShader(ShaderManager::GetInstance()->GetVertexShader((ShaderManager::ShaderType)VertexFormat::eVERTEX_POSTEX), 0, 0);
 		Renderer::m_d3DeviceContext->PSSetShader(ShaderManager::GetInstance()->GetPixelShader((ShaderManager::ShaderType)VertexFormat::eVERTEX_POSTEX), 0, 0);
-		_DeviceContext->PSSetShaderResources(0, 2, m_d3GBufferShaderView);
+		Renderer::m_d3DeviceContext->PSSetShaderResources(0, 2, m_d3GBufferShaderView);
 		Renderer::m_d3DeviceContext->PSSetSamplers(0, 1, &m_d3SamplerState);
 		Renderer::m_d3DeviceContext->Draw(6, m_uiStartVert);
+		Renderer::m_DeviceContextMutex.unlock();
 	}
 
 	void DefferedRenderTarget::Shutdown()
@@ -124,9 +128,11 @@ namespace MERenderer
 
 	void DefferedRenderTarget::SetAsRenderTarget(ID3D11DepthStencilView* _StencilView, ID3D11DeviceContext* _DeviceContext)
 	{
+		Renderer::m_DeviceContextMutex.lock();
 		float color[] = { 0,0,1,1 };
 		_DeviceContext->OMSetRenderTargets(m_uiBufferCount, m_d3GBufferTargetView, 0);
 		for (unsigned int i = 0; i < m_uiBufferCount; i++)
 			_DeviceContext->ClearRenderTargetView(m_d3GBufferTargetView[i], color);
+		Renderer::m_DeviceContextMutex.unlock();
 	}
 }

@@ -24,7 +24,9 @@ namespace MERenderer
 	{
 		//context switching
 		//input layout
+		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(m_VertexFormat));
+		Renderer::m_DeviceContextMutex.unlock();
 		//blend state
 		BlendStateManager::GetInstance()->ApplyState(m_BlendState);
 		//rasterizer
@@ -34,12 +36,12 @@ namespace MERenderer
 		m_pRenderMeshes->Draw();
 	}
 
-	RenderMesh* RenderContext::AddMesh(std::string VertexFileName, VertexFormat _VertexFormat)
+	RenderMesh* RenderContext::AddMesh(std::string VertexFileName)
 	{
 		RenderMesh* _Mesh = MeshExists(VertexFileName);
 		if (_Mesh == nullptr)
 		{
-			LoadMesh(VertexFileName, _Mesh, _VertexFormat);
+			LoadMesh(VertexFileName, _Mesh);
 			m_pRenderMeshes->AddNode(_Mesh);
 		}
 		return _Mesh;
@@ -62,10 +64,10 @@ namespace MERenderer
 		return nullptr;
 	}
 
-	bool RenderContext::LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh, VertexFormat _VertexFormat)
+	bool RenderContext::LoadMesh(std::string _VertexFileName, RenderMesh*& _Mesh)
 	{
 		_Mesh = new RenderMesh;
-		return _Mesh->Load(_VertexFileName, _VertexFormat);
+		return _Mesh->Load(_VertexFileName, m_VertexFormat);
 	}
 
 	bool RenderContext::Load(VertexFormat _VertexFormat, BlendStateManager::BStates _BlendState, RasterizerStateManager::RasterStates _RasterState, DepthStencilStateManager::DSStates _DSState)

@@ -35,7 +35,9 @@ namespace MERenderer
 		if (state >= DSS_COUNT)
 			return false;
 
+		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->OMSetDepthStencilState(m_vDepthStates[state], m_vStencilRefs[state]);
+		Renderer::m_DeviceContextMutex.unlock();
 		m_eCurrentState = state;
 		return true;
 	}

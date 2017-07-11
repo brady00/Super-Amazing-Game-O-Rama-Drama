@@ -248,6 +248,7 @@
     <ClInclude Include="Renderer\Containers\ConstantBuffer.hpp" />
     <ClInclude Include="Renderer\Containers\DefferedRenderTarget.h" />
     <ClInclude Include="Renderer\Containers\IndexBuffer.h" />
+    <ClInclude Include="Renderer\Containers\Material.h" />
     <ClInclude Include="Renderer\Containers\VertexBuffer.h" />
     <ClInclude Include="Renderer\Containers\VertexBuffer.hpp" />
     <ClInclude Include="Renderer\DebugCamera\DebugCamera.h" />

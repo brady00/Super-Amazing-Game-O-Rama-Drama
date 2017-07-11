@@ -44,7 +44,9 @@ namespace MERenderer
 			ibd.ByteWidth += sizeof(UINT) * _numIndices;
 			ID3D11Buffer *newIndexBufferPtr;
 			Renderer::m_d3Device->CreateBuffer(&ibd, &iinitData, &newIndexBufferPtr);
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->CopySubresourceRegion(newIndexBufferPtr, 0, 0, 0, 0, m_d3IndexBuffer, 0, 0);
+			Renderer::m_DeviceContextMutex.unlock();
 			//ReleaseCOM(indexBufferPtr);
 			m_d3IndexBuffer = newIndexBufferPtr;
 			delete[] iinitData.pSysMem;

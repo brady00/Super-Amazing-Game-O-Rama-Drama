@@ -99,7 +99,7 @@ namespace MEFileIO
 		static bool LoadGameObject(XMLElement* _ObjectRoot, MEObject::GameObject* _Object);
 		//individual components
 		static bool LoadTranform(XMLElement* _ObjectRoot, MEObject::Component*& _Object);
-		static bool LoadRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object);
+		static bool LoadMeshRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object);
 	public:
 		FileIO();
 		~FileIO();

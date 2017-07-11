@@ -15,11 +15,6 @@ namespace MERenderer
 
 	}
 
-	void RenderNode::Draw()
-	{
-
-	}
-
 	RenderNode* RenderNode::GetNext()
 	{ 
 		return m_pNext; 

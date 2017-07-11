@@ -4,28 +4,7 @@
 using namespace DirectX;
 namespace MEObject
 {
-
-	class Material
-	{
-	public:
-		std::string mName;
-		XMFLOAT3 mAmbient;
-		XMFLOAT3 mDiffuse;
-		XMFLOAT3 mEmissive;
-		double mTransparencyFactor;
-		std::string mDiffuseMapName;
-		std::string mEmissiveMapName;
-		std::string mGlossMapName;
-		std::string mNormalMapName;
-		std::string mSpecularMapName;
-		XMFLOAT3 mSpecular;
-		XMFLOAT3 mReflection;
-		double mSpecularPower;
-		double mShininess;
-		double mReflectionFactor;
-	};
-
-	class CompRenderer : public Component, public MERenderer::RenderShape
+	class CompRenderer : public MERenderer::RenderShape, public Component
 	{
 	private:
 		MERenderer::BlendStateManager::BStates* m_BlendState;
@@ -39,7 +18,7 @@ namespace MEObject
 		int* m_iBaseVertexLocation;
 		std::string* m_sVertexFileName;
 		MERenderer::VertexFormat* m_eVertexFormat;
-		Material m_Material; 
+		Material* m_Material; 
 
 	public:
 		CompRenderer();
@@ -56,7 +35,6 @@ namespace MEObject
 		int& GetBaseVertexLocation();
 		std::string& GetVertexFileName();
 		MERenderer::VertexFormat& GetVertexFormat();
-		std::string& GetTextureFileName();
 		Material& GetMaterial();
 
 		void SetBlendState(MERenderer::BlendStateManager::BStates*);
@@ -83,7 +61,7 @@ namespace MEObject
 						 int* m_iBaseVertexLocation,
 						 std::string* m_sVertexFileName,
 						 MERenderer::VertexFormat* m_eVertexFormat,
-						 std::string* m_TextureFileName );
+						 Material* _Material);
 	private:
 		void Initialize();
 	};

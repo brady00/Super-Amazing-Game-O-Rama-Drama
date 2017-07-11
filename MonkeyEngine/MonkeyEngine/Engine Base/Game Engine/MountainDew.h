@@ -16,13 +16,15 @@ private:
 	MERenderer::Renderer* m_pRenderer = nullptr;
 	Scene* m_pScene;
 	std::thread m_tGameThread;
-	bool m_bShuttingDown = false;
 	MountainDew() {};
 	MountainDew(const MountainDew&) {};
 	MountainDew(const MountainDew&&) {};
 	MountainDew &operator=(const MountainDew&) {};
 	MountainDew &operator=(const MountainDew&&) {};
+	bool init = false;
+	std::thread m_Thread;
 public:
+	bool m_bShuttingDown = false;
 	static MountainDew* GetInstance() { if (!m_pGamePtr) m_pGamePtr = new MountainDew;  return m_pGamePtr; }
 	static void DestroyInstance() { if (m_pGamePtr) delete m_pGamePtr; m_pGamePtr = m_pGamePtr; }
 	void Initialize(HINSTANCE, int);

@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <DirectXMath.h>
 #include <d3d11.h>
+#include <mutex>
 #pragma comment(lib, "d3d11.lib")
 namespace MERenderer
 {
@@ -18,20 +19,16 @@ namespace MERenderer
 	class Object;
 	class Camera;
 	class RenderContext;
-	class DebugCamera;
 	class DefferedRenderTarget;
 	using namespace DirectX;
 	class Renderer
 	{
 	private:
-		RenderSet* m_pNonTranparentObjects;
-		RenderSet* m_pTransparentObjects;
+		static RenderSet* m_pNonTranparentObjects;
+		static RenderSet* m_pTransparentObjects;
 		std::vector<Canvas*> m_vCanvases;
 		std::vector<Camera*> m_vCameras;
 		unsigned int m_uiActiveCamera;
-		//debug Object
-		RenderContext* m_pRenderContext;
-		DebugCamera* m_pDebugCamera;
 		DefferedRenderTarget* m_pDeferredRenderTarget;
 	public:
 		Renderer();
@@ -39,10 +36,9 @@ namespace MERenderer
 		void Initialize(HWND _window, UINT _ScreenWidth, UINT _ScreenHeight);
 		MEReturnValues::RETURNVALUE Update();
 		void Shutdown();
-		bool Register(Object* _Object);
-		bool UnRegister(Object* _Object);
 		static ID3D11Device* m_d3Device;
 		static ID3D11DeviceContext* m_d3DeviceContext;
+		static std::mutex m_DeviceContextMutex;
 		static IDXGISwapChain* m_d3SwapChain;
 		static ID3D11RenderTargetView* m_d3BackBufferTargetView;
 		static ID3D11Texture2D* m_d3DepthBuffer;
@@ -54,7 +50,8 @@ namespace MERenderer
 		static UINT m_uiScreenXPositionOffset;
 		static UINT m_uiScreenYPositionOffset;
 		static bool m_bFullScreen;
-
+		static RenderContext* AddNewTransparentContext(RenderContext*& _context);
+		static RenderContext* AddNewnonTransparentContext(RenderContext*& _context);
 	};
 }
 

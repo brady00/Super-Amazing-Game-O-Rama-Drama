@@ -6,6 +6,7 @@
 #include "../../Renderer/Managers/RasterizerStateManager.h"
 #include "../../Renderer/Managers/DepthStencilStateManager.h"
 #include "../../Renderer/Managers/VertexBufferManager.h"
+#include "../../Renderer/Containers/Material.h"
 namespace MERenderer
 {
 	class RenderShape : public RenderNode
@@ -13,11 +14,11 @@ namespace MERenderer
 	public:
 		RenderShape() {};
 		~RenderShape() {};
-		virtual void Draw() = 0;
-		virtual bool Load(BlendStateManager::BStates* m_BlendState,
-			RasterizerStateManager::RasterStates* m_RasterState,
-			DepthStencilStateManager::DSStates* m_DSState,
-			VERTEX* m_vVerticies,
+		virtual void Draw() {};
+		virtual bool Load(MERenderer::BlendStateManager::BStates* m_BlendState,
+			MERenderer::RasterizerStateManager::RasterStates* m_RasterState,
+			MERenderer::DepthStencilStateManager::DSStates* m_DSState,
+			MERenderer::VERTEX* m_vVerticies,
 			unsigned int* m_uiNumVerticies,
 			unsigned int* m_vIndicies,
 			unsigned int* m_uiNumIndicies,
@@ -25,7 +26,7 @@ namespace MERenderer
 			int* m_iBaseVertexLocation,
 			std::string* m_sVertexFileName,
 			MERenderer::VertexFormat* m_eVertexFormat,
-			std::string* m_TextureFileName) = 0;
+			MEObject::Material* _Material) {return false;};
 	};
 
 

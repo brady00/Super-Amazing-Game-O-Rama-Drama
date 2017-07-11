@@ -17,7 +17,7 @@ namespace MERenderer
 		~DefferedRenderTarget();
 
 		void Initialize(ID3D11Device* _Device, UINT _ScreenHeight, UINT _ScreenWidth);
-		void Update(ID3D11DeviceContext* _DeviceContext);
+		void Update();
 		void Shutdown();
 
 		void SetAsRenderTarget(ID3D11DepthStencilView* _StencilView, ID3D11DeviceContext* _DeviceContext);

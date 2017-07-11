@@ -2,6 +2,12 @@
 #include <fstream>
 #include <algorithm>
 #include "ComponentObjectFactory.h"
+#include "../Renderer/RenderSet/RenderSet.h"
+#include "../Renderer/RenderSet/RenderContext.h"
+#include "../Renderer/RenderSet/RenderMesh.h"
+#include "../Renderer/RenderSet/RenderTexture.h"
+#include "../Components/Renderer/CompRenderer.h"
+
 namespace MEFileIO
 {
 	FbxManager* FileIO::m_fbxManager = nullptr;
@@ -19,13 +25,13 @@ namespace MEFileIO
 	const std::unordered_map<std::string, compFuntion> FileIO::componentFunctions =
 	{
 		{"Transform", &FileIO::LoadTranform},
-		{"Renderer", &FileIO::LoadRenderer}
+		{"MeshRenderer", &FileIO::LoadMeshRenderer}
 	};
 
 	const std::unordered_map<std::string, MEObject::GameObject::COMPONENT_ID> FileIO::componentIDS =
 	{
 		{ "Transform", MEObject::GameObject::COMPONENT_ID::eTransform },
-		{ "Renderer", MEObject::GameObject::COMPONENT_ID::eCompRenderer }
+		{ "MeshRenderer", MEObject::GameObject::COMPONENT_ID::eCompRenderer }
 	};
 
 	FileIO::FileIO()
@@ -213,7 +219,7 @@ namespace MEFileIO
 		XMLElement* child = _ObjectRoot->FirstChildElement();
 		while (child)
 		{
-			MEObject::Component* comp = nullptr;
+			MEObject::Component* comp = ComponentObjectFactory::GetInstance()->Create(child->Name());
 			if (componentFunctions.at(std::string(child->Name()))(child, comp))
 				_Object->AddComponent(comp, componentIDS.at(std::string(child->Name())));
 			else
@@ -257,14 +263,61 @@ namespace MEFileIO
 		}
 		else
 			return false;
-		_Object = new MEObject::Transform(pos, rot, scale);
+		((MEObject::Transform*)_Object)->GetPosition() = pos;
+		((MEObject::Transform*)_Object)->GetRotation() = rot;
+		((MEObject::Transform*)_Object)->GetScale() = scale;
 		return true;
 	}
 
-	bool FileIO::LoadRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
+	bool FileIO::LoadMeshRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
 	{
-		 
-		return false;
+		bool Enabled = _ObjectRoot->BoolAttribute("Enabled");
+		bool Skiined = _ObjectRoot->BoolAttribute("Skinned");
+		bool Opaque = _ObjectRoot->BoolAttribute("Opaque");
+		std::string VertexFileName;
+		std::string DiffuseFileName;
+		MERenderer::BlendStateManager::BStates BlendState;
+		XMLElement* child = _ObjectRoot->FirstChildElement();
+		if (child && strcmp(child->Name(), "VertexFileName") == 0)
+			VertexFileName = child->Attribute("File");
+		child = child->NextSiblingElement();
+		if (child && strcmp(child->Name(), "DiffuseFileName") == 0)
+			DiffuseFileName = child->Attribute("File");
+		if (Opaque)
+			BlendState = MERenderer::BlendStateManager::BStates::BS_Default;
+		else
+			BlendState = MERenderer::BlendStateManager::BStates::BS_Alpha;
+		MERenderer::VertexFormat VertFormat;
+		std::string tempfilename(&VertexFileName[VertexFileName.length() - 4]);
+		if (tempfilename == ".obj" || tempfilename == ".OBJ")
+			VertFormat = MERenderer::eVERTEX_POSNORMTEX;
+		else if (tempfilename == ".fbx" || tempfilename == ".FBX")
+			VertFormat = MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX;
+
+		MERenderer::RenderContext* renderContext= new MERenderer::RenderContext;
+		renderContext->Load(VertFormat, BlendState, MERenderer::RasterizerStateManager::RS_Default, MERenderer::DepthStencilStateManager::DSS_Default);
+		if (Opaque)
+			renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
+		else
+			renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
+		MERenderer::RenderMesh* tempMesh = renderContext->AddMesh(VertexFileName);
+		MERenderer::RenderTexture* tempTex = tempMesh->AddTexture(DiffuseFileName);
+		MEObject::CompRenderer* comprend = (MEObject::CompRenderer*)_Object;
+		tempTex->AddShape((MERenderer::RenderShape*)comprend);
+
+		((MEObject::CompRenderer*)_Object)->Load(&renderContext->m_BlendState,
+			&renderContext->m_RasterState,
+			&renderContext->m_DSState,
+			tempMesh->m_vVerticies,
+			&tempMesh->m_uiNumVerticies,
+			tempMesh->m_vIndicies,
+			&tempMesh->m_uiNumIndicies,
+			&tempMesh->m_uiStartIndexLocation,
+			&tempMesh->m_iBaseVertexLocation,
+			&tempMesh->m_sVertexFileName,
+			&tempMesh->m_eVertexFormat,
+			tempTex->m_Material);
+		return true;
 	}
 
 	void FileIO::ProcessSkeletonHierarchy(FbxNode* inRootNode)

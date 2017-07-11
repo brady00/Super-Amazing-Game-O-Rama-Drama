@@ -1,4 +1,5 @@
 #include "ComponentObjectFactory.h"
+
 namespace MEFileIO
 {
 	ComponentObjectFactory* ComponentObjectFactory::m_pInstance = nullptr;
@@ -25,7 +26,7 @@ namespace MEFileIO
 
 	void ComponentObjectFactory::registerComponents()
 	{
-		ComponentObjectFactory::GetInstance()->Register("CompRenderer", [] {return new MEObject::CompRenderer; });
+		ComponentObjectFactory::GetInstance()->Register("MeshRenderer", [] {return new MEObject::CompRenderer; });
 		ComponentObjectFactory::GetInstance()->Register("Transform", [] {return new MEObject::Transform; });
 	}
 

@@ -29,6 +29,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_DESTROY:
+		MountainDew::GetInstance()->m_bShuttingDown = true;
 		PostQuitMessage(0);
 		break;
 	default:
@@ -41,6 +42,7 @@ void MountainDew::UpdateGame()
 {
 	while (!m_bShuttingDown)
 	{
+		Time::Update();
 		m_pScene->Update();
 	}
 }
@@ -75,19 +77,31 @@ void MountainDew::Initialize(HINSTANCE hInstance, int nCmdShow)
 	m_pRenderer->Initialize(m_HWnd, m_uiScreenWidth, m_uiScreenHeight);
 	Time::Initialize();
 	std::vector<MEObject::GameObject*> objects;
-	MEFileIO::FileIO::LoadScene("Assets/Scenes/TestScene.mes", objects);
+	m_pScene = new Scene;
+	m_pScene->initialize(m_uiScreenWidth, m_uiScreenHeight);
+	MEFileIO::FileIO::LoadScene("Assets/Scenes/TestScene.mes", m_pScene->m_vObjects);
 }
 
 void MountainDew::Update()
 {
+	if (!init)
+	{
+		m_Thread = std::thread(&MountainDew::UpdateGame, this);
+		init = true;
+	}
 	if (GetAsyncKeyState(VK_ESCAPE))
+	{
+		m_bShuttingDown = true;
 		PostQuitMessage(0);
-	Time::Update();
+	}
 	m_pRenderer->Update();
 }
 
 void MountainDew::Shutdown()
 {
+	m_Thread.join();
+	m_pScene->Shutdown();
+	delete m_pScene;
 	m_pRenderer->Shutdown();
 	delete m_pRenderer;
 }

@@ -43,7 +43,9 @@ namespace MERenderer
 			ibd.ByteWidth += sizeof(VertexFormat) * _numVerts;
 			ID3D11Buffer *newVertexBufferPtr;
 			Renderer::m_d3Device->CreateBuffer(&ibd, &iinitData, &newVertexBufferPtr);
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->CopySubresourceRegion(newVertexBufferPtr, 0, 0, 0, 0, m_D3VertexBuffer, 0, 0);
+			Renderer::m_DeviceContextMutex.unlock();
 			//ReleaseCOM(vertexBufferPtr);
 			m_D3VertexBuffer = newVertexBufferPtr;
 			delete[] iinitData.pSysMem;

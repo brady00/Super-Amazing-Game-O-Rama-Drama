@@ -29,8 +29,13 @@ namespace MEObject
 			return MEReturnValues::NOTHING;
 		m_pTransform->Update();
 		for (unsigned int i = 0; i < eNumComponents - 1; i++)
-			for (unsigned int j = 0; j < m_vComponents[i].size(); j++)
-				m_vComponents[i][j]->Update();
+		{
+			if (unsigned int size = (unsigned int)m_vComponents[i].size())
+			{
+				for (unsigned int j = 0; j < size; j++)
+					m_vComponents[i][j]->Update();
+			}
+		}
 		for (unsigned int i = 0; i < m_vComponents[eScript].size(); i++)
 			if (((Behaviour*)m_vComponents[eScript][i])->GetEnabled())
 				m_vComponents[eScript][i]->Update();

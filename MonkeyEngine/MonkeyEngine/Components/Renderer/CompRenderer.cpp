@@ -71,7 +71,7 @@ namespace MEObject
 	}
 	Material& CompRenderer::GetMaterial()
 	{
-		return m_Material;
+		return *m_Material;
 	}
 	void CompRenderer::SetBlendState(MERenderer::BlendStateManager::BStates* _bState)
 	{
@@ -119,7 +119,7 @@ namespace MEObject
 	}
 	void CompRenderer::SetMaterial(Material& mat)
 	{
-		m_Material = mat;
+		*m_Material = mat;
 	}
 
 	void CompRenderer::Initialize()
@@ -133,11 +133,21 @@ namespace MEObject
 		temp.world = GetTransform()->GetMatrix();
 		ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&temp, sizeof(temp));
 		ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
+		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
-		if (m_vIndicies)
+		Renderer::m_DeviceContextMutex.unlock();
+		if (!m_vIndicies)
+		{
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->Draw(*m_uiNumVerticies, *m_iBaseVertexLocation);
+			Renderer::m_DeviceContextMutex.unlock();
+		}
 		else
+		{
+			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->DrawIndexed(*m_uiNumIndicies, *m_uiStartIndexLocation, *m_iBaseVertexLocation);
+			Renderer::m_DeviceContextMutex.unlock();
+		}
 	}
 
 	bool CompRenderer::Load(MERenderer::BlendStateManager::BStates* _BlendState,
@@ -151,7 +161,7 @@ namespace MEObject
 		int* _iBaseVertexLocation,
 		std::string* _sVertexFileName,
 		MERenderer::VertexFormat* _eVertexFormat,
-		std::string* _TextureFileName)
+		Material* _Material)
 	{
 		m_BlendState = _BlendState;
 		m_RasterState = _RasterState;
@@ -164,6 +174,7 @@ namespace MEObject
 		m_iBaseVertexLocation = _iBaseVertexLocation;
 		m_sVertexFileName = _sVertexFileName;
 		m_eVertexFormat = _eVertexFormat;
+		m_Material = _Material;
 		return true;
 	}
 }

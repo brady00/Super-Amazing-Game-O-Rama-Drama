@@ -22,8 +22,10 @@ namespace MERenderer
 	void RenderTexture::Draw()
 	{
 		
+		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->PSSetShaderResources(0, 1, &m_d3DiffuseTexture);
 		Renderer::m_d3DeviceContext->PSSetSamplers(0,1,&m_d3SamplerState);
+		Renderer::m_DeviceContextMutex.unlock();
 		m_pRenderShapes->Draw();
 	}
 
@@ -55,6 +57,9 @@ namespace MERenderer
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
+		m_Material = new MEObject::Material;
+		m_Material->mDiffuseMapName = _TextureFileName;
+
 		// Create the texture sampler state.
 		Renderer::m_d3Device->CreateSamplerState(&samplerDesc, &m_d3SamplerState);
 		return true;
@@ -62,33 +67,16 @@ namespace MERenderer
 
 	const std::string& RenderTexture::GetTextureFileName()
 	{
-		return m_TextureFileName;
+		return m_Material->mDiffuseMapName;
 	}
 
-	bool RenderTexture::AddShape()
+	void RenderTexture::AddShape(RenderShape* _Shape)
 	{
-		if (m_pRenderShapes == nullptr)
-		{
+		if (!m_pRenderShapes)
 			m_pRenderShapes = new RenderSet;
-			return false;
-		}
-		RenderShape* _Shape;
-		if (!LoadShape(_Shape))
-		{
-			delete _Shape;
-			return false;
-		}
 		m_pRenderShapes->AddNode(_Shape);
-		return true;
 	}
 
-	//RenderShapeType????
-	bool RenderTexture::LoadShape(RenderShape*& _Shape)
-	{
-		_Shape = new MEObject::CompRenderer;
-		//call the Specific Renderer's Load while loading the object into the scene
-		return true;
-	}
 
 	ID3D11ShaderResourceView* RenderTexture::GetDiffuseTexture()
 	{

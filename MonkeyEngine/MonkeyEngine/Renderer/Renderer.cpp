@@ -1,22 +1,22 @@
 #include "Renderer.h"
 #include "RenderSet\RenderSet.h"
-#include "RenderSet\RenderContext.h"
-#include "RenderSet\RenderMesh.h"
-#include "RenderSet\RenderTexture.h"
 #include "Managers\ConstantBufferManager.h"
-#include "DebugCamera\DebugCamera.h"
 #include "Containers\DefferedRenderTarget.h"
+#include "RenderSet\RenderContext.h"
 
 namespace MERenderer
 {
 	ID3D11Device* Renderer::m_d3Device = nullptr;
 	ID3D11DeviceContext* Renderer::m_d3DeviceContext = nullptr;
+	std::mutex Renderer::m_DeviceContextMutex;
 	IDXGISwapChain*	Renderer::m_d3SwapChain = nullptr;
 	ID3D11RenderTargetView* Renderer::m_d3BackBufferTargetView = nullptr;
 	ID3D11Texture2D* Renderer::m_d3DepthBuffer = nullptr;
 	ID3D11DepthStencilView* Renderer::m_d3DepthStencilView = nullptr;
 	D3D11_VIEWPORT	Renderer::m_d3ViewPort;
 	IDXGIOutput* Renderer::m_d3Output = nullptr;
+	RenderSet* Renderer::m_pTransparentObjects = nullptr;
+	RenderSet* Renderer::m_pNonTranparentObjects = nullptr;
 	UINT Renderer::m_uiScreenHeight = 0;
 	UINT Renderer::m_uiScreenWidth = 0;
 	UINT Renderer::m_uiScreenXPositionOffset = 0;
@@ -27,7 +27,7 @@ namespace MERenderer
 	bool Renderer::m_bFullScreen = true;
 
 #endif
-	Renderer::Renderer() : m_pTransparentObjects(nullptr), m_pNonTranparentObjects(nullptr)
+	Renderer::Renderer()
 	{
 
 	}
@@ -72,7 +72,6 @@ namespace MERenderer
 		m_d3ViewPort.MaxDepth = 1.0f;
 		m_pNonTranparentObjects = new RenderSet;
 		m_pTransparentObjects = new RenderSet;
-		m_pRenderContext = new RenderContext;
 		ConstantBufferManager::GetInstance()->CreateBuffers();
 
 		D3D11_TEXTURE2D_DESC depthBufferDesc;
@@ -94,36 +93,30 @@ namespace MERenderer
 		depthViewDesc.Texture2D.MipSlice = 0;
 		m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
 
-		//test code
-		m_pNonTranparentObjects->AddNode(m_pRenderContext);
-		m_pRenderContext->Load(VertexFormat::eVERTEX_POSNORMTEX, BlendStateManager::BS_Default, RasterizerStateManager::RS_Default, DepthStencilStateManager::DSS_Default);
-		RenderMesh* tempMesh = m_pRenderContext->AddMesh("Assets/testObj.obj", VertexFormat::eVERTEX_POSNORMTEX);
-		RenderTexture* tempTex = tempMesh->AddTexture("Assets/images.png");
-		tempTex->AddShape();
-
-		m_pDebugCamera = new DebugCamera;
-		m_pDebugCamera->Initialize(XMFLOAT4X4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), 0.1f, 999999.9f, 90.0f, (float)_ScreenHeight, (float)_ScreenWidth);
 		m_pDeferredRenderTarget = new DefferedRenderTarget;
 		m_pDeferredRenderTarget->Initialize(m_d3Device, _ScreenHeight, _ScreenWidth);
 	}
 
 	MEReturnValues::RETURNVALUE Renderer::Update()
 	{
+		Renderer::m_DeviceContextMutex.lock();
 		m_d3DeviceContext->RSSetViewports(1, &m_d3ViewPort);
 		m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		Renderer::m_DeviceContextMutex.unlock();
 		m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
-		m_pDebugCamera->Update();
 		m_pNonTranparentObjects->Draw();
 		m_pTransparentObjects->Draw();
 		//draw lights
 		//set backbuffer
 		float color[] = { 0,0,1,1 };
+		Renderer::m_DeviceContextMutex.lock();
 		m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 		m_d3DeviceContext->OMSetRenderTargets(1, &m_d3BackBufferTargetView, m_d3DepthStencilView);
 		m_d3DeviceContext->ClearRenderTargetView(m_d3BackBufferTargetView, color);
+		Renderer::m_DeviceContextMutex.unlock();
 
 		//draw quad
-		m_pDeferredRenderTarget->Update(m_d3DeviceContext);
+		m_pDeferredRenderTarget->Update();
 		m_d3SwapChain->Present(0, 0);
 		return MEReturnValues::RENDERRETURN;
 	}
@@ -143,13 +136,67 @@ namespace MERenderer
 		ReleaseCOM(m_d3Output);
 	}
 
-	bool Renderer::Register(Object* _Object)
+	RenderContext* Renderer::AddNewTransparentContext(RenderContext*& _context)
 	{
-		return true;
+		RenderContext* temp = (RenderContext*)m_pTransparentObjects->getHead();
+		while (temp->GetNext())
+		{
+			if (temp->m_BlendState == _context->m_BlendState &&
+				temp->m_DSState == _context->m_DSState &&
+				temp->m_RasterState == _context->m_RasterState &&
+				temp->m_VertexFormat == _context->m_VertexFormat)
+			{
+				delete _context;
+				_context = nullptr;
+				return temp;
+			}
+			temp = (RenderContext*)temp->GetNext();
+		}
+		if (temp->m_BlendState == _context->m_BlendState &&
+			temp->m_DSState == _context->m_DSState &&
+			temp->m_RasterState == _context->m_RasterState &&
+			temp->m_VertexFormat == _context->m_VertexFormat)
+		{
+			delete _context;
+			_context = nullptr;
+			return temp;
+		}
+		temp->SetNext(_context);
+		return _context;
 	}
 
-	bool Renderer::UnRegister(Object* _Object)
+	RenderContext* Renderer::AddNewnonTransparentContext(RenderContext*& _context)
 	{
-		return true;
+		RenderContext* temp = (RenderContext*)m_pNonTranparentObjects ->getHead();
+		if (!temp)
+		{
+			m_pNonTranparentObjects->AddNode(_context);
+			return _context;
+		}
+		while (temp->GetNext())
+		{
+			if (temp->m_BlendState == _context->m_BlendState &&
+				temp->m_DSState == _context->m_DSState &&
+				temp->m_RasterState == _context->m_RasterState &&
+				temp->m_VertexFormat == _context->m_VertexFormat)
+			{
+				delete _context;
+				_context = nullptr;
+				return temp;
+			}
+			temp = (RenderContext*)temp->GetNext();
+		}
+		if (temp->m_BlendState == _context->m_BlendState &&
+			temp->m_DSState == _context->m_DSState &&
+			temp->m_RasterState == _context->m_RasterState &&
+			temp->m_VertexFormat == _context->m_VertexFormat)
+		{
+			delete _context;
+			_context = nullptr;
+			return temp;
+		}
+		m_pNonTranparentObjects->AddNode(_context);
+		return _context;
 	}
+
 }
