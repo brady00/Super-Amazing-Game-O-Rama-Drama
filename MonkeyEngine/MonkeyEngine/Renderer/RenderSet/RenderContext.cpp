@@ -49,7 +49,7 @@ namespace MERenderer
 
 	RenderMesh* RenderContext::MeshExists(std::string _VertexFileName)
 	{
-		if (m_pRenderMeshes == nullptr)
+		if (!m_pRenderMeshes)
 		{
 			m_pRenderMeshes = new RenderSet;
 			return nullptr;

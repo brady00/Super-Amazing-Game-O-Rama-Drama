@@ -19,6 +19,12 @@ void Scene::initialize(int _ScreenWidth, int _ScreenHeight)
 			m_vObjects[i]->Initialize();
 }
 
+void Scene::AddObject(MEObject::GameObject* _GameObject)
+{
+	m_vObjects.push_back(_GameObject);
+}
+
+
 MEReturnValues::RETURNVALUE Scene::Update()
 {
 	unsigned int size = (unsigned int) m_vObjects.size();

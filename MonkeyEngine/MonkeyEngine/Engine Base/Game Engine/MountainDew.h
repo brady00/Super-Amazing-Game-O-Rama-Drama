@@ -15,7 +15,6 @@ private:
 	LONG m_uiScreenWidth = 1920;
 	MERenderer::Renderer* m_pRenderer = nullptr;
 	Scene* m_pScene;
-	std::thread m_tGameThread;
 	MountainDew() {};
 	MountainDew(const MountainDew&) {};
 	MountainDew(const MountainDew&&) {};

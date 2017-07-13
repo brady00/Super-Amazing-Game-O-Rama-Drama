@@ -26,8 +26,8 @@ namespace MERenderer
 	private:
 		static RenderSet* m_pNonTranparentObjects;
 		static RenderSet* m_pTransparentObjects;
-		std::vector<Canvas*> m_vCanvases;
-		std::vector<Camera*> m_vCameras;
+		//std::vector<Canvas*> m_vCanvases;
+		//std::vector<Camera*> m_vCameras;
 		unsigned int m_uiActiveCamera;
 		DefferedRenderTarget* m_pDeferredRenderTarget;
 	public:

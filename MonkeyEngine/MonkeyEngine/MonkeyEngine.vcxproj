@@ -140,8 +140,8 @@
     <ClCompile Include="Renderer\TextureLoaders\WICTextureLoader.cpp" />
     <ClCompile Include="Utils\ComponentObjectFactory.cpp" />
     <ClCompile Include="Utils\FileIO.cpp" />
-    <ClCompile Include="Utils\Time.cpp" />
-  </ItemGroup>
+    <ClCompile Include="Utils\MemoryManager.cpp" />
+    <ClCompile Include="Utils\Time.cpp" />  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Base\Component.h" />
     <ClInclude Include="Components\Behaviour\Animation.h" />
@@ -278,6 +278,7 @@
     <ClInclude Include="Renderer\TextureLoaders\WICTextureLoader.h" />
     <ClInclude Include="Utils\ComponentObjectFactory.h" />
     <ClInclude Include="Utils\FileIO.h" />
+    <ClInclude Include="Utils\MemoryManager.h" />
     <ClInclude Include="Utils\ReturnValues.h" />
     <ClInclude Include="Utils\Time.h" />
   </ItemGroup>

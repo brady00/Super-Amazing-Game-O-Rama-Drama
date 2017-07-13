@@ -10,6 +10,7 @@ namespace MEObject
 	{
 		friend class Scene;
 	public:
+		friend class Scene;
 		enum COMPONENT_ID
 		{
 			eBaseClass = -1,

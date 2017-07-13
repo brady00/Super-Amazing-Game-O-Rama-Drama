@@ -9,8 +9,8 @@ class Scene
 	friend class MountainDew;
 private:
 	std::vector<MEObject::GameObject*> m_vObjects;
-	MERenderer::DebugCamera* m_pDebugCamera;
-public:
+	MERenderer::DebugCamera* m_pDebugCamera;	
+	void AddObject(MEObject::GameObject* _GameObject);public:
 	Scene();
 	~Scene();
 

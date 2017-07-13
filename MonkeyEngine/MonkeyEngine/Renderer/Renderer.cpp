@@ -2,8 +2,8 @@
 #include "RenderSet\RenderSet.h"
 #include "Managers\ConstantBufferManager.h"
 #include "Containers\DefferedRenderTarget.h"
+#include "../Utils/MemoryManager.h"
 #include "RenderSet\RenderContext.h"
-
 namespace MERenderer
 {
 	ID3D11Device* Renderer::m_d3Device = nullptr;
