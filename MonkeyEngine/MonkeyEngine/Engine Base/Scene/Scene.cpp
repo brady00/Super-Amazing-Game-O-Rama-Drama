@@ -39,6 +39,7 @@ MEReturnValues::RETURNVALUE Scene::Update()
 
 void Scene::Shutdown()
 {
+	delete m_pDebugCamera;
 	for (unsigned int i = 0; i < m_vObjects.size(); i++)
 	{
 		m_vObjects[i]->ShutDown();

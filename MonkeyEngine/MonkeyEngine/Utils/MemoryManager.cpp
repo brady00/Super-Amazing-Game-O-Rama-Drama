@@ -41,8 +41,6 @@ void* Allocate(std::size_t count)
 			Used = true;
 	}
 	int size = ((Header*)temp)->size;
-	if (size > 999999 || size <= 0)
-		int x = 0;
 	((Header*)temp)->size = (int)count;
 	((Header*)temp)->used = true;
 	void* Return = temp + sizeof(Header);
@@ -54,28 +52,21 @@ void* Allocate(std::size_t count)
 
 	temp += sizeof(Footer);
 
-	if (size - sizeof(Header) - count - sizeof(Footer) != 0)
-	{
-		((Header*)temp)->size = size;
-		((Header*)temp)->size -= sizeof(Header);
-		((Header*)temp)->size -= (int)count;
-		((Header*)temp)->size -= sizeof(Footer);
+	((Header*)temp)->size = size;
+	((Header*)temp)->size -= sizeof(Header);
+	((Header*)temp)->size -= (int)count;
+	((Header*)temp)->size -= sizeof(Footer);
 
-		((Header*)temp)->used = false;
-		if (((Header*)temp)->size <= 0)
-			int x = 0;
+	((Header*)temp)->used = false;
 
-		size_t headersize = ((Header*)temp)->size;
+	size_t headersize = ((Header*)temp)->size;
 
-		temp += sizeof(Header);
-		temp += headersize;
-		((Footer*)temp)->size = size;
-		((Footer*)temp)->size -= sizeof(Header);
-		((Footer*)temp)->size -= (int)count;
-		((Footer*)temp)->size -= sizeof(Footer);
-	}
-	else
-		int x = 0;
+	temp += sizeof(Header);
+	temp += headersize;
+	((Footer*)temp)->size = size;
+	((Footer*)temp)->size -= sizeof(Header);
+	((Footer*)temp)->size -= (int)count;
+	((Footer*)temp)->size -= sizeof(Footer);
 
 	std::ofstream Output;
 	Output.open("MemoryMangerDebug.txt", std::ios_base::app);
@@ -99,7 +90,7 @@ void DeAllocate(void* ptr)
 		LeftUsed = ((Footer*)temp)->used;
 	}
 	else
-		LeftUsed = false;
+		LeftUsed = true;
 	temp = (char*)ptr;
 	temp -= sizeof(Header);
 	MiddleSize = ((Header*)temp)->size;
@@ -112,7 +103,7 @@ void DeAllocate(void* ptr)
 		RightSize = ((Header*)temp)->size;
 	}
 	else
-		RightUsed = false;
+		RightUsed = true;
 	std::ofstream Output;
 	Output.open("MemoryMangerDebug.txt", std::ios_base::app);
 	Output << "Data Location: " << ptr << " Left used: " << LeftUsed << " Right Used: " << RightUsed << "\n";

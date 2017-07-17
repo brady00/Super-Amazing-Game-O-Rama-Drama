@@ -99,8 +99,9 @@ void MountainDew::Update()
 
 void MountainDew::Shutdown()
 {
-	//m_Thread.join();
+	m_Thread.join();
 	m_pScene->Shutdown();
-	delete m_pScene;	m_pRenderer->Shutdown();
+	delete m_pScene;	
+	m_pRenderer->Shutdown();
 	delete m_pRenderer;
 }
