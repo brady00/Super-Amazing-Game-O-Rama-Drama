@@ -138,7 +138,8 @@ void DeAllocate(void* ptr)
 		temp -= sizeof(Header);
 		temp -= sizeof(Footer);
 		size = ((Footer*)temp)->size;
-		temp -= size - sizeof(Header);
+		temp -= size;
+		temp -= sizeof(Header);
 		((Header*)temp)->size = LeftSize + sizeof(Footer) + sizeof(Header) + MiddleSize;
 		((Header*)temp)->used = false;
 		size = ((Header*)temp)->size;
