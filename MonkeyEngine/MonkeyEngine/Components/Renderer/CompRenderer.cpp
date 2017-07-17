@@ -122,11 +122,6 @@ namespace MEObject
 		*m_Material = mat;
 	}
 
-	void CompRenderer::Initialize()
-	{
-	
-	}
-
 	void CompRenderer::Draw()
 	{
 		cbPerObject temp = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetBufferValue();

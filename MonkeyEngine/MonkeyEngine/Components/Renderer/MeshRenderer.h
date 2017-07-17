@@ -1,7 +1,13 @@
 #pragma once
-#include "../../Object/Object.h"
+#include "CompRenderer.h"
 namespace MEObject
 {
+	class MeshRenderer : public CompRenderer
+	{
+	private:
 
+	public:
+		MeshRenderer() {};
+		~MeshRenderer() {};
+	};
 }
-

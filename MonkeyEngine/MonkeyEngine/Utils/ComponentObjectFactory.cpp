@@ -26,7 +26,7 @@ namespace MEFileIO
 
 	void ComponentObjectFactory::registerComponents()
 	{
-		ComponentObjectFactory::GetInstance()->Register("MeshRenderer", [] {return new MEObject::CompRenderer; });
+		ComponentObjectFactory::GetInstance()->Register("MeshRenderer", [] {return new MEObject::MeshRenderer; });
 		ComponentObjectFactory::GetInstance()->Register("Transform", [] {return new MEObject::Transform; });
 	}
 

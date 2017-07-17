@@ -29,10 +29,8 @@ MEReturnValues::RETURNVALUE Scene::Update()
 {
 	unsigned int size = (unsigned int) m_vObjects.size();
 	for (unsigned int i = 0; i < size; i++)
-	{
 		if(m_vObjects[i]->GetActive())
 			m_vObjects[i]->Update();
-	}
 	m_pDebugCamera->Update();
 	return MEReturnValues::NOTHING;
 }

@@ -6,7 +6,7 @@ namespace MEObject
 {
 	class CompRenderer : public MERenderer::RenderShape, public Component
 	{
-	private:
+	protected:
 		MERenderer::BlendStateManager::BStates* m_BlendState;
 		MERenderer::RasterizerStateManager::RasterStates* m_RasterState;
 		MERenderer::DepthStencilStateManager::DSStates* m_DSState;
@@ -20,10 +20,6 @@ namespace MEObject
 		MERenderer::VertexFormat* m_eVertexFormat;
 		Material* m_Material; 
 
-	public:
-		CompRenderer();
-		~CompRenderer();
-
 		MERenderer::BlendStateManager::BStates& GetBlendState();
 		MERenderer::RasterizerStateManager::RasterStates& GetRasterState();
 		MERenderer::DepthStencilStateManager::DSStates& GetDepthStencilState();
@@ -33,10 +29,7 @@ namespace MEObject
 		unsigned int& GetiNumIndicies();
 		unsigned int& GetStartIndexLocation();
 		int& GetBaseVertexLocation();
-		std::string& GetVertexFileName();
 		MERenderer::VertexFormat& GetVertexFormat();
-		Material& GetMaterial();
-
 		void SetBlendState(MERenderer::BlendStateManager::BStates*);
 		void SetRasterState(MERenderer::RasterizerStateManager::RasterStates*);
 		void SetDepthStencilState(MERenderer::DepthStencilStateManager::DSStates*);
@@ -46,9 +39,15 @@ namespace MEObject
 		void SetiNumIndicies(unsigned int&);
 		void SetStartIndexLocation(unsigned int&);
 		void SetBaseVertexLocation(int&);
-		void SetVertexFileName(std::string&);
 		void SetVertexFormat(MERenderer::VertexFormat&);
+	public:
+		CompRenderer();
+		~CompRenderer();
+		std::string& GetVertexFileName();
+		Material& GetMaterial();
+		void SetVertexFileName(std::string&);
 		void SetMaterial(Material&);
+
 		virtual void Draw();
 		virtual bool Load(MERenderer::BlendStateManager::BStates* m_BlendState, 
 						 MERenderer::RasterizerStateManager::RasterStates* m_RasterState,
@@ -62,8 +61,6 @@ namespace MEObject
 						 std::string* m_sVertexFileName,
 						 MERenderer::VertexFormat* m_eVertexFormat,
 						 Material* _Material);
-	private:
-		void Initialize();
 	};
 }
 

@@ -6,7 +6,7 @@
 #include "../Renderer/RenderSet/RenderContext.h"
 #include "../Renderer/RenderSet/RenderMesh.h"
 #include "../Renderer/RenderSet/RenderTexture.h"
-#include "../Components/Renderer/CompRenderer.h"
+#include "../Components/Renderer/MeshRenderer.h"
 
 namespace MEFileIO
 {
@@ -31,7 +31,7 @@ namespace MEFileIO
 	const std::unordered_map<std::string, MEObject::GameObject::COMPONENT_ID> FileIO::componentIDS =
 	{
 		{ "Transform", MEObject::GameObject::COMPONENT_ID::eTransform },
-		{ "MeshRenderer", MEObject::GameObject::COMPONENT_ID::eCompRenderer }
+		{ "MeshRenderer", MEObject::GameObject::COMPONENT_ID::eMeshRenderer }
 	};
 
 	FileIO::FileIO()
@@ -305,7 +305,7 @@ namespace MEFileIO
 		MEObject::CompRenderer* comprend = (MEObject::CompRenderer*)_Object;
 		tempTex->AddShape((MERenderer::RenderShape*)comprend);
 
-		((MEObject::CompRenderer*)_Object)->Load(&renderContext->m_BlendState,
+		((MEObject::MeshRenderer*)_Object)->Load(&renderContext->m_BlendState,
 			&renderContext->m_RasterState,
 			&renderContext->m_DSState,
 			tempMesh->m_vVerticies,
