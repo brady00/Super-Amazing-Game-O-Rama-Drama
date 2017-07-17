@@ -5,19 +5,19 @@
 void Initialize(std::size_t size)
 {
 	m_pMemory = std::malloc(size + sizeof(Header) + sizeof(Footer));
-	((Header*)m_pMemory)->size = size;
+	((Header*)m_pMemory)->size = (int)size;
 	((Header*)m_pMemory)->used = false;
 	char* temp = (char*)m_pMemory;
 	temp += sizeof(Header) + size;
-	((Footer*)temp)->size = size;
+	((Footer*)temp)->size = (int)size;
 	((Footer*)temp)->used = false;
 	m_pEndMemory = temp;
 	temp -= size;
 	memset(temp, 0, size);
 	init = true;
-	std::ofstream Output; 
+	std::ofstream Output;
 	Output.open("MemoryMangerDebug.txt");
-	if(Output.is_open())
+	if (Output.is_open())
 		Output << "Memory Start: " << m_pMemory << "\nMemory End: " << m_pEndMemory << "\n";
 	Output.close();
 }
@@ -30,42 +30,52 @@ void* Allocate(std::size_t count)
 	char* temp = (char*)m_pMemory;
 	while (Used == true)
 	{
-		std::size_t size = ((Header*)temp)->size;
+		int size = ((Header*)temp)->size;
 		temp += sizeof(Header);
 		temp += size;
 		temp += sizeof(Footer);
-		if (((Header*)temp)->size == 0 || ((Header*)temp)->size >= count)
+		int allocatesize = (int)count + sizeof(Header) + sizeof(Footer);
+		if (((Header*)temp)->size == 0 || ((Header*)temp)->size > allocatesize)
 			Used = ((Header*)temp)->used;
 		else
 			Used = true;
 	}
-	size_t size = ((Header*)temp)->size;
-	((Header*)temp)->size = count;
+	int size = ((Header*)temp)->size;
+	if (size > 999999 || size <= 0)
+		int x = 0;
+	((Header*)temp)->size = (int)count;
 	((Header*)temp)->used = true;
 	void* Return = temp + sizeof(Header);
 	temp += sizeof(Header);
 	temp += count;
+	((Footer*)temp)->size = (int)count;
 
-	((Footer*)temp)->size = count;
 	((Footer*)temp)->used = true;
 
 	temp += sizeof(Footer);
 
-	((Header*)temp)->size = size;
-	((Header*)temp)->size -= sizeof(Header);
-	((Header*)temp)->size -= count;
-	((Header*)temp)->size -= sizeof(Footer);
-	((Header*)temp)->used = false;
+	if (size - sizeof(Header) - count - sizeof(Footer) != 0)
+	{
+		((Header*)temp)->size = size;
+		((Header*)temp)->size -= sizeof(Header);
+		((Header*)temp)->size -= (int)count;
+		((Header*)temp)->size -= sizeof(Footer);
 
-	size_t headersize = ((Header*)temp)->size;
+		((Header*)temp)->used = false;
+		if (((Header*)temp)->size <= 0)
+			int x = 0;
 
-	temp += sizeof(Header);
-	temp += headersize;
+		size_t headersize = ((Header*)temp)->size;
 
-	((Footer*)temp)->size = size;
-	((Footer*)temp)->size -= sizeof(Header);
-	((Footer*)temp)->size -= count;
-	((Footer*)temp)->size -= sizeof(Footer);
+		temp += sizeof(Header);
+		temp += headersize;
+		((Footer*)temp)->size = size;
+		((Footer*)temp)->size -= sizeof(Header);
+		((Footer*)temp)->size -= (int)count;
+		((Footer*)temp)->size -= sizeof(Footer);
+	}
+	else
+		int x = 0;
 
 	std::ofstream Output;
 	Output.open("MemoryMangerDebug.txt", std::ios_base::app);
@@ -79,7 +89,7 @@ void DeAllocate(void* ptr)
 	if (ptr == nullptr)
 		return;
 	bool LeftUsed, RightUsed;
-	std::size_t LeftSize, MiddleSize, RightSize;
+	int LeftSize, MiddleSize, RightSize;
 	char* temp = (char*)ptr;
 	temp -= sizeof(Header);
 	if ((void*)temp != m_pMemory)
@@ -93,7 +103,7 @@ void DeAllocate(void* ptr)
 	temp = (char*)ptr;
 	temp -= sizeof(Header);
 	MiddleSize = ((Header*)temp)->size;
-	std::size_t size = ((Header*)temp)->size;
+	int size = ((Header*)temp)->size;
 	temp += sizeof(Header) + size;
 	if ((void*)temp != m_pEndMemory)
 	{
@@ -113,7 +123,8 @@ void DeAllocate(void* ptr)
 		temp -= sizeof(Header);
 		temp -= sizeof(Footer);
 		size = ((Footer*)temp)->size;
-		temp -= size - sizeof(Header);
+		temp -= size;
+		temp -= sizeof(Header);
 		((Header*)temp)->size = LeftSize + sizeof(Footer) + sizeof(Header) + MiddleSize + sizeof(Footer) + sizeof(Header) + RightSize;
 		((Header*)temp)->used = false;
 		size = ((Header*)temp)->size;
@@ -135,7 +146,7 @@ void DeAllocate(void* ptr)
 		((Footer*)temp)->size = LeftSize + sizeof(Footer) + sizeof(Header) + MiddleSize;
 		((Footer*)temp)->used = false;
 	}
-	else if(!RightUsed)
+	else if (!RightUsed)
 	{
 		temp = (char*)ptr;
 		temp -= sizeof(Header);
@@ -154,7 +165,7 @@ void DeAllocate(void* ptr)
 		size = ((Header*)temp)->size;
 		temp += sizeof(Header) + size;
 		((Footer*)temp)->used = false;
-		((Footer*)temp)->size = size;
+		((Footer*)temp)->size = (int)size;
 	}
 }
 

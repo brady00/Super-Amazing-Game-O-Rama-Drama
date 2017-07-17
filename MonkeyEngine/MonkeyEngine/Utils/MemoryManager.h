@@ -4,19 +4,13 @@
 
 struct Header
 {
-	std::size_t size;
+	int size;
 	bool used;
 };
 struct Footer
 {
-	std::size_t size;
+	int size;
 	bool used;
-};
-struct MemStruct
-{
-	Header* m_Header;
-	void* m_Data;
-	Footer* m_Footer;
 };
 static void* m_pMemory = nullptr;
 static void* m_pEndMemory = nullptr;
