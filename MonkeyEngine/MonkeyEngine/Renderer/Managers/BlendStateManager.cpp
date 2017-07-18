@@ -37,9 +37,7 @@ namespace MERenderer
 		if (state >= BS_COUNT)
 			return false;
 
-		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->OMSetBlendState(m_vBlendStates[state], 0, 0xffffffff);
-		Renderer::m_DeviceContextMutex.unlock();
 		m_eCurrentState = state;
 		return true;
 	}

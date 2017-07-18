@@ -30,6 +30,8 @@ namespace MERenderer
 		//std::vector<Camera*> m_vCameras;
 		unsigned int m_uiActiveCamera;
 		DefferedRenderTarget* m_pDeferredRenderTarget;
+		__int64	m_dPrevFrame = 0;
+		float m_fFPS = 0.0f;
 	public:
 		Renderer();
 		~Renderer();

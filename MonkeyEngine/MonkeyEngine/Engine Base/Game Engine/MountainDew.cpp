@@ -84,11 +84,13 @@ void MountainDew::Initialize(HINSTANCE hInstance, int nCmdShow)
 
 void MountainDew::Update()
 {
-	if (!init)
-	{
-		m_Thread = std::thread(&MountainDew::UpdateGame, this);
-		init = true;
-	}
+	//if (!init)
+	//{
+	//	m_Thread = std::thread(&MountainDew::UpdateGame, this);
+	//	init = true;
+	//}
+	Time::Update();
+	m_pScene->Update();
 	if (GetAsyncKeyState(VK_ESCAPE))
 	{
 		m_bShuttingDown = true;

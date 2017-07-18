@@ -22,10 +22,8 @@ namespace MERenderer
 	void RenderTexture::Draw()
 	{
 		
-		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->PSSetShaderResources(0, 1, &m_d3DiffuseTexture);
 		Renderer::m_d3DeviceContext->PSSetSamplers(0,1,&m_d3SamplerState);
-		Renderer::m_DeviceContextMutex.unlock();
 		m_pRenderShapes->Draw();
 	}
 

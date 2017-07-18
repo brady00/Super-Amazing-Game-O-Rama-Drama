@@ -99,24 +99,28 @@ namespace MERenderer
 
 	MEReturnValues::RETURNVALUE Renderer::Update()
 	{
+		LARGE_INTEGER li;
+		QueryPerformanceCounter(&li);
+		float DeltaTime = (float)(double(li.QuadPart - m_dPrevFrame) / 10000.0);
+		m_dPrevFrame = li.QuadPart;
+		if (false)
+			m_fFPS = 1.0f / DeltaTime;
 		Renderer::m_DeviceContextMutex.lock();
 		m_d3DeviceContext->RSSetViewports(1, &m_d3ViewPort);
 		m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-		Renderer::m_DeviceContextMutex.unlock();
 		m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
 		m_pNonTranparentObjects->Draw();
 		m_pTransparentObjects->Draw();
 		//draw lights
 		//set backbuffer
 		float color[] = { 0,0,1,1 };
-		Renderer::m_DeviceContextMutex.lock();
 		m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 		m_d3DeviceContext->OMSetRenderTargets(1, &m_d3BackBufferTargetView, m_d3DepthStencilView);
 		m_d3DeviceContext->ClearRenderTargetView(m_d3BackBufferTargetView, color);
-		Renderer::m_DeviceContextMutex.unlock();
 
 		//draw quad
 		m_pDeferredRenderTarget->Update();
+		Renderer::m_DeviceContextMutex.unlock();
 		m_d3SwapChain->Present(0, 0);
 		return MEReturnValues::RENDERRETURN;
 	}

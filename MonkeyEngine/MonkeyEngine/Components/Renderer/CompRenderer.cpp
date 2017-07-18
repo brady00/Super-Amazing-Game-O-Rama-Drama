@@ -128,20 +128,14 @@ namespace MEObject
 		temp.world = GetTransform()->GetMatrix();
 		ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&temp, sizeof(temp));
 		ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
-		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
-		Renderer::m_DeviceContextMutex.unlock();
 		if (!m_vIndicies)
 		{
-			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->Draw(*m_uiNumVerticies, *m_iBaseVertexLocation);
-			Renderer::m_DeviceContextMutex.unlock();
 		}
 		else
 		{
-			Renderer::m_DeviceContextMutex.lock();
 			Renderer::m_d3DeviceContext->DrawIndexed(*m_uiNumIndicies, *m_uiStartIndexLocation, *m_iBaseVertexLocation);
-			Renderer::m_DeviceContextMutex.unlock();
 		}
 	}
 

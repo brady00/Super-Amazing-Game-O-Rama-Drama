@@ -24,9 +24,7 @@ namespace MERenderer
 	{
 		//context switching
 		//input layout
-		Renderer::m_DeviceContextMutex.lock();
 		Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(m_VertexFormat));
-		Renderer::m_DeviceContextMutex.unlock();
 		//blend state
 		BlendStateManager::GetInstance()->ApplyState(m_BlendState);
 		//rasterizer

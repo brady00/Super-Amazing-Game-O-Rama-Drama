@@ -82,11 +82,13 @@ namespace MERenderer
 		cbPerCamera temp = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetBufferValue();
 		XMStoreFloat4x4(&temp.ViewProj, XMMatrixMultiply(XMLoadFloat4x4(&m_xmViewMatrix), XMLoadFloat4x4(&m_xmProjMatrix)));
 		XMStoreFloat4x4(&temp.InvViewProj, XMMatrixMultiply(XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_xmViewMatrix)), XMLoadFloat4x4(&m_xmProjMatrix)));
-		ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().Update(&temp, sizeof(temp));
-		ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
-		Renderer::m_DeviceContextMutex.lock();
-		Renderer::m_d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
-		Renderer::m_DeviceContextMutex.unlock();
+		if (Renderer::m_DeviceContextMutex.try_lock())
+		{
+			ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().Update(&temp, sizeof(temp));
+			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
+			Renderer::m_d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
+			Renderer::m_DeviceContextMutex.unlock();
+		}
 		m_pPrevMousePos = curPos;
 	}
 
