@@ -1,19 +1,23 @@
 #pragma once
 #include "../Base/Component.h"
-namespace MEObject
+
+namespace MonkeyEngine
 {
-	class Behaviour : public Component
+	namespace MEObject
 	{
-	private:
-		bool m_bEnabled;
-	public:
-		virtual void Initialize() {};
-		virtual MEReturnValues::RETURNVALUE Update() { return MEReturnValues::NOTHING; };
-		virtual void ShutDown() {};
-		bool GetEnabled();
-		void Disable();
-		void Enable();
-		void SetEnabled(bool _Enabled);
-	};
+		class Behaviour : public Component
+		{
+		private:
+			bool m_bEnabled;
+		public:
+			virtual void Initialize() {};
+			virtual MEReturnValues::RETURNVALUE Update() { return MEReturnValues::NOTHING; };
+			virtual void ShutDown() {};
+			bool GetEnabled();
+			void Disable();
+			void Enable();
+			void SetEnabled(bool _Enabled);
+		};
+	}
 }
 

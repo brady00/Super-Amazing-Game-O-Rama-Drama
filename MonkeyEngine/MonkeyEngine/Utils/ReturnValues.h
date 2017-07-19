@@ -1,5 +1,8 @@
 #pragma once
-namespace MEReturnValues
+namespace MonkeyEngine
 {
-	enum RETURNVALUE { NOTHING = 0, RENDERRETURN, TRANSFORMRETURN };
+	namespace MEReturnValues
+	{
+		enum RETURNVALUE { NOTHING = 0, RENDERRETURN, TRANSFORMRETURN };
+	}
 }

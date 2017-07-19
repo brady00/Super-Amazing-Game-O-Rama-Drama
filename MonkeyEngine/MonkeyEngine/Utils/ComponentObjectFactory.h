@@ -8,22 +8,25 @@ namespace MEObject
 {
 	class Component;
 }
-namespace MEFileIO
+namespace MonkeyEngine
 {
-	class ComponentObjectFactory
+	namespace MEFileIO
 	{
-		friend class FileIO;
-	private:
-		typedef std::function<MEObject::Component*()> Creator;
-		typedef std::unordered_map<std::string, Creator> Creators;
-		Creators m_mComponents;
-		static ComponentObjectFactory* m_pInstance;
-		void registerComponents();
-		ComponentObjectFactory();
-		~ComponentObjectFactory();
-		void Register(const std::string &className, const Creator &creator);
-		MEObject::Component *Create(const std::string &className);
-		static ComponentObjectFactory* GetInstance();
-		static void DestroyInstance();
-	};
+		class ComponentObjectFactory
+		{
+			friend class FileIO;
+		private:
+			typedef std::function<MEObject::Component*()> Creator;
+			typedef std::unordered_map<std::string, Creator> Creators;
+			Creators m_mComponents;
+			static ComponentObjectFactory* m_pInstance;
+			void registerComponents();
+			ComponentObjectFactory();
+			~ComponentObjectFactory();
+			void Register(const std::string &className, const Creator &creator);
+			MEObject::Component *Create(const std::string &className);
+			static ComponentObjectFactory* GetInstance();
+			static void DestroyInstance();
+		};
+	}
 }

@@ -1,26 +1,28 @@
 #include "Behaviour.h"
 
 
-
-namespace MEObject
+namespace MonkeyEngine
 {
-	bool Behaviour::GetEnabled()
+	namespace MEObject
 	{
-		return m_bEnabled;
-	}
+		bool Behaviour::GetEnabled()
+		{
+			return m_bEnabled;
+		}
 
-	void Behaviour::Disable()
-	{
-		m_bEnabled = false;
-	}
+		void Behaviour::Disable()
+		{
+			m_bEnabled = false;
+		}
 
-	void Behaviour::Enable()
-	{
-		m_bEnabled = true;
-	}
+		void Behaviour::Enable()
+		{
+			m_bEnabled = true;
+		}
 
-	void Behaviour::SetEnabled(bool _Enabled)
-	{
-		m_bEnabled = _Enabled;
+		void Behaviour::SetEnabled(bool _Enabled)
+		{
+			m_bEnabled = _Enabled;
+		}
 	}
 }

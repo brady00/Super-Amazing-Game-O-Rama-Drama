@@ -1,43 +1,45 @@
 #include "RenderSet.h"
 #include "RenderNode.h"
 
-
-namespace MERenderer
+namespace MonkeyEngine
 {
-	RenderSet::RenderSet() : m_pHead(nullptr)
+	namespace MERenderer
 	{
-
-	}
-
-
-	RenderSet::~RenderSet()
-	{
-		while (m_pHead != nullptr)
+		RenderSet::RenderSet() : m_pHead(nullptr)
 		{
-			RenderNode* temp = m_pHead->GetNext();
-			delete m_pHead;
-			m_pHead = temp;
-		}
-	}
 
-	void RenderSet::Draw()
-	{
-		RenderNode* draw = m_pHead;
-		while (draw != nullptr)
+		}
+
+
+		RenderSet::~RenderSet()
 		{
-			draw->Draw();
-			draw = draw->GetNext();
+			while (m_pHead != nullptr)
+			{
+				RenderNode* temp = m_pHead->GetNext();
+				delete m_pHead;
+				m_pHead = temp;
+			}
 		}
-	}
 
-	void RenderSet::AddNode(RenderNode* _Node)
-	{
-		_Node->SetNext(m_pHead);
-		m_pHead = _Node;
-	}
+		void RenderSet::Draw()
+		{
+			RenderNode* draw = m_pHead;
+			while (draw != nullptr)
+			{
+				draw->Draw();
+				draw = draw->GetNext();
+			}
+		}
 
-	const RenderNode* RenderSet::getHead()
-	{
-		return m_pHead;
+		void RenderSet::AddNode(RenderNode* _Node)
+		{
+			_Node->SetNext(m_pHead);
+			m_pHead = _Node;
+		}
+
+		const RenderNode* RenderSet::getHead()
+		{
+			return m_pHead;
+		}
 	}
 }

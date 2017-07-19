@@ -8,29 +8,32 @@ namespace MEFileIO
 {
 	class FileIO;
 }
-namespace MERenderer
+namespace MonkeyEngine
 {
-	class RenderShape;
-	class RenderTexture : public RenderNode
+	namespace MERenderer
 	{
-		friend MEFileIO::FileIO;
-	private:
-		ID3D11ShaderResourceView*	m_d3DiffuseTexture;
-		ID3D11SamplerState*			m_d3SamplerState;
-		//normal map
-		//other mapping
-		MEObject::Material* m_Material;
-		RenderSet* m_pRenderShapes;
-	public:
-		RenderTexture();
-		~RenderTexture();
-		void Draw();
-		bool Load(std::string _TextureFileName);
-		const std::string& GetTextureFileName();
-		void AddShape(RenderShape*);
-		ID3D11ShaderResourceView* GetDiffuseTexture();
-		void SetDiffuseTexture(ID3D11ShaderResourceView* _Diffuse);
-		bool LoadShape(RenderShape*& _Shape);
-	};
+		class RenderShape;
+		class RenderTexture : public RenderNode
+		{
+			friend MEFileIO::FileIO;
+		private:
+			ID3D11ShaderResourceView*	m_d3DiffuseTexture;
+			ID3D11SamplerState*			m_d3SamplerState;
+			//normal map
+			//other mapping
+			MEObject::Material* m_Material;
+			RenderSet* m_pRenderShapes;
+		public:
+			RenderTexture();
+			~RenderTexture();
+			void Draw();
+			bool Load(std::string _TextureFileName);
+			const std::string& GetTextureFileName();
+			void AddShape(RenderShape*);
+			ID3D11ShaderResourceView* GetDiffuseTexture();
+			void SetDiffuseTexture(ID3D11ShaderResourceView* _Diffuse);
+			bool LoadShape(RenderShape*& _Shape);
+		};
 
+	}
 }

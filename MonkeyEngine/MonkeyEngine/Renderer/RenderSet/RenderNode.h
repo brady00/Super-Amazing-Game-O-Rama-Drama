@@ -1,17 +1,20 @@
 #pragma once
 #include <d3d11.h>
-namespace MERenderer
+namespace MonkeyEngine
 {
-	class RenderNode
+	namespace MERenderer
 	{
-	private:
-		RenderNode* m_pNext;
-	public:
-		RenderNode();
-		virtual ~RenderNode();
-		RenderNode* GetNext();
-		void SetNext(RenderNode* _Next);
-		virtual void Draw() = 0;
-	};
+		class RenderNode
+		{
+		private:
+			RenderNode* m_pNext;
+		public:
+			RenderNode();
+			virtual ~RenderNode();
+			RenderNode* GetNext();
+			void SetNext(RenderNode* _Next);
+			virtual void Draw() = 0;
+		};
+	}
 }
 

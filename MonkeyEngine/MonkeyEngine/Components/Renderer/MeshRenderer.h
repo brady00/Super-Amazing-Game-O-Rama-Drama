@@ -1,13 +1,16 @@
 #pragma once
 #include "CompRenderer.h"
-namespace MEObject
+namespace MonkeyEngine
 {
-	class MeshRenderer : public CompRenderer
+	namespace MEObject
 	{
-	private:
+		class MeshRenderer : public CompRenderer
+		{
+		private:
 
-	public:
-		MeshRenderer() {};
-		~MeshRenderer() {};
-	};
+		public:
+			MeshRenderer() {};
+			~MeshRenderer() {};
+		};
+	}
 }

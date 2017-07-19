@@ -1,38 +1,40 @@
 #include "Object.h"
-
-namespace MEObject
+namespace MonkeyEngine
 {
-
-
-	Object::Object()
+	namespace MEObject
 	{
 
+
+		Object::Object()
+		{
+
+		}
+
+
+		Object::~Object()
+		{
+
+		}
+
+		string Object::GetName()
+		{
+			return m_sName;
+		}
+
+		void Object::SetName(std::string _Name)
+		{
+			m_sName = _Name;
+		}
+
+		unsigned int Object::GetFlags()
+		{
+			return m_uiFlags;
+		}
+
+		void Object::SetFlags(unsigned int _Flags)
+		{
+			m_uiFlags = _Flags;
+		}
+
 	}
-
-
-	Object::~Object()
-	{
-
-	}
-
-	string Object::GetName()
-	{
-		return m_sName;
-	}
-
-	void Object::SetName(std::string _Name)
-	{
-		m_sName = _Name;
-	}
-
-	unsigned int Object::GetFlags()
-	{
-		return m_uiFlags;
-	}
-
-	void Object::SetFlags(unsigned int _Flags)
-	{
-		m_uiFlags = _Flags;
-	}
-
 }

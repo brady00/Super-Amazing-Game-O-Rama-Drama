@@ -1,19 +1,20 @@
 #pragma once
-
-namespace MERenderer
+namespace MonkeyEngine
 {
-	class RenderNode;
-	class RenderSet
+	namespace MERenderer
 	{
-	private:
-		RenderNode* m_pHead;
-	public:
-		RenderSet();
-		~RenderSet();
+		class RenderNode;
+		class RenderSet
+		{
+		private:
+			RenderNode* m_pHead;
+		public:
+			RenderSet();
+			~RenderSet();
 
-		void Draw();
-		void AddNode(RenderNode* _Node);
-		const RenderNode* getHead();
-	};
+			void Draw();
+			void AddNode(RenderNode* _Node);
+			const RenderNode* getHead();
+		};
+	}
 }
-
