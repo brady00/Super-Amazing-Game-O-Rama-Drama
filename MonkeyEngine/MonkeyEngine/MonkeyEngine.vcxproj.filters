@@ -103,6 +103,9 @@
     <Filter Include="Renderer\DebugCamera">
       <UniqueIdentifier>{97631e65-e7b0-4874-bf3e-294aef2e7114}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\Animation">
+      <UniqueIdentifier>{8cf2e321-63f2-452b-bba5-7468c45d2dc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -473,6 +476,12 @@
     </ClCompile>
     <ClCompile Include="Libraries\XMLParser\tinyxml2.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Animation\AnimationManager.cpp">
+      <Filter>Renderer\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Animation\Blender.cpp">
+      <Filter>Renderer\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -889,6 +898,15 @@
     </ClInclude>
     <ClInclude Include="Libraries\XMLParser\tinyxml2.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Animation\AnimationManager.h">
+      <Filter>Renderer\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Animation\FBXClasses.h">
+      <Filter>Renderer\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Animation\Blender.h">
+      <Filter>Renderer\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

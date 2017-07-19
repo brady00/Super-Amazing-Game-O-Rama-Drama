@@ -36,7 +36,7 @@ namespace MonkeyEngine
 				tempView._41 = 0;
 				tempView._42 = 0;
 				tempView._43 = 0;
-				temp = XMMatrixMultiply(temp, XMLoadFloat4x4(&tempView));
+				temp = XMMatrixMultiply(XMLoadFloat4x4(&tempView), temp);
 				XMStoreFloat4x4(&tempView, temp);
 				tempView._41 = m_xmViewMatrix._41;
 				tempView._42 = m_xmViewMatrix._42;

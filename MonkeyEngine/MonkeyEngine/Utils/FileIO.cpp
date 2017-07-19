@@ -19,7 +19,7 @@ namespace MonkeyEngine
 		unsigned int FileIO::m_uiTriangleCount = 0;
 		std::vector<Triangle> FileIO::m_vTriangles;
 		std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> FileIO::m_vVertices;
-		Skeleton FileIO::m_Skeleton;
+		Animation FileIO::m_Skeleton;
 		std::unordered_map<unsigned int, MEObject::Material*> FileIO::m_mMaterialLookUp;
 		FbxLongLong FileIO::m_lAnimationLength = 0;
 		std::string FileIO::m_sAnimationName;
@@ -361,7 +361,7 @@ namespace MonkeyEngine
 			}
 		}
 
-		void FileIO::ProcessJointsAndAnimations(FbxNode* inNode)
+		void FileIO::ProcessJointsAndAnimations(FbxNode* inNode) // needs to be looked at
 		{
 			FbxMesh* currMesh = inNode->GetMesh();
 			unsigned int numOfDeformers = currMesh->GetDeformerCount();

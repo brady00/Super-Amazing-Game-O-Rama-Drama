@@ -1,8 +1,10 @@
 #include "Animator.h"
 
 
-
-namespace MEObject
+namespace MonkeyEngine
 {
+	namespace MEObject
+	{
 
+	}
 }

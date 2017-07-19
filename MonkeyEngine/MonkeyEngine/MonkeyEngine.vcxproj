@@ -119,6 +119,8 @@
     <ClCompile Include="Libraries\Math\Quaternian.cpp" />
     <ClCompile Include="Libraries\XMLParser\tinyxml2.cpp" />
     <ClCompile Include="Object\Object.cpp" />
+    <ClCompile Include="Renderer\Animation\AnimationManager.cpp" />
+    <ClCompile Include="Renderer\Animation\Blender.cpp" />
     <ClCompile Include="Renderer\Containers\DefferedRenderTarget.cpp" />
     <ClCompile Include="Renderer\Containers\IndexBuffer.cpp" />
     <ClCompile Include="Renderer\DebugCamera\DebugCamera.cpp" />
@@ -141,7 +143,8 @@
     <ClCompile Include="Utils\ComponentObjectFactory.cpp" />
     <ClCompile Include="Utils\FileIO.cpp" />
     <ClCompile Include="Utils\MemoryManager.cpp" />
-    <ClCompile Include="Utils\Time.cpp" />  </ItemGroup>
+    <ClCompile Include="Utils\Time.cpp" />
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Base\Component.h" />
     <ClInclude Include="Components\Behaviour\Animation.h" />
@@ -244,6 +247,9 @@
     <ClInclude Include="Libraries\Math\Quaternian.h" />
     <ClInclude Include="Libraries\XMLParser\tinyxml2.h" />
     <ClInclude Include="Object\Object.h" />
+    <ClInclude Include="Renderer\Animation\AnimationManager.h" />
+    <ClInclude Include="Renderer\Animation\Blender.h" />
+    <ClInclude Include="Renderer\Animation\FBXClasses.h" />
     <ClInclude Include="Renderer\Containers\ConstantBuffer.h" />
     <ClInclude Include="Renderer\Containers\ConstantBuffer.hpp" />
     <ClInclude Include="Renderer\Containers\DefferedRenderTarget.h" />

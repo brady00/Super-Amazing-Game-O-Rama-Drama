@@ -6,92 +6,13 @@
 #include "../Components/Renderer/CompRenderer.h"
 #include "../Renderer/Managers/InputLayoutManager.h"
 #include "../Libraries/XMLParser/tinyxml2.h"
-#include "fbxsdk.h"
-#pragma comment(lib, "libfbxsdk")
-using namespace DirectX;
+#include "../Renderer/Animation/AnimationManager.h"
 using namespace tinyxml2;
 namespace MonkeyEngine
 {
+	using namespace MERenderer;
 	namespace MEFileIO
 	{
-
-		struct BlendingIndexWeightPair
-		{
-			unsigned int mBlendingIndex;
-			double mBlendingWeight;
-
-			BlendingIndexWeightPair() :
-				mBlendingIndex(0),
-				mBlendingWeight(0)
-			{}
-		};
-
-		struct CtrlPoint
-		{
-			XMFLOAT3 mPosition;
-			std::vector<BlendingIndexWeightPair> mBlendingInfo;
-
-			CtrlPoint()
-			{
-				mBlendingInfo.reserve(4);
-			}
-		};
-
-		struct Keyframe
-		{
-			FbxLongLong mFrameNum;
-			FbxAMatrix mGlobalTransform;
-			Keyframe* mNext;
-
-			Keyframe() :
-				mNext(nullptr)
-			{}
-		};
-
-		struct Joint
-		{
-			std::string mName;
-			int mParentIndex;
-			FbxAMatrix mGlobalBindposeInverse;
-			Keyframe* mAnimation;
-			FbxNode* mNode;
-
-			Joint() :
-				mNode(nullptr),
-				mAnimation(nullptr)
-			{
-				mGlobalBindposeInverse.SetIdentity();
-				mParentIndex = -1;
-			}
-
-			~Joint()
-			{
-				while (mAnimation)
-				{
-					Keyframe* temp = mAnimation->mNext;
-					delete mAnimation;
-					mAnimation = temp;
-				}
-			}
-		};
-
-		struct Skeleton
-		{
-			std::vector<Joint> mJoints;
-		};
-
-		struct Triangle
-		{
-			std::vector<unsigned int> mIndices;
-			std::string mMaterialName;
-			unsigned int mMaterialIndex;
-
-			bool operator<(const Triangle& rhs)
-			{
-				return mMaterialIndex < rhs.mMaterialIndex;
-			}
-		};
-
 		typedef bool(*compFuntion)(XMLElement*, MEObject::Component*&);
 		class FileIO
 		{
@@ -139,7 +60,7 @@ namespace MonkeyEngine
 			static unsigned int m_uiTriangleCount;
 			static std::vector<Triangle> m_vTriangles;
 			static std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> m_vVertices;
-			static Skeleton m_Skeleton;
+			static Animation m_Skeleton;
 			static std::unordered_map<unsigned int, MEObject::Material*> m_mMaterialLookUp;
 			static FbxLongLong m_lAnimationLength;
 			static std::string m_sAnimationName;
