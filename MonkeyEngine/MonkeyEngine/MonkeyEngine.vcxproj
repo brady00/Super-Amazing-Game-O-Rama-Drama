@@ -119,6 +119,7 @@
     <ClCompile Include="Libraries\Math\Quaternian.cpp" />
     <ClCompile Include="Libraries\XMLParser\tinyxml2.cpp" />
     <ClCompile Include="Object\Object.cpp" />
+    <ClCompile Include="Renderer\Animation\AnimationGraph.cpp" />
     <ClCompile Include="Renderer\Animation\AnimationManager.cpp" />
     <ClCompile Include="Renderer\Animation\Blender.cpp" />
     <ClCompile Include="Renderer\Containers\DefferedRenderTarget.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="Libraries\Math\Quaternian.h" />
     <ClInclude Include="Libraries\XMLParser\tinyxml2.h" />
     <ClInclude Include="Object\Object.h" />
+    <ClInclude Include="Renderer\Animation\AnimationGraph.h" />
     <ClInclude Include="Renderer\Animation\AnimationManager.h" />
     <ClInclude Include="Renderer\Animation\Blender.h" />
     <ClInclude Include="Renderer\Animation\FBXClasses.h" />

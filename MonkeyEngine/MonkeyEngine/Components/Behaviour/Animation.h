@@ -49,7 +49,9 @@ namespace MonkeyEngine
 		public:
 			std::vector<Joint> mJoints;
 			float mTimePassed;
+			float mDuration;
 			bool mLooping;
+			std::string mName;
 		};
 	}
 }
