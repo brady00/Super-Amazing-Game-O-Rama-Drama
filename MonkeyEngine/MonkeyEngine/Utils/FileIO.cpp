@@ -216,6 +216,12 @@ namespace MonkeyEngine
 			return true;
 		}
 
+		bool FileIO::LoadSettings(std::string _FileName, std::vector<SettingData*> &_SettingData)
+		{
+
+			return false;
+		}
+
 		bool FileIO::LoadGameObject(XMLElement* _ObjectRoot, MEObject::GameObject* _Object)
 		{
 			XMLElement* child = _ObjectRoot->FirstChildElement();

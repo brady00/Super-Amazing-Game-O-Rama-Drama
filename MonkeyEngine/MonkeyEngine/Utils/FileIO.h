@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include "../GameObject/GameObject.h"
+#include "../Engine Base/Settings/Settings.h"
 #include "../Components/Renderer/CompRenderer.h"
 #include "../Renderer/Managers/InputLayoutManager.h"
 #include "../Libraries/XMLParser/tinyxml2.h"
@@ -29,6 +30,8 @@ namespace MonkeyEngine
 			static bool LoadOBJ(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies);
 			//scene
 			static bool LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects);
+			// Settings
+			static bool LoadSettings(std::string _FileName, std::vector<SettingData*> &_SettingData);
 		private:
 			//components
 			static const std::unordered_map<std::string, compFuntion> componentFunctions;

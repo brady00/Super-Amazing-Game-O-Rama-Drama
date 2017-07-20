@@ -2,10 +2,11 @@
 #include <Windows.h>
 #include "../../Renderer/Renderer.h"
 #include <thread>
-#include <vld.h>
+//#include <vld.h>
 namespace MonkeyEngine
 {
 	class Scene;
+	class Settings;
 	class MountainDew
 	{
 	private:
@@ -14,10 +15,11 @@ namespace MonkeyEngine
 		//Windows Variables
 		HINSTANCE m_hInst;
 		HWND m_HWnd;
-		LONG m_uiScreenHeight = 1080;
-		LONG m_uiScreenWidth = 1920;
+		//LONG m_uiScreenHeight = 1080;
+		//LONG m_uiScreenWidth = 1920;
 		MERenderer::Renderer* m_pRenderer = nullptr;
 		Scene* m_pScene;
+		Settings* m_pSettings;
 		MountainDew() {};
 		MountainDew(const MountainDew&) {};
 		MountainDew(const MountainDew&&) {};

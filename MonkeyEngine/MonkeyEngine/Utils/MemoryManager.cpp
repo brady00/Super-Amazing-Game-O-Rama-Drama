@@ -173,22 +173,22 @@ namespace MonkeyEngine
 	}
 }
 
-void* ::operator new  (std::size_t count)
-{
-	return MonkeyEngine::Allocate(count);
-}
-
-void* ::operator new[](std::size_t count)
-{
-	return MonkeyEngine::Allocate(count);
-}
-
-void ::operator delete(void* ptr)
-{
-	MonkeyEngine::DeAllocate(ptr);
-}
-
-void ::operator delete[](void* ptr)
-{
-	MonkeyEngine::DeAllocate(ptr);
-}
+//void* ::operator new  (std::size_t count)
+//{
+//	return MonkeyEngine::Allocate(count);
+//}
+//
+//void* ::operator new[](std::size_t count)
+//{
+//	return MonkeyEngine::Allocate(count);
+//}
+//
+//void ::operator delete(void* ptr)
+//{
+//	MonkeyEngine::DeAllocate(ptr);
+//}
+//
+//void ::operator delete[](void* ptr)
+//{
+//	MonkeyEngine::DeAllocate(ptr);
+//}

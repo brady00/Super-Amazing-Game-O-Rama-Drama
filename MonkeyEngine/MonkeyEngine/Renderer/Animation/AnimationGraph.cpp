@@ -30,6 +30,9 @@ namespace MonkeyEngine
 					return true;
 				}
 			}
+
+			// Ensure all control paths return a value
+			return false;
 		}
 	}
 }

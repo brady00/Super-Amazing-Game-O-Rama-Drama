@@ -6,6 +6,8 @@ namespace MonkeyEngine
 	using namespace MEObject;
 	namespace MERenderer
 	{
+		struct Node;	// Forward Declaration
+
 		struct Edge
 		{
 			Node* m_pNext;
