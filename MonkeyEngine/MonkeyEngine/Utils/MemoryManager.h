@@ -23,8 +23,8 @@ namespace MonkeyEngine
 	void DeAllocate(void* ptr);
 	void Shutdown();
 
-	//void* ::operator new  (std::size_t count);
-	//void* ::operator new[](std::size_t count);
-	//void ::operator delete(void* ptr);
-	//void ::operator delete[](void* ptr);
+	void* ::operator new  (std::size_t count);
+	void* ::operator new[](std::size_t count);
+	void ::operator delete(void* ptr);
+	void ::operator delete[](void* ptr);
 }

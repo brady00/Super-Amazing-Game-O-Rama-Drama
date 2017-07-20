@@ -67,7 +67,7 @@ namespace MonkeyEngine
 		m_pSettings = new Settings;
 		m_pSettings->Initialize("Engine Base/Settings/config.txt");
 
-		RECT window_size = { 0, 0, m_pSettings->GetScreenWidth(), m_pSettings->GetScreenHeight() };
+		RECT window_size = { 0, 0, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight() };
 		AdjustWindowRect(&window_size, WS_OVERLAPPEDWINDOW, false);
 		m_HWnd = CreateWindow(L"Title", L"Monkey Engine", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, window_size.right - window_size.left, window_size.bottom - window_size.top, NULL, NULL, m_hInst, NULL);
 		DWORD temp;
@@ -78,11 +78,11 @@ namespace MonkeyEngine
 		ShowWindow(m_HWnd, nCmdShow);
 		UpdateWindow(m_HWnd);
 		m_pRenderer = new MERenderer::Renderer;
-		m_pRenderer->Initialize(m_HWnd, m_pSettings->GetScreenWidth(), m_pSettings->GetScreenHeight());
+		m_pRenderer->Initialize(m_HWnd, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight());
 		Time::Initialize();
 		std::vector<MEObject::GameObject*> objects;
 		m_pScene = new Scene;
-		m_pScene->initialize(m_pSettings->GetScreenWidth(), m_pSettings->GetScreenHeight());
+		m_pScene->initialize(Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight());
 		MEFileIO::FileIO::LoadScene("Assets/Scenes/TestScene.mes", m_pScene->m_vObjects);
 	}
 

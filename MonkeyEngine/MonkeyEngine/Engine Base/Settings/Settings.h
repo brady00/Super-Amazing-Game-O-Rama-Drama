@@ -10,6 +10,7 @@ namespace MonkeyEngine
 		std::string Name;
 		std::string Value;
 
+		SettingData() {};
 		SettingData(std::string _Name, std::string _Value)
 		{
 			Name = _Name;

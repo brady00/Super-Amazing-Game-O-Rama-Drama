@@ -71,5 +71,7 @@ namespace MonkeyEngine
 			m_SettingData[i] = nullptr;
 		}
 		m_SettingData.clear();
+
+		//DestroyInstance();
 	}
 }

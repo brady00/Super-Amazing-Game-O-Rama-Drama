@@ -216,10 +216,47 @@ namespace MonkeyEngine
 			return true;
 		}
 
+		bool FileIO::OutputSettings(std::string _FileName, std::vector<SettingData*> _SettingData)
+		{
+			ofstream ofile(_FileName.c_str());
+			if (ofile.is_open())
+			{
+				for (unsigned int i = 0; i < _SettingData.size(); i++)
+				{
+					ofile << _SettingData[i]->Name << '=' << _SettingData[i]->Value << '\n';
+				}
+				return true;
+			}
+			return false;
+		}
+
 		bool FileIO::LoadSettings(std::string _FileName, std::vector<SettingData*> &_SettingData)
 		{
-
-			return false;
+			ifstream ifile(_FileName.c_str());
+			if (ifile.good())
+			{
+				// Read in the Settings
+				while (true)
+				{
+					SettingData temp;
+					getline(ifile, temp.Name, '=');
+					getline(ifile, temp.Value, '\n');
+					for (unsigned int i = 0; i < _SettingData.size(); i++)
+					{
+						if (_SettingData[i]->Name == temp.Name)
+							_SettingData[i]->Value = temp.Value;
+					}
+					if (ifile.eof())
+						break;
+				}
+				return true;
+			}
+			else
+			{
+				// Create the config.txt file and output to it
+				OutputSettings(_FileName, _SettingData);
+				return false;
+			}
 		}
 
 		bool FileIO::LoadGameObject(XMLElement* _ObjectRoot, MEObject::GameObject* _Object)

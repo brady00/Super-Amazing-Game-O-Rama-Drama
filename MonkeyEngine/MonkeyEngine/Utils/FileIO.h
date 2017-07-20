@@ -31,6 +31,7 @@ namespace MonkeyEngine
 			//scene
 			static bool LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects);
 			// Settings
+			static bool OutputSettings(std::string _FileName, std::vector<SettingData*> _SettingData);
 			static bool LoadSettings(std::string _FileName, std::vector<SettingData*> &_SettingData);
 		private:
 			//components
