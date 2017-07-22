@@ -6,15 +6,16 @@ namespace MonkeyEngine
 	using namespace MEObject;
 	namespace MERenderer
 	{
-		struct Edge
-		{
-			Node* m_pNext;
-			bool(*m_fCondition)(void);
-		};
+		struct Edge;
 		struct Node
 		{
 			std::vector<Edge> m_vEdges;
 			Animation* m_pAnimation;
+		};
+		struct Edge
+		{
+			Node* m_pNext;
+			bool(*m_fCondition)(void);
 		};
 		class AnimationGraph
 		{

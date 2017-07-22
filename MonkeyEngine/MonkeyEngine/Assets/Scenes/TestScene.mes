@@ -6,8 +6,8 @@
 			<Scale X="1" Y="1" Z="1"/>
 		</Transform>
 		<MeshRenderer Enabled="true" Skinned="false" Opaque="true">
-			<VertexFileName File="Assets\testObj.obj"/>
-			<DiffuseFileName File="Assets\images.png"/>
+			<VertexFileName File="../../../MonkeyEngine/Assets/testObj.obj"/>
+			<DiffuseFileName File="../../../MonkeyEngine/Assets/images.png"/>
 		</MeshRenderer>
 	</GameObject>
 </MonkeyEngineScene>

@@ -9,8 +9,9 @@ namespace MonkeyEngine
 	class Scene
 	{
 		friend class MountainDew;
-	private:
+	public:
 		std::vector<MEObject::GameObject*> m_vObjects;
+	private:
 		MERenderer::DebugCamera* m_pDebugCamera;
 		void AddObject(MEObject::GameObject* _GameObject); public:
 			Scene();
