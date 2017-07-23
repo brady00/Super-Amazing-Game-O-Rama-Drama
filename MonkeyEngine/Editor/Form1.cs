@@ -37,6 +37,7 @@ namespace Editor
         unsafe private void Form1_Load(object sender, EventArgs e)
         {
             InitializeEngine(RenderingPanel.Handle, RenderingPanel.Width, RenderingPanel.Height);
+            Timer.Start();
             this.DoubleBuffered = true;
             // Enable double duffering to stop flickering.
             this.SetStyle(ControlStyles.DoubleBuffer, true);
@@ -49,10 +50,22 @@ namespace Editor
             uint amount;
             Objects = GetSceneObjects(out amount);
             listBox1.Items.Add(GameObject.GetFullName(Objects[0]));
-            listBox1.Invalidate();
+            listBox1.Items.Add(GameObject.GetFullName(Objects[1]));
+            listBox1.Items.Add(GameObject.GetFullName(Objects[2]));
+            listBox1.SelectedIndex = 0;
+            listBox1.Update();
+            listBox1.DisplayMember = "";
+            listBox1.DisplayMember = "Name";
+            listBox1.Update();
+            listBox1.Refresh();
         }
 
         unsafe private void RenderingPanel_Paint(object sender, PaintEventArgs e)
+        {
+          
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
         {
             UpdateEngine();
             this.Invalidate();

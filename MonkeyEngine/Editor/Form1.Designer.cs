@@ -378,7 +378,12 @@
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            //
+            // Timer
+            //
+            this.Timer = new System.Windows.Forms.Timer();
+            Timer.Tick += new System.EventHandler(Timer_Tick);
+            Timer.Interval = 1;
         }
 
         #endregion
@@ -420,6 +425,7 @@
         private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem sceneToolStripMenuItem1;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Timer Timer;
     }
 }
 
