@@ -575,9 +575,6 @@
     <ClInclude Include="Renderer\Containers\VertexBuffer.hpp">
       <Filter>Renderer\Containers</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\ReturnValues.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer\ShaderBuffers\ConstantBuffers.h">
       <Filter>Renderer\ShaderBuffers</Filter>
     </ClInclude>

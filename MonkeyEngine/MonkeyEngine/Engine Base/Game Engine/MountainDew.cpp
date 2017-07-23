@@ -1,5 +1,4 @@
 #include "MountainDew.h"
-#include "../Scene/Scene.h"
 #include "../../Utils/Time.h"
 #include "../../Utils/FileIO.h"
 
@@ -114,4 +113,10 @@ void ShutdownEngine()
 {
 	MountainDew::GetInstance()->Shutdown();
 	MountainDew::DestroyInstance();
+}
+
+MonkeyEngine::MEObject::GameObject** GetSceneObjects(unsigned int& _amount)
+{
+	_amount = (unsigned int)MountainDew::GetInstance()->m_pScene->GetObjects().size();
+	return &MountainDew::GetInstance()->m_pScene->GetObjects()[0];
 }

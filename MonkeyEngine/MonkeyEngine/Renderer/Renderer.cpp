@@ -99,7 +99,7 @@ namespace MonkeyEngine
 			m_pDeferredRenderTarget->Initialize(m_d3Device, _ScreenHeight, _ScreenWidth);
 		}
 
-		MEReturnValues::RETURNVALUE Renderer::Update()
+		void Renderer::Update()
 		{
 			LARGE_INTEGER li;
 			QueryPerformanceCounter(&li);
@@ -124,7 +124,6 @@ namespace MonkeyEngine
 			m_pDeferredRenderTarget->Update();
 			Renderer::m_DeviceContextMutex.unlock();
 			m_d3SwapChain->Present(0, 0);
-			return MEReturnValues::RENDERRETURN;
 		}
 
 		void Renderer::Shutdown()

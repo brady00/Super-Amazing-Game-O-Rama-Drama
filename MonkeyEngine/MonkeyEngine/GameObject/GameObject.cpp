@@ -24,10 +24,10 @@ namespace MonkeyEngine
 					m_vComponents[i][j]->Update();
 		}
 
-		MEReturnValues::RETURNVALUE GameObject::Update()
+		void GameObject::Update()
 		{
 			if (!m_bActiveInHeirarchy)
-				return MEReturnValues::NOTHING;
+				return;
 			m_pTransform->Update();
 			for (unsigned int i = 0; i < eNumComponents - 1; i++)
 			{
@@ -40,7 +40,6 @@ namespace MonkeyEngine
 			for (unsigned int i = 0; i < m_vComponents[eScript].size(); i++)
 				if (((Behaviour*)m_vComponents[eScript][i])->GetEnabled())
 					m_vComponents[eScript][i]->Update();
-			return MEReturnValues::NOTHING;
 		}
 
 		void GameObject::ShutDown()
@@ -223,4 +222,29 @@ namespace MonkeyEngine
 			return std::vector<CompType*>();
 		}
 	}
+}
+
+char GetObjectNameChar(MonkeyEngine::MEObject::GameObject* _object, unsigned int _index)
+{
+	return _object->GetName()[_index];
+}
+
+unsigned int GetObjectNameSize(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return (unsigned int)_object->GetName().size();
+}
+
+void SetObjectName(MonkeyEngine::MEObject::GameObject* _object, const char* _Name)
+{
+	_object->SetName(_Name);
+}
+
+unsigned int GetObjectFlags(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return _object->GetFlags();
+}
+
+void SetObjectFlags(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Flags)
+{
+	_object->SetFlags(_Flags);
 }

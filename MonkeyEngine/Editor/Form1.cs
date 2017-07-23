@@ -23,14 +23,20 @@ namespace Editor
         [DllImport("MonkeyEngine.dll", EntryPoint = "ShutdownEngine", CallingConvention = CallingConvention.StdCall)]
         static extern void ShutdownEngine();
 
+        [DllImport("MonkeyEngine.dll", EntryPoint = "GetSceneObjects", CallingConvention = CallingConvention.StdCall)]
+        unsafe static extern void** GetSceneObjects(out uint Amount);
+
+
+        unsafe void** Objects;
+
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        unsafe private void Form1_Load(object sender, EventArgs e)
         {
-            InitializeEngine(panel1.Handle, panel1.Width, panel1.Height);
+            InitializeEngine(RenderingPanel.Handle, RenderingPanel.Width, RenderingPanel.Height);
             this.DoubleBuffered = true;
             // Enable double duffering to stop flickering.
             this.SetStyle(ControlStyles.DoubleBuffer, true);
@@ -40,12 +46,17 @@ namespace Editor
             this.SetStyle(ControlStyles.Opaque, false);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.ResizeRedraw, true);
+            uint amount;
+            Objects = GetSceneObjects(out amount);
+            listBox1.Items.Add(GameObject.GetFullName(Objects[0]));
+            listBox1.Invalidate();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        unsafe private void RenderingPanel_Paint(object sender, PaintEventArgs e)
         {
             UpdateEngine();
             this.Invalidate();
+            listBox1.Invalidate();
         }
     }
 }

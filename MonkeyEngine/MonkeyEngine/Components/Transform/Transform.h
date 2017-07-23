@@ -17,7 +17,7 @@ namespace MonkeyEngine
 			Transform* m_pParent;
 			std::vector<Transform*> m_vChildren;
 			void UpdateTransform();
-			virtual MEReturnValues::RETURNVALUE Update();
+			virtual void Update();
 			virtual void ShutDown();
 		public:
 			Transform() {};

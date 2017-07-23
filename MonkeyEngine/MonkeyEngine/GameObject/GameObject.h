@@ -156,9 +156,18 @@ namespace MonkeyEngine
 			std::vector<CompType*> GetComponentsinParent();
 		private:
 			void Initialize();
-			MEReturnValues::RETURNVALUE Update();
+			void Update();
 			void ShutDown();
 			void SetActiveInHeirarchy();
 		};
 	}
+}
+
+extern "C"
+{
+	__declspec(dllexport) char GetObjectNameChar(MonkeyEngine::MEObject::GameObject* _object, unsigned int _index);
+	__declspec(dllexport) unsigned int GetObjectNameSize(MonkeyEngine::MEObject::GameObject* _object);
+	__declspec(dllexport) void SetObjectName(MonkeyEngine::MEObject::GameObject* _object, const char* _Name);
+	__declspec(dllexport) unsigned int GetObjectFlags(MonkeyEngine::MEObject::GameObject* _object);
+	__declspec(dllexport) void SetObjectFlags(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Flags);
 }

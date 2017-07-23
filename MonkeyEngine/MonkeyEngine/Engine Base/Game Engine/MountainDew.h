@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "../../Renderer/Renderer.h"
 #include <thread>
+#include "../Scene/Scene.h"
 //#include <vld.h>
 namespace MonkeyEngine
 {
@@ -49,4 +50,9 @@ extern "C"
 extern "C"
 {
 	__declspec(dllexport) void ShutdownEngine();
+}
+
+extern "C"
+{
+	__declspec(dllexport) MonkeyEngine::MEObject::GameObject** GetSceneObjects(unsigned int& _amount);
 }

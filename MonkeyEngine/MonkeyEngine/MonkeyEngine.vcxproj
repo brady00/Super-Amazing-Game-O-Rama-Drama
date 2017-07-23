@@ -287,7 +287,6 @@
     <ClInclude Include="Utils\ComponentObjectFactory.h" />
     <ClInclude Include="Utils\FileIO.h" />
     <ClInclude Include="Utils\MemoryManager.h" />
-    <ClInclude Include="Utils\ReturnValues.h" />
     <ClInclude Include="Utils\Time.h" />
   </ItemGroup>
   <ItemGroup>
