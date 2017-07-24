@@ -79,7 +79,14 @@ namespace Editor
 
         private void NameBox_TextChanged(object sender, EventArgs e)
         {
-
+            string OldName = ObjectTreeView.SelectedNode.Text;
+            string NewName = NameBox.Text;
+            if (OldName == NewName)
+                return;
+            GameObjects[OldName].Name = NewName;
+            ObjectTreeView.SelectedNode.Text = NewName;
+            GameObjects[NewName] = GameObjects[OldName];
+            GameObjects.Remove(OldName);
         }
 
         private void ObjectTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -90,6 +97,7 @@ namespace Editor
                 NameBox.Text = ObjectTreeView.SelectedNode.Text;
                 ActiveBox.Checked = GameObjects[NameBox.Text].Active;
                 StaticBox.Checked = GameObjects[NameBox.Text].Static;
+                LayerComboBox.SelectedIndex = (int)GameObjects[NameBox.Text].Layer;
             }
         }
     }

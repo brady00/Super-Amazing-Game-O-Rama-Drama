@@ -68,24 +68,31 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Timer = new System.Windows.Forms.Timer(this.components);
-            this.NameBox = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ActiveBox = new System.Windows.Forms.CheckBox();
-            this.StaticBox = new System.Windows.Forms.CheckBox();
-            this.TagComboBox = new System.Windows.Forms.ComboBox();
-            this.LayerComboBox = new System.Windows.Forms.ComboBox();
-            this.TagTex = new System.Windows.Forms.Label();
-            this.LayerText = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.ObjectTreeView = new System.Windows.Forms.TreeView();
+            this.InspectorBackgroundPanel = new System.Windows.Forms.Panel();
+            this.NameBackgroundPanel = new System.Windows.Forms.Panel();
+            this.RemoveTagButton = new System.Windows.Forms.Button();
+            this.AddTagButton = new System.Windows.Forms.Button();
+            this.LayerText = new System.Windows.Forms.Label();
+            this.TagTex = new System.Windows.Forms.Label();
+            this.LayerComboBox = new System.Windows.Forms.ComboBox();
+            this.TagComboBox = new System.Windows.Forms.ComboBox();
+            this.StaticBox = new System.Windows.Forms.CheckBox();
+            this.ActiveBox = new System.Windows.Forms.CheckBox();
+            this.NameBox = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.CollapseButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.InspectorBackgroundPanel.SuspendLayout();
+            this.NameBackgroundPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // RenderingPanel
             // 
+            this.RenderingPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RenderingPanel.Location = new System.Drawing.Point(620, 27);
             this.RenderingPanel.Name = "RenderingPanel";
             this.RenderingPanel.Size = new System.Drawing.Size(728, 587);
@@ -337,30 +344,30 @@
             // contentsToolStripMenuItem
             // 
             this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.contentsToolStripMenuItem.Text = "&Contents";
             // 
             // indexToolStripMenuItem
             // 
             this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.indexToolStripMenuItem.Text = "&Index";
             // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.searchToolStripMenuItem.Text = "&Search";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(119, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // Timer
@@ -368,44 +375,95 @@
             this.Timer.Interval = 1;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
-            // NameBox
+            // ObjectTreeView
             // 
-            this.NameBox.Location = new System.Drawing.Point(1658, 41);
-            this.NameBox.Name = "NameBox";
-            this.NameBox.Size = new System.Drawing.Size(175, 20);
-            this.NameBox.TabIndex = 3;
-            this.NameBox.TextChanged += new System.EventHandler(this.NameBox_TextChanged);
+            this.ObjectTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ObjectTreeView.Location = new System.Drawing.Point(1345, 24);
+            this.ObjectTreeView.Name = "ObjectTreeView";
+            this.ObjectTreeView.Size = new System.Drawing.Size(238, 590);
+            this.ObjectTreeView.TabIndex = 0;
+            this.ObjectTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ObjectTreeView_AfterSelect);
             // 
-            // pictureBox1
+            // InspectorBackgroundPanel
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(1580, 24);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(324, 1020);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.InspectorBackgroundPanel.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.InspectorBackgroundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.InspectorBackgroundPanel.AutoScroll = true;
+            this.InspectorBackgroundPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.InspectorBackgroundPanel.Controls.Add(this.panel1);
+            this.InspectorBackgroundPanel.Controls.Add(this.NameBackgroundPanel);
+            this.InspectorBackgroundPanel.Location = new System.Drawing.Point(1580, 24);
+            this.InspectorBackgroundPanel.MinimumSize = new System.Drawing.Size(324, 1017);
+            this.InspectorBackgroundPanel.Name = "InspectorBackgroundPanel";
+            this.InspectorBackgroundPanel.Size = new System.Drawing.Size(324, 1017);
+            this.InspectorBackgroundPanel.TabIndex = 17;
             // 
-            // ActiveBox
+            // NameBackgroundPanel
             // 
-            this.ActiveBox.AutoSize = true;
-            this.ActiveBox.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ActiveBox.Location = new System.Drawing.Point(1637, 44);
-            this.ActiveBox.Name = "ActiveBox";
-            this.ActiveBox.Size = new System.Drawing.Size(15, 14);
-            this.ActiveBox.TabIndex = 5;
-            this.ActiveBox.UseVisualStyleBackColor = false;
+            this.NameBackgroundPanel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.NameBackgroundPanel.Controls.Add(this.RemoveTagButton);
+            this.NameBackgroundPanel.Controls.Add(this.AddTagButton);
+            this.NameBackgroundPanel.Controls.Add(this.LayerText);
+            this.NameBackgroundPanel.Controls.Add(this.TagTex);
+            this.NameBackgroundPanel.Controls.Add(this.LayerComboBox);
+            this.NameBackgroundPanel.Controls.Add(this.TagComboBox);
+            this.NameBackgroundPanel.Controls.Add(this.StaticBox);
+            this.NameBackgroundPanel.Controls.Add(this.ActiveBox);
+            this.NameBackgroundPanel.Controls.Add(this.NameBox);
+            this.NameBackgroundPanel.Location = new System.Drawing.Point(0, 0);
+            this.NameBackgroundPanel.Name = "NameBackgroundPanel";
+            this.NameBackgroundPanel.Size = new System.Drawing.Size(324, 101);
+            this.NameBackgroundPanel.TabIndex = 17;
             // 
-            // StaticBox
+            // RemoveTagButton
             // 
-            this.StaticBox.AutoSize = true;
-            this.StaticBox.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.StaticBox.Location = new System.Drawing.Point(1839, 44);
-            this.StaticBox.Name = "StaticBox";
-            this.StaticBox.Size = new System.Drawing.Size(53, 17);
-            this.StaticBox.TabIndex = 6;
-            this.StaticBox.Text = "Static";
-            this.StaticBox.UseVisualStyleBackColor = false;
+            this.RemoveTagButton.Location = new System.Drawing.Point(109, 65);
+            this.RemoveTagButton.Name = "RemoveTagButton";
+            this.RemoveTagButton.Size = new System.Drawing.Size(62, 23);
+            this.RemoveTagButton.TabIndex = 23;
+            this.RemoveTagButton.Text = "Remove";
+            this.RemoveTagButton.UseVisualStyleBackColor = true;
+            // 
+            // AddTagButton
+            // 
+            this.AddTagButton.Location = new System.Drawing.Point(46, 65);
+            this.AddTagButton.Name = "AddTagButton";
+            this.AddTagButton.Size = new System.Drawing.Size(57, 23);
+            this.AddTagButton.TabIndex = 22;
+            this.AddTagButton.Text = "Add";
+            this.AddTagButton.UseVisualStyleBackColor = true;
+            // 
+            // LayerText
+            // 
+            this.LayerText.AutoSize = true;
+            this.LayerText.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.LayerText.Location = new System.Drawing.Point(171, 41);
+            this.LayerText.Name = "LayerText";
+            this.LayerText.Size = new System.Drawing.Size(33, 13);
+            this.LayerText.TabIndex = 21;
+            this.LayerText.Text = "Layer";
+            // 
+            // TagTex
+            // 
+            this.TagTex.AutoSize = true;
+            this.TagTex.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.TagTex.Location = new System.Drawing.Point(9, 41);
+            this.TagTex.Name = "TagTex";
+            this.TagTex.Size = new System.Drawing.Size(31, 13);
+            this.TagTex.TabIndex = 20;
+            this.TagTex.Text = "Tags";
+            // 
+            // LayerComboBox
+            // 
+            this.LayerComboBox.FormattingEnabled = true;
+            this.LayerComboBox.Items.AddRange(new object[] {
+            "Layer 1",
+            "Layer 2",
+            "Layer 3"});
+            this.LayerComboBox.Location = new System.Drawing.Point(210, 38);
+            this.LayerComboBox.Name = "LayerComboBox";
+            this.LayerComboBox.Size = new System.Drawing.Size(106, 21);
+            this.LayerComboBox.TabIndex = 19;
             // 
             // TagComboBox
             // 
@@ -413,64 +471,63 @@
             this.TagComboBox.Items.AddRange(new object[] {
             "Player",
             "Enemy"});
-            this.TagComboBox.Location = new System.Drawing.Point(1622, 66);
+            this.TagComboBox.Location = new System.Drawing.Point(46, 38);
             this.TagComboBox.Name = "TagComboBox";
             this.TagComboBox.Size = new System.Drawing.Size(106, 21);
-            this.TagComboBox.TabIndex = 7;
+            this.TagComboBox.TabIndex = 18;
             // 
-            // LayerComboBox
+            // StaticBox
             // 
-            this.LayerComboBox.FormattingEnabled = true;
-            this.LayerComboBox.Location = new System.Drawing.Point(1786, 66);
-            this.LayerComboBox.Name = "LayerComboBox";
-            this.LayerComboBox.Size = new System.Drawing.Size(106, 21);
-            this.LayerComboBox.TabIndex = 10;
+            this.StaticBox.AutoSize = true;
+            this.StaticBox.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.StaticBox.Location = new System.Drawing.Point(263, 16);
+            this.StaticBox.Name = "StaticBox";
+            this.StaticBox.Size = new System.Drawing.Size(53, 17);
+            this.StaticBox.TabIndex = 17;
+            this.StaticBox.Text = "Static";
+            this.StaticBox.UseVisualStyleBackColor = false;
             // 
-            // TagTex
+            // ActiveBox
             // 
-            this.TagTex.AutoSize = true;
-            this.TagTex.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.TagTex.Location = new System.Drawing.Point(1585, 69);
-            this.TagTex.Name = "TagTex";
-            this.TagTex.Size = new System.Drawing.Size(31, 13);
-            this.TagTex.TabIndex = 11;
-            this.TagTex.Text = "Tags";
+            this.ActiveBox.AutoSize = true;
+            this.ActiveBox.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.ActiveBox.Location = new System.Drawing.Point(61, 16);
+            this.ActiveBox.Name = "ActiveBox";
+            this.ActiveBox.Size = new System.Drawing.Size(15, 14);
+            this.ActiveBox.TabIndex = 16;
+            this.ActiveBox.UseVisualStyleBackColor = false;
             // 
-            // LayerText
+            // NameBox
             // 
-            this.LayerText.AutoSize = true;
-            this.LayerText.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.LayerText.Location = new System.Drawing.Point(1747, 69);
-            this.LayerText.Name = "LayerText";
-            this.LayerText.Size = new System.Drawing.Size(33, 13);
-            this.LayerText.TabIndex = 12;
-            this.LayerText.Text = "Layer";
+            this.NameBox.Location = new System.Drawing.Point(82, 13);
+            this.NameBox.Name = "NameBox";
+            this.NameBox.Size = new System.Drawing.Size(175, 20);
+            this.NameBox.TabIndex = 15;
             // 
-            // button1
+            // panel1
             // 
-            this.button1.Location = new System.Drawing.Point(1622, 93);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(57, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel1.Controls.Add(this.CollapseButton);
+            this.panel1.Location = new System.Drawing.Point(0, 107);
+            this.panel1.MaximumSize = new System.Drawing.Size(324, 150);
+            this.panel1.MinimumSize = new System.Drawing.Size(324, 23);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(324, 150);
+            this.panel1.TabIndex = 18;
             // 
-            // button2
+            // CollapseButton
             // 
-            this.button2.Location = new System.Drawing.Point(1685, 93);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(62, 23);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "Remove";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // ObjectTreeView
-            // 
-            this.ObjectTreeView.Location = new System.Drawing.Point(1345, 24);
-            this.ObjectTreeView.Name = "ObjectTreeView";
-            this.ObjectTreeView.Size = new System.Drawing.Size(234, 590);
-            this.ObjectTreeView.TabIndex = 0;
-            this.ObjectTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ObjectTreeView_AfterSelect);
+            this.CollapseButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CollapseButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CollapseButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CollapseButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CollapseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CollapseButton.Location = new System.Drawing.Point(0, 0);
+            this.CollapseButton.Name = "CollapseButton";
+            this.CollapseButton.Size = new System.Drawing.Size(19, 23);
+            this.CollapseButton.TabIndex = 1;
+            this.CollapseButton.Text = "▶";
+            this.CollapseButton.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -478,19 +535,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.InspectorBackgroundPanel);
             this.Controls.Add(this.ObjectTreeView);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.LayerText);
-            this.Controls.Add(this.TagTex);
-            this.Controls.Add(this.LayerComboBox);
-            this.Controls.Add(this.TagComboBox);
-            this.Controls.Add(this.StaticBox);
-            this.Controls.Add(this.ActiveBox);
-            this.Controls.Add(this.NameBox);
             this.Controls.Add(this.RenderingPanel);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -500,7 +548,10 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.RenderingPanel_Paint);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.InspectorBackgroundPanel.ResumeLayout(false);
+            this.NameBackgroundPanel.ResumeLayout(false);
+            this.NameBackgroundPanel.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -545,18 +596,21 @@
         private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem sceneToolStripMenuItem1;
         private System.Windows.Forms.Timer Timer;
-        private System.Windows.Forms.TextBox NameBox;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.CheckBox ActiveBox;
-        private System.Windows.Forms.CheckBox StaticBox;
-        private System.Windows.Forms.ComboBox TagComboBox;
-        private System.Windows.Forms.ComboBox LayerComboBox;
-        private System.Windows.Forms.Label TagTex;
-        private System.Windows.Forms.Label LayerText;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TreeView ObjectTreeView;
+        private System.Windows.Forms.Panel InspectorBackgroundPanel;
+        private System.Windows.Forms.Panel NameBackgroundPanel;
+        private System.Windows.Forms.Button RemoveTagButton;
+        private System.Windows.Forms.Button AddTagButton;
+        private System.Windows.Forms.Label LayerText;
+        private System.Windows.Forms.Label TagTex;
+        private System.Windows.Forms.ComboBox LayerComboBox;
+        private System.Windows.Forms.ComboBox TagComboBox;
+        private System.Windows.Forms.CheckBox StaticBox;
+        private System.Windows.Forms.CheckBox ActiveBox;
+        private System.Windows.Forms.TextBox NameBox;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button CollapseButton;
     }
 }
 
