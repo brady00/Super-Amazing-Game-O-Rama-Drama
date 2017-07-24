@@ -27,7 +27,7 @@ namespace MonkeyEngine
 	void* Allocate(std::size_t count)
 	{
 		if (!init)
-			Initialize(999999);
+			Initialize(1000000000);
 		bool Used = ((Header*)m_pMemory)->used;
 		char* temp = (char*)m_pMemory;
 		while (Used == true)

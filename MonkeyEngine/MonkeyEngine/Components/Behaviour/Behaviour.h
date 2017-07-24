@@ -18,6 +18,7 @@ namespace MonkeyEngine
 			void Enable();
 			void SetEnabled(bool _Enabled);
 		private:
+		};
 	}
 }
 

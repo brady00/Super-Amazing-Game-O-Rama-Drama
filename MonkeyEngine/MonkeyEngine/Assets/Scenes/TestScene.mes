@@ -9,8 +9,9 @@
 		<MeshRenderer Enabled="true" Skinned="false" Opaque="true">
 
 
-			<VertexFileName File="../../../MonkeyEngine/Assets/Test.fbx"/>
-			<DiffuseFileName File="../../../MonkeyEngine/Assets/images.png"/>		</MeshRenderer>
+			<VertexFileName  File="../../../MonkeyEngine/Assets/Test.fbx"/>
+			<DiffuseFileName File="../../../MonkeyEngine/Assets/images.png"/>		
+		</MeshRenderer>
 	</GameObject>
   <GameObject Name="ff" Static="false" Active="true" Layer="0">
     <Transform>
