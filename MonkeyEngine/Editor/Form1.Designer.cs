@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.RenderingPanel = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -66,8 +67,21 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.NameBox = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ActiveBox = new System.Windows.Forms.CheckBox();
+            this.StaticBox = new System.Windows.Forms.CheckBox();
+            this.TagComboBox = new System.Windows.Forms.ComboBox();
+            this.LayerComboBox = new System.Windows.Forms.ComboBox();
+            this.TagTex = new System.Windows.Forms.Label();
+            this.LayerText = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.ObjectTreeView = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // RenderingPanel
@@ -349,14 +363,114 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
-            // listBox1
+            // Timer
             // 
-            this.listBox1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(1348, 24);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(322, 589);
-            this.listBox1.TabIndex = 2;
+            this.Timer.Interval = 1;
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
+            // NameBox
+            // 
+            this.NameBox.Location = new System.Drawing.Point(1658, 41);
+            this.NameBox.Name = "NameBox";
+            this.NameBox.Size = new System.Drawing.Size(175, 20);
+            this.NameBox.TabIndex = 3;
+            this.NameBox.TextChanged += new System.EventHandler(this.NameBox_TextChanged);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Location = new System.Drawing.Point(1580, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(324, 1020);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
+            // ActiveBox
+            // 
+            this.ActiveBox.AutoSize = true;
+            this.ActiveBox.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.ActiveBox.Location = new System.Drawing.Point(1637, 44);
+            this.ActiveBox.Name = "ActiveBox";
+            this.ActiveBox.Size = new System.Drawing.Size(15, 14);
+            this.ActiveBox.TabIndex = 5;
+            this.ActiveBox.UseVisualStyleBackColor = false;
+            // 
+            // StaticBox
+            // 
+            this.StaticBox.AutoSize = true;
+            this.StaticBox.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.StaticBox.Location = new System.Drawing.Point(1839, 44);
+            this.StaticBox.Name = "StaticBox";
+            this.StaticBox.Size = new System.Drawing.Size(53, 17);
+            this.StaticBox.TabIndex = 6;
+            this.StaticBox.Text = "Static";
+            this.StaticBox.UseVisualStyleBackColor = false;
+            // 
+            // TagComboBox
+            // 
+            this.TagComboBox.FormattingEnabled = true;
+            this.TagComboBox.Items.AddRange(new object[] {
+            "Player",
+            "Enemy"});
+            this.TagComboBox.Location = new System.Drawing.Point(1622, 66);
+            this.TagComboBox.Name = "TagComboBox";
+            this.TagComboBox.Size = new System.Drawing.Size(106, 21);
+            this.TagComboBox.TabIndex = 7;
+            // 
+            // LayerComboBox
+            // 
+            this.LayerComboBox.FormattingEnabled = true;
+            this.LayerComboBox.Location = new System.Drawing.Point(1786, 66);
+            this.LayerComboBox.Name = "LayerComboBox";
+            this.LayerComboBox.Size = new System.Drawing.Size(106, 21);
+            this.LayerComboBox.TabIndex = 10;
+            // 
+            // TagTex
+            // 
+            this.TagTex.AutoSize = true;
+            this.TagTex.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.TagTex.Location = new System.Drawing.Point(1585, 69);
+            this.TagTex.Name = "TagTex";
+            this.TagTex.Size = new System.Drawing.Size(31, 13);
+            this.TagTex.TabIndex = 11;
+            this.TagTex.Text = "Tags";
+            // 
+            // LayerText
+            // 
+            this.LayerText.AutoSize = true;
+            this.LayerText.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.LayerText.Location = new System.Drawing.Point(1747, 69);
+            this.LayerText.Name = "LayerText";
+            this.LayerText.Size = new System.Drawing.Size(33, 13);
+            this.LayerText.TabIndex = 12;
+            this.LayerText.Text = "Layer";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1622, 93);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(57, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Add";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1685, 93);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(62, 23);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "Remove";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // ObjectTreeView
+            // 
+            this.ObjectTreeView.Location = new System.Drawing.Point(1345, 24);
+            this.ObjectTreeView.Name = "ObjectTreeView";
+            this.ObjectTreeView.Size = new System.Drawing.Size(234, 590);
+            this.ObjectTreeView.TabIndex = 0;
+            this.ObjectTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ObjectTreeView_AfterSelect);
             // 
             // Form1
             // 
@@ -364,9 +478,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.ObjectTreeView);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.LayerText);
+            this.Controls.Add(this.TagTex);
+            this.Controls.Add(this.LayerComboBox);
+            this.Controls.Add(this.TagComboBox);
+            this.Controls.Add(this.StaticBox);
+            this.Controls.Add(this.ActiveBox);
+            this.Controls.Add(this.NameBox);
             this.Controls.Add(this.RenderingPanel);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -376,14 +500,10 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.RenderingPanel_Paint);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-            //
-            // Timer
-            //
-            this.Timer = new System.Windows.Forms.Timer();
-            Timer.Tick += new System.EventHandler(Timer_Tick);
-            Timer.Interval = 1;
+
         }
 
         #endregion
@@ -424,8 +544,19 @@
         private System.Windows.Forms.ToolStripMenuItem objectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem sceneToolStripMenuItem1;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Timer Timer;
+        private System.Windows.Forms.TextBox NameBox;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.CheckBox ActiveBox;
+        private System.Windows.Forms.CheckBox StaticBox;
+        private System.Windows.Forms.ComboBox TagComboBox;
+        private System.Windows.Forms.ComboBox LayerComboBox;
+        private System.Windows.Forms.Label TagTex;
+        private System.Windows.Forms.Label LayerText;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TreeView ObjectTreeView;
     }
 }
 

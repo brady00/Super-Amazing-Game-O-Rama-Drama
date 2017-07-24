@@ -28,7 +28,8 @@ namespace Editor
 
 
         unsafe void** Objects;
-
+        TreeNode PrevSelectedObject;
+        SortedDictionary<string, GameObject> GameObjects;
         public Form1()
         {
             InitializeComponent();
@@ -48,16 +49,21 @@ namespace Editor
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             uint amount;
+            GameObjects = new SortedDictionary<string, GameObject>();
             Objects = GetSceneObjects(out amount);
-            listBox1.Items.Add(GameObject.GetFullName(Objects[0]));
-            listBox1.Items.Add(GameObject.GetFullName(Objects[1]));
-            listBox1.Items.Add(GameObject.GetFullName(Objects[2]));
-            listBox1.SelectedIndex = 0;
-            listBox1.Update();
-            listBox1.DisplayMember = "";
-            listBox1.DisplayMember = "Name";
-            listBox1.Update();
-            listBox1.Refresh();
+            GameObject Object0 = new GameObject();
+            GameObject Object1 = new GameObject();
+            GameObject Object2 = new GameObject();
+            Object0.EngineGameObject = Objects[0];
+            Object1.EngineGameObject = Objects[1];
+            Object2.EngineGameObject = Objects[2];
+            GameObjects[Object0.Name] = Object0;
+            GameObjects[Object1.Name] = Object1;
+            GameObjects[Object2.Name] = Object2;
+
+            ObjectTreeView.Nodes.Add(Object0.Name);
+            ObjectTreeView.Nodes.Add(Object1.Name);
+            ObjectTreeView.Nodes[0].Nodes.Add(Object2.Name);
         }
 
         unsafe private void RenderingPanel_Paint(object sender, PaintEventArgs e)
@@ -69,7 +75,22 @@ namespace Editor
         {
             UpdateEngine();
             this.Invalidate();
-            listBox1.Invalidate();
+        }
+
+        private void NameBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ObjectTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if(ObjectTreeView.SelectedNode != PrevSelectedObject)
+            {
+                PrevSelectedObject = ObjectTreeView.SelectedNode;
+                NameBox.Text = ObjectTreeView.SelectedNode.Text;
+                ActiveBox.Checked = GameObjects[NameBox.Text].Active;
+                StaticBox.Checked = GameObjects[NameBox.Text].Static;
+            }
         }
     }
 }

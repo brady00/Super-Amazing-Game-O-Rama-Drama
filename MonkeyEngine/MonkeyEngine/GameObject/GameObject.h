@@ -133,9 +133,11 @@ namespace MonkeyEngine
 			void SetScene(Scene* _Scene);
 			Scene* GetScene();
 			void AddTag(std::string _Tag);
+			void RemoveTag(std::string _Tag);
 			std::vector<std::string>& GetTags();
 			Transform* GetTransform();
 			void AddComponent(Component* _Component, COMPONENT_ID _ID);
+			void RemoveComponent(Component* _Component, COMPONENT_ID _ID);
 			void BroadcastMessage(std::string _Message);
 			void SendMessageString(std::string _Message);
 			void SendMessageUpwards(std::string _Message);
@@ -170,4 +172,20 @@ extern "C"
 	__declspec(dllexport) void SetObjectName(MonkeyEngine::MEObject::GameObject* _object, const char* _Name);
 	__declspec(dllexport) unsigned int GetObjectFlags(MonkeyEngine::MEObject::GameObject* _object);
 	__declspec(dllexport) void SetObjectFlags(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Flags);
+	__declspec(dllexport) void SetObjectActive(MonkeyEngine::MEObject::GameObject* _object, bool _Active);
+	__declspec(dllexport) bool GetObjectActive(MonkeyEngine::MEObject::GameObject* _object);
+	__declspec(dllexport) void SetObjectStatic(MonkeyEngine::MEObject::GameObject* _object, bool _Static);
+	__declspec(dllexport) bool GetObjectStatic(MonkeyEngine::MEObject::GameObject* _object);
+	__declspec(dllexport) void SetObjectLayer(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Layer);
+	__declspec(dllexport) unsigned int GetObjectLayer(MonkeyEngine::MEObject::GameObject* _object);
+
+	void AddTag(std::string _Tag);
+	void RemoveTag(std::string _Tag);
+	std::vector<std::string>& GetTags();
+
+	/*Transform* GetTransform();
+	void AddComponent(Component* _Component, COMPONENT_ID _ID);
+	void RemoveComponent(Component* _Component, COMPONENT_ID _ID);
+	CompType* GetComponent();
+	std::vector<Component*> GetComponents();*/
 }

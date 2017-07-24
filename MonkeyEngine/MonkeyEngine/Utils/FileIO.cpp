@@ -268,6 +268,7 @@ namespace MonkeyEngine
 			((MEObject::Transform*)_Object)->GetPosition() = pos;
 			((MEObject::Transform*)_Object)->GetRotation() = rot;
 			((MEObject::Transform*)_Object)->GetScale() = scale;
+			_Object->SetName("Transform");
 			return true;
 		}
 
@@ -319,6 +320,7 @@ namespace MonkeyEngine
 				&tempMesh->m_sVertexFileName,
 				&tempMesh->m_eVertexFormat,
 				tempTex->m_Material);
+			_Object->SetName("MeshRenderer");
 			return true;
 		}
 
