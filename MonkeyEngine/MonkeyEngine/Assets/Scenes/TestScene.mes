@@ -1,4 +1,5 @@
 <MonkeyEngineScene>
+
 	<GameObject Name="f" Static="false" Active="true" Layer="1">
 		<Transform>
 			<Position X="0" Y="0" Z="0"/>
@@ -6,9 +7,10 @@
 			<Scale X="1" Y="1" Z="1"/>
 		</Transform>
 		<MeshRenderer Enabled="true" Skinned="false" Opaque="true">
-			<VertexFileName File="../../../MonkeyEngine/Assets/testObj.obj"/>
-			<DiffuseFileName File="../../../MonkeyEngine/Assets/images.png"/>
-		</MeshRenderer>
+
+
+			<VertexFileName File="../../../MonkeyEngine/Assets/Test.fbx"/>
+			<DiffuseFileName File="../../../MonkeyEngine/Assets/images.png"/>		</MeshRenderer>
 	</GameObject>
   <GameObject Name="ff" Static="false" Active="true" Layer="0">
     <Transform>

@@ -15,6 +15,8 @@ namespace MonkeyEngine
 		public:
 			Animator() {};
 			~Animator() {};
+		private:
+			MEReturnValues::RETURNVALUE Update();
 		};
 	}
 }
