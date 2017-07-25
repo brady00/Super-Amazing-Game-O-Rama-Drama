@@ -100,5 +100,10 @@ namespace Editor
                 LayerComboBox.SelectedIndex = (int)GameObjects[NameBox.Text].Layer;
             }
         }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
     }
 }

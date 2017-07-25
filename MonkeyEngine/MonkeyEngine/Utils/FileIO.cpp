@@ -66,6 +66,7 @@ namespace MonkeyEngine
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
 				}
+				FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
 				_Indicies = new unsigned int[_NumIndicies];
 				for (unsigned int i = 0; i < _NumIndicies; i++)
 					FileIn.read((char*)&_Indicies[i], sizeof(unsigned int));
@@ -114,6 +115,7 @@ namespace MonkeyEngine
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
 				}
+				out.write((const char*)& _NumIndicies, sizeof(unsigned int)); 
 				for (unsigned int i = 0; i < _NumIndicies; i++)
 					out.write((const char*)&_Indicies[i], sizeof(unsigned int));
 				out.close();

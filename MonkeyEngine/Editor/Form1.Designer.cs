@@ -31,7 +31,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.RenderingPanel = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,8 +68,10 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.ObjectTreeView = new System.Windows.Forms.TreeView();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.InspectorBackgroundPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.CollapseButton = new System.Windows.Forms.Button();
             this.NameBackgroundPanel = new System.Windows.Forms.Panel();
             this.RemoveTagButton = new System.Windows.Forms.Button();
             this.AddTagButton = new System.Windows.Forms.Button();
@@ -81,22 +82,17 @@
             this.StaticBox = new System.Windows.Forms.CheckBox();
             this.ActiveBox = new System.Windows.Forms.CheckBox();
             this.NameBox = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.CollapseButton = new System.Windows.Forms.Button();
+            this.RenderingPanel = new System.Windows.Forms.Panel();
+            this.ObjectTreeView = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.InspectorBackgroundPanel.SuspendLayout();
-            this.NameBackgroundPanel.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.NameBackgroundPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // RenderingPanel
-            // 
-            this.RenderingPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.RenderingPanel.Location = new System.Drawing.Point(620, 27);
-            this.RenderingPanel.Name = "RenderingPanel";
-            this.RenderingPanel.Size = new System.Drawing.Size(728, 587);
-            this.RenderingPanel.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -344,30 +340,30 @@
             // contentsToolStripMenuItem
             // 
             this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.contentsToolStripMenuItem.Text = "&Contents";
             // 
             // indexToolStripMenuItem
             // 
             this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.indexToolStripMenuItem.Text = "&Index";
             // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.searchToolStripMenuItem.Text = "&Search";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(119, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // Timer
@@ -375,14 +371,24 @@
             this.Timer.Interval = 1;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
-            // ObjectTreeView
+            // splitContainer1
             // 
-            this.ObjectTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ObjectTreeView.Location = new System.Drawing.Point(1345, 24);
-            this.ObjectTreeView.Name = "ObjectTreeView";
-            this.ObjectTreeView.Size = new System.Drawing.Size(238, 590);
-            this.ObjectTreeView.TabIndex = 0;
-            this.ObjectTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ObjectTreeView_AfterSelect);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.RenderingPanel);
+            this.splitContainer1.Panel1.Controls.Add(this.ObjectTreeView);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.InspectorBackgroundPanel);
+            this.splitContainer1.Size = new System.Drawing.Size(1904, 1041);
+            this.splitContainer1.SplitterDistance = 1568;
+            this.splitContainer1.TabIndex = 18;
+            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // InspectorBackgroundPanel
             // 
@@ -392,11 +398,36 @@
             this.InspectorBackgroundPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.InspectorBackgroundPanel.Controls.Add(this.panel1);
             this.InspectorBackgroundPanel.Controls.Add(this.NameBackgroundPanel);
-            this.InspectorBackgroundPanel.Location = new System.Drawing.Point(1580, 24);
+            this.InspectorBackgroundPanel.Location = new System.Drawing.Point(8, 21);
             this.InspectorBackgroundPanel.MinimumSize = new System.Drawing.Size(324, 1017);
             this.InspectorBackgroundPanel.Name = "InspectorBackgroundPanel";
             this.InspectorBackgroundPanel.Size = new System.Drawing.Size(324, 1017);
-            this.InspectorBackgroundPanel.TabIndex = 17;
+            this.InspectorBackgroundPanel.TabIndex = 18;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel1.Controls.Add(this.CollapseButton);
+            this.panel1.Location = new System.Drawing.Point(0, 107);
+            this.panel1.MaximumSize = new System.Drawing.Size(324, 150);
+            this.panel1.MinimumSize = new System.Drawing.Size(324, 23);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(324, 150);
+            this.panel1.TabIndex = 18;
+            // 
+            // CollapseButton
+            // 
+            this.CollapseButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CollapseButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CollapseButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CollapseButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.CollapseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CollapseButton.Location = new System.Drawing.Point(0, 0);
+            this.CollapseButton.Name = "CollapseButton";
+            this.CollapseButton.Size = new System.Drawing.Size(19, 23);
+            this.CollapseButton.TabIndex = 1;
+            this.CollapseButton.Text = "▶";
+            this.CollapseButton.UseVisualStyleBackColor = false;
             // 
             // NameBackgroundPanel
             // 
@@ -504,30 +535,22 @@
             this.NameBox.Size = new System.Drawing.Size(175, 20);
             this.NameBox.TabIndex = 15;
             // 
-            // panel1
+            // RenderingPanel
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel1.Controls.Add(this.CollapseButton);
-            this.panel1.Location = new System.Drawing.Point(0, 107);
-            this.panel1.MaximumSize = new System.Drawing.Size(324, 150);
-            this.panel1.MinimumSize = new System.Drawing.Size(324, 23);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(324, 150);
-            this.panel1.TabIndex = 18;
+            this.RenderingPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RenderingPanel.Location = new System.Drawing.Point(611, 21);
+            this.RenderingPanel.Name = "RenderingPanel";
+            this.RenderingPanel.Size = new System.Drawing.Size(720, 587);
+            this.RenderingPanel.TabIndex = 1;
             // 
-            // CollapseButton
+            // ObjectTreeView
             // 
-            this.CollapseButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.CollapseButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.CollapseButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.CollapseButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.CollapseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CollapseButton.Location = new System.Drawing.Point(0, 0);
-            this.CollapseButton.Name = "CollapseButton";
-            this.CollapseButton.Size = new System.Drawing.Size(19, 23);
-            this.CollapseButton.TabIndex = 1;
-            this.CollapseButton.Text = "▶";
-            this.CollapseButton.UseVisualStyleBackColor = false;
+            this.ObjectTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ObjectTreeView.Location = new System.Drawing.Point(1328, 18);
+            this.ObjectTreeView.Name = "ObjectTreeView";
+            this.ObjectTreeView.Size = new System.Drawing.Size(238, 590);
+            this.ObjectTreeView.TabIndex = 2;
             // 
             // Form1
             // 
@@ -535,10 +558,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
-            this.Controls.Add(this.InspectorBackgroundPanel);
-            this.Controls.Add(this.ObjectTreeView);
-            this.Controls.Add(this.RenderingPanel);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.splitContainer1);
             this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -548,18 +569,20 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.RenderingPanel_Paint);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.InspectorBackgroundPanel.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.NameBackgroundPanel.ResumeLayout(false);
             this.NameBackgroundPanel.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel RenderingPanel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
@@ -597,8 +620,10 @@
         private System.Windows.Forms.ToolStripMenuItem sceneToolStripMenuItem1;
         private System.Windows.Forms.Timer Timer;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.TreeView ObjectTreeView;
+        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel InspectorBackgroundPanel;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button CollapseButton;
         private System.Windows.Forms.Panel NameBackgroundPanel;
         private System.Windows.Forms.Button RemoveTagButton;
         private System.Windows.Forms.Button AddTagButton;
@@ -609,8 +634,8 @@
         private System.Windows.Forms.CheckBox StaticBox;
         private System.Windows.Forms.CheckBox ActiveBox;
         private System.Windows.Forms.TextBox NameBox;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button CollapseButton;
+        private System.Windows.Forms.Panel RenderingPanel;
+        private System.Windows.Forms.TreeView ObjectTreeView;
     }
 }
 
