@@ -115,7 +115,7 @@ namespace MonkeyEngine
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
 				}
-				out.write((const char*)& _NumIndicies, sizeof(unsigned int)); 
+				out.write((const char*)& _NumIndicies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumIndicies; i++)
 					out.write((const char*)&_Indicies[i], sizeof(unsigned int));
 				out.close();
