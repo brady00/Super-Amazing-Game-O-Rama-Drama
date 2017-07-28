@@ -64,7 +64,7 @@ namespace MonkeyEngine
 		RegisterClassEx(&wc);
 
 		m_pSettings = new Settings;
-		m_pSettings->Initialize("Engine Base/Settings/config.txt");
+		m_pSettings->Initialize("../../../Engine Base/Settings/config.txt");
 
 		RECT window_size = { 0, 0, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight() };
 		AdjustWindowRect(&window_size, WS_OVERLAPPEDWINDOW, false);
@@ -76,7 +76,7 @@ namespace MonkeyEngine
 		}
 		ShowWindow(m_HWnd, nCmdShow);
 		UpdateWindow(m_HWnd);
-		InitializeEngine(m_HWnd, m_uiScreenWidth, m_uiScreenHeight);
+		InitializeEngine(m_HWnd, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight());
 	}
 
 	void MountainDew::Update()
@@ -90,7 +90,7 @@ namespace MonkeyEngine
 	{
 		m_pScene->Shutdown();
 		delete m_pScene;
-		m_pSettings->Shutdown();
+		//m_pSettings->Shutdown();
 		delete m_pSettings;
 		m_pRenderer->Shutdown();
 		delete m_pRenderer;

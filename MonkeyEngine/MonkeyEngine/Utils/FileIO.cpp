@@ -264,7 +264,8 @@ namespace MonkeyEngine
 
 		bool FileIO::OutputSettings(std::string _FileName, std::vector<SettingData*> _SettingData)
 		{
-			ofstream ofile(_FileName.c_str());
+			ofstream ofile;
+			ofile.open(_FileName.c_str());
 			if (ofile.is_open())
 			{
 				for (unsigned int i = 0; i < _SettingData.size(); i++)
