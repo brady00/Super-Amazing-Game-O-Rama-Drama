@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "../Utils/ReturnValues.h"
 using namespace std;
 namespace MonkeyEngine
 {
@@ -21,9 +20,8 @@ namespace MonkeyEngine
 			void SetFlags(unsigned int _Flags);
 		private:
 			virtual void Initialize() {};
-			virtual MEReturnValues::RETURNVALUE Update() { return MEReturnValues::NOTHING; };
+			virtual void Update() {};
 			virtual void ShutDown() {};
 		};
-
 	}
 }

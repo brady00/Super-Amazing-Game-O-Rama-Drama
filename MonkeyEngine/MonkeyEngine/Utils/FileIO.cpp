@@ -48,6 +48,30 @@ namespace MonkeyEngine
 
 		bool FileIO::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
 		{
+			std::string filepart;
+			std::ifstream FileIn;
+			filepart.append(_FileName.c_str(), _FileName.length() - 4);
+			FileIn.open(filepart + ".Bfbx", std::ios_base::binary);
+			if (FileIn.is_open())
+			{
+				FileIn.read((char*)& _NumVerticies, sizeof(unsigned int));
+				_Verticies = new MERenderer::VERTEX_POSNORMTEX[_NumVerticies];
+				for (unsigned int i = 0; i < _NumVerticies; i++)
+				{
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].normal), sizeof(DirectX::XMFLOAT3));
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].texcoord), sizeof(DirectX::XMFLOAT2));
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].bone), sizeof(DirectX::XMINT4));
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].determinant), sizeof(float));
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
+				}
+				FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
+				_Indicies = new unsigned int[_NumIndicies];
+				for (unsigned int i = 0; i < _NumIndicies; i++)
+					FileIn.read((char*)&_Indicies[i], sizeof(unsigned int));
+				return true;
+			}
 			FbxManager* fbxManager = FbxManager::Create();
 			if (!fbxManager)
 				return false;
@@ -76,6 +100,28 @@ namespace MonkeyEngine
 			for (unsigned int i = 0; i < m_vTriangles.size(); ++i)
 				for (unsigned int j = 0; j < 3; ++j)
 					_Indicies[i * 3 + j] = m_vTriangles[i].mIndices[j];
+			std::ofstream out;
+			out.open(filepart + std::string(".Bfbx"), std::ios_base::binary);
+			if (out.is_open())
+			{
+				out.write((const char*)& _NumVerticies, sizeof(unsigned int));
+				for (unsigned int i = 0; i < _NumVerticies; i++)
+				{
+					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
+					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].normal), sizeof(DirectX::XMFLOAT3));
+					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].texcoord), sizeof(DirectX::XMFLOAT2));
+					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].bone), sizeof(DirectX::XMINT4));
+					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].determinant), sizeof(float));
+					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
+					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
+				}
+				out.write((const char*)& _NumIndicies, sizeof(unsigned int)); 
+				for (unsigned int i = 0; i < _NumIndicies; i++)
+					out.write((const char*)&_Indicies[i], sizeof(unsigned int));
+				out.close();
+			}
+			else
+				return false;
 			return true;
 		}
 
@@ -311,6 +357,7 @@ namespace MonkeyEngine
 			((MEObject::Transform*)_Object)->GetPosition() = pos;
 			((MEObject::Transform*)_Object)->GetRotation() = rot;
 			((MEObject::Transform*)_Object)->GetScale() = scale;
+			_Object->SetName("Transform");
 			return true;
 		}
 
@@ -362,6 +409,7 @@ namespace MonkeyEngine
 				&tempMesh->m_sVertexFileName,
 				&tempMesh->m_eVertexFormat,
 				tempTex->m_Material);
+			_Object->SetName("MeshRenderer");
 			return true;
 		}
 

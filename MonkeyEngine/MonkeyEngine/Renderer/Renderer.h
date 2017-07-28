@@ -1,5 +1,4 @@
 #pragma once
-#include "../Utils/ReturnValues.h"
 #include <vector>
 #include <Windows.h>
 #include <DirectXMath.h>
@@ -38,7 +37,7 @@ namespace MonkeyEngine
 			Renderer();
 			~Renderer();
 			void Initialize(HWND _window, UINT _ScreenWidth, UINT _ScreenHeight);
-			MEReturnValues::RETURNVALUE Update();
+			void Update();
 			void Shutdown();
 			static ID3D11Device* m_d3Device;
 			static ID3D11DeviceContext* m_d3DeviceContext;

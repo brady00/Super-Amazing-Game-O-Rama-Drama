@@ -1,5 +1,4 @@
 #include "MountainDew.h"
-#include "../Scene/Scene.h"
 #include "../Settings/Settings.h"
 #include "../../Utils/Time.h"
 #include "../../Utils/FileIO.h"
@@ -77,24 +76,13 @@ namespace MonkeyEngine
 		}
 		ShowWindow(m_HWnd, nCmdShow);
 		UpdateWindow(m_HWnd);
-		m_pRenderer = new MERenderer::Renderer;
-		m_pRenderer->Initialize(m_HWnd, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight());
-		Time::Initialize();
-		std::vector<MEObject::GameObject*> objects;
-		m_pScene = new Scene;
-		m_pScene->initialize(Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight());
-		MEFileIO::FileIO::LoadScene("Assets/Scenes/TestScene.mes", m_pScene->m_vObjects);
+		InitializeEngine(m_HWnd, m_uiScreenWidth, m_uiScreenHeight);
 	}
 
 	void MountainDew::Update()
 	{
 		Time::Update();
 		m_pScene->Update();
-		if (GetAsyncKeyState(VK_ESCAPE))
-		{
-			m_bShuttingDown = true;
-			PostQuitMessage(0);
-		}
 		m_pRenderer->Update();
 	}
 
@@ -107,4 +95,34 @@ namespace MonkeyEngine
 		m_pRenderer->Shutdown();
 		delete m_pRenderer;
 	}
+}
+using namespace MonkeyEngine;
+void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight)
+{
+	int size = sizeof(window);
+	MountainDew* temp = MountainDew::GetInstance();
+	temp->m_pRenderer = new MERenderer::Renderer;
+	temp->m_pRenderer->Initialize(window, _ScreenWidth, _ScreenHeight);
+	Time::Initialize();
+	std::vector<MEObject::GameObject*> objects;
+	temp->m_pScene = new Scene;
+	temp->m_pScene->initialize(_ScreenWidth, _ScreenHeight);
+	MEFileIO::FileIO::LoadScene("../../../MonkeyEngine/Assets/Scenes/TestScene.mes", temp->m_pScene->m_vObjects);
+}
+
+void UpdateEngine()
+{
+	MountainDew::GetInstance()->Update();
+}
+
+void ShutdownEngine()
+{
+	MountainDew::GetInstance()->Shutdown();
+	MountainDew::DestroyInstance();
+}
+
+MonkeyEngine::MEObject::GameObject** GetSceneObjects(unsigned int& _amount)
+{
+	_amount = (unsigned int)MountainDew::GetInstance()->m_pScene->GetObjects().size();
+	return &MountainDew::GetInstance()->m_pScene->GetObjects()[0];
 }

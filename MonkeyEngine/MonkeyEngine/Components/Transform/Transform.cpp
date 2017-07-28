@@ -39,12 +39,11 @@ namespace MonkeyEngine
 			XMStoreFloat4x4(&m_xmWorldMatrix, temp);
 		}
 
-		MEReturnValues::RETURNVALUE Transform::Update()
+		void Transform::Update()
 		{
 			UpdateTransform();
 			for (unsigned int i = 0; i < m_vChildren.size(); i++)
 				m_vChildren[i]->Update();
-			return MEReturnValues::TRANSFORMRETURN;
 		}
 
 		void Transform::ShutDown()

@@ -9,15 +9,19 @@ namespace MonkeyEngine
 	class Scene
 	{
 		friend class MountainDew;
-	private:
+	public:
 		std::vector<MEObject::GameObject*> m_vObjects;
+	private:
 		MERenderer::DebugCamera* m_pDebugCamera;
-		void AddObject(MEObject::GameObject* _GameObject); public:
-			Scene();
-			~Scene();
+		void AddObject(MEObject::GameObject* _GameObject); 
+	public:
+		Scene();
+		~Scene();
 
-			void initialize(int _ScreenWidth, int _ScreenHeight);
-			MEReturnValues::RETURNVALUE Update();
-			void Shutdown();
+		void initialize(int _ScreenWidth, int _ScreenHeight);
+		void Update();
+		void Shutdown();
+
+		std::vector<MEObject::GameObject*>& GetObjects();
 	};
 }

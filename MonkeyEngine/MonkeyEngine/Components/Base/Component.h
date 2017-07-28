@@ -36,7 +36,7 @@ namespace MonkeyEngine
 			std::vector<CompType*> GetComponentsinParent();
 		private:
 			virtual void Initialize() {};
-			virtual MEReturnValues::RETURNVALUE Update() { return MEReturnValues::NOTHING; };
+			virtual void Update() {};
 			virtual void ShutDown() {};
 		};
 	}

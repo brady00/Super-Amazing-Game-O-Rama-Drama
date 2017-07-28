@@ -15,9 +15,9 @@ namespace MonkeyEngine
 			XMFLOAT3 m_xmScale;
 			XMFLOAT4X4 m_xmWorldMatrix;
 			Transform* m_pParent;
-			std::vector<Transform*> m_vChildren;
+			vector<Transform*> m_vChildren;
 			void UpdateTransform();
-			virtual MEReturnValues::RETURNVALUE Update();
+			virtual void Update();
 			virtual void ShutDown();
 		public:
 			Transform() {};
@@ -27,7 +27,7 @@ namespace MonkeyEngine
 			Transform* GetParent();
 			Transform* GetChild();
 			Transform* GetChild(unsigned int _index);
-			std::vector<Transform*>& GetChildren();
+			vector<Transform*>& GetChildren();
 			XMFLOAT3& GetPosition();
 			XMFLOAT3& GetRotation();
 			XMFLOAT3& GetScale();

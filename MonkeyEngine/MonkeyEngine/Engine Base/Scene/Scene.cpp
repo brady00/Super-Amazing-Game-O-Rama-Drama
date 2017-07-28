@@ -26,14 +26,13 @@ namespace MonkeyEngine
 	}
 
 
-	MEReturnValues::RETURNVALUE Scene::Update()
+	void Scene::Update()
 	{
 		unsigned int size = (unsigned int)m_vObjects.size();
 		for (unsigned int i = 0; i < size; i++)
 			if (m_vObjects[i]->GetActive())
 				m_vObjects[i]->Update();
 		m_pDebugCamera->Update();
-		return MEReturnValues::NOTHING;
 	}
 
 	void Scene::Shutdown()
@@ -45,5 +44,10 @@ namespace MonkeyEngine
 			delete m_vObjects[i];
 			m_vObjects[i] = nullptr;
 		}
+	}
+
+	std::vector<MEObject::GameObject*>& Scene::GetObjects()
+	{
+		return m_vObjects;
 	}
 }

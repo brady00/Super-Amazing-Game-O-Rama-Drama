@@ -1,5 +1,15 @@
+#pragma row_major
 #include "VertexLayouts.hlsli"
-float4 main( VERTEX_POSBONEWEIGHTNORMTANTEX pos ) : SV_POSITION
+#include "../ShaderBuffers/ConstantBuffers.h"
+
+
+GBufferVertexOut main( VERTEX_POSBONEWEIGHTNORMTANTEX vertIn )
 {
-	return float4(pos.position,1);
+	GBufferVertexOut vertOut = (GBufferVertexOut)0;
+	float4 temppos = mul(float4(vertIn.position, 1), world);
+	temppos = mul(temppos, InvViewProj);
+	vertOut.position = temppos;
+	vertOut.texCoord = vertIn.texCoord;
+	vertOut.normal = normalize(mul(vertIn.normal, (float3x3)world));
+	return vertOut;
 }

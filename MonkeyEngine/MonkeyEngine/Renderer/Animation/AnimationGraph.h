@@ -6,8 +6,7 @@ namespace MonkeyEngine
 	using namespace MEObject;
 	namespace MERenderer
 	{
-		struct Node;	// Forward Declaration
-
+		struct Node;
 		struct Edge
 		{
 			Node* m_pNext;
@@ -23,8 +22,6 @@ namespace MonkeyEngine
 		private:
 			Node* m_pBaseAnimation;
 			std::unordered_map<std::string, Node*> m_vAnimations;
-			float m_fCurrentAnimationElapsedTime;
-			float m_fNextAnimationElapsedTime;
 
 		public:
 			AnimationGraph();
@@ -32,6 +29,10 @@ namespace MonkeyEngine
 			bool Update();
 			std::string m_sCurrentAnimation;
 			std::string m_sNextAnimation;
+			float m_fCurrentAnimationElapsedTime;
+			float m_fNextAnimationElapsedTime;
+			bool m_bCurrentAnimLooping;
+			bool m_bNextAnimLooping;
 		};
 	}
 }

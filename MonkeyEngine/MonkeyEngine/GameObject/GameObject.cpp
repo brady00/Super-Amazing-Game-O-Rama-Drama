@@ -24,10 +24,10 @@ namespace MonkeyEngine
 					m_vComponents[i][j]->Update();
 		}
 
-		MEReturnValues::RETURNVALUE GameObject::Update()
+		void GameObject::Update()
 		{
 			if (!m_bActiveInHeirarchy)
-				return MEReturnValues::NOTHING;
+				return;
 			m_pTransform->Update();
 			for (unsigned int i = 0; i < eNumComponents - 1; i++)
 			{
@@ -40,7 +40,6 @@ namespace MonkeyEngine
 			for (unsigned int i = 0; i < m_vComponents[eScript].size(); i++)
 				if (((Behaviour*)m_vComponents[eScript][i])->GetEnabled())
 					m_vComponents[eScript][i]->Update();
-			return MEReturnValues::NOTHING;
 		}
 
 		void GameObject::ShutDown()
@@ -106,6 +105,18 @@ namespace MonkeyEngine
 			m_vTags.push_back(_Tag);
 		}
 
+		void GameObject::RemoveTag(std::string _Tag)
+		{
+			for (unsigned int i = 0; i < m_vTags.size(); i++)
+			{
+				if (_Tag == m_vTags[i])
+				{
+					m_vTags.erase(m_vTags.begin() + i);
+					break;
+				}
+			}
+		}
+
 		std::vector<std::string>& GameObject::GetTags()
 		{
 			return m_vTags;
@@ -125,6 +136,17 @@ namespace MonkeyEngine
 			_Component->m_pGameObject = this;
 		}
 
+		void GameObject::RemoveComponent(Component* _Component, COMPONENT_ID _ID)
+		{
+			for (unsigned int i = 0; i < m_vComponents[_ID].size(); i++)
+			{
+				if (m_vComponents[_ID][i] == _Component)
+				{
+					m_vComponents[_ID].erase(m_vComponents[_ID].begin() + i);
+					break;
+				}
+			}
+		}
 
 		void GameObject::BroadcastMessage(std::string _Message)
 		{
@@ -223,4 +245,59 @@ namespace MonkeyEngine
 			return std::vector<CompType*>();
 		}
 	}
+}
+
+char GetObjectNameChar(MonkeyEngine::MEObject::GameObject* _object, unsigned int _index)
+{
+	return _object->GetName()[_index];
+}
+
+unsigned int GetObjectNameSize(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return (unsigned int)_object->GetName().size();
+}
+
+void SetObjectName(MonkeyEngine::MEObject::GameObject* _object, const char* _Name)
+{
+	_object->SetName(_Name);
+}
+
+unsigned int GetObjectFlags(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return _object->GetFlags();
+}
+
+void SetObjectFlags(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Flags)
+{
+	_object->SetFlags(_Flags);
+}
+
+void SetObjectActive(MonkeyEngine::MEObject::GameObject* _object, bool _Active)
+{
+	_object->SetActive(_Active);
+}
+
+bool GetObjectActive(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return _object->GetActive();
+}
+
+void SetObjectStatic(MonkeyEngine::MEObject::GameObject* _object, bool _Static)
+{
+	_object->SetStatic(_Static);
+}
+
+bool GetObjectStatic(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return _object->GetStatic();
+}
+
+void SetObjectLayer(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Layer)
+{
+	_object->SetLayer(_Layer);
+}
+
+unsigned int GetObjectLayer(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return _object->GetLayer();
 }
