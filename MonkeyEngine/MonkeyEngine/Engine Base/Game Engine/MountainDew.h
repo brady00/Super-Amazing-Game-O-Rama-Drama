@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include "../../Renderer/Renderer.h"
 #include <thread>
-#include <vld.h>
+//#include <vld.h>
 
 namespace MonkeyEngine
 {
