@@ -18,5 +18,8 @@
 *.out
 *.app
 
+# Config
+config.txt
+
 *Debug/
 *Release/

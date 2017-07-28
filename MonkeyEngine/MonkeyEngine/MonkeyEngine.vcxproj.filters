@@ -106,6 +106,9 @@
     <Filter Include="Renderer\Animation">
       <UniqueIdentifier>{8cf2e321-63f2-452b-bba5-7468c45d2dc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Base\Settings">
+      <UniqueIdentifier>{70acfa4e-9a34-4a25-8c4a-ce6ab97be326}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -485,6 +488,9 @@
     </ClCompile>
     <ClCompile Include="Renderer\Animation\AnimationGraph.cpp">
       <Filter>Renderer\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine Base\Settings\Settings.cpp">
+      <Filter>Engine Base\Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -911,6 +917,9 @@
     <ClInclude Include="Renderer\Animation\AnimationGraph.h">
       <Filter>Renderer\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Engine Base\Settings\Settings.h">
+      <Filter>Engine Base\Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Renderer\Shaders\POS_VS.hlsl">
@@ -948,5 +957,10 @@
     <None Include="Renderer\Shaders\VertexLayouts.hlsli">
       <Filter>Renderer\Shaders\VS</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Engine Base\Settings\config.txt">
+      <Filter>Engine Base\Scene</Filter>
+    </Text>
   </ItemGroup>
 </Project>

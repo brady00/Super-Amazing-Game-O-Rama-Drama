@@ -111,6 +111,7 @@
     <ClCompile Include="Components\Transform\Transform.cpp" />
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp" />
     <ClCompile Include="Engine Base\Scene\Scene.cpp" />
+    <ClCompile Include="Engine Base\Settings\Settings.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="Libraries\Math\Float3.cpp" />
     <ClCompile Include="Libraries\Math\Float4.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="Components\Transform\Transform.h" />
     <ClInclude Include="Engine Base\Game Engine\MountainDew.h" />
     <ClInclude Include="Engine Base\Scene\Scene.h" />
+    <ClInclude Include="Engine Base\Settings\Settings.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="Libraries\Math\Color.h" />
     <ClInclude Include="Libraries\Math\Float3.h" />
@@ -369,6 +371,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Renderer\Shaders\VertexLayouts.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Engine Base\Settings\config.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1BAFC61D-3EFA-46F5-B9E4-39C5F20C6B04}</ProjectGuid>

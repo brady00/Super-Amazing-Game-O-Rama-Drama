@@ -1,4 +1,5 @@
 #include "MountainDew.h"
+#include "../Settings/Settings.h"
 #include "../../Utils/Time.h"
 #include "../../Utils/FileIO.h"
 
@@ -62,7 +63,10 @@ namespace MonkeyEngine
 		wc.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
 		RegisterClassEx(&wc);
 
-		RECT window_size = { 0, 0, m_uiScreenWidth, m_uiScreenHeight };
+		m_pSettings = new Settings;
+		m_pSettings->Initialize("../../../Engine Base/Settings/config.txt");
+
+		RECT window_size = { 0, 0, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight() };
 		AdjustWindowRect(&window_size, WS_OVERLAPPEDWINDOW, false);
 		m_HWnd = CreateWindow(L"Title", L"Monkey Engine", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, window_size.right - window_size.left, window_size.bottom - window_size.top, NULL, NULL, m_hInst, NULL);
 		DWORD temp;
@@ -72,7 +76,7 @@ namespace MonkeyEngine
 		}
 		ShowWindow(m_HWnd, nCmdShow);
 		UpdateWindow(m_HWnd);
-		InitializeEngine(m_HWnd, m_uiScreenWidth, m_uiScreenHeight);
+		InitializeEngine(m_HWnd, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight());
 	}
 
 	void MountainDew::Update()
@@ -86,6 +90,8 @@ namespace MonkeyEngine
 	{
 		m_pScene->Shutdown();
 		delete m_pScene;
+		//m_pSettings->Shutdown();
+		delete m_pSettings;
 		m_pRenderer->Shutdown();
 		delete m_pRenderer;
 	}
