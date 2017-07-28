@@ -30,6 +30,7 @@ namespace Editor
         unsafe void** Objects;
         TreeNode PrevSelectedObject;
         SortedDictionary<string, GameObject> GameObjects;
+        ComponentPanel temp;
         public Form1()
         {
             InitializeComponent();

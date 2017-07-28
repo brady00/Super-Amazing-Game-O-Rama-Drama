@@ -15,7 +15,7 @@ namespace MonkeyEngine
 		FbxManager* FileIO::m_fbxManager = nullptr;
 		FbxScene* FileIO::m_fbxScene = nullptr;
 		bool FileIO::m_bHasAnimation = true;
-		std::unordered_map<unsigned int, CtrlPoint*> FileIO::m_mControlPoints;
+		std::vector<CtrlPoint*> FileIO::m_mControlPoints;
 		unsigned int FileIO::m_uiTriangleCount = 0;
 		std::vector<Triangle> FileIO::m_vTriangles;
 		std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> FileIO::m_vVertices;
@@ -55,7 +55,7 @@ namespace MonkeyEngine
 			if (FileIn.is_open())
 			{
 				FileIn.read((char*)& _NumVerticies, sizeof(unsigned int));
-				_Verticies = new MERenderer::VERTEX_POSNORMTEX[_NumVerticies];
+				_Verticies = new MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX[_NumVerticies];
 				for (unsigned int i = 0; i < _NumVerticies; i++)
 				{
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
@@ -94,12 +94,12 @@ namespace MonkeyEngine
 			_NumVerticies = (unsigned int)m_vVertices.size();
 			_Verticies = new MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX[_NumVerticies];
 			for (unsigned int i = 0; i < m_vVertices.size(); i++)
-				_Verticies[i] = m_vVertices[i];
+				((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i] = m_vVertices[i];
 			_NumIndicies = (unsigned int)m_vTriangles.size() * 3;
 			_Indicies = new unsigned int[_NumIndicies];
 			for (unsigned int i = 0; i < m_vTriangles.size(); ++i)
-				for (unsigned int j = 0; j < 3; ++j)
-					_Indicies[i * 3 + j] = m_vTriangles[i].mIndices[j];
+				for (unsigned int j = 2; j < 3; ++j)
+					_Indicies[i * 3 + j] = m_vTriangles[i].mIndices[2 - j];
 			std::ofstream out;
 			out.open(filepart + std::string(".Bfbx"), std::ios_base::binary);
 			if (out.is_open())
@@ -441,6 +441,7 @@ namespace MonkeyEngine
 		{
 			FbxMesh* currMesh = inNode->GetMesh();
 			unsigned int ctrlPointCount = currMesh->GetControlPointsCount();
+			m_mControlPoints.resize(ctrlPointCount);
 			for (unsigned int i = 0; i < ctrlPointCount; ++i)
 			{
 				CtrlPoint* currCtrlPoint = new CtrlPoint();
@@ -513,9 +514,9 @@ namespace MonkeyEngine
 			BlendingIndexWeightPair currBlendingIndexWeightPair;
 			currBlendingIndexWeightPair.mBlendingIndex = 0;
 			currBlendingIndexWeightPair.mBlendingWeight = 0;
-			for (auto itr = m_mControlPoints.begin(); itr != m_mControlPoints.end(); ++itr)
-				for (unsigned int i = (unsigned int)(itr->second->mBlendingInfo.size()); i <= 4; ++i)
-					itr->second->mBlendingInfo.push_back(currBlendingIndexWeightPair);
+			for (unsigned int i = 0; i < m_mControlPoints.size(); i++)
+				for (unsigned int j = (unsigned int)(m_mControlPoints[i]->mBlendingInfo.size()); j <= 4; ++j)
+					m_mControlPoints[i]->mBlendingInfo.push_back(currBlendingIndexWeightPair);
 		}
 
 		unsigned int FileIO::FindJointIndexUsingName(const std::string& inJointName)
@@ -554,22 +555,27 @@ namespace MonkeyEngine
 					temp.texcoord = UV[j][0];
 					temp.bone = XMINT4(0, 0, 0, 0);
 					temp.weights = XMFLOAT4(0, 0, 0, 0);
-					for (unsigned int i = 0; i < currCtrlPoint->mBlendingInfo.size(); ++i)
+					unsigned int Size = (unsigned int)currCtrlPoint->mBlendingInfo.size();
+					for (unsigned int i = 0; i < Size; ++i)
 					{
 						switch (i)
 						{
 						case 0:
 							temp.bone.x = currCtrlPoint->mBlendingInfo[0].mBlendingIndex;
 							temp.weights.x = (float)currCtrlPoint->mBlendingInfo[0].mBlendingWeight;
+							break;
 						case 1:
 							temp.bone.y = currCtrlPoint->mBlendingInfo[1].mBlendingIndex;
 							temp.weights.y = (float)currCtrlPoint->mBlendingInfo[1].mBlendingWeight;
+							break;
 						case 2:
 							temp.bone.z = currCtrlPoint->mBlendingInfo[2].mBlendingIndex;
 							temp.weights.z = (float)currCtrlPoint->mBlendingInfo[2].mBlendingWeight;
+							break;
 						case 3:
 							temp.bone.w = currCtrlPoint->mBlendingInfo[3].mBlendingIndex;
 							temp.weights.w = (float)currCtrlPoint->mBlendingInfo[3].mBlendingWeight;
+							break;
 						default:
 							break;
 						}
@@ -579,8 +585,9 @@ namespace MonkeyEngine
 					++vertexCounter;
 				}
 			}
-			for (auto itr = m_mControlPoints.begin(); itr != m_mControlPoints.end(); ++itr)
-				delete itr->second;
+			unsigned int Size = (unsigned int)m_mControlPoints.size();
+			for (unsigned int i = 0; i < Size; i++)
+				delete m_mControlPoints[i];
 			m_mControlPoints.clear();
 		}
 

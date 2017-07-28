@@ -23,5 +23,7 @@ namespace MonkeyEngine
 		DeltaTime = (float)(double(li.QuadPart - m_dPrevFrame) / 10000.0);
 		TimeSinceStart = (float)(double(li.QuadPart - m_iTimeStart) / 10000.0);
 		m_dPrevFrame = li.QuadPart;
+		if (DeltaTime > 0.2f)
+			DeltaTime = 0.2f;
 	}
 }

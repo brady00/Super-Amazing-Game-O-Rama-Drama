@@ -23,3 +23,5 @@ config.txt
 
 *Debug/
 *Release/
+*.VC
+*.vs

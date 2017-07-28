@@ -60,7 +60,7 @@ namespace MonkeyEngine
 			static FbxManager* m_fbxManager;
 			static FbxScene* m_fbxScene;
 			static bool m_bHasAnimation;
-			static std::unordered_map<unsigned int, CtrlPoint*> m_mControlPoints;
+			static std::vector<CtrlPoint*> m_mControlPoints;
 			static unsigned int m_uiTriangleCount;
 			static std::vector<Triangle> m_vTriangles;
 			static std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> m_vVertices;
