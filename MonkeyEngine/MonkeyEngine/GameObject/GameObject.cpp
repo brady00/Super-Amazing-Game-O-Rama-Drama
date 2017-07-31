@@ -29,17 +29,12 @@ namespace MonkeyEngine
 			if (!m_bActiveInHeirarchy)
 				return;
 			m_pTransform->Update();
-			for (unsigned int i = 0; i < eNumComponents - 1; i++)
-			{
-				if (unsigned int size = (unsigned int)m_vComponents[i].size())
-				{
-					for (unsigned int j = 0; j < size; j++)
-						m_vComponents[i][j]->Update();
-				}
-			}
-			for (unsigned int i = 0; i < m_vComponents[eScript].size(); i++)
-				if (((Behaviour*)m_vComponents[eScript][i])->GetEnabled())
-					m_vComponents[eScript][i]->Update();
+			for (unsigned int i = 0; i < m_vUpdatableComponents.size(); i++)
+				m_vUpdatableComponents[i]->Update();
+			
+			for (unsigned int i = 0; i < m_vScripts.size(); i++)
+				if(((Behaviour*)m_vScripts[i])->GetEnabled())
+					m_vScripts[i]->Update();
 		}
 
 		void GameObject::ShutDown()
@@ -132,7 +127,10 @@ namespace MonkeyEngine
 			if (_ID == eTransform)
 				m_pTransform = (Transform*)_Component;
 			else
+			{
 				m_vComponents[_ID].push_back(_Component);
+				m_vUpdatableComponents.push_back(_Component);
+			}
 			_Component->m_pGameObject = this;
 		}
 
@@ -195,6 +193,16 @@ namespace MonkeyEngine
 			return false;
 		}
 
+		std::vector<Component*>& GameObject::GetAllComponents()
+		{
+			return m_vUpdatableComponents;
+		}
+
+		std::vector<Component*>& GameObject::GetAllScritps()
+		{
+			return m_vScripts;
+		}
+
 		template <>
 		CompRenderer* GameObject::GetComponent()
 		{
@@ -247,31 +255,6 @@ namespace MonkeyEngine
 	}
 }
 
-char GetObjectNameChar(MonkeyEngine::MEObject::GameObject* _object, unsigned int _index)
-{
-	return _object->GetName()[_index];
-}
-
-unsigned int GetObjectNameSize(MonkeyEngine::MEObject::GameObject* _object)
-{
-	return (unsigned int)_object->GetName().size();
-}
-
-void SetObjectName(MonkeyEngine::MEObject::GameObject* _object, const char* _Name)
-{
-	_object->SetName(_Name);
-}
-
-unsigned int GetObjectFlags(MonkeyEngine::MEObject::GameObject* _object)
-{
-	return _object->GetFlags();
-}
-
-void SetObjectFlags(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Flags)
-{
-	_object->SetFlags(_Flags);
-}
-
 void SetObjectActive(MonkeyEngine::MEObject::GameObject* _object, bool _Active)
 {
 	_object->SetActive(_Active);
@@ -300,4 +283,59 @@ void SetObjectLayer(MonkeyEngine::MEObject::GameObject* _object, unsigned int _L
 unsigned int GetObjectLayer(MonkeyEngine::MEObject::GameObject* _object)
 {
 	return _object->GetLayer();
+}
+
+void AddGameObjectTag(MonkeyEngine::MEObject::GameObject* _object, std::string _Tag)
+{
+	_object->AddTag(_Tag);
+}
+
+void RemoveGameObjectTag(MonkeyEngine::MEObject::GameObject* _object, std::string _Tag)
+{
+	_object->RemoveTag(_Tag);
+}
+
+//needs to be split
+std::string* GetGameObjectTags(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return nullptr;
+}
+
+MonkeyEngine::MEObject::Transform* GetGameObjectTransform(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return _object->GetTransform();
+}
+
+void UpdateGameObjectTransform(MonkeyEngine::MEObject::GameObject* _Object, float posx, float posy, float posz, float rotx, float roty, float rotz, float scalex, float scaley, float scalez)
+{
+	_Object->GetTransform()->GetPosition() = XMFLOAT3(posx, posy, posz);
+	_Object->GetTransform()->GetRotation() = XMFLOAT3(rotx, roty, rotz);
+	_Object->GetTransform()->GetScale() = XMFLOAT3(scalex,scaley, scalez);
+}
+
+void RemoveGameObjectComponent(MonkeyEngine::MEObject::GameObject* _object, MonkeyEngine::MEObject::GameObject::COMPONENT_ID _ID, MonkeyEngine::MEObject::Component* _comp)
+{
+	_object->RemoveComponent(_comp, _ID);
+}
+
+unsigned int GetGameObjectComponentCount(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return (unsigned int)_object->GetAllComponents().size();
+}
+
+unsigned int GetGameObjectScriptCount(MonkeyEngine::MEObject::GameObject* _object)
+{
+	return (unsigned int)_object->GetAllScritps().size();
+}
+
+MonkeyEngine::MEObject::Component** GetGameObjectComponents(MonkeyEngine::MEObject::GameObject* _object)
+{
+	std::vector<MonkeyEngine::MEObject::Component*>& comps = _object->GetAllComponents();
+	return &comps[0];
+}
+
+MonkeyEngine::MEObject::Component** GetGameObjectScripts(MonkeyEngine::MEObject::GameObject* _object)
+{
+	std::vector<MonkeyEngine::MEObject::Component*>& comps = _object->GetAllScritps();
+	return &comps[0];
 }

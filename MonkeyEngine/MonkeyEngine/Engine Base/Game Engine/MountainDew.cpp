@@ -63,9 +63,6 @@ namespace MonkeyEngine
 		wc.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
 		RegisterClassEx(&wc);
 
-		m_pSettings = new Settings;
-		m_pSettings->Initialize("../../../Engine Base/Settings/config.txt");
-
 		RECT window_size = { 0, 0, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight() };
 		AdjustWindowRect(&window_size, WS_OVERLAPPEDWINDOW, false);
 		m_HWnd = CreateWindow(L"Title", L"Monkey Engine", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, window_size.right - window_size.left, window_size.bottom - window_size.top, NULL, NULL, m_hInst, NULL);
@@ -104,6 +101,7 @@ void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight)
 	temp->m_pRenderer = new MERenderer::Renderer;
 	temp->m_pRenderer->Initialize(window, _ScreenWidth, _ScreenHeight);
 	Time::Initialize();
+	Settings::GetInstance()->Initialize("../../../Engine Base/Settings/config.txt");
 	std::vector<MEObject::GameObject*> objects;
 	temp->m_pScene = new Scene;
 	temp->m_pScene->initialize(_ScreenWidth, _ScreenHeight);

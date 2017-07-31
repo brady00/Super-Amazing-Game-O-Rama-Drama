@@ -30,7 +30,7 @@ namespace Editor
         unsafe void** Objects;
         TreeNode PrevSelectedObject;
         SortedDictionary<string, GameObject> GameObjects;
-        ComponentPanel temp;
+        static ComponentPanel[] Components = new ComponentPanel[256];
         public Form1()
         {
             InitializeComponent();
@@ -55,9 +55,9 @@ namespace Editor
             GameObject Object0 = new GameObject();
             GameObject Object1 = new GameObject();
             GameObject Object2 = new GameObject();
-            Object0.EngineGameObject = Objects[0];
-            Object1.EngineGameObject = Objects[1];
-            Object2.EngineGameObject = Objects[2];
+            Object0.EngineObject = Objects[0];
+            Object1.EngineObject = Objects[1];
+            Object2.EngineObject = Objects[2];
             GameObjects[Object0.Name] = Object0;
             GameObjects[Object1.Name] = Object1;
             GameObjects[Object2.Name] = Object2;
@@ -65,6 +65,13 @@ namespace Editor
             ObjectTreeView.Nodes.Add(Object0.Name);
             ObjectTreeView.Nodes.Add(Object1.Name);
             ObjectTreeView.Nodes[0].Nodes.Add(Object2.Name);
+
+            //add to component loading...
+            Components[ComponentIndex] = new ComponentPanel();
+            Point p = ComponentStartingLocation;
+            p.Y += (int)ComponentIndex * 23;
+            ComponentPanelSetup(Components[ComponentIndex], p, "ComponentPanel" + ComponentIndex.ToString());
+            ComponentIndex++;
         }
 
         unsafe private void RenderingPanel_Paint(object sender, PaintEventArgs e)
@@ -90,6 +97,24 @@ namespace Editor
             GameObjects.Remove(OldName);
         }
 
+       Point ComponentStartingLocation = new Point(3, 107);
+
+        private void ComponentPanelSetup(ComponentPanel panel, Point position, string name)
+        {
+            InspectorBackgroundPanel.Controls.Add(panel);
+            panel.Index = ComponentIndex;
+            panel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            panel.Location = position;
+            panel.MaximumSize = new System.Drawing.Size(335, 0);
+            panel.MinimumSize = new System.Drawing.Size(335, 23);
+            panel.Name = name;
+            panel.Size = new System.Drawing.Size(335, 23);
+            panel.TabIndex = 18;
+            panel.BringToFront();
+            panel.Invalidate();
+        }
+
+        static uint ComponentIndex = 0;
         private void ObjectTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if(ObjectTreeView.SelectedNode != PrevSelectedObject)
@@ -105,6 +130,22 @@ namespace Editor
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
 
+        }
+
+        public static void ButtonCollapsed(uint buttonIndex)
+        {
+            for (uint i = buttonIndex + 1; i < ComponentIndex; i++)
+            {
+                Components[i].Location = new Point(Components[buttonIndex].Location.X, Components[i - 1].Location.Y + Components[i - 1].Size.Height);
+            }
+        }
+
+        public static void ButtonExpanded(uint buttonIndex)
+        {
+            for (uint i = buttonIndex + 1; i < ComponentIndex; i++)
+            {
+                Components[i].Location = new Point(Components[buttonIndex].Location.X, Components[i].Location.Y + Components[buttonIndex].Size.Height - Components[buttonIndex].MinimumSize.Height);
+            }
         }
     }
 }

@@ -38,3 +38,28 @@ namespace MonkeyEngine
 
 	}
 }
+
+char GetObjectNameChar(MonkeyEngine::MEObject::Object* _object, unsigned int _index)
+{
+	return _object->GetName()[_index];
+}
+
+unsigned int GetObjectNameSize(MonkeyEngine::MEObject::Object* _object)
+{
+	return (unsigned int)_object->GetName().size();
+}
+
+void SetObjectName(MonkeyEngine::MEObject::Object* _object, const char* _Name)
+{
+	_object->SetName(_Name);
+}
+
+unsigned int GetObjectFlags(MonkeyEngine::MEObject::Object* _object)
+{
+	return _object->GetFlags();
+}
+
+void SetObjectFlags(MonkeyEngine::MEObject::Object* _object, unsigned int _Flags)
+{
+	_object->SetFlags(_Flags);
+}

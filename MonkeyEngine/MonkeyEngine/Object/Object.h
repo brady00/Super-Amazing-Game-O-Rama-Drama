@@ -25,3 +25,12 @@ namespace MonkeyEngine
 		};
 	}
 }
+
+extern "C"
+{
+	__declspec(dllexport) char GetObjectNameChar(MonkeyEngine::MEObject::Object* _object, unsigned int _index);
+	__declspec(dllexport) unsigned int GetObjectNameSize(MonkeyEngine::MEObject::Object* _object);
+	__declspec(dllexport) void SetObjectName(MonkeyEngine::MEObject::Object* _object, const char* _Name);
+	__declspec(dllexport) unsigned int GetObjectFlags(MonkeyEngine::MEObject::Object* _object);
+	__declspec(dllexport) void SetObjectFlags(MonkeyEngine::MEObject::Object* _object, unsigned int _Flags);
+}

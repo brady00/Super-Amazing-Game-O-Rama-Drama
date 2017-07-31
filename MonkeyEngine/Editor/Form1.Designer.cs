@@ -71,7 +71,6 @@
             this.RenderingPanel = new System.Windows.Forms.Panel();
             this.ObjectTreeView = new System.Windows.Forms.TreeView();
             this.InspectorBackgroundPanel = new System.Windows.Forms.Panel();
-            this.componentPanel1 = new Editor.ComponentPanel();
             this.NameBackgroundPanel = new System.Windows.Forms.Panel();
             this.RemoveTagButton = new System.Windows.Forms.Button();
             this.AddTagButton = new System.Windows.Forms.Button();
@@ -429,6 +428,7 @@
             this.ObjectTreeView.Name = "ObjectTreeView";
             this.ObjectTreeView.Size = new System.Drawing.Size(390, 772);
             this.ObjectTreeView.TabIndex = 13;
+            this.ObjectTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ObjectTreeView_AfterSelect);
             // 
             // InspectorBackgroundPanel
             // 
@@ -436,22 +436,11 @@
             this.InspectorBackgroundPanel.AutoScroll = true;
             this.InspectorBackgroundPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.InspectorBackgroundPanel.Controls.Add(this.NameBackgroundPanel);
-            this.InspectorBackgroundPanel.Controls.Add(this.componentPanel1);
             this.InspectorBackgroundPanel.Location = new System.Drawing.Point(-1, 0);
             this.InspectorBackgroundPanel.MinimumSize = new System.Drawing.Size(324, 1017);
             this.InspectorBackgroundPanel.Name = "InspectorBackgroundPanel";
             this.InspectorBackgroundPanel.Size = new System.Drawing.Size(336, 1017);
             this.InspectorBackgroundPanel.TabIndex = 19;
-            // 
-            // componentPanel1
-            // 
-            this.componentPanel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.componentPanel1.Location = new System.Drawing.Point(3, 107);
-            this.componentPanel1.MaximumSize = new System.Drawing.Size(335, 0);
-            this.componentPanel1.MinimumSize = new System.Drawing.Size(335, 23);
-            this.componentPanel1.Name = "componentPanel1";
-            this.componentPanel1.Size = new System.Drawing.Size(335, 77);
-            this.componentPanel1.TabIndex = 18;
             // 
             // NameBackgroundPanel
             // 
@@ -640,7 +629,6 @@
         private System.Windows.Forms.Panel RenderingPanel;
         private System.Windows.Forms.TreeView ObjectTreeView;
         private System.Windows.Forms.Panel InspectorBackgroundPanel;
-        private ComponentPanel componentPanel1;
         private System.Windows.Forms.Panel NameBackgroundPanel;
         private System.Windows.Forms.Button RemoveTagButton;
         private System.Windows.Forms.Button AddTagButton;
