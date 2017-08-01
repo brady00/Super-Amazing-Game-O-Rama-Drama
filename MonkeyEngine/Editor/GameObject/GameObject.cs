@@ -111,7 +111,7 @@ namespace Editor
         };
 
         private bool ComponentsGrabbed = false;
-        unsafe public ComponentPanel[] _Components;
+        unsafe private ComponentPanel[] _Components;
         unsafe public ComponentPanel[] Components
         {
             get
@@ -124,9 +124,15 @@ namespace Editor
                     void** scripts = GetScripts(EngineObject);
                     _Components = new ComponentPanel[CompAmount + ScriptAmount];
                     for (uint i = 0; i < CompAmount; i++)
+                    {
+                        _Components[i] = new ComponentPanel();
                         _Components[i].Comp.EngineObject = comps[i];
+                    }
                     for (uint i = CompAmount; i < CompAmount + ScriptAmount; i++)
+                    {
+                        _Components[i] = new ComponentPanel();
                         _Components[i].Comp.EngineObject = scripts[i - CompAmount];
+                    }
                     ComponentsGrabbed = true;
                 }
                 return _Components;
@@ -138,7 +144,7 @@ namespace Editor
         }
 
         private bool TagsGrabbed = false;
-        unsafe public string[] _Tags;
+        unsafe private string[] _Tags;
         unsafe public string[] Tags
         {
             get
@@ -155,7 +161,7 @@ namespace Editor
             }
         }
         private bool TranformGrabbed = false;
-        unsafe public Tranform _Trans;
+        unsafe private Tranform _Trans;
         unsafe public Tranform Trans
         {
             get
@@ -198,16 +204,22 @@ namespace Editor
         [DllImport("MonkeyEngine.dll", EntryPoint = "GetGameObjectScriptCount", CallingConvention = CallingConvention.StdCall)]
         unsafe static public extern uint GetScriptCount(void* _object);
 
-        void GUIActivate()
+        public void GUIActivate()
         {
             foreach (ComponentPanel comp in Components)
-                comp.Visible = true;
+            {
+                comp.Show();
+                comp.Invalidate();
+            }
         }
 
-        void GUIDeactivate()
+        public void GUIDeactivate()
         {
             foreach (ComponentPanel comp in Components)
-                comp.Visible = false;
+            {
+                comp.Hide();
+                comp.Invalidate();
+            }
         }
     }
 }

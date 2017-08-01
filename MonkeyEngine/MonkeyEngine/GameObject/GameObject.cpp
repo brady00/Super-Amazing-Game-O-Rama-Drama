@@ -336,6 +336,7 @@ MonkeyEngine::MEObject::Component** GetGameObjectComponents(MonkeyEngine::MEObje
 
 MonkeyEngine::MEObject::Component** GetGameObjectScripts(MonkeyEngine::MEObject::GameObject* _object)
 {
-	std::vector<MonkeyEngine::MEObject::Component*>& comps = _object->GetAllScritps();
-	return &comps[0];
+	if (_object->GetAllScritps().size() == 0)
+		return nullptr;
+	return &_object->GetAllScritps()[0];
 }

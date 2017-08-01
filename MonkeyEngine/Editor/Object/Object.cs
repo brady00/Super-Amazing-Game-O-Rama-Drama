@@ -11,7 +11,7 @@ namespace Editor
     {
         public unsafe void* EngineObject;
         private bool NameGrabbed = false;
-        unsafe public string _Name;
+        unsafe private string _Name;
         unsafe public string Name
         {
             get
@@ -29,7 +29,7 @@ namespace Editor
             }
         }
         private bool FlagsGrabbed = false;
-        unsafe public uint _Flags;
+        unsafe private uint _Flags;
         unsafe public uint Flags
         {
             get
@@ -47,7 +47,7 @@ namespace Editor
             }
         }
         private bool ActiveGrabbed = false;
-        unsafe public bool _Active;
+        unsafe private bool _Active;
         unsafe public bool Active
         {
             get
@@ -65,7 +65,7 @@ namespace Editor
             }
         }
         private bool StaticGrabbed = false;
-        unsafe public bool _Static;
+        unsafe private bool _Static;
         unsafe public bool Static
         {
             get
@@ -83,7 +83,7 @@ namespace Editor
             }
         }
         private bool LayerGrabbed = false;
-        unsafe public uint _Layer;
+        unsafe private uint _Layer;
         unsafe public uint Layer
         {
             get

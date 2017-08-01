@@ -36,6 +36,11 @@ namespace Editor
             InitializeComponent();
         }
 
+        private void LoadGameObjectRecursively()
+        {
+
+        }
+
         unsafe private void Form1_Load(object sender, EventArgs e)
         {
             InitializeEngine(RenderingPanel.Handle, RenderingPanel.Width, RenderingPanel.Height);
@@ -52,26 +57,15 @@ namespace Editor
             uint amount;
             GameObjects = new SortedDictionary<string, GameObject>();
             Objects = GetSceneObjects(out amount);
-            GameObject Object0 = new GameObject();
-            GameObject Object1 = new GameObject();
-            GameObject Object2 = new GameObject();
-            Object0.EngineObject = Objects[0];
-            Object1.EngineObject = Objects[1];
-            Object2.EngineObject = Objects[2];
-            GameObjects[Object0.Name] = Object0;
-            GameObjects[Object1.Name] = Object1;
-            GameObjects[Object2.Name] = Object2;
-
-            ObjectTreeView.Nodes.Add(Object0.Name);
-            ObjectTreeView.Nodes.Add(Object1.Name);
-            ObjectTreeView.Nodes[0].Nodes.Add(Object2.Name);
-
-            //add to component loading...
-            Components[ComponentIndex] = new ComponentPanel();
-            Point p = ComponentStartingLocation;
-            p.Y += (int)ComponentIndex * 23;
-            ComponentPanelSetup(Components[ComponentIndex], p, "ComponentPanel" + ComponentIndex.ToString());
-            ComponentIndex++;
+            for(uint i = 0; i < amount; i++)
+            {
+                GameObject Object = new GameObject();
+                Object.EngineObject = Objects[i];
+                GameObjects[Object.Name] = Object;
+                ObjectTreeView.Nodes.Add(Object.Name);
+                foreach (ComponentPanel panel in Object.Components)
+                    ComponentPanel.CreatePanel(panel, InspectorBackgroundPanel);
+            }
         }
 
         unsafe private void RenderingPanel_Paint(object sender, PaintEventArgs e)
@@ -97,33 +91,25 @@ namespace Editor
             GameObjects.Remove(OldName);
         }
 
-       Point ComponentStartingLocation = new Point(3, 107);
+       public static Point ComponentStartingLocation = new Point(3, 107);
 
         private void ComponentPanelSetup(ComponentPanel panel, Point position, string name)
         {
-            InspectorBackgroundPanel.Controls.Add(panel);
-            panel.Index = ComponentIndex;
-            panel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            panel.Location = position;
-            panel.MaximumSize = new System.Drawing.Size(335, 0);
-            panel.MinimumSize = new System.Drawing.Size(335, 23);
-            panel.Name = name;
-            panel.Size = new System.Drawing.Size(335, 23);
-            panel.TabIndex = 18;
-            panel.BringToFront();
-            panel.Invalidate();
         }
 
-        static uint ComponentIndex = 0;
+        static public uint ComponentIndex = 0;
         private void ObjectTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if(ObjectTreeView.SelectedNode != PrevSelectedObject)
+            if (ObjectTreeView.SelectedNode != PrevSelectedObject)
             {
                 PrevSelectedObject = ObjectTreeView.SelectedNode;
                 NameBox.Text = ObjectTreeView.SelectedNode.Text;
                 ActiveBox.Checked = GameObjects[NameBox.Text].Active;
                 StaticBox.Checked = GameObjects[NameBox.Text].Static;
                 LayerComboBox.SelectedIndex = (int)GameObjects[NameBox.Text].Layer;
+                Components = GameObjects[NameBox.Text].Components;
+                GameObjects[NameBox.Text].GUIActivate();
+                GameObjects[PrevSelectedObject.Text].GUIDeactivate();
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Editor
 
         public ComponentPanel() : base()
         {
+            Comp = new Component();
             InitializeComponent();
         }
 
@@ -62,6 +64,7 @@ namespace Editor
             this.Name = "panel1";
             this.Size = new System.Drawing.Size(335, 23);
             this.TabIndex = 18;
+            this.Visible = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -81,6 +84,25 @@ namespace Editor
                 this.Size = new System.Drawing.Size(this.MinimumSize.Width, this.MinimumSize.Height);
                 Form1.ButtonCollapsed(Index);
             }
+        }
+
+        static public void CreatePanel(ComponentPanel panel, Panel InspectorBackgroundPanel)
+        {
+            panel = new ComponentPanel();
+            Point p = Form1.ComponentStartingLocation;
+            p.Y += (int)Form1.ComponentIndex * 23;
+            InspectorBackgroundPanel.Controls.Add(panel);
+            panel.Index = Form1.ComponentIndex;
+            panel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            panel.Location = p;
+            panel.MaximumSize = new System.Drawing.Size(335, 0);
+            panel.MinimumSize = new System.Drawing.Size(335, 23);
+            panel.Name = "ComponentPanel" + Form1.ComponentIndex.ToString();
+            panel.Size = new System.Drawing.Size(335, 23);
+            panel.TabIndex = 18;
+            panel.BringToFront();
+            panel.Invalidate();
+            Form1.ComponentIndex++;
         }
     }
 }
