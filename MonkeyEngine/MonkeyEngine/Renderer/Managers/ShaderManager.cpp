@@ -282,6 +282,8 @@ namespace MonkeyEngine
 
 		ID3D11PixelShader* ShaderManager::GetPixelShader(ShaderType _Type)
 		{
+			if(_Type != ShaderType::eShader_POSTEX)
+				_Type = ShaderType::eShader_POSNORMTEX;
 			return m_d3PixelShaders[_Type];
 		}
 

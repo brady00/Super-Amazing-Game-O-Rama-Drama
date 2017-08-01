@@ -124,7 +124,7 @@ namespace MonkeyEngine
 			{
 				if (!MEFileIO::FileIO::LoadFBX(m_sVertexFileName, m_eVertexFormat, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))
 					return false;
-				IndexBuffer::GetInstance()->AddIndicies(m_vIndicies, m_uiNumIndicies);
+				//IndexBuffer::GetInstance()->AddIndicies(m_vIndicies, m_uiNumIndicies);
 				m_eVertexFormat = _VertexFormat = MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX;
 			}
 			switch (m_eVertexFormat)

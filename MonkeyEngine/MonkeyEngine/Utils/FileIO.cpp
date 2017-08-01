@@ -66,10 +66,11 @@ namespace MonkeyEngine
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
 				}
-				FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
+				/*FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
 				_Indicies = new unsigned int[_NumIndicies];
 				for (unsigned int i = 0; i < _NumIndicies; i++)
-					FileIn.read((char*)&_Indicies[i], sizeof(unsigned int));
+					FileIn.read((char*)&_Indicies[i], sizeof(unsigned int));*/
+				FileIn.close();
 				return true;
 			}
 			FbxManager* fbxManager = FbxManager::Create();
@@ -90,16 +91,16 @@ namespace MonkeyEngine
 			if (m_Skeleton.mJoints.empty())
 				m_bHasAnimation = false;
 			ProcessGeometry(m_fbxScene->GetRootNode());
-			Optimize();
+			//Optimize();
 			_NumVerticies = (unsigned int)m_vVertices.size();
 			_Verticies = new MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX[_NumVerticies];
 			for (unsigned int i = 0; i < m_vVertices.size(); i++)
 				((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i] = m_vVertices[i];
 			_NumIndicies = (unsigned int)m_vTriangles.size() * 3;
-			_Indicies = new unsigned int[_NumIndicies];
-			for (unsigned int i = 0; i < m_vTriangles.size(); ++i)
-				for (unsigned int j = 2; j < 3; ++j)
-					_Indicies[i * 3 + j] = m_vTriangles[i].mIndices[2 - j];
+			//_Indicies = new unsigned int[_NumIndicies];
+			//for (unsigned int i = 0; i < m_vTriangles.size(); ++i)
+			//	for (unsigned int j = 2; j < 3; ++j)
+			//		_Indicies[i * 3 + j] = m_vTriangles[i].mIndices[2 - j];
 			std::ofstream out;
 			out.open(filepart + std::string(".Bfbx"), std::ios_base::binary);
 			if (out.is_open())
@@ -115,9 +116,9 @@ namespace MonkeyEngine
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
 				}
-				out.write((const char*)& _NumIndicies, sizeof(unsigned int));
+				/*out.write((const char*)& _NumIndicies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumIndicies; i++)
-					out.write((const char*)&_Indicies[i], sizeof(unsigned int));
+					out.write((const char*)&_Indicies[i], sizeof(unsigned int));*/
 				out.close();
 			}
 			else
