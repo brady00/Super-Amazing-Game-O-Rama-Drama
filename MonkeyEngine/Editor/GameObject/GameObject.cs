@@ -122,16 +122,18 @@ namespace Editor
                     uint ScriptAmount = GetScriptCount(EngineObject);
                     void** comps = GetComponents(EngineObject);
                     void** scripts = GetScripts(EngineObject);
-                    _Components = new ComponentPanel[CompAmount + ScriptAmount];
+                    _Components = new ComponentPanel[CompAmount + ScriptAmount + 1];
+                    _Components[0] = new ComponentPanel();
+                    _Components[0].Comp = Trans;
                     for (uint i = 0; i < CompAmount; i++)
                     {
-                        _Components[i] = new ComponentPanel();
-                        _Components[i].Comp.EngineObject = comps[i];
+                        _Components[i + 1] = new ComponentPanel();
+                        _Components[i + 1].Comp.EngineObject = comps[i];
                     }
                     for (uint i = CompAmount; i < CompAmount + ScriptAmount; i++)
                     {
-                        _Components[i] = new ComponentPanel();
-                        _Components[i].Comp.EngineObject = scripts[i - CompAmount];
+                        _Components[i + 1] = new ComponentPanel();
+                        _Components[i + 1].Comp.EngineObject = scripts[i - CompAmount];
                     }
                     ComponentsGrabbed = true;
                 }
@@ -168,6 +170,7 @@ namespace Editor
             {
                 if(!TranformGrabbed)
                 {
+                    _Trans = new Tranform();
                     _Trans.EngineObject = GetTransform(EngineObject);
                     TranformGrabbed = true;
                 }

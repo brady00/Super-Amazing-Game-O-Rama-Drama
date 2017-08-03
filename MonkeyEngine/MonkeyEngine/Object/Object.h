@@ -8,7 +8,7 @@ namespace MonkeyEngine
 		class Object
 		{
 			friend class GameObject;
-		private:
+		protected:
 			string m_sName;
 			unsigned int m_uiFlags;
 		public:

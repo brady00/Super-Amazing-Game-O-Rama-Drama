@@ -9,7 +9,7 @@ namespace MonkeyEngine
 		private:
 
 		public:
-			MeshRenderer() {};
+			MeshRenderer() { m_sName = "MeshRenderer"; };
 			~MeshRenderer() {};
 		};
 	}

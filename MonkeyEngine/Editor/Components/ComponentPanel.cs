@@ -10,9 +10,9 @@ namespace Editor
 {
     class ComponentPanel : Panel
     {
-        public TextBox textBox1;
         public Button CollapseButton;
         public uint Index;
+        private Label label1;
         public Component Comp;
 
         public ComponentPanel() : base()
@@ -23,20 +23,20 @@ namespace Editor
 
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.CollapseButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(25, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(200, 13);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "Component";
+            this.label1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(25, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(200, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Component";
             // 
             // CollapseButton
             // 
@@ -56,7 +56,7 @@ namespace Editor
             // ComponentPanel
             // 
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.CollapseButton);
             this.Location = new System.Drawing.Point(-1, 107);
             this.MaximumSize = new System.Drawing.Size(335, 0);
@@ -99,6 +99,7 @@ namespace Editor
             this.Size = new System.Drawing.Size(335, 23);
             this.TabIndex = 18;
             this.Visible = false;
+            this.label1.Text = Comp.Name;
             this.BringToFront();
             this.Invalidate();
         }
