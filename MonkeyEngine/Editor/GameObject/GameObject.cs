@@ -209,7 +209,7 @@ namespace Editor
             foreach (ComponentPanel comp in Components)
             {
                 comp.Show();
-                comp.Invalidate();
+                comp.Refresh();
             }
         }
 
@@ -218,7 +218,7 @@ namespace Editor
             foreach (ComponentPanel comp in Components)
             {
                 comp.Hide();
-                comp.Invalidate();
+                comp.Refresh();
             }
         }
     }

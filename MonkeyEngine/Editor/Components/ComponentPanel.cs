@@ -64,7 +64,6 @@ namespace Editor
             this.Name = "panel1";
             this.Size = new System.Drawing.Size(335, 23);
             this.TabIndex = 18;
-            this.Visible = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,23 +85,22 @@ namespace Editor
             }
         }
 
-        static public void CreatePanel(ComponentPanel panel, Panel InspectorBackgroundPanel)
+        public void CreatePanel(Panel InspectorBackgroundPanel, uint Index)
         {
-            panel = new ComponentPanel();
             Point p = Form1.ComponentStartingLocation;
-            p.Y += (int)Form1.ComponentIndex * 23;
-            InspectorBackgroundPanel.Controls.Add(panel);
-            panel.Index = Form1.ComponentIndex;
-            panel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            panel.Location = p;
-            panel.MaximumSize = new System.Drawing.Size(335, 0);
-            panel.MinimumSize = new System.Drawing.Size(335, 23);
-            panel.Name = "ComponentPanel" + Form1.ComponentIndex.ToString();
-            panel.Size = new System.Drawing.Size(335, 23);
-            panel.TabIndex = 18;
-            panel.BringToFront();
-            panel.Invalidate();
-            Form1.ComponentIndex++;
+            p.Y += (int)Index * 23;
+            InspectorBackgroundPanel.Controls.Add(this);
+            this.Index = Index;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Location = p;
+            this.MaximumSize = new System.Drawing.Size(335, 0);
+            this.MinimumSize = new System.Drawing.Size(335, 23);
+            this.Name = "ComponentPanel" + Index.ToString();
+            this.Size = new System.Drawing.Size(335, 23);
+            this.TabIndex = 18;
+            this.Visible = false;
+            this.BringToFront();
+            this.Invalidate();
         }
     }
 }

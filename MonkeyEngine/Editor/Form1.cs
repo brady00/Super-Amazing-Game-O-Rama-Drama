@@ -61,10 +61,12 @@ namespace Editor
             {
                 GameObject Object = new GameObject();
                 Object.EngineObject = Objects[i];
-                GameObjects[Object.Name] = Object;
                 ObjectTreeView.Nodes.Add(Object.Name);
-                foreach (ComponentPanel panel in Object.Components)
-                    ComponentPanel.CreatePanel(panel, InspectorBackgroundPanel);
+                for(uint j = 0; j < Object.Components.Length; j++)
+                {
+                    Object.Components[j].CreatePanel(InspectorBackgroundPanel, j);
+                }
+                GameObjects[Object.Name] = Object;
             }
         }
 
@@ -97,19 +99,21 @@ namespace Editor
         {
         }
 
-        static public uint ComponentIndex = 0;
         private void ObjectTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (ObjectTreeView.SelectedNode != PrevSelectedObject)
             {
-                PrevSelectedObject = ObjectTreeView.SelectedNode;
                 NameBox.Text = ObjectTreeView.SelectedNode.Text;
                 ActiveBox.Checked = GameObjects[NameBox.Text].Active;
                 StaticBox.Checked = GameObjects[NameBox.Text].Static;
                 LayerComboBox.SelectedIndex = (int)GameObjects[NameBox.Text].Layer;
                 Components = GameObjects[NameBox.Text].Components;
                 GameObjects[NameBox.Text].GUIActivate();
-                GameObjects[PrevSelectedObject.Text].GUIDeactivate();
+                if(PrevSelectedObject != null)
+                    GameObjects[PrevSelectedObject.Text].GUIDeactivate();
+                InspectorBackgroundPanel.Refresh();
+                splitContainer1.Panel2.Refresh();
+                PrevSelectedObject = ObjectTreeView.SelectedNode;
             }
         }
 
@@ -120,7 +124,7 @@ namespace Editor
 
         public static void ButtonCollapsed(uint buttonIndex)
         {
-            for (uint i = buttonIndex + 1; i < ComponentIndex; i++)
+            for (uint i = buttonIndex + 1; i < Components.Length; i++)
             {
                 Components[i].Location = new Point(Components[buttonIndex].Location.X, Components[i - 1].Location.Y + Components[i - 1].Size.Height);
             }
@@ -128,7 +132,7 @@ namespace Editor
 
         public static void ButtonExpanded(uint buttonIndex)
         {
-            for (uint i = buttonIndex + 1; i < ComponentIndex; i++)
+            for (uint i = buttonIndex + 1; i < Components.Length; i++)
             {
                 Components[i].Location = new Point(Components[buttonIndex].Location.X, Components[i].Location.Y + Components[buttonIndex].Size.Height - Components[buttonIndex].MinimumSize.Height);
             }
