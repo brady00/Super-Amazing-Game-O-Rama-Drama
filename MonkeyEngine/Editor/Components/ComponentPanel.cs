@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -100,8 +101,20 @@ namespace Editor
             this.TabIndex = 18;
             this.Visible = false;
             this.label1.Text = Comp.Name;
+            this.AutoScroll = false;
             this.BringToFront();
             this.Invalidate();
+            List<string> fieldNames;
+            List<object> fieldValues;
+            if (Comp.Name == "Transform")
+            {
+                var bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+                fieldNames = typeof(Tranform).GetMethods(bindingFlags).Select(field => field.Name).ToList();
+                Type thisType = Comp.GetType();
+                MethodInfo theMethod = thisType.GetMethod(fieldNames[0]);
+                var temp = theMethod.Invoke(Comp, null);
+                fieldValues = Comp.GetType().GetFields(bindingFlags).Select(field => field.GetValue(Comp)).ToList();
+            }
         }
     }
 }
