@@ -181,7 +181,60 @@ namespace Editor
                 _Trans = value;
             }
         }
-
+        private bool ActiveGrabbed = false;
+        unsafe private bool _Active;
+        unsafe public bool Active
+        {
+            get
+            {
+                if (!ActiveGrabbed)
+                {
+                    ActiveGrabbed = true;
+                    _Active = GetActive(EngineObject);
+                }
+                return _Active;
+            }
+            set
+            {
+                _Active = value;
+            }
+        }
+        private bool StaticGrabbed = false;
+        unsafe private bool _Static;
+        unsafe public bool Static
+        {
+            get
+            {
+                if (!StaticGrabbed)
+                {
+                    StaticGrabbed = true;
+                    _Static = GetStatic(EngineObject);
+                }
+                return _Static;
+            }
+            set
+            {
+                _Static = value;
+            }
+        }
+        private bool LayerGrabbed = false;
+        unsafe private uint _Layer;
+        unsafe public uint Layer
+        {
+            get
+            {
+                if (!LayerGrabbed)
+                {
+                    LayerGrabbed = true;
+                    _Layer = GetLayer(EngineObject);
+                }
+                return _Layer;
+            }
+            set
+            {
+                _Layer = value;
+            }
+        }
 
 
         [DllImport("MonkeyEngine.dll", EntryPoint = "AddGameObjectTag", CallingConvention = CallingConvention.StdCall)]
@@ -206,6 +259,19 @@ namespace Editor
         unsafe static public extern uint GetComponentCount(void* _object);
         [DllImport("MonkeyEngine.dll", EntryPoint = "GetGameObjectScriptCount", CallingConvention = CallingConvention.StdCall)]
         unsafe static public extern uint GetScriptCount(void* _object);
+        [DllImport("MonkeyEngine.dll", EntryPoint = "SetGameObjectActive", CallingConvention = CallingConvention.StdCall)]
+        private unsafe static extern void SetActive(void* _object, bool _Active);
+        [DllImport("MonkeyEngine.dll", EntryPoint = "GetGameObjectActive", CallingConvention = CallingConvention.StdCall)]
+        private unsafe static extern bool GetActive(void* _object);
+        [DllImport("MonkeyEngine.dll", EntryPoint = "SetGameObjectStatic", CallingConvention = CallingConvention.StdCall)]
+        private unsafe static extern void SetStatic(void* _object, bool _Static);
+        [DllImport("MonkeyEngine.dll", EntryPoint = "GetGameObjectStatic", CallingConvention = CallingConvention.StdCall)]
+        private unsafe static extern bool GetStatic(void* _object);
+        [DllImport("MonkeyEngine.dll", EntryPoint = "SetGameObjectLayer", CallingConvention = CallingConvention.StdCall)]
+        private unsafe static extern void SetLayer(void* _object, uint _Layer);
+        [DllImport("MonkeyEngine.dll", EntryPoint = "GetGameObjectLayer", CallingConvention = CallingConvention.StdCall)]
+        private unsafe static extern uint GetLayer(void* _object);
+
 
         public void GUIActivate()
         {

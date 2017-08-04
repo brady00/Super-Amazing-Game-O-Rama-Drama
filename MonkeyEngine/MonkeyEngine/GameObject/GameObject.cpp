@@ -255,32 +255,32 @@ namespace MonkeyEngine
 	}
 }
 
-void SetObjectActive(MonkeyEngine::MEObject::GameObject* _object, bool _Active)
+void SetGameObjectActive(MonkeyEngine::MEObject::GameObject* _object, bool _Active)
 {
 	_object->SetActive(_Active);
 }
 
-bool GetObjectActive(MonkeyEngine::MEObject::GameObject* _object)
+bool GetGameObjectActive(MonkeyEngine::MEObject::GameObject* _object)
 {
 	return _object->GetActive();
 }
 
-void SetObjectStatic(MonkeyEngine::MEObject::GameObject* _object, bool _Static)
+void SetGameObjectStatic(MonkeyEngine::MEObject::GameObject* _object, bool _Static)
 {
 	_object->SetStatic(_Static);
 }
 
-bool GetObjectStatic(MonkeyEngine::MEObject::GameObject* _object)
+bool GetGameObjectStatic(MonkeyEngine::MEObject::GameObject* _object)
 {
 	return _object->GetStatic();
 }
 
-void SetObjectLayer(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Layer)
+void SetGameObjectLayer(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Layer)
 {
 	_object->SetLayer(_Layer);
 }
 
-unsigned int GetObjectLayer(MonkeyEngine::MEObject::GameObject* _object)
+unsigned int GetGameObjectLayer(MonkeyEngine::MEObject::GameObject* _object)
 {
 	return _object->GetLayer();
 }

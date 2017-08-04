@@ -81,6 +81,7 @@
             this.StaticBox = new System.Windows.Forms.CheckBox();
             this.ActiveBox = new System.Windows.Forms.CheckBox();
             this.NameBox = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.BackgroundPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -435,6 +436,7 @@
             this.InspectorBackgroundPanel.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.InspectorBackgroundPanel.AutoScroll = true;
             this.InspectorBackgroundPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.InspectorBackgroundPanel.Controls.Add(this.textBox1);
             this.InspectorBackgroundPanel.Controls.Add(this.NameBackgroundPanel);
             this.InspectorBackgroundPanel.Location = new System.Drawing.Point(-1, 0);
             this.InspectorBackgroundPanel.MinimumSize = new System.Drawing.Size(324, 1017);
@@ -547,6 +549,15 @@
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(175, 20);
             this.NameBox.TabIndex = 15;
+            this.NameBox.TextChanged += new System.EventHandler(this.NameBox_TextChanged);
+            // 
+            // textBox1
+            // 
+            this.textBox1.AllowDrop = true;
+            this.textBox1.Location = new System.Drawing.Point(124, 270);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 20;
             // 
             // Form1
             // 
@@ -580,6 +591,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             this.InspectorBackgroundPanel.ResumeLayout(false);
+            this.InspectorBackgroundPanel.PerformLayout();
             this.NameBackgroundPanel.ResumeLayout(false);
             this.NameBackgroundPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -639,6 +651,7 @@
         private System.Windows.Forms.CheckBox StaticBox;
         private System.Windows.Forms.CheckBox ActiveBox;
         private System.Windows.Forms.TextBox NameBox;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

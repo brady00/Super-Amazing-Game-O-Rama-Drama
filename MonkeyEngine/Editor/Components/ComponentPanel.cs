@@ -85,7 +85,9 @@ namespace Editor
                 Form1.ButtonCollapsed(Index);
             }
         }
-
+        List<string> FunctionNames;
+        List<object> Getters = new List<object>();
+        List<object> Setters = new List<object>();
         public void CreatePanel(Panel InspectorBackgroundPanel, uint Index)
         {
             Point p = Form1.ComponentStartingLocation;
@@ -104,17 +106,23 @@ namespace Editor
             this.AutoScroll = false;
             this.BringToFront();
             this.Invalidate();
-            List<string> fieldNames;
-            List<object> fieldValues;
+            var bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
             if (Comp.Name == "Transform")
+                FunctionNames = typeof(Tranform).GetMethods(bindingFlags).Select(field => field.Name).ToList();
+            else
+                FunctionNames = new List<string>();
+            foreach (string str in FunctionNames)
             {
-                var bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
-                fieldNames = typeof(Tranform).GetMethods(bindingFlags).Select(field => field.Name).ToList();
-                Type thisType = Comp.GetType();
-                MethodInfo theMethod = thisType.GetMethod(fieldNames[0]);
-                var temp = theMethod.Invoke(Comp, null);
-                fieldValues = Comp.GetType().GetFields(bindingFlags).Select(field => field.GetValue(Comp)).ToList();
+                if (str.Contains("get_") && !str.Contains("_Name") && !str.Contains("_Flags"))
+                    Getters.Add(Comp.GetType().GetMethod(str));
+                if (str.Contains("set_") && !str.Contains("_Name") && !str.Contains("_Flags"))
+                    Setters.Add(Comp.GetType().GetMethod(str));
             }
+            //String == textbox
+            //Gameobject == Box
+                //Type thisType = Comp.GetType();
+                //MethodInfo theMethod = thisType.GetMethod(fieldNames[0]);
+                //var temp = theMethod.Invoke(Comp, null);
         }
     }
 }
