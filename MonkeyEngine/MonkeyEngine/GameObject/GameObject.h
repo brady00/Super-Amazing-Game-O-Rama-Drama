@@ -172,12 +172,12 @@ namespace MonkeyEngine
 
 extern "C"
 {
-	__declspec(dllexport) void SetObjectActive(MonkeyEngine::MEObject::GameObject* _object, bool _Active);
-	__declspec(dllexport) bool GetObjectActive(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) void SetObjectStatic(MonkeyEngine::MEObject::GameObject* _object, bool _Static);
-	__declspec(dllexport) bool GetObjectStatic(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) void SetObjectLayer(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Layer);
-	__declspec(dllexport) unsigned int GetObjectLayer(MonkeyEngine::MEObject::GameObject* _object);
+	__declspec(dllexport) void SetGameObjectActive(MonkeyEngine::MEObject::GameObject* _object, bool _Active);
+	__declspec(dllexport) bool GetGameObjectActive(MonkeyEngine::MEObject::GameObject* _object);
+	__declspec(dllexport) void SetGameObjectStatic(MonkeyEngine::MEObject::GameObject* _object, bool _Static);
+	__declspec(dllexport) bool GetGameObjectStatic(MonkeyEngine::MEObject::GameObject* _object);
+	__declspec(dllexport) void SetGameObjectLayer(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Layer);
+	__declspec(dllexport) unsigned int GetGameObjectLayer(MonkeyEngine::MEObject::GameObject* _object);
 	__declspec(dllexport) void AddGameObjectTag(MonkeyEngine::MEObject::GameObject* _object, std::string _Tag);
 	__declspec(dllexport) void RemoveGameObjectTag(MonkeyEngine::MEObject::GameObject* _object, std::string _Tag); 
 						  //needs to be split

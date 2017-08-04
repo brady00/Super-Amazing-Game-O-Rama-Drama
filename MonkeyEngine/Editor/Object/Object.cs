@@ -25,7 +25,8 @@ namespace Editor
             }
             set
             {
-                this._Name = value;
+                _Name = value;
+                SetName(EngineObject, _Name.ToArray<char>());
             }
         }
         private bool FlagsGrabbed = false;
@@ -44,60 +45,7 @@ namespace Editor
             set
             {
                 _Flags = value;
-            }
-        }
-        private bool ActiveGrabbed = false;
-        unsafe private bool _Active;
-        unsafe public bool Active
-        {
-            get
-            {
-                if (!ActiveGrabbed)
-                {
-                    ActiveGrabbed = true;
-                    _Active = GetActive(EngineObject);
-                }
-                return _Active;
-            }
-            set
-            {
-                _Active = value;
-            }
-        }
-        private bool StaticGrabbed = false;
-        unsafe private bool _Static;
-        unsafe public bool Static
-        {
-            get
-            {
-                if (!StaticGrabbed)
-                {
-                    StaticGrabbed = true;
-                    _Static = GetStatic(EngineObject);
-                }
-                return _Static;
-            }
-            set
-            {
-                _Static = value;
-            }
-        }
-        private bool LayerGrabbed = false;
-        unsafe private uint _Layer;
-        unsafe public uint Layer
-        {
-            get
-            {
-                if (!LayerGrabbed)
-                {
-                    LayerGrabbed = true;
-                    _Layer = GetLayer(EngineObject);
-                }
-                return _Layer;
-            }
-            set
-            {
-                _Layer = value;
+                SetFlags(EngineObject, _Flags);
             }
         }
 
@@ -111,19 +59,7 @@ namespace Editor
         private unsafe static extern uint GetFlags(void* Gameobject);
         [DllImport("MonkeyEngine.dll", EntryPoint = "SetObjectFlags", CallingConvention = CallingConvention.StdCall)]
         private unsafe static extern void SetFlags(void* GameObject, uint _Flags);
-        [DllImport("MonkeyEngine.dll", EntryPoint = "SetObjectActive", CallingConvention = CallingConvention.StdCall)]
-        private unsafe static extern void SetActive(void* _object, bool _Active);
-        [DllImport("MonkeyEngine.dll", EntryPoint = "GetObjectActive", CallingConvention = CallingConvention.StdCall)]
-        private unsafe static extern bool GetActive(void* _object);
-        [DllImport("MonkeyEngine.dll", EntryPoint = "SetObjectStatic", CallingConvention = CallingConvention.StdCall)]
-        private unsafe static extern void SetStatic(void* _object, bool _Static);
-        [DllImport("MonkeyEngine.dll", EntryPoint = "GetObjectStatic", CallingConvention = CallingConvention.StdCall)]
-        private unsafe static extern bool GetStatic(void* _object);
-        [DllImport("MonkeyEngine.dll", EntryPoint = "SetObjectLayer", CallingConvention = CallingConvention.StdCall)]
-        private unsafe static extern void SetLayer(void* _object, uint _Layer);
-        [DllImport("MonkeyEngine.dll", EntryPoint = "GetObjectLayer", CallingConvention = CallingConvention.StdCall)]
-        private unsafe static extern uint GetLayer(void* _object);
-
+        
         public unsafe static string GetFullName(void* _GameObject)
         {
             uint size = GetNameSize(_GameObject);

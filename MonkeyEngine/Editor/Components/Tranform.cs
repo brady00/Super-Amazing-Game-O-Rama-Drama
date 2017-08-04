@@ -30,6 +30,7 @@ namespace Editor
             set
             {
                 _Position = value;
+                SetPosRotScale(EngineObject, _Position.x, _Position.y, _Position.z, _Rotation.x, _Rotation.y, _Rotation.z, _Scale.x, _Scale.y, _Scale.z);
             }
         }
 
@@ -48,6 +49,7 @@ namespace Editor
             set
             {
                 _Rotation = value;
+                SetPosRotScale(EngineObject, _Position.x, _Position.y, _Position.z, _Rotation.x, _Rotation.y, _Rotation.z, _Scale.x, _Scale.y, _Scale.z);
             }
         }
         private Float3 _Scale;
@@ -65,6 +67,7 @@ namespace Editor
             set
             {
                 _Scale = value;
+                SetPosRotScale(EngineObject, _Position.x, _Position.y, _Position.z, _Rotation.x, _Rotation.y, _Rotation.z, _Scale.x, _Scale.y, _Scale.z);
             }
         }
         private bool ParentGrabbed = false;
@@ -83,11 +86,12 @@ namespace Editor
             set
             {
                 _Parent = value;
+                SetParent(EngineObject, _Parent.EngineObject);
             }
         }
         private bool ChildrenGrabbed = false;
-        private Tranform[] _Children;
-        unsafe public Tranform[] Children
+        private List<Tranform> _Children;
+        unsafe public List<Tranform> Children
         {
             get
             {
@@ -95,8 +99,8 @@ namespace Editor
                 {
                     uint amount;
                     void** children = GetChildren(EngineObject, out amount);
-                    _Children = new Tranform[amount];
-                    for(uint i = 0; i < amount; i++)
+                    _Children = new List<Tranform>();
+                    for(int i = 0; i < amount; i++)
                     {
                         _Children[i] = new Tranform();
                         _Children[i].EngineObject = children[i];
@@ -105,12 +109,19 @@ namespace Editor
                 }
                 return _Children;
             }
-            set
-            {
-                _Children = value;
-            }
+        }
+        
+        unsafe void AddChild(Tranform _child)
+        {
+            _Children.Add(_child);
+            AddChild(EngineObject, _child.EngineObject);
         }
 
+        unsafe void RemoveChild(Tranform _child)
+        {
+            _Children.Remove(_child);
+            RemoveChild(EngineObject, _child.EngineObject);
+        }
 
         [DllImport("MonkeyEngine.dll", EntryPoint = "GetTransformPosRotScale", CallingConvention = CallingConvention.StdCall)]
         unsafe static public extern void GetPosRotScale(void* _object, out float posx, out float posy, out float posz, out float rotx, out float roty, out float rotz, out float scalex, out float sclaey, out float scalez);
