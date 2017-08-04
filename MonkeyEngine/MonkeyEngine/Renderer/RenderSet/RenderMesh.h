@@ -3,6 +3,8 @@
 #include "RenderSet.h"
 #include <d3d11.h>
 #include <vector>
+#include <unordered_map>
+#include "../Containers/Material.h"
 #include "../Managers/VertexBufferManager.h"
 namespace MEFileIO
 {
@@ -27,6 +29,7 @@ namespace MonkeyEngine
 			std::string m_sVertexFileName;
 			RenderSet* m_pRenderTextures;
 			VertexFormat m_eVertexFormat;
+			MEObject::Material* temp_Material;
 		public:
 			RenderMesh();
 			~RenderMesh();

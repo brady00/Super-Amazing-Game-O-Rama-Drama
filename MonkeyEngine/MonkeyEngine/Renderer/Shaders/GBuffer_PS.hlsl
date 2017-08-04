@@ -15,8 +15,9 @@ float4 main(TwoDVertexOut vertIn) : SV_TARGET
 	
 	colors = colorTexture.Sample(Sampler, vertIn.texCoord);
 	normals = normalTexture.Sample(Sampler, vertIn.texCoord);
-	lightDir = -float3(-0.5f, -0.5f, 0);
-	lightIntensity = saturate(dot(normals.xyz, lightDir));
+	lightDir = -(float3(0.0f, -1.0f, 0));
+	float Dot = dot(normals.xyz, lightDir);
+	lightIntensity = saturate(Dot);
 	outputColor = saturate(colors * lightIntensity);
 	
 	return outputColor;

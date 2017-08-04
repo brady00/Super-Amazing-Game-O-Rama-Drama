@@ -62,6 +62,7 @@ struct VERTEX_POSBONEWEIGHTNORMTANTEX
 	float4 weights  :   BONEWEIGHTS0;
 	float3 tangent		: TANGENT0;
 	float determinant	: TANGENT1;
+	float3 binormal		: BINORMAL0;
 };
 
 struct VERTEX_TERRAIN

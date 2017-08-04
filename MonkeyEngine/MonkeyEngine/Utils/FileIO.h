@@ -26,7 +26,7 @@ namespace MonkeyEngine
 		public:
 			FileIO();
 			~FileIO();
-			static bool LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies);
+			static bool LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, MEObject::Material* _Material);
 			static bool LoadOBJ(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies);
 			//scene
 			static bool LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects);
@@ -56,6 +56,9 @@ namespace MonkeyEngine
 			static void ProcessMaterials(FbxNode* inNode);
 			static void ProcessMaterialAttribute(FbxSurfaceMaterial* inMaterial, unsigned int inMaterialIndex);
 			static void ProcessMaterialTexture(FbxSurfaceMaterial* inMaterial, MEObject::Material* ioMaterial);
+			static void CalculateModelVectors();
+			static void CalculateTangentBinormal(MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX vertex1, MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX vertex2, MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX vertex3, XMFLOAT3& tangent, XMFLOAT3& binormal);
+			static void CalculateNormal(XMFLOAT3 tangent, XMFLOAT3 binormal, XMFLOAT3& normal);
 			//FBX Loading Variables
 			static FbxManager* m_fbxManager;
 			static FbxScene* m_fbxScene;

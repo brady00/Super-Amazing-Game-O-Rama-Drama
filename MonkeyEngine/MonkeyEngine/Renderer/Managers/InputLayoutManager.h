@@ -73,6 +73,7 @@ namespace MonkeyEngine
 			DirectX::XMFLOAT4 weights;
 			DirectX::XMFLOAT3 tangent;
 			float determinant;
+			DirectX::XMFLOAT3 binormal;
 		};
 		class InputLayoutManager
 		{

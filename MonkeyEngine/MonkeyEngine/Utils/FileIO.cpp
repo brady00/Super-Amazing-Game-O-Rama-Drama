@@ -46,7 +46,7 @@ namespace MonkeyEngine
 
 		}
 
-		bool FileIO::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
+		bool FileIO::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, MEObject::Material* _Material)
 		{
 			std::string filepart;
 			std::ifstream FileIn;
@@ -65,6 +65,7 @@ namespace MonkeyEngine
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].determinant), sizeof(float));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].binormal), sizeof(DirectX::XMFLOAT4));
 				}
 				/*FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
 				_Indicies = new unsigned int[_NumIndicies];
@@ -101,6 +102,7 @@ namespace MonkeyEngine
 			//for (unsigned int i = 0; i < m_vTriangles.size(); ++i)
 			//	for (unsigned int j = 2; j < 3; ++j)
 			//		_Indicies[i * 3 + j] = m_vTriangles[i].mIndices[2 - j];
+			_Material = m_mMaterialLookUp[0];
 			std::ofstream out;
 			out.open(filepart + std::string(".Bfbx"), std::ios_base::binary);
 			if (out.is_open())
@@ -115,6 +117,7 @@ namespace MonkeyEngine
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].determinant), sizeof(float));
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
+					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].binormal), sizeof(DirectX::XMFLOAT4));
 				}
 				/*out.write((const char*)& _NumIndicies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumIndicies; i++)
@@ -543,7 +546,7 @@ namespace MonkeyEngine
 				Triangle currTriangle;
 				m_vTriangles.push_back(currTriangle);
 
-				for (unsigned int j = 0; j < 3; ++j)
+				for (int j = 2; j > 0; --j)
 				{
 					int ctrlPointIndex = currMesh->GetPolygonVertex(i, j);
 					CtrlPoint* currCtrlPoint = m_mControlPoints[ctrlPointIndex];
@@ -556,6 +559,7 @@ namespace MonkeyEngine
 					temp.texcoord = UV[j][0];
 					temp.bone = XMINT4(0, 0, 0, 0);
 					temp.weights = XMFLOAT4(0, 0, 0, 0);
+
 					unsigned int Size = (unsigned int)currCtrlPoint->mBlendingInfo.size();
 					for (unsigned int i = 0; i < Size; ++i)
 					{
@@ -586,10 +590,176 @@ namespace MonkeyEngine
 					++vertexCounter;
 				}
 			}
+
 			unsigned int Size = (unsigned int)m_mControlPoints.size();
 			for (unsigned int i = 0; i < Size; i++)
 				delete m_mControlPoints[i];
 			m_mControlPoints.clear();
+		}
+
+		void FileIO::CalculateTangentBinormal(VERTEX_POSBONEWEIGHTNORMTANTEX vertex1, VERTEX_POSBONEWEIGHTNORMTANTEX vertex2, VERTEX_POSBONEWEIGHTNORMTANTEX vertex3,
+			XMFLOAT3& tangent, XMFLOAT3& binormal)
+		{
+			float vector1[3], vector2[3];
+			float tuVector[2], tvVector[2];
+			float den;
+			float length;
+
+
+			// Calculate the two vectors for this face.
+			vector1[0] = vertex2.position.x - vertex1.position.x;
+			vector1[1] = vertex2.position.y - vertex1.position.y;
+			vector1[2] = vertex2.position.z - vertex1.position.z;
+
+			vector2[0] = vertex3.position.x - vertex1.position.x;
+			vector2[1] = vertex3.position.y - vertex1.position.y;
+			vector2[2] = vertex3.position.z - vertex1.position.z;
+
+			// Calculate the tu and tv texture space vectors.
+			tuVector[0] = vertex2.texcoord.x - vertex1.texcoord.x;
+			tvVector[0] = vertex2.texcoord.y - vertex1.texcoord.y;
+
+			tuVector[1] = vertex3.texcoord.x - vertex1.texcoord.x;
+			tvVector[1] = vertex3.texcoord.y - vertex1.texcoord.y;
+
+			// Calculate the denominator of the tangent/binormal equation.
+			den = 1.0f / (tuVector[0] * tvVector[1] - tuVector[1] * tvVector[0]);
+
+			// Calculate the cross products and multiply by the coefficient to get the tangent and binormal.
+			tangent.x = (tvVector[1] * vector1[0] - tvVector[0] * vector2[0]) * den;
+			tangent.y = (tvVector[1] * vector1[1] - tvVector[0] * vector2[1]) * den;
+			tangent.z = (tvVector[1] * vector1[2] - tvVector[0] * vector2[2]) * den;
+
+			binormal.x = (tuVector[0] * vector2[0] - tuVector[1] * vector1[0]) * den;
+			binormal.y = (tuVector[0] * vector2[1] - tuVector[1] * vector1[1]) * den;
+			binormal.z = (tuVector[0] * vector2[2] - tuVector[1] * vector1[2]) * den;
+
+			// Calculate the length of this normal.
+			length = sqrt((tangent.x * tangent.x) + (tangent.y * tangent.y) + (tangent.z * tangent.z));
+
+			// Normalize the normal and then store it
+			tangent.x = tangent.x / length;
+			tangent.y = tangent.y / length;
+			tangent.z = tangent.z / length;
+
+			// Calculate the length of this normal.
+			length = sqrt((binormal.x * binormal.x) + (binormal.y * binormal.y) + (binormal.z * binormal.z));
+
+			// Normalize the normal and then store it
+			binormal.x = binormal.x / length;
+			binormal.y = binormal.y / length;
+			binormal.z = binormal.z / length;
+
+			return;
+		}
+
+		void FileIO::CalculateNormal(XMFLOAT3 tangent, XMFLOAT3 binormal, XMFLOAT3& normal)
+		{
+			float length;
+
+
+			// Calculate the cross product of the tangent and binormal which will give the normal vector.
+			normal.x = (tangent.y * binormal.z) - (tangent.z * binormal.y);
+			normal.y = (tangent.z * binormal.x) - (tangent.x * binormal.z);
+			normal.z = (tangent.x * binormal.y) - (tangent.y * binormal.x);
+
+			// Calculate the length of the normal.
+			length = sqrt((normal.x * normal.x) + (normal.y * normal.y) + (normal.z * normal.z));
+
+			// Normalize the normal.
+			normal.x = normal.x / length;
+			normal.y = normal.y / length;
+			normal.z = normal.z / length;
+
+			return;
+		}
+
+		void FileIO::CalculateModelVectors()
+		{
+			int faceCount, i, index;
+			VERTEX_POSBONEWEIGHTNORMTANTEX vertex1, vertex2, vertex3;
+			XMFLOAT3 tangent, binormal, normal;
+
+
+			// Calculate the number of faces in the model.
+			faceCount = (int)(m_vVertices.size() / 3.0f);
+
+			// Initialize the index to the model data.
+			index = 0;
+
+			// Go through all the faces and calculate the the tangent, binormal, and normal vectors.
+			for (i = 0; i<faceCount; i++)
+			{
+				// Get the three vertices for this face from the model.
+				vertex1.position.x = m_vVertices[index].position.x;
+				vertex1.position.y = m_vVertices[index].position.y;
+				vertex1.position.z = m_vVertices[index].position.z;
+				vertex1.texcoord.x = m_vVertices[index].texcoord.x;
+				vertex1.texcoord.y = m_vVertices[index].texcoord.y;
+				vertex1.normal.x = m_vVertices[index].normal.x;
+				vertex1.normal.y = m_vVertices[index].normal.y;
+				vertex1.normal.z = m_vVertices[index].normal.z;
+				index++;
+
+				vertex2.position.x = m_vVertices[index].position.x;
+				vertex2.position.y = m_vVertices[index].position.y;
+				vertex2.position.z = m_vVertices[index].position.z;
+				vertex2.texcoord.x = m_vVertices[index].texcoord.x;
+				vertex2.texcoord.y = m_vVertices[index].texcoord.y;
+				vertex2.normal.x = m_vVertices[index].normal.x;
+				vertex2.normal.y = m_vVertices[index].normal.y;
+				vertex2.normal.z = m_vVertices[index].normal.z;
+				index++;
+
+				vertex3.position.x = m_vVertices[index].position.x;
+				vertex3.position.y = m_vVertices[index].position.y;
+				vertex3.position.z = m_vVertices[index].position.z;
+				vertex3.texcoord.x = m_vVertices[index].texcoord.x;
+				vertex3.texcoord.y = m_vVertices[index].texcoord.y;
+				vertex3.normal.x = m_vVertices[index].normal.x;
+				vertex3.normal.y = m_vVertices[index].normal.y;
+				vertex3.normal.z = m_vVertices[index].normal.z;
+				index++;
+
+				// Calculate the tangent and binormal of that face.
+				CalculateTangentBinormal(vertex1, vertex2, vertex3, tangent, binormal);
+
+				// Calculate the new normal using the tangent and binormal.
+				CalculateNormal(tangent, binormal, normal);
+
+				// Store the normal, tangent, and binormal for this face back in the model structure.
+				m_vVertices[index - 1].normal.x = normal.x;
+				m_vVertices[index - 1].normal.y = normal.y;
+				m_vVertices[index - 1].normal.z = normal.z;
+				m_vVertices[index - 1].tangent.x = tangent.x;
+				m_vVertices[index - 1].tangent.y = tangent.y;
+				m_vVertices[index - 1].tangent.z = tangent.z;
+				m_vVertices[index - 1].binormal.x = binormal.x;
+				m_vVertices[index - 1].binormal.y = binormal.y;
+				m_vVertices[index - 1].binormal.z = binormal.z;
+
+				m_vVertices[index - 2].normal.x = normal.x;
+				m_vVertices[index - 2].normal.y = normal.y;
+				m_vVertices[index - 2].normal.z = normal.z;
+				m_vVertices[index - 2].tangent.x = tangent.x;
+				m_vVertices[index - 2].tangent.y = tangent.y;
+				m_vVertices[index - 2].tangent.z = tangent.z;
+				m_vVertices[index - 2].binormal.x = binormal.x;
+				m_vVertices[index - 2].binormal.y = binormal.y;
+				m_vVertices[index - 2].binormal.z = binormal.z;
+
+				m_vVertices[index - 3].normal.x = normal.x;
+				m_vVertices[index - 3].normal.y = normal.y;
+				m_vVertices[index - 3].normal.z = normal.z;
+				m_vVertices[index - 3].tangent.x = tangent.x;
+				m_vVertices[index - 3].tangent.y = tangent.y;
+				m_vVertices[index - 3].tangent.z = tangent.z;
+				m_vVertices[index - 3].binormal.x = binormal.x;
+				m_vVertices[index - 3].binormal.y = binormal.y;
+				m_vVertices[index - 3].binormal.z = binormal.z;
+			}
+
+			return;
 		}
 
 		void FileIO::ReadUV(FbxMesh* inMesh, int inCtrlPointIndex, int inTextureUVIndex, int inUVLayer, XMFLOAT2& outUV)
@@ -658,18 +828,18 @@ namespace MonkeyEngine
 				{
 				case FbxGeometryElement::eDirect:
 				{
-					outNormal.x = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[0]);
-					outNormal.y = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[1]);
-					outNormal.z = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[2]);
+					outNormal.x = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[0]);
+					outNormal.y = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[1]);
+					outNormal.z = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(inCtrlPointIndex).mData[2]);
 				}
 				break;
 
 				case FbxGeometryElement::eIndexToDirect:
 				{
 					int index = vertexNormal->GetIndexArray().GetAt(inCtrlPointIndex);
-					outNormal.x = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[0]);
-					outNormal.y = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[1]);
-					outNormal.z = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[2]);
+					outNormal.x = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[0]);
+					outNormal.y = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[1]);
+					outNormal.z = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[2]);
 				}
 				break;
 
@@ -683,18 +853,18 @@ namespace MonkeyEngine
 				{
 				case FbxGeometryElement::eDirect:
 				{
-					outNormal.x = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inVertexCounter).mData[0]);
-					outNormal.y = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inVertexCounter).mData[1]);
-					outNormal.z = static_cast<float>(vertexNormal->GetDirectArray().GetAt(inVertexCounter).mData[2]);
+					outNormal.x = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(inVertexCounter).mData[0]);
+					outNormal.y = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(inVertexCounter).mData[1]);
+					outNormal.z = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(inVertexCounter).mData[2]);
 				}
 				break;
 
 				case FbxGeometryElement::eIndexToDirect:
 				{
 					int index = vertexNormal->GetIndexArray().GetAt(inVertexCounter);
-					outNormal.x = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[0]);
-					outNormal.y = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[1]);
-					outNormal.z = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[2]);
+					outNormal.x = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[0]);
+					outNormal.y = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[1]);
+					outNormal.z = -static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[2]);
 				}
 				break;
 
@@ -842,6 +1012,7 @@ namespace MonkeyEngine
 						ProcessJointsAndAnimations(inNode);
 					}
 					ProcessMesh(inNode);
+					CalculateModelVectors();
 					AssociateMaterialToMesh(inNode);
 					ProcessMaterials(inNode);
 					break;
