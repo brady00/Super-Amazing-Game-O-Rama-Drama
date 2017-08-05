@@ -7,8 +7,6 @@
 			<Scale X="1" Y="1" Z="1"/>
 		</Transform>
 		<MeshRenderer Enabled="true" Skinned="false" Opaque="true">
-
-
 			<VertexFileName  File="../../../MonkeyEngine/Assets/Test.fbx"/>
 			<DiffuseFileName File="../../../MonkeyEngine/Assets/images.png"/>		
 		</MeshRenderer>
