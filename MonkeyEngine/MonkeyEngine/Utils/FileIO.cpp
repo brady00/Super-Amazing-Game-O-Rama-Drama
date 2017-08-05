@@ -70,30 +70,45 @@ namespace MonkeyEngine
 				char* dif, *emis, *gloss, *normal, *spec;
 				unsigned int length;
 				FileIn.read((char*)&length, sizeof(unsigned int));
-				dif = new char[length];
-				FileIn.read(dif, length);
-				_Material->mDiffuseMapName = string(dif);
-				delete dif;
+				if (length > 1)
+				{
+					dif = new char[length];
+					FileIn.read(dif, length);
+					_Material->mDiffuseMapName = string(dif);
+					delete dif;
+				}
 				FileIn.read((char*)&length, sizeof(unsigned int));
-				emis = new char[length];
-				FileIn.read(emis, length);
-				_Material->mEmissiveMapName = string(emis);
-				delete emis;
+				if (length > 1)
+				{
+					emis = new char[length];
+					FileIn.read(emis, length);
+					_Material->mEmissiveMapName = string(emis);
+					delete emis;
+				}
 				FileIn.read((char*)&length, sizeof(unsigned int));
-				gloss = new char[length];
-				FileIn.read(gloss, length);
-				_Material->mGlossMapName = string(gloss);
-				delete gloss;
+				if (length > 1)
+				{
+					gloss = new char[length];
+					FileIn.read(gloss, length);
+					_Material->mGlossMapName = string(gloss);
+					delete gloss;
+				}
 				FileIn.read((char*)&length, sizeof(unsigned int));
-				normal = new char[length];
-				FileIn.read(normal, length);
-				_Material->mNormalMapName = string(normal);
-				delete normal;
+				if (length > 1)
+				{
+					normal = new char[length];
+					FileIn.read(normal, length);
+					_Material->mNormalMapName = string(normal);
+					delete normal;
+				}
 				FileIn.read((char*)&length, sizeof(unsigned int));
-				spec = new char[length];
-				FileIn.read(spec, length);
-				_Material->mSpecularMapName = string(spec);
-				delete spec;
+				if (length > 1)
+				{
+					spec = new char[length];
+					FileIn.read(spec, length);
+					_Material->mSpecularMapName = string(spec);
+					delete spec;
+				}
 				/*FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
 				_Indicies = new unsigned int[_NumIndicies];
 				for (unsigned int i = 0; i < _NumIndicies; i++)
@@ -147,20 +162,35 @@ namespace MonkeyEngine
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].binormal), sizeof(DirectX::XMFLOAT4));
 				}
 				unsigned int length = (unsigned int)_Material->mDiffuseMapName.length() + 1;
-				out.write((const char*)&length, sizeof(unsigned int));
-				out.write(_Material->mDiffuseMapName.c_str(), _Material->mDiffuseMapName.length());
+				if (length > 1)
+				{
+					out.write((const char*)&length, sizeof(unsigned int));
+					out.write(_Material->mDiffuseMapName.c_str(), length);
+				}
 				length = (unsigned int)_Material->mEmissiveMapName.length() + 1;
-				out.write((const char*)&length, sizeof(unsigned int));
-				out.write(_Material->mEmissiveMapName.c_str(), _Material->mEmissiveMapName.length());
+				if (length > 1)
+				{
+					out.write((const char*)&length, sizeof(unsigned int));
+					out.write(_Material->mEmissiveMapName.c_str(), length);
+				}
 				length = (unsigned int)_Material->mGlossMapName.length() + 1;
-				out.write((const char*)&length, sizeof(unsigned int));
-				out.write(_Material->mGlossMapName.c_str(), _Material->mGlossMapName.length());
+				if (length > 1)
+				{
+					out.write((const char*)&length, sizeof(unsigned int));
+					out.write(_Material->mGlossMapName.c_str(), length);
+				}
 				length = (unsigned int)_Material->mNormalMapName.length() + 1;
-				out.write((const char*)&length, sizeof(unsigned int));
-				out.write(_Material->mNormalMapName.c_str(), _Material->mNormalMapName.length());
+				if (length > 1)
+				{
+					out.write((const char*)&length, sizeof(unsigned int));
+					out.write(_Material->mNormalMapName.c_str(), _Material->mNormalMapName.length());
+				}
 				length = (unsigned int)_Material->mSpecularMapName.length() + 1;
-				out.write((const char*)&length, sizeof(unsigned int));
-				out.write(_Material->mSpecularMapName.c_str(), _Material->mSpecularMapName.length());
+				if (length > 1)
+				{
+					out.write((const char*)&length, sizeof(unsigned int));
+					out.write(_Material->mSpecularMapName.c_str(), length);
+				}
 				/*out.write((const char*)& _NumIndicies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumIndicies; i++)
 					out.write((const char*)&_Indicies[i], sizeof(unsigned int));*/
