@@ -26,7 +26,7 @@ namespace MonkeyEngine
 		{
 			POINT curPos;
 			GetCursorPos(&curPos);
-			if (m_pPrevMousePos.x != curPos.x || m_pPrevMousePos.y != curPos.y)
+			if (GetAsyncKeyState(VK_RBUTTON) && (m_pPrevMousePos.x != curPos.x || m_pPrevMousePos.y != curPos.y))
 			{
 				XMMATRIX temp = XMMatrixRotationRollPitchYaw(XMConvertToRadians(((float)(curPos.y - m_pPrevMousePos.y)) * Time::DeltaTime * Settings::GetInstance()->GetMouseSensitivity()), 0, 0);
 				temp = XMMatrixMultiply(temp, XMLoadFloat4x4(&m_xmViewMatrix));
