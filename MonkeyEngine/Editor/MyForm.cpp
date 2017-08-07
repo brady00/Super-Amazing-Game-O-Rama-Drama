@@ -16,12 +16,12 @@ void Main(array<String^>^ args)
 
 namespace Editor
 {
-	void ObjectTreeView_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e)
+	void MyForm::ObjectTreeView_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e)
 	{
 
 	}
 
-	void Form_OnLoad(System::Object^  sender, System::EventArgs^  e)
+	void MyForm::Form_OnLoad(System::Object^  sender, System::EventArgs^  e)
 	{
 
 	}
