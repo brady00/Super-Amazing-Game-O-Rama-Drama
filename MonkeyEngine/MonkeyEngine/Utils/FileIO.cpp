@@ -46,7 +46,7 @@ namespace MonkeyEngine
 
 		}
 
-		bool FileIO::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, MEObject::Material* _Material)
+		bool FileIO::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, MEObject::Material*& _Material)
 		{
 			std::string filepart;
 			std::ifstream FileIn;
@@ -66,6 +66,49 @@ namespace MonkeyEngine
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].binormal), sizeof(DirectX::XMFLOAT4));
+				}
+				char* dif, *emis, *gloss, *normal, *spec;
+				unsigned int length;
+				_Material = new Material();
+				FileIn.read((char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					dif = new char[length];
+					FileIn.read(dif, length);
+					_Material->mDiffuseMapName = string(dif);
+					delete dif;
+				}
+				FileIn.read((char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					emis = new char[length];
+					FileIn.read(emis, length);
+					_Material->mEmissiveMapName = string(emis);
+					delete emis;
+				}
+				FileIn.read((char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					gloss = new char[length];
+					FileIn.read(gloss, length);
+					_Material->mGlossMapName = string(gloss);
+					delete gloss;
+				}
+				FileIn.read((char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					normal = new char[length];
+					FileIn.read(normal, length);
+					_Material->mNormalMapName = string(normal);
+					delete normal;
+				}
+				FileIn.read((char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					spec = new char[length];
+					FileIn.read(spec, length);
+					_Material->mSpecularMapName = string(spec);
+					delete spec;
 				}
 				/*FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
 				_Indicies = new unsigned int[_NumIndicies];
@@ -102,7 +145,12 @@ namespace MonkeyEngine
 			//for (unsigned int i = 0; i < m_vTriangles.size(); ++i)
 			//	for (unsigned int j = 2; j < 3; ++j)
 			//		_Indicies[i * 3 + j] = m_vTriangles[i].mIndices[2 - j];
-			_Material = m_mMaterialLookUp[0];
+			_Material = new Material();
+			_Material->mDiffuseMapName = m_mMaterialLookUp[0]->mDiffuseMapName;
+			_Material->mEmissiveMapName = m_mMaterialLookUp[0]->mEmissiveMapName;
+			_Material->mGlossMapName = m_mMaterialLookUp[0]->mGlossMapName;
+			_Material->mNormalMapName = m_mMaterialLookUp[0]->mNormalMapName;
+			_Material->mSpecularMapName = m_mMaterialLookUp[0]->mSpecularMapName;
 			std::ofstream out;
 			out.open(filepart + std::string(".Bfbx"), std::ios_base::binary);
 			if (out.is_open())
@@ -118,6 +166,36 @@ namespace MonkeyEngine
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
 					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].binormal), sizeof(DirectX::XMFLOAT4));
+				}
+				unsigned int length = (unsigned int)_Material->mDiffuseMapName.length() + 1;
+				out.write((const char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					out.write(_Material->mDiffuseMapName.c_str(), length);
+				}
+				length = (unsigned int)_Material->mEmissiveMapName.length() + 1;
+				out.write((const char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					out.write(_Material->mEmissiveMapName.c_str(), length);
+				}
+				length = (unsigned int)_Material->mGlossMapName.length() + 1;
+				out.write((const char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					out.write(_Material->mGlossMapName.c_str(), length);
+				}
+				length = (unsigned int)_Material->mNormalMapName.length() + 1;
+				out.write((const char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					out.write(_Material->mNormalMapName.c_str(), length);
+				}
+				length = (unsigned int)_Material->mSpecularMapName.length() + 1;
+				out.write((const char*)&length, sizeof(unsigned int));
+				if (length > 1)
+				{
+					out.write(_Material->mSpecularMapName.c_str(), length);
 				}
 				/*out.write((const char*)& _NumIndicies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumIndicies; i++)
@@ -688,7 +766,7 @@ namespace MonkeyEngine
 			index = 0;
 
 			// Go through all the faces and calculate the the tangent, binormal, and normal vectors.
-			for (i = 0; i<faceCount; i++)
+			for (i = 0; i < faceCount; i++)
 			{
 				// Get the three vertices for this face from the model.
 				vertex1.position.x = m_vVertices[index].position.x;
@@ -1253,7 +1331,7 @@ namespace MonkeyEngine
 									{
 										ioMaterial->mSpecularMapName = fileTexture->GetFileName();
 									}
-									else if (textureType == "Bump")
+									else if (textureType == "NormalMap")
 									{
 										ioMaterial->mNormalMapName = fileTexture->GetFileName();
 									}

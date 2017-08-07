@@ -18,8 +18,9 @@
 *.out
 *.app
 
-# Config
+# Other Files
 config.txt
+Test.Bfbx
 
 *Debug/
 *Release/

@@ -195,6 +195,11 @@ namespace MonkeyEngine
 		bool RenderMesh::LoadTexture(std::string _TextureFileName, RenderTexture*& _Texture)
 		{
 			_Texture = new RenderTexture;
+			if (!temp_Material)
+			{
+				temp_Material = new Material();
+				temp_Material->mDiffuseMapName = _TextureFileName;
+			}
 			return _Texture->Load(temp_Material);
 		}
 	}

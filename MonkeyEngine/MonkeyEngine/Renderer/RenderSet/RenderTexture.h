@@ -18,7 +18,7 @@ namespace MonkeyEngine
 		{
 			friend MEFileIO::FileIO;
 		private:
-			ID3D11SamplerState*			m_d3SamplerState;
+			ID3D11SamplerState*	m_d3SamplerState;
 			MEObject::Material* m_Material;
 			RenderSet* m_pRenderShapes;
 		public:

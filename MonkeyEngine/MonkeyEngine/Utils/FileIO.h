@@ -26,7 +26,7 @@ namespace MonkeyEngine
 		public:
 			FileIO();
 			~FileIO();
-			static bool LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, MEObject::Material* _Material);
+			static bool LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, MEObject::Material*& _Material);
 			static bool LoadOBJ(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies);
 			//scene
 			static bool LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects);

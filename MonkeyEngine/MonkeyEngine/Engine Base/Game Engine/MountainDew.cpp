@@ -87,7 +87,7 @@ namespace MonkeyEngine
 	{
 		m_pScene->Shutdown();
 		delete m_pScene;
-		//m_pSettings->Shutdown();
+		//m_pSettings->Shutdown(); // Called in Settings Destructor
 		delete m_pSettings;
 		m_pRenderer->Shutdown();
 		delete m_pRenderer;
@@ -101,7 +101,7 @@ void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight)
 	temp->m_pRenderer = new MERenderer::Renderer;
 	temp->m_pRenderer->Initialize(window, _ScreenWidth, _ScreenHeight);
 	Time::Initialize();
-	Settings::GetInstance()->Initialize("../../../Engine Base/Settings/config.txt");
+	Settings::GetInstance()->Initialize("../../../MonkeyEngine/Engine Base/Settings/config.txt");
 	std::vector<MEObject::GameObject*> objects;
 	temp->m_pScene = new Scene;
 	temp->m_pScene->initialize(_ScreenWidth, _ScreenHeight);
