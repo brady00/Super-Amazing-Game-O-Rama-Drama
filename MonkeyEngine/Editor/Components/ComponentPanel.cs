@@ -9,6 +9,12 @@ using System.Windows.Forms;
 
 namespace Editor
 {
+    struct ComponentElement
+    {
+        public List<Label> Labels;
+        public List<TextBox> TextBoxes;
+    }
+
     class ComponentPanel : Panel
     {
         public Button CollapseButton;
@@ -28,7 +34,7 @@ namespace Editor
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // label1
             // 
             this.label1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -86,8 +92,9 @@ namespace Editor
             }
         }
         List<string> FunctionNames;
-        List<object> Getters = new List<object>();
-        List<object> Setters = new List<object>();
+        List<MethodInfo> Getters = new List<MethodInfo>();
+        List<MethodInfo> Setters = new List<MethodInfo>();
+        ComponentElement compElem;
         public void CreatePanel(Panel InspectorBackgroundPanel, uint Index)
         {
             Point p = Form1.ComponentStartingLocation;
@@ -117,6 +124,23 @@ namespace Editor
                     Getters.Add(Comp.GetType().GetMethod(str));
                 if (str.Contains("set_") && !str.Contains("_Name") && !str.Contains("_Flags"))
                     Setters.Add(Comp.GetType().GetMethod(str));
+            }
+
+            for (int i = 0; i < Getters.Count; i++)
+            {
+                switch (Getters[i].ReturnType.Name)
+                {
+                    case "Float3":
+                        compElem.Labels.Add(new Label());
+                        compElem.Labels.Add(new Label());
+                        compElem.Labels.Add(new Label());
+                        compElem.TextBoxes.Add(new TextBox());
+                        compElem.TextBoxes.Add(new TextBox());
+                        compElem.TextBoxes.Add(new TextBox());
+                        break;
+                    default:
+                        break;
+                }
             }
             //String == textbox
             //Gameobject == Box

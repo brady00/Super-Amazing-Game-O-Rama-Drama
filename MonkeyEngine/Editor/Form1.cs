@@ -36,11 +36,6 @@ namespace Editor
             InitializeComponent();
         }
 
-        private void LoadGameObjectRecursively()
-        {
-
-        }
-
         unsafe private void Form1_Load(object sender, EventArgs e)
         {
             InitializeEngine(RenderingPanel.Handle, RenderingPanel.Width, RenderingPanel.Height);
