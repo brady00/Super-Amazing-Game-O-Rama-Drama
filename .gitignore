@@ -25,3 +25,5 @@ config.txt
 *Release/
 *.VC
 *.vs
+*.dc
+*.opendb
