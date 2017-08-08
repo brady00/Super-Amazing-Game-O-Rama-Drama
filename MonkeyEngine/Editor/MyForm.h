@@ -374,6 +374,7 @@ namespace Editor {
 			// Timer
 			// 
 			this->Timer->Interval = 1;
+			this->Timer->Tick += gcnew System::EventHandler(this, &MyForm::Timer_Tick);
 			// 
 			// menuStrip1
 			// 
@@ -620,6 +621,6 @@ namespace Editor {
 #pragma endregion
 	private: void ObjectTreeView_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e);
 	private: void Form_OnLoad(System::Object^  sender, System::EventArgs^  e);
-
-};
+	private: void Timer_Tick(System::Object^  sender, System::EventArgs^  e);
+	};
 }

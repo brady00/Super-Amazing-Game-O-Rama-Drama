@@ -55,49 +55,49 @@ namespace MonkeyEngine
 			char *byteCode = nullptr;
 			size_t byteCodeSize;
 #pragma region VertexShaders
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POS_VS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POS_VS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POS]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_VS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_VS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSCOLOR]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSTEX_VS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSTEX_VS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSTEX]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_VS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_VS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSNORMTEX]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_VS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_VS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSNORMTANTEX]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_VS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_VS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSBONEWEIGHT]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_VS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_VS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSBONEWEIGHTNORMTEX]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_VS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_VS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_POSBONEWEIGHTNORMTANTEX]);
 				delete[] byteCode;
@@ -105,168 +105,168 @@ namespace MonkeyEngine
 			}
 #pragma endregion
 #pragma region PixelShaders
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POS_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POS_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POS]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSCOLOR]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/GBuffer_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/GBuffer_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/Default_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/Default_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSNORMTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSNORMTANTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSBONEWEIGHT]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSBONEWEIGHTNORMTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSBONEWEIGHTNORMTANTEX]);
 				delete[] byteCode;
 			}
 #pragma endregion
 #pragma region GeometryShaders
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POS_GS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POS_GS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateGeometryShader(byteCode, byteCodeSize, nullptr, &m_d3GeometryShaders[eShader_POS]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_GS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_GS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateGeometryShader(byteCode, byteCodeSize, nullptr, &m_d3GeometryShaders[eShader_POSCOLOR]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSTEX_GS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSTEX_GS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateGeometryShader(byteCode, byteCodeSize, nullptr, &m_d3GeometryShaders[eShader_POSTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_GS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_GS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateGeometryShader(byteCode, byteCodeSize, nullptr, &m_d3GeometryShaders[eShader_POSNORMTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_GS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_GS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateGeometryShader(byteCode, byteCodeSize, nullptr, &m_d3GeometryShaders[eShader_POSNORMTANTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_GS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_GS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateGeometryShader(byteCode, byteCodeSize, nullptr, &m_d3GeometryShaders[eShader_POSBONEWEIGHT]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_GS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_GS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateGeometryShader(byteCode, byteCodeSize, nullptr, &m_d3GeometryShaders[eShader_POSBONEWEIGHTNORMTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_GS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_GS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateGeometryShader(byteCode, byteCodeSize, nullptr, &m_d3GeometryShaders[eShader_POSBONEWEIGHTNORMTANTEX]);
 				delete[] byteCode;
 			}
 #pragma endregion
 #pragma region DomainShaders
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POS_DS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POS_DS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateDomainShader(byteCode, byteCodeSize, nullptr, &m_d3DomainShaders[eShader_POS]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_DS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_DS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateDomainShader(byteCode, byteCodeSize, nullptr, &m_d3DomainShaders[eShader_POSCOLOR]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSTEX_DS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSTEX_DS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateDomainShader(byteCode, byteCodeSize, nullptr, &m_d3DomainShaders[eShader_POSTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_DS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_DS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateDomainShader(byteCode, byteCodeSize, nullptr, &m_d3DomainShaders[eShader_POSNORMTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_DS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_DS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateDomainShader(byteCode, byteCodeSize, nullptr, &m_d3DomainShaders[eShader_POSNORMTANTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_DS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_DS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateDomainShader(byteCode, byteCodeSize, nullptr, &m_d3DomainShaders[eShader_POSBONEWEIGHT]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_DS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_DS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateDomainShader(byteCode, byteCodeSize, nullptr, &m_d3DomainShaders[eShader_POSBONEWEIGHTNORMTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_DS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_DS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateDomainShader(byteCode, byteCodeSize, nullptr, &m_d3DomainShaders[eShader_POSBONEWEIGHTNORMTANTEX]);
 				delete[] byteCode;
 			}
 #pragma endregion
 #pragma region HullShaders
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POS_HS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POS_HS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateHullShader(byteCode, byteCodeSize, nullptr, &m_d3HullShaders[eShader_POS]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_HS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_HS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateHullShader(byteCode, byteCodeSize, nullptr, &m_d3HullShaders[eShader_POSCOLOR]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSTEX_HS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSTEX_HS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateHullShader(byteCode, byteCodeSize, nullptr, &m_d3HullShaders[eShader_POSTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_HS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_HS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateHullShader(byteCode, byteCodeSize, nullptr, &m_d3HullShaders[eShader_POSNORMTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_HS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_HS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateHullShader(byteCode, byteCodeSize, nullptr, &m_d3HullShaders[eShader_POSNORMTANTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_HS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_HS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateHullShader(byteCode, byteCodeSize, nullptr, &m_d3HullShaders[eShader_POSBONEWEIGHT]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_HS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_HS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateHullShader(byteCode, byteCodeSize, nullptr, &m_d3HullShaders[eShader_POSBONEWEIGHTNORMTEX]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_HS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_HS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateHullShader(byteCode, byteCodeSize, nullptr, &m_d3HullShaders[eShader_POSBONEWEIGHTNORMTANTEX]);
 				delete[] byteCode;

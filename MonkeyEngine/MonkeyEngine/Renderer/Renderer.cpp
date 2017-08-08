@@ -10,7 +10,6 @@ namespace MonkeyEngine
 	{
 		ID3D11Device* Renderer::m_d3Device = nullptr;
 		ID3D11DeviceContext* Renderer::m_d3DeviceContext = nullptr;
-		std::mutex Renderer::m_DeviceContextMutex;
 		IDXGISwapChain*	Renderer::m_d3SwapChain = nullptr;
 		ID3D11RenderTargetView* Renderer::m_d3BackBufferTargetView = nullptr;
 		ID3D11Texture2D* Renderer::m_d3DepthBuffer = nullptr;
@@ -107,7 +106,6 @@ namespace MonkeyEngine
 			m_dPrevFrame = li.QuadPart;
 			if (false)
 				m_fFPS = 1.0f / DeltaTime;
-			Renderer::m_DeviceContextMutex.lock();
 			m_d3DeviceContext->RSSetViewports(1, &m_d3ViewPort);
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 			m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
@@ -122,7 +120,6 @@ namespace MonkeyEngine
 
 			//draw quad
 			m_pDeferredRenderTarget->Update();
-			Renderer::m_DeviceContextMutex.unlock();
 			m_d3SwapChain->Present(0, 0);
 		}
 
