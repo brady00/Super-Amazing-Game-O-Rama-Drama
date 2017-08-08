@@ -17,6 +17,10 @@ namespace Editor
 
     class ComponentPanel : Panel
     {
+        List<string> FunctionNames;
+        List<MethodInfo> Getters = new List<MethodInfo>();
+        List<MethodInfo> Setters = new List<MethodInfo>();
+        ComponentElement compElem;
         public Button CollapseButton;
         public uint Index;
         private Label label1;
@@ -91,10 +95,7 @@ namespace Editor
                 Form1.ButtonCollapsed(Index);
             }
         }
-        List<string> FunctionNames;
-        List<MethodInfo> Getters = new List<MethodInfo>();
-        List<MethodInfo> Setters = new List<MethodInfo>();
-        ComponentElement compElem;
+
         public void CreatePanel(Panel InspectorBackgroundPanel, uint Index)
         {
             Point p = Form1.ComponentStartingLocation;

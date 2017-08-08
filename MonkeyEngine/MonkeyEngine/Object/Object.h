@@ -14,23 +14,14 @@ namespace MonkeyEngine
 		public:
 			Object();
 			virtual ~Object();
-			string GetName();
-			void SetName(std::string _Name);
-			unsigned int GetFlags();
-			void SetFlags(unsigned int _Flags);
+			string __declspec(dllexport) GetName();
+			void __declspec(dllexport) SetName(std::string _Name);
+			unsigned int __declspec(dllexport) GetFlags();
+			void __declspec(dllexport) SetFlags(unsigned int _Flags);
 		private:
 			virtual void Initialize() {};
 			virtual void Update() {};
 			virtual void ShutDown() {};
 		};
 	}
-}
-
-extern "C"
-{
-	__declspec(dllexport) char GetObjectNameChar(MonkeyEngine::MEObject::Object* _object, unsigned int _index);
-	__declspec(dllexport) unsigned int GetObjectNameSize(MonkeyEngine::MEObject::Object* _object);
-	__declspec(dllexport) void SetObjectName(MonkeyEngine::MEObject::Object* _object, const char* _Name);
-	__declspec(dllexport) unsigned int GetObjectFlags(MonkeyEngine::MEObject::Object* _object);
-	__declspec(dllexport) void SetObjectFlags(MonkeyEngine::MEObject::Object* _object, unsigned int _Flags);
 }

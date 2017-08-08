@@ -119,8 +119,7 @@ void ShutdownEngine()
 	MountainDew::DestroyInstance();
 }
 
-MonkeyEngine::MEObject::GameObject** GetSceneObjects(unsigned int& _amount)
+std::vector<MonkeyEngine::MEObject::GameObject*>& GetSceneObjects()
 {
-	_amount = (unsigned int)MountainDew::GetInstance()->m_pScene->GetObjects().size();
-	return &MountainDew::GetInstance()->m_pScene->GetObjects()[0];
+	return MountainDew::GetInstance()->m_pScene->GetObjects();
 }

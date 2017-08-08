@@ -39,18 +39,7 @@ namespace MonkeyEngine
 extern "C"
 {
 	__declspec(dllexport) void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight);
-}
-extern "C"
-{
 	__declspec(dllexport) void UpdateEngine();
-}
-
-extern "C"
-{
 	__declspec(dllexport) void ShutdownEngine();
-}
-
-extern "C"
-{
-	__declspec(dllexport) MonkeyEngine::MEObject::GameObject** GetSceneObjects(unsigned int& _amount);
+	__declspec(dllexport) std::vector<MonkeyEngine::MEObject::GameObject*>& GetSceneObjects();
 }
