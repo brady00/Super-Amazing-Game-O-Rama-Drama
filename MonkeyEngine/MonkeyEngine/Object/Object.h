@@ -15,6 +15,7 @@ namespace MonkeyEngine
 			Object();
 			virtual ~Object();
 			string __declspec(dllexport) GetName();
+			const char __declspec(dllexport) *GetCharName();
 			void __declspec(dllexport) SetName(std::string _Name);
 			unsigned int __declspec(dllexport) GetFlags();
 			void __declspec(dllexport) SetFlags(unsigned int _Flags);

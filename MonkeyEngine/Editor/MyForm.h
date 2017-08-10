@@ -1,4 +1,6 @@
 #pragma once
+#include "GameObject\GameObject.h"
+#include "ComponentPanel.h"
 namespace Editor {
 
 	using namespace System;
@@ -33,6 +35,7 @@ namespace Editor {
 				delete components;
 			}
 		}
+	private: static cli::array<ComponentPanel^>^ CompPanels;
 	private: System::Windows::Forms::SplitContainer^  splitContainer1;
 	private: System::Windows::Forms::SplitContainer^  splitContainer2;
 	private: System::Windows::Forms::SplitContainer^  splitContainer3;
@@ -84,7 +87,7 @@ namespace Editor {
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator5;
 	private: System::Windows::Forms::ToolStripMenuItem^  aboutToolStripMenuItem;
 	private: System::ComponentModel::IContainer^  components;
-	private:
+	private: TreeNode^ PrevSelectedObject;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -621,5 +624,7 @@ namespace Editor {
 	private: void ObjectTreeView_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e);
 	private: void Form_OnLoad(System::Object^  sender, System::EventArgs^  e);
 	private: void Timer_Tick(System::Object^  sender, System::EventArgs^  e);
+	public:	static void MyForm::ButtonCollapsed(unsigned int buttonIndex, MonkeyEngine::MEObject::GameObject* _Object);
+	public: static void MyForm::ButtonExpanded(unsigned int buttonIndex, MonkeyEngine::MEObject::GameObject* _Object);
 	};
 }
