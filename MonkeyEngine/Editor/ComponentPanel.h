@@ -87,9 +87,9 @@ namespace Editor {
 			this->CollapseButton->Name = "CollapseButton";
 			this->CollapseButton->Size = System::Drawing::Size(19, 23);
 			this->CollapseButton->TabIndex = 1;
-			this->CollapseButton->Text = "▶";
+			this->CollapseButton->Text = ">";
 			this->CollapseButton->UseVisualStyleBackColor = false;
-			//this->CollapseButton->Click += gcnew System::EventHandler(this, &ComponentPanel::CollapseButton_Click);
+			this->CollapseButton->Click += gcnew System::EventHandler(this, &ComponentPanel::CollapseButton_Click);
 			// 
 			// ComponentPanel
 			// 

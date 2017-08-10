@@ -137,7 +137,7 @@ namespace MonkeyEngine
 			void AddTag(std::string _Tag);
 			void RemoveTag(std::string _Tag);
 			std::vector<std::string>& GetTags();
-			Transform* GetTransform();
+			Transform __declspec(dllexport) *GetTransform();
 			void AddComponent(Component* _Component, COMPONENT_ID _ID);
 			void RemoveComponent(Component* _Component, COMPONENT_ID _ID);
 			void BroadcastMessage(std::string _Message);
@@ -159,8 +159,8 @@ namespace MonkeyEngine
 			template <typename CompType>
 			std::vector<CompType*> GetComponentsinParent();
 
-			std::vector<Component*>& GetAllComponents();
-			std::vector<Component*>& GetAllScritps();
+			std::vector<Component*> __declspec(dllexport) &GetAllComponents();
+			std::vector<Component*> __declspec(dllexport) &GetAllScritps();
 		private:
 			void Initialize();
 			void Update();

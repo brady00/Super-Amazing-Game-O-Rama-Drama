@@ -4,15 +4,15 @@ namespace Editor
 {
 	void ComponentPanel::CollapseButton_Click(System::Object^ sender, EventArgs^ e)
 	{
-		if (CollapseButton->Text == "▶")
+		if (CollapseButton->Text == ">")
 		{
-			CollapseButton->Text = "▼";
+			CollapseButton->Text = "V";
 			this->Size = System::Drawing::Size(this->MinimumSize.Width, 200);
 			MyForm::ButtonExpanded(Index, Parent);
 		}
 		else
 		{
-			CollapseButton->Text = "▶";
+			CollapseButton->Text = ">";
 			this->Size = System::Drawing::Size(this->MinimumSize.Width, this->MinimumSize.Height);
 			MyForm::ButtonCollapsed(Index, Parent);
 		}
@@ -32,7 +32,7 @@ namespace Editor
 		this->Size = System::Drawing::Size(335, 23);
 		this->TabIndex = 18;
 		this->Visible = false;
-		this->CompLabel->Text = gcnew System::String(Comp->GetName().c_str());
+		this->CompLabel->Text = gcnew System::String(Comp->GetCharName());
 		this->AutoScroll = false;
 		this->BringToFront();
 		this->Invalidate();

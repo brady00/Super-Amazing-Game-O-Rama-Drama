@@ -35,7 +35,7 @@ namespace Editor {
 				delete components;
 			}
 		}
-	private: static cli::array<ComponentPanel^>^ CompPanels;
+	private: static cli::array<ComponentPanel^>^ CompPanels = gcnew cli::array<ComponentPanel^>(100);
 	private: System::Windows::Forms::SplitContainer^  splitContainer1;
 	private: System::Windows::Forms::SplitContainer^  splitContainer2;
 	private: System::Windows::Forms::SplitContainer^  splitContainer3;
@@ -621,6 +621,8 @@ namespace Editor {
 
 		}
 #pragma endregion
+	private: void GUIActivate(MonkeyEngine::MEObject::GameObject* _object);
+	private: void GUIDeactivate(MonkeyEngine::MEObject::GameObject* _object);
 	private: void ObjectTreeView_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e);
 	private: void Form_OnLoad(System::Object^  sender, System::EventArgs^  e);
 	private: void Timer_Tick(System::Object^  sender, System::EventArgs^  e);
