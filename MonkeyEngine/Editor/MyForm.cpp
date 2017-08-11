@@ -1,6 +1,8 @@
 #include "MyForm.h"
 //#include "Engine Base\Game Engine\MountainDew.h"
 #include "../MonkeyEngine/Engine Base/Game Engine/MountainDew.h"
+#include "Components\Transform\Transform.h"
+
 #include "ComponentPanel.h"
 #include <unordered_map>
 #include <string>
@@ -36,10 +38,12 @@ namespace Editor
 			ActiveBox->Checked = GameObjectMap[TextBoxName]->GetActive();
 			StaticBox->Checked = GameObjectMap[TextBoxName]->GetStatic();
 			LayerComboBox->SelectedIndex = (int)GameObjectMap[TextBoxName]->GetLayer();
-			//Components = GameObjectMap[NameBox->Text]->Components;
-			//GameObjectMap[NameBox->Text]->GUIActivate();
-			//if (PrevSelectedObject != null)
-			//	GameObjectMap[PrevSelectedObject->Text]->GUIDeactivate();
+			GUIActivate(GameObjectMap[TextBoxName]);
+			if (PrevSelectedObject != nullptr)
+			{
+				std::string PrevTextBoxName((const char*)(Marshal::StringToHGlobalAnsi(PrevSelectedObject->Text)).ToPointer());
+				GUIDeactivate(GameObjectMap[PrevTextBoxName]);
+			}
 			InspectorBackgroundPanel->Refresh();
 			splitContainer1->Panel2->Refresh();
 			PrevSelectedObject = ObjectTreeView->SelectedNode;
@@ -59,14 +63,37 @@ namespace Editor
 		this->SetStyle(ControlStyles::OptimizedDoubleBuffer, true);
 		this->SetStyle(ControlStyles::ResizeRedraw, true);
 		GameObjects = GetSceneObjects();
+		unsigned int compIndex = 0;
 		for (unsigned int i = 0; i < GameObjects.size(); i++)
 		{
+			CompStartIndex[GameObjects[i]] = compIndex;
 			System::String^ ObjectName = gcnew System::String(GameObjects[i]->GetCharName());
 			ObjectTreeView->Nodes->Add(ObjectName);
-			/*for (unsigned int j = 0; j < GameObjects[i]->GetAllComponents().size(); j++)
+			std::vector<MonkeyEngine::MEObject::Component*>& comps = GameObjects[i]->GetAllComponents();
+			std::vector<MonkeyEngine::MEObject::Component*>& scripts = GameObjects[i]->GetAllScritps();
+			MonkeyEngine::MEObject::Component* transform = (MonkeyEngine::MEObject::Component*)GameObjects[i]->GetTransform();
+			CompSize[GameObjects[i]] = comps.size() + scripts.size() + 1;
+			CompPanels[compIndex] = gcnew ComponentPanel();
+			CompPanels[compIndex]->Comp = transform;
+			CompPanels[compIndex]->Parent = GameObjects[i];
+			CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, 0);
+			compIndex++;
+			for (unsigned int j = 0; j < comps.size(); j++)
 			{
-				Object.Components[j].CreatePanel(InspectorBackgroundPanel, j);
-			}*/
+				CompPanels[compIndex] = gcnew ComponentPanel();
+				CompPanels[compIndex]->Parent = GameObjects[i];
+				CompPanels[compIndex]->Comp = comps[j];
+				CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, j + 1);
+				compIndex++;
+			}
+			for (unsigned int j = 0; j < scripts.size(); j++)
+			{
+				CompPanels[compIndex] = gcnew ComponentPanel();
+				CompPanels[compIndex]->Parent = GameObjects[i];
+				CompPanels[compIndex]->Comp = scripts[j];
+				CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, j + 1 + comps.size());
+				compIndex++;
+			}
 			GameObjectMap[std::string(GameObjects[i]->GetCharName())] = GameObjects[i];
 		}
 	}
@@ -101,5 +128,17 @@ namespace Editor
 		{
 			CompPanels[i + startIndex]->Location = Point(CompPanels[buttonIndex + startIndex]->Location.X, CompPanels[i + startIndex]->Location.Y + CompPanels[buttonIndex + startIndex]->Size.Height - CompPanels[buttonIndex + startIndex]->MinimumSize.Height);
 		}
+	}
+
+	void MyForm::GUIActivate(MonkeyEngine::MEObject::GameObject* _object)
+	{
+		for (unsigned int i = CompStartIndex[_object]; i < CompStartIndex[_object] + CompSize[_object]; i++)
+			CompPanels[i]->Show();
+	}
+
+	void MyForm::GUIDeactivate(MonkeyEngine::MEObject::GameObject* _object)
+	{
+		for (unsigned int i = CompStartIndex[_object]; i < CompStartIndex[_object] + CompSize[_object]; i++)
+			CompPanels[i]->Hide();
 	}
 }
