@@ -114,7 +114,7 @@ void ResizeEngine(int _ScreenWidth, int _ScreenHeight)
 	if (temp != nullptr)
 	{
 		temp->Resize((UINT)_ScreenWidth, (UINT)_ScreenHeight);
-		UpdateEngine();
+		//UpdateEngine();
 	}
 	delete temp;
 }

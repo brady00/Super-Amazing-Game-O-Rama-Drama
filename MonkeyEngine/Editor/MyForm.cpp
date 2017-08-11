@@ -1,8 +1,8 @@
 #include "MyForm.h"
 //#include "Engine Base\Game Engine\MountainDew.h"
 #include "../MonkeyEngine/Engine Base/Game Engine/MountainDew.h"
-#include "Components\Transform\Transform.h"
-
+//#include "Components\Transform\Transform.h"
+#include "../MonkeyEngine/Components/Transform/Transform.h"
 #include "ComponentPanel.h"
 #include <unordered_map>
 #include <string>
