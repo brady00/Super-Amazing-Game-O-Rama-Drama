@@ -18,8 +18,13 @@ namespace MonkeyEngine
 		void DebugCamera::Initialize(XMFLOAT4X4 _WorldMatrix, float _NearPlane, float _FarPlane, float _FOV, float _WindowHeight, float _WindowWidth)
 		{
 			m_xmViewMatrix = _WorldMatrix;
-			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(_FOV), _WindowHeight / _WindowWidth, _NearPlane, _FarPlane));
+			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(_FOV), _WindowWidth / _WindowHeight, _NearPlane, _FarPlane));
 			GetCursorPos(&m_pPrevMousePos);
+		}
+
+		void DebugCamera::Resize(float _NearPlane, float _FarPlane, float _FOV, float _WindowHeight, float _WindowWidth)
+		{
+			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(_FOV), (_WindowWidth / _WindowHeight), _NearPlane, _FarPlane));
 		}
 
 		void DebugCamera::Update()

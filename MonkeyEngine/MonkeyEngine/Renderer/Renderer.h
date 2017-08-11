@@ -20,7 +20,9 @@ namespace MonkeyEngine
 		class Camera;
 		class RenderContext;
 		class DefferedRenderTarget;
+		class DebugCamera;
 		using namespace DirectX;
+
 		class Renderer
 		{
 		private:
@@ -36,6 +38,7 @@ namespace MonkeyEngine
 			Renderer();
 			~Renderer();
 			void Initialize(HWND _window, UINT _ScreenWidth, UINT _ScreenHeight);
+			void Resize(UINT _ScreenWidth, UINT _ScreenHeight);
 			void Update();
 			void Shutdown();
 			static ID3D11Device* m_d3Device;

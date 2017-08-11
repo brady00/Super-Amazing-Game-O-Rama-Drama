@@ -1,5 +1,6 @@
 #pragma once
-#include "GameObject\GameObject.h"
+//#include "GameObject\GameObject.h"
+#include "../MonkeyEngine/GameObject/GameObject.h"
 #include "ComponentPanel.h"
 namespace Editor {
 
@@ -87,6 +88,9 @@ namespace Editor {
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator5;
 	private: System::Windows::Forms::ToolStripMenuItem^  aboutToolStripMenuItem;
 	private: System::ComponentModel::IContainer^  components;
+
+
+
 	private: TreeNode^ PrevSelectedObject;
 		/// <summary>
 		/// Required designer variable.
@@ -230,7 +234,7 @@ namespace Editor {
 			// 
 			this->splitContainer4->Panel2->Controls->Add(this->ObjectTreeView);
 			this->splitContainer4->Size = System::Drawing::Size(1344, 772);
-			this->splitContainer4->SplitterDistance = 950;
+			this->splitContainer4->SplitterDistance = 981;
 			this->splitContainer4->TabIndex = 0;
 			// 
 			// RenderingPanel
@@ -240,15 +244,16 @@ namespace Editor {
 			this->RenderingPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->RenderingPanel->Location = System::Drawing::Point(0, 0);
 			this->RenderingPanel->Name = L"RenderingPanel";
-			this->RenderingPanel->Size = System::Drawing::Size(950, 772);
+			this->RenderingPanel->Size = System::Drawing::Size(981, 772);
 			this->RenderingPanel->TabIndex = 11;
+			this->RenderingPanel->SizeChanged += gcnew System::EventHandler(this, &MyForm::RenderingPanel_SizeChanged);
 			// 
 			// ObjectTreeView
 			// 
 			this->ObjectTreeView->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ObjectTreeView->Location = System::Drawing::Point(0, 0);
 			this->ObjectTreeView->Name = L"ObjectTreeView";
-			this->ObjectTreeView->Size = System::Drawing::Size(390, 772);
+			this->ObjectTreeView->Size = System::Drawing::Size(359, 772);
 			this->ObjectTreeView->TabIndex = 13;
 			this->ObjectTreeView->AfterSelect += gcnew System::Windows::Forms::TreeViewEventHandler(this, &MyForm::ObjectTreeView_AfterSelect);
 			// 
@@ -624,7 +629,8 @@ namespace Editor {
 	private: void ObjectTreeView_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e);
 	private: void Form_OnLoad(System::Object^  sender, System::EventArgs^  e);
 	private: void Timer_Tick(System::Object^  sender, System::EventArgs^  e);
+	private: void RenderingPanel_SizeChanged(System::Object^  sender, System::EventArgs^  e);
 	public:	static void MyForm::ButtonCollapsed(unsigned int buttonIndex, MonkeyEngine::MEObject::GameObject* _Object);
 	public: static void MyForm::ButtonExpanded(unsigned int buttonIndex, MonkeyEngine::MEObject::GameObject* _Object);
-	};
+};
 }

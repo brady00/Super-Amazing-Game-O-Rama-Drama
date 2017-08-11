@@ -23,5 +23,6 @@ namespace MonkeyEngine
 		void Shutdown();
 
 		std::vector<MEObject::GameObject*>& GetObjects();
+		MERenderer::DebugCamera* GetDebugCamera();
 	};
 }

@@ -50,4 +50,8 @@ namespace MonkeyEngine
 	{
 		return m_vObjects;
 	}
+	MERenderer::DebugCamera* Scene::GetDebugCamera()
+	{
+		return m_pDebugCamera;
+	}
 }

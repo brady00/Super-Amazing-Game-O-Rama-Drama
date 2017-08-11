@@ -1,5 +1,6 @@
 #include "MyForm.h"
-#include "Engine Base\Game Engine\MountainDew.h"
+//#include "Engine Base\Game Engine\MountainDew.h"
+#include "../MonkeyEngine/Engine Base/Game Engine/MountainDew.h"
 #include "ComponentPanel.h"
 #include <unordered_map>
 #include <string>
@@ -74,6 +75,12 @@ namespace Editor
 	{
 		UpdateEngine();
 		this->Invalidate();
+	}
+
+	void MyForm::RenderingPanel_SizeChanged(System::Object ^ sender, System::EventArgs ^ e)
+	{
+		ResizeEngine(RenderingPanel->Width, RenderingPanel->Height);
+		//UpdateEngine();
 	}
 
 	void MyForm::ButtonCollapsed(unsigned int buttonIndex, MonkeyEngine::MEObject::GameObject* _Object)

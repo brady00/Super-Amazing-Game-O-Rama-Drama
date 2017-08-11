@@ -4,6 +4,8 @@
 #include "Containers\DefferedRenderTarget.h"
 #include "../Utils/MemoryManager.h"
 #include "RenderSet\RenderContext.h"
+#include "../Engine Base/Game Engine/MountainDew.h"
+#include "DebugCamera\DebugCamera.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -95,6 +97,57 @@ namespace MonkeyEngine
 			m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
 
 			m_pDeferredRenderTarget = new DefferedRenderTarget;
+			m_pDeferredRenderTarget->Initialize(m_d3Device, _ScreenHeight, _ScreenWidth);
+		}
+
+		void Renderer::Resize(UINT _ScreenWidth, UINT _ScreenHeight)
+		{
+			// Back Buffer
+			if (m_d3BackBufferTargetView != nullptr)
+				m_d3BackBufferTargetView->Release();
+
+			m_d3SwapChain->ResizeBuffers(1, _ScreenWidth, _ScreenHeight, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+			ID3D11Resource* resource;
+			m_d3SwapChain->GetBuffer(0, __uuidof(resource), (void**)(&resource));
+			m_d3Device->CreateRenderTargetView(resource, NULL, &m_d3BackBufferTargetView);
+			resource->Release();
+
+			// Viewport
+			ZeroMemory(&m_d3ViewPort, sizeof(D3D11_VIEWPORT));
+			m_d3ViewPort.Width = (FLOAT)_ScreenWidth;
+			m_d3ViewPort.Height = (FLOAT)_ScreenHeight;
+			m_d3ViewPort.TopLeftX = 0.0f;
+			m_d3ViewPort.TopLeftY = 0.0f;
+			m_d3ViewPort.MinDepth = 0.0f;
+			m_d3ViewPort.MaxDepth = 1.0f;
+
+			// Depth Buffer
+			if (m_d3DepthBuffer != nullptr)
+				m_d3DepthBuffer->Release();
+
+			D3D11_TEXTURE2D_DESC depthBufferDesc;
+			ZeroMemory(&depthBufferDesc, sizeof(depthBufferDesc));
+			depthBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+			depthBufferDesc.Format = DXGI_FORMAT_D32_FLOAT;
+			depthBufferDesc.Width = _ScreenWidth;
+			depthBufferDesc.Height = _ScreenHeight;
+			depthBufferDesc.ArraySize = 1;
+			depthBufferDesc.SampleDesc.Count = 1;
+			depthBufferDesc.SampleDesc.Quality = 0;
+			depthBufferDesc.MipLevels = 1;
+			m_d3Device->CreateTexture2D(&depthBufferDesc, 0, &m_d3DepthBuffer);
+
+			D3D11_DEPTH_STENCIL_VIEW_DESC depthViewDesc;
+			ZeroMemory(&depthViewDesc, sizeof(depthViewDesc));
+			depthViewDesc.Format = DXGI_FORMAT_D32_FLOAT;
+			depthViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+			depthViewDesc.Texture2D.MipSlice = 0;
+			m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
+
+			// Projection Matrix
+			MountainDew::GetInstance()->m_pScene->GetDebugCamera()->Resize(0.1f, 999999.9f, 90.0f, (float)_ScreenHeight, (float)_ScreenWidth);
+
+			// Render Target
 			m_pDeferredRenderTarget->Initialize(m_d3Device, _ScreenHeight, _ScreenWidth);
 		}
 

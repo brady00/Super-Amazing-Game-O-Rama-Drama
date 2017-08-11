@@ -1,6 +1,8 @@
 ﻿#pragma once
-#include "GameObject\GameObject.h"
-#include "Components\Base\Component.h"
+//#include "GameObject\GameObject.h"
+#include "../MonkeyEngine/GameObject/GameObject.h"
+//#include "Components\Base\Component.h"
+#include "../MonkeyEngine/Components/Base/Component.h"
 namespace Editor {
 	using namespace System;
 	using namespace System::ComponentModel;

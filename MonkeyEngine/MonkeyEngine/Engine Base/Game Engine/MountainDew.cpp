@@ -108,6 +108,17 @@ void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight)
 	MEFileIO::FileIO::LoadScene("../MonkeyEngine/Assets/Scenes/TestScene.mes", temp->m_pScene->m_vObjects);
 }
 
+void ResizeEngine(int _ScreenWidth, int _ScreenHeight)
+{
+	Renderer* temp = MountainDew::GetInstance()->m_pRenderer;
+	if (temp != nullptr)
+	{
+		temp->Resize((UINT)_ScreenWidth, (UINT)_ScreenHeight);
+		UpdateEngine();
+	}
+	delete temp;
+}
+
 void UpdateEngine()
 {
 	MountainDew::GetInstance()->Update();
