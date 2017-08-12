@@ -28,3 +28,8 @@ Test.Bfbx
 *.vs
 *.db
 *.opendb
+MonkeyEngine/Editor/MemoryMangerDebug.txt
+MonkeyEngine/Editor/MonkeyEngine.dll
+MonkeyEngine/Editor/MonkeyEngine.exp
+MonkeyEngine/Editor/MonkeyEngine.lib
+MonkeyEngine/Editor/MonkeyEngine.pdb
