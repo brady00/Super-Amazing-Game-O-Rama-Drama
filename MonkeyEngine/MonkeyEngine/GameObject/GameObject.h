@@ -126,18 +126,18 @@ namespace MonkeyEngine
 		public:
 			GameObject();
 			~GameObject();
-			void SetActive(bool _Active);
-			bool GetActive();
-			void SetStatic(bool _Static);
-			bool GetStatic();
-			void SetLayer(unsigned int _Layer);
-			unsigned int GetLayer();
+			void __declspec(dllexport) SetActive(bool _Active);
+			bool __declspec(dllexport) GetActive();
+			void __declspec(dllexport) SetStatic(bool _Static);
+			bool __declspec(dllexport) GetStatic();
+			void __declspec(dllexport) SetLayer(unsigned int _Layer);
+			unsigned int __declspec(dllexport) GetLayer();
 			void SetScene(Scene* _Scene);
 			Scene* GetScene();
 			void AddTag(std::string _Tag);
 			void RemoveTag(std::string _Tag);
 			std::vector<std::string>& GetTags();
-			Transform* GetTransform();
+			Transform __declspec(dllexport) *GetTransform();
 			void AddComponent(Component* _Component, COMPONENT_ID _ID);
 			void RemoveComponent(Component* _Component, COMPONENT_ID _ID);
 			void BroadcastMessage(std::string _Message);
@@ -159,8 +159,8 @@ namespace MonkeyEngine
 			template <typename CompType>
 			std::vector<CompType*> GetComponentsinParent();
 
-			std::vector<Component*>& GetAllComponents();
-			std::vector<Component*>& GetAllScritps();
+			std::vector<Component*> __declspec(dllexport) &GetAllComponents();
+			std::vector<Component*> __declspec(dllexport) &GetAllScritps();
 		private:
 			void Initialize();
 			void Update();
@@ -168,25 +168,4 @@ namespace MonkeyEngine
 			void SetActiveInHeirarchy();
 		};
 	}
-}
-
-extern "C"
-{
-	__declspec(dllexport) void SetGameObjectActive(MonkeyEngine::MEObject::GameObject* _object, bool _Active);
-	__declspec(dllexport) bool GetGameObjectActive(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) void SetGameObjectStatic(MonkeyEngine::MEObject::GameObject* _object, bool _Static);
-	__declspec(dllexport) bool GetGameObjectStatic(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) void SetGameObjectLayer(MonkeyEngine::MEObject::GameObject* _object, unsigned int _Layer);
-	__declspec(dllexport) unsigned int GetGameObjectLayer(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) void AddGameObjectTag(MonkeyEngine::MEObject::GameObject* _object, std::string _Tag);
-	__declspec(dllexport) void RemoveGameObjectTag(MonkeyEngine::MEObject::GameObject* _object, std::string _Tag); 
-						  //needs to be split
-	__declspec(dllexport) std::string* GetGameObjectTags(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) MonkeyEngine::MEObject::Transform* GetGameObjectTransform(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) void UpdateGameObjectTransform(MonkeyEngine::MEObject::GameObject* _Object, float posx, float posy, float posz, float rotx, float roty, float rotz, float scalex, float scaley, float scalez);
-	__declspec(dllexport) void RemoveGameObjectComponent(MonkeyEngine::MEObject::GameObject* _object, MonkeyEngine::MEObject::GameObject::COMPONENT_ID _ID, MonkeyEngine::MEObject::Component* _comp);
-	__declspec(dllexport) unsigned int GetGameObjectComponentCount(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) unsigned int GetGameObjectScriptCount(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) MonkeyEngine::MEObject::Component** GetGameObjectComponents(MonkeyEngine::MEObject::GameObject* _object);
-	__declspec(dllexport) MonkeyEngine::MEObject::Component** GetGameObjectScripts(MonkeyEngine::MEObject::GameObject* _object);
 }

@@ -105,7 +105,18 @@ void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight)
 	std::vector<MEObject::GameObject*> objects;
 	temp->m_pScene = new Scene;
 	temp->m_pScene->initialize(_ScreenWidth, _ScreenHeight);
-	MEFileIO::FileIO::LoadScene("../../../MonkeyEngine/Assets/Scenes/TestScene.mes", temp->m_pScene->m_vObjects);
+	MEFileIO::FileIO::LoadScene("../MonkeyEngine/Assets/Scenes/TestScene.mes", temp->m_pScene->m_vObjects);
+}
+
+void ResizeEngine(int _ScreenWidth, int _ScreenHeight)
+{
+	Renderer* temp = MountainDew::GetInstance()->m_pRenderer;
+	if (temp != nullptr)
+	{
+		temp->Resize((UINT)_ScreenWidth, (UINT)_ScreenHeight);
+		//UpdateEngine();
+	}
+	delete temp;
 }
 
 void UpdateEngine()
@@ -119,8 +130,7 @@ void ShutdownEngine()
 	MountainDew::DestroyInstance();
 }
 
-MonkeyEngine::MEObject::GameObject** GetSceneObjects(unsigned int& _amount)
+std::vector<MonkeyEngine::MEObject::GameObject*>& GetSceneObjects()
 {
-	_amount = (unsigned int)MountainDew::GetInstance()->m_pScene->GetObjects().size();
-	return &MountainDew::GetInstance()->m_pScene->GetObjects()[0];
+	return MountainDew::GetInstance()->m_pScene->GetObjects();
 }

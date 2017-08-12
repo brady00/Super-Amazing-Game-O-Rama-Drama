@@ -3,7 +3,6 @@
 #include <Windows.h>
 #include <DirectXMath.h>
 #include <d3d11.h>
-#include <mutex>
 #pragma comment(lib, "d3d11.lib")
 
 namespace MonkeyEngine
@@ -23,7 +22,9 @@ namespace MonkeyEngine
 		class Camera;
 		class RenderContext;
 		class DefferedRenderTarget;
+		class DebugCamera;
 		using namespace DirectX;
+
 		class Renderer
 		{
 		private:
@@ -40,11 +41,11 @@ namespace MonkeyEngine
 			Renderer();
 			~Renderer();
 			void Initialize(HWND _window, UINT _ScreenWidth, UINT _ScreenHeight);
+			void Resize(UINT _ScreenWidth, UINT _ScreenHeight);
 			void Update();
 			void Shutdown();
 			static ID3D11Device* m_d3Device;
 			static ID3D11DeviceContext* m_d3DeviceContext;
-			static std::mutex m_DeviceContextMutex;
 			static IDXGISwapChain* m_d3SwapChain;
 			static ID3D11RenderTargetView* m_d3BackBufferTargetView;
 			static ID3D11Texture2D* m_d3DepthBuffer;

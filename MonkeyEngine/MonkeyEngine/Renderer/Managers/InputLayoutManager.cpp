@@ -48,7 +48,7 @@ namespace MonkeyEngine
 		void InputLayoutManager::Initialize()
 		{
 			std::ifstream load;
-			load.open("../../../MonkeyEngine/Assets/ShaderCSO/POS_VS.cso", std::ios_base::binary);
+			load.open("../MonkeyEngine/Assets/ShaderCSO/POS_VS.cso", std::ios_base::binary);
 			load.seekg(0, std::ios_base::end);
 			size_t vs_byte_code_size = size_t(load.tellg());
 			char *vs_byte_code = new char[vs_byte_code_size];
@@ -67,7 +67,7 @@ namespace MonkeyEngine
 			vs_byte_code_size = 0;
 
 			// VERTEX_POSCOLOR
-			load.open("../../../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_VS.cso", std::ios_base::binary);
+			load.open("../MonkeyEngine/Assets/ShaderCSO/POSCOLOR_VS.cso", std::ios_base::binary);
 			load.seekg(0, std::ios_base::end);
 			vs_byte_code_size = size_t(load.tellg());
 			vs_byte_code = new char[vs_byte_code_size];
@@ -85,7 +85,7 @@ namespace MonkeyEngine
 			delete[] vs_byte_code;
 
 			//VERTEX_POSTEX
-			load.open("../../../MonkeyEngine/Assets/ShaderCSO/POSTEX_VS.cso", std::ios_base::binary);
+			load.open("../MonkeyEngine/Assets/ShaderCSO/POSTEX_VS.cso", std::ios_base::binary);
 			load.seekg(0, std::ios_base::end);
 			vs_byte_code_size = size_t(load.tellg());
 			vs_byte_code = new char[vs_byte_code_size];
@@ -104,7 +104,7 @@ namespace MonkeyEngine
 			delete[] vs_byte_code;
 
 			//VERTEX_POSNORMTEX
-			load.open("../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_VS.cso", std::ios_base::binary);
+			load.open("../MonkeyEngine/Assets/ShaderCSO/POSNORMTEX_VS.cso", std::ios_base::binary);
 			load.seekg(0, std::ios_base::end);
 			vs_byte_code_size = size_t(load.tellg());
 			vs_byte_code = new char[vs_byte_code_size];
@@ -124,7 +124,7 @@ namespace MonkeyEngine
 			delete[] vs_byte_code;
 
 			//VERTEX_POSNORMTANTEX
-			load.open("../../../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_VS.cso", std::ios_base::binary);
+			load.open("../MonkeyEngine/Assets/ShaderCSO/POSNORMTANTEX_VS.cso", std::ios_base::binary);
 			load.seekg(0, std::ios_base::end);
 			vs_byte_code_size = size_t(load.tellg());
 			vs_byte_code = new char[vs_byte_code_size];
@@ -145,7 +145,7 @@ namespace MonkeyEngine
 			delete[] vs_byte_code;
 
 			//VERTEX_POSBONEWEIGHT
-			load.open("../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_VS.cso", std::ios_base::binary);
+			load.open("../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHT_VS.cso", std::ios_base::binary);
 			load.seekg(0, std::ios_base::end);
 			vs_byte_code_size = size_t(load.tellg());
 			vs_byte_code = new char[vs_byte_code_size];
@@ -165,7 +165,7 @@ namespace MonkeyEngine
 
 
 			//VERTEX_POSBONEWEIGHTNORMTEX
-			load.open("../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_VS.cso", std::ios_base::binary);
+			load.open("../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTEX_VS.cso", std::ios_base::binary);
 			load.seekg(0, std::ios_base::end);
 			vs_byte_code_size = size_t(load.tellg());
 			vs_byte_code = new char[vs_byte_code_size];
@@ -186,7 +186,7 @@ namespace MonkeyEngine
 			delete[] vs_byte_code;
 
 			//VERTEX_POSBONEWEIGHTNORMTANTEX
-			load.open("../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_VS.cso", std::ios_base::binary);
+			load.open("../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_VS.cso", std::ios_base::binary);
 			load.seekg(0, std::ios_base::end);
 			vs_byte_code_size = size_t(load.tellg());
 			vs_byte_code = new char[vs_byte_code_size];

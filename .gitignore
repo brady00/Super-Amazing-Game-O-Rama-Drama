@@ -26,3 +26,5 @@ Test.Bfbx
 *Release/
 *.VC
 *.vs
+*.db
+*.opendb

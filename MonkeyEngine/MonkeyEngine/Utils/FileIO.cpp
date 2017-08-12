@@ -624,7 +624,7 @@ namespace MonkeyEngine
 				Triangle currTriangle;
 				m_vTriangles.push_back(currTriangle);
 
-				for (int j = 2; j > 0; --j)
+				for (int j = 2; j >= 0; --j)
 				{
 					int ctrlPointIndex = currMesh->GetPolygonVertex(i, j);
 					CtrlPoint* currCtrlPoint = m_mControlPoints[ctrlPointIndex];
@@ -1090,7 +1090,7 @@ namespace MonkeyEngine
 						ProcessJointsAndAnimations(inNode);
 					}
 					ProcessMesh(inNode);
-					CalculateModelVectors();
+					//CalculateModelVectors();
 					AssociateMaterialToMesh(inNode);
 					ProcessMaterials(inNode);
 					break;
