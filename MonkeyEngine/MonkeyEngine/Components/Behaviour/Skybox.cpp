@@ -73,10 +73,8 @@ namespace MonkeyEngine
 			};
 
 			m_BaseVertexLocation = IndexBuffer::GetInstance()->AddIndicies(indicies, 36);
-
-			m_VertexShader = ShaderManager::GetInstance()->GetVertexShader(ShaderManager::eShader_SKYBOX);
-			m_PixelShader = ShaderManager::GetInstance()->GetPixelShader(ShaderManager::eShader_SKYBOX);
-
+			m_VertexShader = ShaderManager::GetInstance()->GetVertexShader(ShaderManager::eShader_VS_SKYBOX);
+			m_PixelShader = ShaderManager::GetInstance()->GetPixelShader(ShaderManager::eShader_PS_SKYBOX);
 			m_Material.mName = "Skybox";
 			CreateDDSTextureFromFile(_device, _TextureFilePath, NULL, &m_Material.m_d3DiffuseTexture);
 		}
