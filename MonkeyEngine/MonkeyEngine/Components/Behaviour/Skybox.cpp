@@ -84,7 +84,6 @@ namespace MonkeyEngine
 			subResource.pSysMem = data;
 			subResource.SysMemPitch = 0;
 			subResource.SysMemSlicePitch = 0;
-
 			_device->CreateBuffer(&bufferDesc, &subResource, &m_VertexBuffer);
 
 			D3D11_BUFFER_DESC indexBufferDesc;
@@ -101,8 +100,8 @@ namespace MonkeyEngine
 
 			_device->CreateBuffer(&indexBufferDesc, &indexSubResource, &m_IndexBuffer);
 
-			m_VertexShader = ShaderManager::GetInstance()->GetVertexShader(ShaderManager::eShader_SKYBOX);
-			m_PixelShader = ShaderManager::GetInstance()->GetPixelShader(ShaderManager::eShader_SKYBOX);
+			m_VertexShader = ShaderManager::GetInstance()->GetVertexShader(ShaderManager::eShader_VS_SKYBOX);
+			m_PixelShader = ShaderManager::GetInstance()->GetPixelShader(ShaderManager::eShader_PS_SKYBOX);
 
 			D3D11_INPUT_ELEMENT_DESC layoutDesc[] =
 			{

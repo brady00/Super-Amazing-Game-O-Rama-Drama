@@ -107,8 +107,8 @@ namespace MonkeyEngine
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionTexBuffer().GetVertexBuffer();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 			Renderer::m_d3DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			Renderer::m_d3DeviceContext->VSSetShader(ShaderManager::GetInstance()->GetVertexShader((ShaderManager::ShaderType)VertexFormat::eVERTEX_POSTEX), 0, 0);
-			Renderer::m_d3DeviceContext->PSSetShader(ShaderManager::GetInstance()->GetPixelShader((ShaderManager::ShaderType)VertexFormat::eVERTEX_POSTEX), 0, 0);
+			Renderer::m_d3DeviceContext->VSSetShader(ShaderManager::GetInstance()->GetVertexShader((ShaderManager::VertexShaderType)VertexFormat::eVERTEX_POSTEX), 0, 0);
+			Renderer::m_d3DeviceContext->PSSetShader(ShaderManager::GetInstance()->GetPixelShader(ShaderManager::PixelShaderType::eShader_PS_GBUFFER), 0, 0);
 			Renderer::m_d3DeviceContext->PSSetShaderResources(0, 2, m_d3GBufferShaderView);
 			Renderer::m_d3DeviceContext->PSSetSamplers(0, 1, &m_d3SamplerState);
 			Renderer::m_d3DeviceContext->Draw(6, m_uiStartVert);

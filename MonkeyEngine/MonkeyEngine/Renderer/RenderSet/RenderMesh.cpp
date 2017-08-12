@@ -102,8 +102,8 @@ namespace MonkeyEngine
 			//primitive topology
 			Renderer::m_d3DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			//shaders
-			Renderer::m_d3DeviceContext->VSSetShader(ShaderManager::GetInstance()->GetVertexShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
-			Renderer::m_d3DeviceContext->PSSetShader(ShaderManager::GetInstance()->GetPixelShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
+			Renderer::m_d3DeviceContext->VSSetShader(ShaderManager::GetInstance()->GetVertexShader((ShaderManager::VertexShaderType)m_eVertexFormat), 0, 0);
+			Renderer::m_d3DeviceContext->PSSetShader(ShaderManager::GetInstance()->GetPixelShader(ShaderManager::PixelShaderType::eShader_PS_DEFAULT), 0, 0);
 			//Renderer::m_d3DeviceContext->GSSetShader(ShaderManager::GetInstance()->GetGeometryShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 			//Renderer::m_d3DeviceContext->DSSetShader(ShaderManager::GetInstance()->GetDomainShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 			//Renderer::m_d3DeviceContext->HSSetShader(ShaderManager::GetInstance()->GetHullShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);

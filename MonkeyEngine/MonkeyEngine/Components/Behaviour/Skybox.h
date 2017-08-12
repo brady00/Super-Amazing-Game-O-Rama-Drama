@@ -4,10 +4,9 @@
 #include "../Behaviour/Behaviour.h"
 #include "../../Renderer/TextureLoaders/DDSTextureLoader.h"
 #include "../../Renderer/Managers/ShaderManager.h"
-//#include "../../Renderer/Managers/InputLayoutManager.h"
 #include "../../Renderer/Managers/ConstantBufferManager.h"
 #include "../../Renderer/Containers/Material.h"
-#include "../../Renderer/RenderSet/RenderMesh.h"
+#include "../../Renderer/Managers/VertexBufferManager.h"
 using namespace DirectX;
 using namespace MonkeyEngine::MEObject;
 using namespace MonkeyEngine::MERenderer;
