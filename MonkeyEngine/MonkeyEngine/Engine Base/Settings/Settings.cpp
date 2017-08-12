@@ -3,7 +3,6 @@
 
 namespace MonkeyEngine
 {
-	// Set Singleton to nullptr
 	Settings* Settings::m_pSettingsPtr = nullptr;
 
 	Settings::Settings()

@@ -6,6 +6,8 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
+		DebugCamera* DebugCamera::m_pDebugCamera = new MERenderer::DebugCamera;
+
 		DebugCamera::DebugCamera()
 		{
 		}

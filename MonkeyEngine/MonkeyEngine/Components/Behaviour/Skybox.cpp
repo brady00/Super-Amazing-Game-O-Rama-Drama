@@ -7,7 +7,6 @@ namespace MonkeyEngine
 		Skybox::Skybox()
 		{
 			m_ObjectConstantBuffer = nullptr;
-			m_CameraConstantBuffer = nullptr;
 			m_VertexBuffer = nullptr;
 			m_IndexBuffer = nullptr;
 			m_VertexShader = nullptr;
@@ -20,8 +19,6 @@ namespace MonkeyEngine
 		{
 			if (m_ObjectConstantBuffer != nullptr)
 				m_ObjectConstantBuffer->Release();
-			if (m_CameraConstantBuffer != nullptr)
-				m_CameraConstantBuffer->Release();
 			if (m_VertexBuffer != nullptr)
 				m_VertexBuffer->Release();
 			if (m_IndexBuffer != nullptr)
@@ -46,7 +43,9 @@ namespace MonkeyEngine
 			data[6].position = { 0.5f, -0.5f, -0.5f };
 			data[7].position = { -0.5f, -0.5f, -0.5f };
 
-			unsigned int indicies[36] =
+			m_StartIndexLocation = VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts(data, 8);
+
+			UINT indicies[36] =
 			{
 				// top
 				0, 2, 1,
@@ -73,43 +72,10 @@ namespace MonkeyEngine
 				2, 6, 5
 			};
 
-			D3D11_BUFFER_DESC bufferDesc;
-			ZeroMemory(&bufferDesc, sizeof(D3D11_BUFFER_DESC));
-			bufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-			bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-			bufferDesc.CPUAccessFlags = NULL;
-			bufferDesc.ByteWidth = sizeof(data);
-
-			D3D11_SUBRESOURCE_DATA subResource;
-			subResource.pSysMem = data;
-			subResource.SysMemPitch = 0;
-			subResource.SysMemSlicePitch = 0;
-
-			_device->CreateBuffer(&bufferDesc, &subResource, &m_VertexBuffer);
-
-			D3D11_BUFFER_DESC indexBufferDesc;
-			ZeroMemory(&indexBufferDesc, sizeof(D3D11_BUFFER_DESC));
-			indexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-			indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-			indexBufferDesc.CPUAccessFlags = NULL;
-			indexBufferDesc.ByteWidth = sizeof(indicies);
-
-			D3D11_SUBRESOURCE_DATA indexSubResource;
-			indexSubResource.pSysMem = indicies;
-			indexSubResource.SysMemPitch = 0;
-			indexSubResource.SysMemSlicePitch = 0;
-
-			_device->CreateBuffer(&indexBufferDesc, &indexSubResource, &m_IndexBuffer);
+			m_BaseVertexLocation = IndexBuffer::GetInstance()->AddIndicies(indicies, 36);
 
 			m_VertexShader = ShaderManager::GetInstance()->GetVertexShader(ShaderManager::eShader_SKYBOX);
 			m_PixelShader = ShaderManager::GetInstance()->GetPixelShader(ShaderManager::eShader_SKYBOX);
-
-			D3D11_INPUT_ELEMENT_DESC layoutDesc[] =
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-			};
-
-			_device->CreateInputLayout(layoutDesc, 1, m_VertexShader, sizeof(m_VertexShader), &m_Layout);
 
 			m_Material.mName = "Skybox";
 			CreateDDSTextureFromFile(_device, _TextureFilePath, NULL, &m_Material.m_d3DiffuseTexture);
@@ -119,29 +85,19 @@ namespace MonkeyEngine
 		{
 		}
 
-		void Skybox::Draw()
+		void Skybox::Draw(float _cameraPosX, float _cameraPosY, float _cameraPosZ)
 		{
+			m_VertexBuffer = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();
 			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &m_VertexBuffer, (UINT*)sizeof(VERTEX_POS), 0);
 
-			//Renderer::m_d3DeviceContext->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-			Renderer::m_d3DeviceContext->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32G32B32_FLOAT, 0);
+			m_IndexBuffer = IndexBuffer::GetInstance()->GetIndicies();
+			Renderer::m_d3DeviceContext->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
+			m_cbPerObject.world._41 = _cameraPosX;
+			m_cbPerObject.world._42 = _cameraPosY;
+			m_cbPerObject.world._43 = _cameraPosZ;
+			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&m_cbPerObject, sizeof(cbPerObject));
 			m_ObjectConstantBuffer = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
-			m_CameraConstantBuffer = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
-
-			D3D11_MAPPED_SUBRESOURCE mapSubresource;
-
-			Renderer::m_d3DeviceContext->Map(m_CameraConstantBuffer, NULL, D3D11_MAP_READ, NULL, &mapSubresource);
-			memcpy_s(&m_cbPerCamera, sizeof(cbPerCamera), mapSubresource.pData, sizeof(cbPerCamera));
-			Renderer::m_d3DeviceContext->Unmap(m_CameraConstantBuffer, NULL);
-
-			m_cbPerObject.world._41 = m_cbPerCamera.CameraPos.x;
-			m_cbPerObject.world._42 = m_cbPerCamera.CameraPos.y;
-			m_cbPerObject.world._43 = m_cbPerCamera.CameraPos.z;
-
-			Renderer::m_d3DeviceContext->Map(m_ObjectConstantBuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &mapSubresource);
-			memcpy_s(mapSubresource.pData, sizeof(cbPerObject), &m_cbPerObject, sizeof(cbPerObject));
-			Renderer::m_d3DeviceContext->Unmap(m_ObjectConstantBuffer, NULL);
 			Renderer::m_d3DeviceContext->VSSetConstantBuffers(0, 1, &m_ObjectConstantBuffer);
 
 			Renderer::m_d3DeviceContext->VSSetShader(m_VertexShader, NULL, 0);
@@ -150,11 +106,11 @@ namespace MonkeyEngine
 
 			Renderer::m_d3DeviceContext->PSSetShaderResources(0, 1, &m_Material.m_d3DiffuseTexture);
 
-			Renderer::m_d3DeviceContext->IASetInputLayout(m_Layout);
+			Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POS));
 
 			Renderer::m_d3DeviceContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-			Renderer::m_d3DeviceContext->DrawIndexed(36, 0, 0);
+			Renderer::m_d3DeviceContext->DrawIndexed(36, m_StartIndexLocation, m_BaseVertexLocation); // m_StartIndexLocation and m_BaseVertexLocation gotten from AddVerts() and AddIndicies()
 
 			Renderer::m_d3DeviceContext->ClearDepthStencilView(Renderer::m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 		}

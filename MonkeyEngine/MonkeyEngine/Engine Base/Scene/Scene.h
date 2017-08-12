@@ -12,7 +12,7 @@ namespace MonkeyEngine
 	public:
 		std::vector<MEObject::GameObject*> m_vObjects;
 	private:
-		MERenderer::DebugCamera* m_pDebugCamera;
+		MERenderer::DebugCamera* m_pDebugCamera; // Changed to Singleton
 		void AddObject(MEObject::GameObject* _GameObject); 
 	public:
 		Scene();
