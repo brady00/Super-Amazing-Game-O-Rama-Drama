@@ -103,6 +103,12 @@ namespace MonkeyEngine
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/Skybox_VS.cso"))
+			{
+				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_SKYBOX]);
+				delete[] byteCode;
+				byteCode = nullptr;
+			}
 #pragma endregion
 #pragma region PixelShaders
 			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POS_PS.cso"))
@@ -143,6 +149,11 @@ namespace MonkeyEngine
 			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_POSBONEWEIGHTNORMTANTEX]);
+				delete[] byteCode;
+			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/Skybox_PS.cso"))
+			{
+				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_SKYBOX]);
 				delete[] byteCode;
 			}
 #pragma endregion

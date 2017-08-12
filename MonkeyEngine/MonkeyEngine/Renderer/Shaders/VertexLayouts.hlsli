@@ -244,6 +244,12 @@ struct TESS_TERRAIN_DS_OUT
 
 };
 
+struct SKYBOX_VS_OUT
+{
+	float3 initialCoordinate : POSITION;
+	float4 projectedCoordinate : SV_POSITION;
+};
+
 ////////////////////////////////////////////////////////////
 // Output pixels
 struct GBufferFragOut

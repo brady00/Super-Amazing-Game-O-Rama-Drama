@@ -16,6 +16,7 @@ namespace MonkeyEngine
 				eShader_POSBONEWEIGHT,
 				eShader_POSBONEWEIGHTNORMTEX,
 				eShader_POSBONEWEIGHTNORMTANTEX,
+				eShader_SKYBOX,
 				eShader_MAX
 			};
 		private:

@@ -5,11 +5,13 @@
 #include <d3d11.h>
 #include <mutex>
 #pragma comment(lib, "d3d11.lib")
+
 namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
 #define ReleaseCOM(x) { if(x){ x->Release(); x = 0; } }
+		class Skybox;
 		class RenderSet;
 		class Canvas;
 		class ShaderManager;
@@ -25,6 +27,7 @@ namespace MonkeyEngine
 		class Renderer
 		{
 		private:
+			static Skybox* m_pSkybox;
 			static RenderSet* m_pNonTranparentObjects;
 			static RenderSet* m_pTransparentObjects;
 			//std::vector<Canvas*> m_vCanvases;

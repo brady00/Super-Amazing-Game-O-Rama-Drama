@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Skybox\Skybox.h"
 #include "RenderSet\RenderSet.h"
 #include "Managers\ConstantBufferManager.h"
 #include "Containers\DefferedRenderTarget.h"
@@ -17,6 +18,7 @@ namespace MonkeyEngine
 		ID3D11DepthStencilView* Renderer::m_d3DepthStencilView = nullptr;
 		D3D11_VIEWPORT	Renderer::m_d3ViewPort;
 		IDXGIOutput* Renderer::m_d3Output = nullptr;
+		Skybox* Renderer::m_pSkybox = nullptr;
 		RenderSet* Renderer::m_pTransparentObjects = nullptr;
 		RenderSet* Renderer::m_pNonTranparentObjects = nullptr;
 		UINT Renderer::m_uiScreenHeight = 0;
@@ -95,6 +97,10 @@ namespace MonkeyEngine
 			depthViewDesc.Texture2D.MipSlice = 0;
 			m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
 
+			// Skybox initialization
+			m_pSkybox = new Skybox();
+			m_pSkybox->Initialize(m_d3Device, L"../../../MonkeyEngine/Assets/Textures/SkyboxNorthernLights.dds");
+
 			m_pDeferredRenderTarget = new DefferedRenderTarget;
 			m_pDeferredRenderTarget->Initialize(m_d3Device, _ScreenHeight, _ScreenWidth);
 		}
@@ -111,6 +117,10 @@ namespace MonkeyEngine
 			m_d3DeviceContext->RSSetViewports(1, &m_d3ViewPort);
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 			m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
+
+			// Skybox draw call
+			m_pSkybox->Draw(); // Skybox's Draw() calls ClearDepthStencilView()
+
 			m_pNonTranparentObjects->Draw();
 			m_pTransparentObjects->Draw();
 			//draw lights
@@ -128,6 +138,7 @@ namespace MonkeyEngine
 
 		void Renderer::Shutdown()
 		{
+			delete m_pSkybox;
 			delete m_pNonTranparentObjects;
 			delete m_pTransparentObjects;
 			m_pDeferredRenderTarget->Shutdown();
