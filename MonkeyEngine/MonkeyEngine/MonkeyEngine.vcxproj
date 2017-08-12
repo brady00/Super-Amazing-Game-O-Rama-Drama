@@ -139,7 +139,6 @@
     <ClCompile Include="Renderer\RenderSet\RenderSet.cpp" />
     <ClCompile Include="Renderer\RenderSet\RenderContext.cpp" />
     <ClCompile Include="Renderer\RenderSet\RenderTexture.cpp" />
-    <ClCompile Include="Renderer\Skybox\Skybox.cpp" />
     <ClCompile Include="Renderer\TextureLoaders\DDSTextureLoader.cpp" />
     <ClCompile Include="Renderer\TextureLoaders\pch.cpp" />
     <ClCompile Include="Renderer\TextureLoaders\WICTextureLoader.cpp" />
@@ -280,7 +279,6 @@
     <ClInclude Include="Renderer\ShaderBuffers\ConstantBuffers.h" />
     <ClInclude Include="Renderer\ShaderBuffers\LightBuffers.h" />
     <ClInclude Include="Renderer\ShaderBuffers\SharedDefines.h" />
-    <ClInclude Include="Renderer\Skybox\Skybox.h" />
     <ClInclude Include="Renderer\TextureLoaders\dds.h" />
     <ClInclude Include="Renderer\TextureLoaders\DDSTextureLoader.h" />
     <ClInclude Include="Renderer\TextureLoaders\DirectXHelpers.h" />

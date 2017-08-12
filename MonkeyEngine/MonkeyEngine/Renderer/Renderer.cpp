@@ -1,5 +1,5 @@
 #include "Renderer.h"
-#include "Skybox\Skybox.h"
+#include "../Components/Behaviour/Skybox.h"
 #include "RenderSet\RenderSet.h"
 #include "Managers\ConstantBufferManager.h"
 #include "Containers\DefferedRenderTarget.h"

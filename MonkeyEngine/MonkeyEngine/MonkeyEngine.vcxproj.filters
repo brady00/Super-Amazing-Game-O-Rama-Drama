@@ -109,9 +109,6 @@
     <Filter Include="Engine Base\Settings">
       <UniqueIdentifier>{70acfa4e-9a34-4a25-8c4a-ce6ab97be326}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer\Skybox">
-      <UniqueIdentifier>{b06e7ba7-568e-4363-a050-74d1732f8f0a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
@@ -494,9 +491,6 @@
     </ClCompile>
     <ClCompile Include="Engine Base\Settings\Settings.cpp">
       <Filter>Engine Base\Settings</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\Skybox\Skybox.cpp">
-      <Filter>Renderer\Skybox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -922,9 +916,6 @@
     </ClInclude>
     <ClInclude Include="Engine Base\Settings\Settings.h">
       <Filter>Engine Base\Settings</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Skybox\Skybox.h">
-      <Filter>Renderer\Skybox</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Containers\Material.h">
       <Filter>Renderer\Containers</Filter>
