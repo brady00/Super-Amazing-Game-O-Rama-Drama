@@ -105,6 +105,7 @@ namespace MonkeyEngine
 			m_cbPerObject.world._42 = _cameraPosY;
 			m_cbPerObject.world._43 = _cameraPosZ;
 			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&m_cbPerObject, sizeof(cbPerObject));
+
 			m_ObjectConstantBuffer = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
 			Renderer::m_d3DeviceContext->VSSetConstantBuffers(0, 1, &m_ObjectConstantBuffer);
 

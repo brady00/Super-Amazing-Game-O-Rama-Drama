@@ -6,19 +6,10 @@ SKYBOX_VS_OUT main( VERTEX_POS fromVertexBuffer )
 {
 	SKYBOX_VS_OUT sendToRasterizer = (SKYBOX_VS_OUT)0;
 
-	float4 localPos;
-	localPos.x = fromVertexBuffer.position.x;
-	localPos.y = fromVertexBuffer.position.y;
-	localPos.z = fromVertexBuffer.position.z;
-	localPos.w = 1;
+	float4 temppos = mul(float4(fromVertexBuffer.position, 1), world);
+	temppos = mul(temppos, InvViewProj);
 
-	localPos = mul(localPos, world);
-	localPos = mul(localPos, InvViewProj);
-	//localPos = mul(localPos, projMatrix);
-
-	sendToRasterizer.projectedCoordinate = localPos;
-
+	sendToRasterizer.projectedCoordinate = temppos;
 	sendToRasterizer.initialCoordinate = fromVertexBuffer.position;
-
 	return sendToRasterizer;
 }

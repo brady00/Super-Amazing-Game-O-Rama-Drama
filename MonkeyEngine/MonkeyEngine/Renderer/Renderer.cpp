@@ -100,7 +100,7 @@ namespace MonkeyEngine
 
 			// Skybox initialization
 			m_pSkybox = new Skybox();
-			m_pSkybox->Initialize(m_d3Device, L"../../../MonkeyEngine/Assets/Textures/SkyboxNorthernLights.dds");
+			m_pSkybox->Initialize(m_d3Device, L"../MonkeyEngine/Assets/Textures/SkyboxNorthernLights.dds");
 
 			m_pDeferredRenderTarget = new DefferedRenderTarget;
 			m_pDeferredRenderTarget->Initialize(m_d3Device, _ScreenHeight, _ScreenWidth);
@@ -170,8 +170,10 @@ namespace MonkeyEngine
 			m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
 
 			// Skybox draw call
-			m_pDebugCamera = MERenderer::DebugCamera::GetInstance();
-			m_pSkybox->Draw(m_pDebugCamera->GetViewMatrix()._41, m_pDebugCamera->GetViewMatrix()._42, m_pDebugCamera->GetViewMatrix()._43); // Skybox's Draw() calls ClearDepthStencilView()
+			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL);
+			m_DebugCameraViewMatrix = MERenderer::DebugCamera::GetInstance()->GetViewMatrix();
+			m_pSkybox->Draw(m_DebugCameraViewMatrix._41, m_DebugCameraViewMatrix._42, m_DebugCameraViewMatrix._43); // Skybox's Draw() calls ClearDepthStencilView()
+			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_Default);
 
 			m_pNonTranparentObjects->Draw();
 			m_pTransparentObjects->Draw();

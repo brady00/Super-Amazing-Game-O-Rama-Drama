@@ -33,7 +33,7 @@ namespace MonkeyEngine
 			static RenderSet* m_pTransparentObjects;
 			//std::vector<Canvas*> m_vCanvases;
 			//std::vector<Camera*> m_vCameras;
-			MERenderer::DebugCamera* m_pDebugCamera;
+			XMFLOAT4X4 m_DebugCameraViewMatrix;
 			unsigned int m_uiActiveCamera;
 			DefferedRenderTarget* m_pDeferredRenderTarget;
 			__int64	m_dPrevFrame = 0;

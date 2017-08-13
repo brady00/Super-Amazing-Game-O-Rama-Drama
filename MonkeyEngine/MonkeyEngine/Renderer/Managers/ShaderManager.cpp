@@ -101,7 +101,7 @@ namespace MonkeyEngine
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/Skybox_VS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/Skybox_VS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_SKYBOX]);
 				delete[] byteCode;
@@ -120,7 +120,7 @@ namespace MonkeyEngine
 				delete[] byteCode;
 			}
 
-			if (LoadShaderData(&byteCode, byteCodeSize, "../../../MonkeyEngine/Assets/ShaderCSO/Skybox_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "../MonkeyEngine/Assets/ShaderCSO/Skybox_PS.cso"))
 			{
 				HRESULT hr = Renderer::m_d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_PS_SKYBOX]);
 				delete[] byteCode;
