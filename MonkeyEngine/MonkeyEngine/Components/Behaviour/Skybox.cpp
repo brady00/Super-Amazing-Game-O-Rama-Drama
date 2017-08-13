@@ -1,5 +1,7 @@
 #include "Skybox.h"
-
+#include "../../Renderer/Managers/DepthStencilStateManager.h"
+#include "../../Renderer/Managers/RasterizerStateManager.h"
+#include "../../Renderer/Managers/BlendStateManager.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -87,8 +89,14 @@ namespace MonkeyEngine
 
 		void Skybox::Draw(float _cameraPosX, float _cameraPosY, float _cameraPosZ)
 		{
+			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_Default);
+			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_Default);
+			BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default);
+			Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POS));
 			m_VertexBuffer = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();
-			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &m_VertexBuffer, (UINT*)sizeof(VERTEX_POS), 0);
+			UINT stride = sizeof(VERTEX_POS);
+			UINT offset = 0;
+			Renderer::m_d3DeviceContext->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
 			m_IndexBuffer = IndexBuffer::GetInstance()->GetIndicies();
 			Renderer::m_d3DeviceContext->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
@@ -106,7 +114,6 @@ namespace MonkeyEngine
 
 			Renderer::m_d3DeviceContext->PSSetShaderResources(0, 1, &m_Material.m_d3DiffuseTexture);
 
-			Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POS));
 
 			Renderer::m_d3DeviceContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
