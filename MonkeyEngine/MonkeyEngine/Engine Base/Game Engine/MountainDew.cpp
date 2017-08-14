@@ -2,6 +2,7 @@
 #include "../Settings/Settings.h"
 #include "../../Utils/Time.h"
 #include "../../Utils/FileIO.h"
+#include "../../Renderer/DebugCamera/DebugCamera.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR commandLine, int nCmdShow)
 {
@@ -128,6 +129,38 @@ void ShutdownEngine()
 {
 	MountainDew::GetInstance()->Shutdown();
 	MountainDew::DestroyInstance();
+}
+
+void MouseDown_RenderingPanel(int key)
+{
+	switch (key)
+	{
+	case VK_LBUTTON:
+		break;
+	case VK_RBUTTON:
+		ShowCursor(false);
+		POINT cursorPos;
+		GetCursorPos(&cursorPos);
+		DebugCamera::GetInstance()->RightMouseDown(cursorPos);
+		break;
+	case VK_MBUTTON:
+		break;
+	}
+}
+
+void MouseUp_RenderingPanel(int key)
+{
+	switch (key)
+	{
+	case VK_LBUTTON:
+		break;
+	case VK_RBUTTON:
+		ShowCursor(true);
+		DebugCamera::GetInstance()->RightMouseUp();
+		break;
+	case VK_MBUTTON:
+		break;
+	}
 }
 
 std::vector<MonkeyEngine::MEObject::GameObject*>& GetSceneObjects()

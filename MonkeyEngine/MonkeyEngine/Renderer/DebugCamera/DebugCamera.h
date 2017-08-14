@@ -15,6 +15,9 @@ namespace MonkeyEngine
 			XMFLOAT4X4 m_xmViewMatrix;
 			XMFLOAT4X4 m_xmProjMatrix;
 			POINT m_pPrevMousePos;
+			bool m_RunOnce;
+			bool m_RightMousePressed;
+
 		public:
 			DebugCamera();
 			~DebugCamera();
@@ -23,6 +26,8 @@ namespace MonkeyEngine
 			void Initialize(XMFLOAT4X4 _WorldMatrix, float _NearPlane, float _FarPlane, float _FOV, float _WindowHeight, float _WindowWidth);
 			void Resize(float _NearPlane, float _FarPlane, float _FOV, float _WindowHeight, float _WindowWidth);
 			void Update();
+			void RightMouseDown(POINT _CursorPos);
+			void RightMouseUp();
 			XMFLOAT4X4 GetViewMatrix();
 		};
 	}

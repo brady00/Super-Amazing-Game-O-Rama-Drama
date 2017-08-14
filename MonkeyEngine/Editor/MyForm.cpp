@@ -110,6 +110,42 @@ namespace Editor
 		//UpdateEngine();
 	}
 
+	void MyForm::RenderingPanel_MouseDown(System::Object ^ sender, System::Windows::Forms::MouseEventArgs ^ e)
+	{
+		int key = 0;
+		switch (e->Button)
+		{
+		case System::Windows::Forms::MouseButtons::Left:
+			key = VK_LBUTTON;
+			break;
+		case System::Windows::Forms::MouseButtons::Right:
+			key = VK_RBUTTON;
+			break;
+		case System::Windows::Forms::MouseButtons::Middle:
+			key = VK_MBUTTON;
+			break;
+		}
+		MouseDown_RenderingPanel(key);
+	}
+
+	void MyForm::RenderingPanel_MouseUp(System::Object ^ sender, System::Windows::Forms::MouseEventArgs ^ e)
+	{
+		int key = 0;
+		switch (e->Button)
+		{
+		case System::Windows::Forms::MouseButtons::Left:
+			key = VK_LBUTTON;
+			break;
+		case System::Windows::Forms::MouseButtons::Right:
+			key = VK_RBUTTON;
+			break;
+		case System::Windows::Forms::MouseButtons::Middle:
+			key = VK_MBUTTON;
+			break;
+		}
+		MouseUp_RenderingPanel(key);
+	}
+
 	void MyForm::ButtonCollapsed(unsigned int buttonIndex, MonkeyEngine::MEObject::GameObject* _Object)
 	{
 		unsigned int startIndex = CompStartIndex[_Object];

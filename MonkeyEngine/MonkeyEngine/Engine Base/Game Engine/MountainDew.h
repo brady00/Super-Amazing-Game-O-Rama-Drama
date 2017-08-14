@@ -12,20 +12,24 @@ namespace MonkeyEngine
 	private:
 		//static Instance for Singleton
 		static MountainDew *m_pGamePtr;
+
 		//Windows Variables
 		Settings* m_pSettings;
+		bool init = false;
+
 		MountainDew() {};
 		MountainDew(const MountainDew&) {};
 		MountainDew(const MountainDew&&) {};
 		MountainDew &operator=(const MountainDew&) {};
 		MountainDew &operator=(const MountainDew&&) {};
-		bool init = false;
+
 	public:
 		HINSTANCE m_hInst;
 		HWND m_HWnd;
 		MERenderer::Renderer* m_pRenderer = nullptr;
 		Scene* m_pScene;
 		bool m_bShuttingDown = false;
+
 		static MountainDew* GetInstance() { if (!m_pGamePtr) m_pGamePtr = new MountainDew;  return m_pGamePtr; }
 		static void DestroyInstance() { if (m_pGamePtr) delete m_pGamePtr; m_pGamePtr = m_pGamePtr; }
 		void Initialize(HINSTANCE, int);
@@ -42,5 +46,7 @@ extern "C"
 	__declspec(dllexport) void ResizeEngine(int _ScreenWidth, int _ScreenHeight);
 	__declspec(dllexport) void UpdateEngine();
 	__declspec(dllexport) void ShutdownEngine();
+	__declspec(dllexport) void MouseDown_RenderingPanel(int key);
+	__declspec(dllexport) void MouseUp_RenderingPanel(int key);
 	__declspec(dllexport) std::vector<MonkeyEngine::MEObject::GameObject*>& GetSceneObjects();
 }

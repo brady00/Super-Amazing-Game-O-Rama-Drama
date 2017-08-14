@@ -23,6 +23,7 @@ namespace Editor {
 			//
 			//TODO: Add the constructor code here
 			//
+			this->WindowState = FormWindowState::Maximized; // Maximize Form on start
 		}
 
 	protected:
@@ -88,6 +89,10 @@ namespace Editor {
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator5;
 	private: System::Windows::Forms::ToolStripMenuItem^  aboutToolStripMenuItem;
 	private: System::ComponentModel::IContainer^  components;
+
+
+
+
 
 
 
@@ -247,10 +252,12 @@ namespace Editor {
 			this->RenderingPanel->Size = System::Drawing::Size(981, 772);
 			this->RenderingPanel->TabIndex = 11;
 			this->RenderingPanel->SizeChanged += gcnew System::EventHandler(this, &MyForm::RenderingPanel_SizeChanged);
+			this->RenderingPanel->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::RenderingPanel_MouseDown);
+			this->RenderingPanel->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::RenderingPanel_MouseUp);
 			// 
 			// ObjectTreeView
 			// 
-			this->ObjectTreeView->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->ObjectTreeView->Dock = System::Windows::Forms::DockStyle::Right;
 			this->ObjectTreeView->Location = System::Drawing::Point(0, 0);
 			this->ObjectTreeView->Name = L"ObjectTreeView";
 			this->ObjectTreeView->Size = System::Drawing::Size(359, 772);
@@ -263,7 +270,8 @@ namespace Editor {
 			this->InspectorBackgroundPanel->AutoScroll = true;
 			this->InspectorBackgroundPanel->BackColor = System::Drawing::SystemColors::ControlDark;
 			this->InspectorBackgroundPanel->Controls->Add(this->NameBackgroundPanel);
-			this->InspectorBackgroundPanel->Location = System::Drawing::Point(-1, 0);
+			this->InspectorBackgroundPanel->Dock = System::Windows::Forms::DockStyle::Right;
+			this->InspectorBackgroundPanel->Location = System::Drawing::Point(-2, 0);
 			this->InspectorBackgroundPanel->MinimumSize = System::Drawing::Size(324, 1017);
 			this->InspectorBackgroundPanel->Name = L"InspectorBackgroundPanel";
 			this->InspectorBackgroundPanel->Size = System::Drawing::Size(336, 1017);
@@ -599,7 +607,7 @@ namespace Editor {
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"Monkey Engine";
 			this->Load += gcnew System::EventHandler(this, &MyForm::Form_OnLoad);
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel2->ResumeLayout(false);
@@ -632,6 +640,8 @@ namespace Editor {
 	private: void Form_OnLoad(System::Object^  sender, System::EventArgs^  e);
 	private: void Timer_Tick(System::Object^  sender, System::EventArgs^  e);
 	private: void RenderingPanel_SizeChanged(System::Object^  sender, System::EventArgs^  e);
+	private: void RenderingPanel_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+	private: void RenderingPanel_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 	public:	static void MyForm::ButtonCollapsed(unsigned int buttonIndex, MonkeyEngine::MEObject::GameObject* _Object);
 	public: static void MyForm::ButtonExpanded(unsigned int buttonIndex, MonkeyEngine::MEObject::GameObject* _Object);
 };

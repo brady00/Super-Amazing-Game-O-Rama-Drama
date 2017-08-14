@@ -170,10 +170,8 @@ namespace MonkeyEngine
 			m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
 
 			// Skybox draw call
-			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL);
 			m_DebugCameraViewMatrix = MERenderer::DebugCamera::GetInstance()->GetViewMatrix();
 			m_pSkybox->Draw(m_DebugCameraViewMatrix._41, m_DebugCameraViewMatrix._42, m_DebugCameraViewMatrix._43); // Skybox's Draw() calls ClearDepthStencilView()
-			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_Default);
 
 			m_pNonTranparentObjects->Draw();
 			m_pTransparentObjects->Draw();
