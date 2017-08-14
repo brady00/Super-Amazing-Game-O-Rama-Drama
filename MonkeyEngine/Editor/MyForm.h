@@ -257,7 +257,7 @@ namespace Editor {
 			// 
 			// ObjectTreeView
 			// 
-			this->ObjectTreeView->Dock = System::Windows::Forms::DockStyle::Right;
+			this->ObjectTreeView->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ObjectTreeView->Location = System::Drawing::Point(0, 0);
 			this->ObjectTreeView->Name = L"ObjectTreeView";
 			this->ObjectTreeView->Size = System::Drawing::Size(359, 772);
@@ -270,11 +270,11 @@ namespace Editor {
 			this->InspectorBackgroundPanel->AutoScroll = true;
 			this->InspectorBackgroundPanel->BackColor = System::Drawing::SystemColors::ControlDark;
 			this->InspectorBackgroundPanel->Controls->Add(this->NameBackgroundPanel);
-			this->InspectorBackgroundPanel->Dock = System::Windows::Forms::DockStyle::Right;
-			this->InspectorBackgroundPanel->Location = System::Drawing::Point(-2, 0);
+			this->InspectorBackgroundPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->InspectorBackgroundPanel->Location = System::Drawing::Point(0, 0);
 			this->InspectorBackgroundPanel->MinimumSize = System::Drawing::Size(324, 1017);
 			this->InspectorBackgroundPanel->Name = L"InspectorBackgroundPanel";
-			this->InspectorBackgroundPanel->Size = System::Drawing::Size(336, 1017);
+			this->InspectorBackgroundPanel->Size = System::Drawing::Size(334, 1017);
 			this->InspectorBackgroundPanel->TabIndex = 19;
 			// 
 			// NameBackgroundPanel
@@ -289,9 +289,10 @@ namespace Editor {
 			this->NameBackgroundPanel->Controls->Add(this->StaticBox);
 			this->NameBackgroundPanel->Controls->Add(this->ActiveBox);
 			this->NameBackgroundPanel->Controls->Add(this->NameBox);
-			this->NameBackgroundPanel->Location = System::Drawing::Point(1, 0);
+			this->NameBackgroundPanel->Dock = System::Windows::Forms::DockStyle::Top;
+			this->NameBackgroundPanel->Location = System::Drawing::Point(0, 0);
 			this->NameBackgroundPanel->Name = L"NameBackgroundPanel";
-			this->NameBackgroundPanel->Size = System::Drawing::Size(335, 101);
+			this->NameBackgroundPanel->Size = System::Drawing::Size(334, 101);
 			this->NameBackgroundPanel->TabIndex = 19;
 			// 
 			// RemoveTagButton

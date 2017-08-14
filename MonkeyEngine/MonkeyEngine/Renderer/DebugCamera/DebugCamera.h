@@ -16,6 +16,7 @@ namespace MonkeyEngine
 			XMFLOAT4X4 m_xmProjMatrix;
 			POINT m_pPrevMousePos;
 			bool m_RunOnce;
+			bool m_Resize;
 			bool m_RightMousePressed;
 
 		public:

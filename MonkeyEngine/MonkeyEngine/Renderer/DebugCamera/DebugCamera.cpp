@@ -11,6 +11,7 @@ namespace MonkeyEngine
 		DebugCamera::DebugCamera()
 		{
 			m_RunOnce = true;
+			m_Resize = false;
 			m_RightMousePressed = false;
 		}
 
@@ -28,21 +29,18 @@ namespace MonkeyEngine
 
 		void DebugCamera::Resize(float _NearPlane, float _FarPlane, float _FOV, float _WindowHeight, float _WindowWidth)
 		{
+			m_Resize = true;
 			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(_FOV), (_WindowWidth / _WindowHeight), _NearPlane, _FarPlane));
 		}
 
 		void DebugCamera::Update()
 		{
-			if (m_RightMousePressed || m_RunOnce)
+			if (m_RightMousePressed || m_RunOnce || m_Resize)
 			{
 				POINT curPos;
 				GetCursorPos(&curPos);
 
-				if (m_RunOnce)
-				{
-					XMStoreFloat4x4(&m_xmViewMatrix, XMMatrixIdentity());
-				}
-				else
+				if (!m_RunOnce && !m_Resize)
 				{
 					if (m_pPrevMousePos.x != curPos.x || m_pPrevMousePos.y != curPos.y)
 					{
@@ -109,8 +107,8 @@ namespace MonkeyEngine
 				ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().Update(&tempBuffer, sizeof(tempBuffer));
 				ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
 				Renderer::m_d3DeviceContext->VSSetConstantBuffers(tempBuffer.REGISTER_SLOT, 1, &buf);
-				//m_pPrevMousePos = curPos;
 
+				m_Resize = false;
 				m_RunOnce = false;
 			}
 		}
