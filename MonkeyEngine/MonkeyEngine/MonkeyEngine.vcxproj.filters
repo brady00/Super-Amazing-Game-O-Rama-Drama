@@ -7,9 +7,6 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{a9b2c7e6-0a53-48a2-915b-f0c24d3297fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObejct">
-      <UniqueIdentifier>{fb6176a6-1fe7-4443-b75f-a3d15f6c3471}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Components">
       <UniqueIdentifier>{fb446b08-b080-4a09-bc18-ab147576b2f3}</UniqueIdentifier>
     </Filter>
@@ -109,13 +106,16 @@
     <Filter Include="Engine Base\Settings">
       <UniqueIdentifier>{70acfa4e-9a34-4a25-8c4a-ce6ab97be326}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{fb6176a6-1fe7-4443-b75f-a3d15f6c3471}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine Base\Game Engine\MountainDew.cpp">
       <Filter>Engine Base\GameEngine</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\GameObject.cpp">
-      <Filter>GameObejct</Filter>
+      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Object\Object.cpp">
       <Filter>Object</Filter>
@@ -498,7 +498,7 @@
       <Filter>Engine Base\GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\GameObject.h">
-      <Filter>GameObejct</Filter>
+      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Object\Object.h">
       <Filter>Object</Filter>
