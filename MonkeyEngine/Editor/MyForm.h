@@ -194,8 +194,9 @@ namespace Editor {
 			// splitContainer1.Panel2
 			// 
 			this->splitContainer1->Panel2->Controls->Add(this->InspectorBackgroundPanel);
+			this->splitContainer1->Panel2MinSize = 324;
 			this->splitContainer1->Size = System::Drawing::Size(1904, 1017);
-			this->splitContainer1->SplitterDistance = 1566;
+			this->splitContainer1->SplitterDistance = 1575;
 			this->splitContainer1->TabIndex = 19;
 			// 
 			// splitContainer2
@@ -207,8 +208,8 @@ namespace Editor {
 			// splitContainer2.Panel2
 			// 
 			this->splitContainer2->Panel2->Controls->Add(this->splitContainer3);
-			this->splitContainer2->Size = System::Drawing::Size(1566, 1017);
-			this->splitContainer2->SplitterDistance = 218;
+			this->splitContainer2->Size = System::Drawing::Size(1575, 1017);
+			this->splitContainer2->SplitterDistance = 219;
 			this->splitContainer2->TabIndex = 3;
 			// 
 			// splitContainer3
@@ -221,7 +222,7 @@ namespace Editor {
 			// splitContainer3.Panel1
 			// 
 			this->splitContainer3->Panel1->Controls->Add(this->splitContainer4);
-			this->splitContainer3->Size = System::Drawing::Size(1344, 1017);
+			this->splitContainer3->Size = System::Drawing::Size(1352, 1017);
 			this->splitContainer3->SplitterDistance = 772;
 			this->splitContainer3->TabIndex = 5;
 			// 
@@ -238,8 +239,8 @@ namespace Editor {
 			// splitContainer4.Panel2
 			// 
 			this->splitContainer4->Panel2->Controls->Add(this->ObjectTreeView);
-			this->splitContainer4->Size = System::Drawing::Size(1344, 772);
-			this->splitContainer4->SplitterDistance = 981;
+			this->splitContainer4->Size = System::Drawing::Size(1352, 772);
+			this->splitContainer4->SplitterDistance = 986;
 			this->splitContainer4->TabIndex = 0;
 			// 
 			// RenderingPanel
@@ -249,7 +250,7 @@ namespace Editor {
 			this->RenderingPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->RenderingPanel->Location = System::Drawing::Point(0, 0);
 			this->RenderingPanel->Name = L"RenderingPanel";
-			this->RenderingPanel->Size = System::Drawing::Size(981, 772);
+			this->RenderingPanel->Size = System::Drawing::Size(986, 772);
 			this->RenderingPanel->TabIndex = 11;
 			this->RenderingPanel->SizeChanged += gcnew System::EventHandler(this, &MyForm::RenderingPanel_SizeChanged);
 			this->RenderingPanel->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::RenderingPanel_MouseDown);
@@ -260,7 +261,7 @@ namespace Editor {
 			this->ObjectTreeView->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ObjectTreeView->Location = System::Drawing::Point(0, 0);
 			this->ObjectTreeView->Name = L"ObjectTreeView";
-			this->ObjectTreeView->Size = System::Drawing::Size(359, 772);
+			this->ObjectTreeView->Size = System::Drawing::Size(362, 772);
 			this->ObjectTreeView->TabIndex = 13;
 			this->ObjectTreeView->AfterSelect += gcnew System::Windows::Forms::TreeViewEventHandler(this, &MyForm::ObjectTreeView_AfterSelect);
 			// 
@@ -268,13 +269,15 @@ namespace Editor {
 			// 
 			this->InspectorBackgroundPanel->AccessibleRole = System::Windows::Forms::AccessibleRole::None;
 			this->InspectorBackgroundPanel->AutoScroll = true;
+			this->InspectorBackgroundPanel->AutoScrollMargin = System::Drawing::Size(0, 10);
+			this->InspectorBackgroundPanel->AutoScrollMinSize = System::Drawing::Size(324, 0);
 			this->InspectorBackgroundPanel->BackColor = System::Drawing::SystemColors::ControlDark;
 			this->InspectorBackgroundPanel->Controls->Add(this->NameBackgroundPanel);
 			this->InspectorBackgroundPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->InspectorBackgroundPanel->Location = System::Drawing::Point(0, 0);
 			this->InspectorBackgroundPanel->MinimumSize = System::Drawing::Size(324, 1017);
 			this->InspectorBackgroundPanel->Name = L"InspectorBackgroundPanel";
-			this->InspectorBackgroundPanel->Size = System::Drawing::Size(334, 1017);
+			this->InspectorBackgroundPanel->Size = System::Drawing::Size(325, 1017);
 			this->InspectorBackgroundPanel->TabIndex = 19;
 			// 
 			// NameBackgroundPanel
@@ -292,7 +295,7 @@ namespace Editor {
 			this->NameBackgroundPanel->Dock = System::Windows::Forms::DockStyle::Top;
 			this->NameBackgroundPanel->Location = System::Drawing::Point(0, 0);
 			this->NameBackgroundPanel->Name = L"NameBackgroundPanel";
-			this->NameBackgroundPanel->Size = System::Drawing::Size(334, 101);
+			this->NameBackgroundPanel->Size = System::Drawing::Size(325, 101);
 			this->NameBackgroundPanel->TabIndex = 19;
 			// 
 			// RemoveTagButton

@@ -10,6 +10,6 @@ namespace MonkeyEngine
 	public:
 		Blender();
 		~Blender();
-		void Play(std::string _NextAnim, std::string _CurrentAnim, float _CurrentAnimTimePassed, float _NextAnimTimePassed, bool _Looping) {};
+		void Play(std::string _NextAnim, std::string _CurrentAnim, float _CurrentAnimTimePassed, float _NextAnimTimePassed, bool _Looping, std::vector<XMFLOAT4X4>& _outSkeleton) {};
 	};
 }

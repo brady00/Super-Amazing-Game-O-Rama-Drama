@@ -40,13 +40,12 @@ namespace MonkeyEngine
 	};
 
 }
-extern "C"
-{
-	__declspec(dllexport) void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight);
-	__declspec(dllexport) void ResizeEngine(int _ScreenWidth, int _ScreenHeight);
-	__declspec(dllexport) void UpdateEngine();
-	__declspec(dllexport) void ShutdownEngine();
-	__declspec(dllexport) void MouseDown_RenderingPanel(int key);
-	__declspec(dllexport) void MouseUp_RenderingPanel(int key);
-	__declspec(dllexport) std::vector<MonkeyEngine::MEObject::GameObject*>& GetSceneObjects();
-}
+
+void __declspec(dllexport) InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight);
+void __declspec(dllexport) ResizeEngine(int _ScreenWidth, int _ScreenHeight);
+void __declspec(dllexport) UpdateEngine();
+void __declspec(dllexport) ShutdownEngine();
+void __declspec(dllexport) MouseDown_RenderingPanel(int key);
+void __declspec(dllexport) MouseUp_RenderingPanel(int key);
+std::vector<MonkeyEngine::MEObject::GameObject*> __declspec(dllexport)&GetSceneObjects();
+

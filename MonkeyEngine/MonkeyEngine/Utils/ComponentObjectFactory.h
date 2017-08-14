@@ -1,7 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include <functional>
-#include "../Components/Renderer/MeshRenderer.h"
+#include "../Components/Renderer/SkinnedMeshRenderer.h"
 #include "../Components/Transform/Transform.h"
 
 namespace MEObject

@@ -12,6 +12,7 @@ namespace MonkeyEngine
 		private:
 			AnimationGraph m_Animations;
 			Blender* m_pBlender;
+			std::vector<XMFLOAT4X4> m_CurrentSkeleton;
 		public:
 			Animator() {};
 			~Animator() {};

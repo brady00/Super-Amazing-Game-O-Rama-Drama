@@ -27,13 +27,15 @@ namespace MonkeyEngine
 		const std::unordered_map<std::string, compFuntion> FileIO::componentFunctions =
 		{
 			{"Transform", &FileIO::LoadTranform},
-			{"MeshRenderer", &FileIO::LoadMeshRenderer}
+			{"MeshRenderer", &FileIO::LoadMeshRenderer},
+			{"SkinnedMeshRenderer", &FileIO::LoadMeshRenderer}
 		};
 
 		const std::unordered_map<std::string, MEObject::GameObject::COMPONENT_ID> FileIO::componentIDS =
 		{
 			{ "Transform", MEObject::GameObject::COMPONENT_ID::eTransform },
-			{ "MeshRenderer", MEObject::GameObject::COMPONENT_ID::eMeshRenderer }
+			{ "MeshRenderer", MEObject::GameObject::COMPONENT_ID::eMeshRenderer },
+			{ "SkinnedMeshRenderer", MEObject::GameObject::COMPONENT_ID::eSkinnedMeshRenderer }
 		};
 
 		FileIO::FileIO()
@@ -61,6 +63,7 @@ namespace MonkeyEngine
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].normal), sizeof(DirectX::XMFLOAT3));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].texcoord), sizeof(DirectX::XMFLOAT2));
+					((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].texcoord.x = 1 - ((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].texcoord.x;
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].bone), sizeof(DirectX::XMINT4));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].determinant), sizeof(float));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
@@ -496,6 +499,79 @@ namespace MonkeyEngine
 			return true;
 		}
 
+		bool FileIO::LoadSkinnedMeshRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
+		{
+			bool Enabled = _ObjectRoot->BoolAttribute("Enabled");
+			bool Skiined = _ObjectRoot->BoolAttribute("Skinned");
+			bool Opaque = _ObjectRoot->BoolAttribute("Opaque");
+			std::string VertexFileName;
+			std::string DiffuseFileName;
+			MERenderer::BlendStateManager::BStates BlendState;
+			XMLElement* child = _ObjectRoot->FirstChildElement();
+			if (child && strcmp(child->Name(), "VertexFileName") == 0)
+				VertexFileName = child->Attribute("File");
+			child = child->NextSiblingElement();
+			if (child && strcmp(child->Name(), "DiffuseFileName") == 0)
+				DiffuseFileName = child->Attribute("File");
+			if (Opaque)
+				BlendState = MERenderer::BlendStateManager::BStates::BS_Default;
+			else
+				BlendState = MERenderer::BlendStateManager::BStates::BS_Alpha;
+			MERenderer::VertexFormat VertFormat;
+			std::string tempfilename(&VertexFileName[VertexFileName.length() - 4]);
+			if (tempfilename == ".obj" || tempfilename == ".OBJ")
+				VertFormat = MERenderer::eVERTEX_POSNORMTEX;
+			else if (tempfilename == ".fbx" || tempfilename == ".FBX")
+				VertFormat = MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX;
+
+			MERenderer::RenderContext* renderContext = new MERenderer::RenderContext;
+			renderContext->Load(VertFormat, BlendState, MERenderer::RasterizerStateManager::RS_Default, MERenderer::DepthStencilStateManager::DSS_Default);
+			if (Opaque)
+				renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
+			else
+				renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
+			MERenderer::RenderMesh* tempMesh = renderContext->AddMesh(VertexFileName);
+			MERenderer::RenderTexture* tempTex = tempMesh->AddTexture(DiffuseFileName);
+			MEObject::CompRenderer* comprend = (MEObject::CompRenderer*)_Object;
+			tempTex->AddShape((MERenderer::RenderShape*)comprend);
+			std::vector<XMFLOAT4X4> currSkeleton;
+			currSkeleton.resize(m_Skeleton.mJoints.size());
+			for (unsigned int i = 0; i < m_Skeleton.mJoints.size(); i++)
+			{
+				currSkeleton[i]._11 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(0, 0);
+				currSkeleton[i]._12 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(0, 1);
+				currSkeleton[i]._13 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(0, 2);
+				currSkeleton[i]._14 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(0, 3);
+				currSkeleton[i]._21 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(1, 0);
+				currSkeleton[i]._22 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(1, 1);
+				currSkeleton[i]._23 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(1, 2);
+				currSkeleton[i]._24 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(1, 3);
+				currSkeleton[i]._31 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(2, 0);
+				currSkeleton[i]._32 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(2, 1);
+				currSkeleton[i]._33 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(2, 2);
+				currSkeleton[i]._34 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(2, 3);
+				currSkeleton[i]._41 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(3, 0);
+				currSkeleton[i]._42 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(3, 1);
+				currSkeleton[i]._43 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(3, 2);
+				currSkeleton[i]._44 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(3, 3);
+			}
+			((MEObject::SkinnedMeshRenderer*)_Object)->Load(&renderContext->m_BlendState,
+				&renderContext->m_RasterState,
+				&renderContext->m_DSState,
+				tempMesh->m_vVerticies,
+				&tempMesh->m_uiNumVerticies,
+				tempMesh->m_vIndicies,
+				&tempMesh->m_uiNumIndicies,
+				&tempMesh->m_uiStartIndexLocation,
+				&tempMesh->m_iBaseVertexLocation,
+				&tempMesh->m_sVertexFileName,
+				&tempMesh->m_eVertexFormat,
+				tempTex->m_Material,
+				currSkeleton);
+			_Object->SetName("MeshRenderer");
+			return true;
+		}
+
 		void FileIO::ProcessSkeletonHierarchy(FbxNode* inRootNode)
 		{
 
@@ -624,7 +700,7 @@ namespace MonkeyEngine
 				Triangle currTriangle;
 				m_vTriangles.push_back(currTriangle);
 
-				for (int j = 2; j >= 0; --j)
+				for (int j = 0; j < 3; ++j)
 				{
 					int ctrlPointIndex = currMesh->GetPolygonVertex(i, j);
 					CtrlPoint* currCtrlPoint = m_mControlPoints[ctrlPointIndex];
@@ -855,7 +931,7 @@ namespace MonkeyEngine
 				{
 				case FbxGeometryElement::eDirect:
 				{
-					outUV.x = static_cast<float>(vertexUV->GetDirectArray().GetAt(inCtrlPointIndex).mData[0]);
+					outUV.x = 1 - static_cast<float>(vertexUV->GetDirectArray().GetAt(inCtrlPointIndex).mData[0]);
 					outUV.y = static_cast<float>(vertexUV->GetDirectArray().GetAt(inCtrlPointIndex).mData[1]);
 				}
 				break;
@@ -863,7 +939,7 @@ namespace MonkeyEngine
 				case FbxGeometryElement::eIndexToDirect:
 				{
 					int index = vertexUV->GetIndexArray().GetAt(inCtrlPointIndex);
-					outUV.x = static_cast<float>(vertexUV->GetDirectArray().GetAt(index).mData[0]);
+					outUV.x = 1 - static_cast<float>(vertexUV->GetDirectArray().GetAt(index).mData[0]);
 					outUV.y = static_cast<float>(vertexUV->GetDirectArray().GetAt(index).mData[1]);
 				}
 				break;
@@ -879,7 +955,7 @@ namespace MonkeyEngine
 				case FbxGeometryElement::eDirect:
 				case FbxGeometryElement::eIndexToDirect:
 				{
-					outUV.x = static_cast<float>(vertexUV->GetDirectArray().GetAt(inTextureUVIndex).mData[0]);
+					outUV.x = 1 - static_cast<float>(vertexUV->GetDirectArray().GetAt(inTextureUVIndex).mData[0]);
 					outUV.y = static_cast<float>(vertexUV->GetDirectArray().GetAt(inTextureUVIndex).mData[1]);
 				}
 				break;

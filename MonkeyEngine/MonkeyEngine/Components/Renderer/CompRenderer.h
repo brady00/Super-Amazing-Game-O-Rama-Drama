@@ -62,7 +62,8 @@ namespace MonkeyEngine
 				int* m_iBaseVertexLocation,
 				std::string* m_sVertexFileName,
 				MERenderer::VertexFormat* m_eVertexFormat,
-				Material* _Material);
+				Material* _Material,
+				std::vector<XMFLOAT4X4> _CurrentSkeleton = std::vector<XMFLOAT4X4>());
 		};
 	}
 }

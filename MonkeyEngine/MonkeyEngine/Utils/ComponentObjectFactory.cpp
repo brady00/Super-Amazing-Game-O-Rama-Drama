@@ -29,6 +29,7 @@ namespace MonkeyEngine
 		void ComponentObjectFactory::registerComponents()
 		{
 			ComponentObjectFactory::GetInstance()->Register("MeshRenderer", [] {return new MEObject::MeshRenderer; });
+			ComponentObjectFactory::GetInstance()->Register("SkinnedMeshRenderer", [] {return new MEObject::SkinnedMeshRenderer; });
 			ComponentObjectFactory::GetInstance()->Register("Transform", [] {return new MEObject::Transform; });
 		}
 
