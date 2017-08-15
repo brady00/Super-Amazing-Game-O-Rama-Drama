@@ -68,7 +68,8 @@ namespace MonkeyEngine
 			static unsigned int m_uiTriangleCount;
 			static std::vector<Triangle> m_vTriangles;
 			static std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> m_vVertices;
-			static Animation m_Skeleton;
+			static Skeleton m_Skeleton;
+			static std::vector<Animation> m_Animations;
 			static std::unordered_map<unsigned int, MEObject::Material*> m_mMaterialLookUp;
 			static FbxLongLong m_lAnimationLength;
 			static std::string m_sAnimationName;

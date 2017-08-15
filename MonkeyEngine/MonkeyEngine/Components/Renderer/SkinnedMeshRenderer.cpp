@@ -5,10 +5,11 @@ namespace MonkeyEngine
 	{
 		void SkinnedMeshRenderer::Draw()
 		{
-			cbPerObject temp = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetBufferValue();
-			temp.world = GetTransform()->GetMatrix();
-			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&temp, sizeof(temp));
-			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
+			cbPerSkinnedObject temp = ConstantBufferManager::GetInstance()->GetPerSkinnedObjectCBuffer().GetBufferValue();
+			temp.World = GetTransform()->GetMatrix();
+			memcpy(temp.BoneMatricies, &m_CurrentSkeleton[0], m_CurrentSkeleton.size() * sizeof(XMFLOAT4X4));
+			ConstantBufferManager::GetInstance()->GetPerSkinnedObjectCBuffer().Update(&temp, sizeof(temp));
+			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerSkinnedObjectCBuffer().GetConstantBuffer();
 			Renderer::m_d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
 			if (!m_vIndicies)
 			{

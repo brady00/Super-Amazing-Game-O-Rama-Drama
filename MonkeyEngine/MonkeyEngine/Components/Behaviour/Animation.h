@@ -16,6 +16,14 @@ namespace MonkeyEngine
 				mNext(nullptr)
 			{}
 		};
+		struct Bone
+		{
+			std::string mName;
+			XMFLOAT4X4 Offset;
+			XMFLOAT4X4 Local;
+			int mParentIndex;
+			XMFLOAT4X4 InverseBindpose;
+		};
 
 		struct Joint
 		{
@@ -42,6 +50,12 @@ namespace MonkeyEngine
 					mAnimation = temp;
 				}
 			}
+		};
+
+		class Skeleton
+		{
+		public:
+			std::vector<Bone> mJoints;
 		};
 
 		class Animation : public Behaviour

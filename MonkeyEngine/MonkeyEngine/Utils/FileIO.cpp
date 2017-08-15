@@ -19,7 +19,8 @@ namespace MonkeyEngine
 		unsigned int FileIO::m_uiTriangleCount = 0;
 		std::vector<Triangle> FileIO::m_vTriangles;
 		std::vector<MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX> FileIO::m_vVertices;
-		Animation FileIO::m_Skeleton;
+		Skeleton FileIO::m_Skeleton;
+		std::vector<Animation> FileIO::m_Animations;
 		std::unordered_map<unsigned int, MEObject::Material*> FileIO::m_mMaterialLookUp;
 		FbxLongLong FileIO::m_lAnimationLength = 0;
 		std::string FileIO::m_sAnimationName;
@@ -28,7 +29,7 @@ namespace MonkeyEngine
 		{
 			{"Transform", &FileIO::LoadTranform},
 			{"MeshRenderer", &FileIO::LoadMeshRenderer},
-			{"SkinnedMeshRenderer", &FileIO::LoadMeshRenderer}
+			{"SkinnedMeshRenderer", &FileIO::LoadSkinnedMeshRenderer}
 		};
 
 		const std::unordered_map<std::string, MEObject::GameObject::COMPONENT_ID> FileIO::componentIDS =
@@ -54,6 +55,7 @@ namespace MonkeyEngine
 			std::ifstream FileIn;
 			filepart.append(_FileName.c_str(), _FileName.length() - 4);
 			FileIn.open(filepart + ".Bfbx", std::ios_base::binary);
+			bool BinarySkip = false;
 			if (FileIn.is_open())
 			{
 				FileIn.read((char*)& _NumVerticies, sizeof(unsigned int));
@@ -118,8 +120,28 @@ namespace MonkeyEngine
 				for (unsigned int i = 0; i < _NumIndicies; i++)
 					FileIn.read((char*)&_Indicies[i], sizeof(unsigned int));*/
 				FileIn.close();
-				return true;
+				BinarySkip = true;
 			}
+			FileIn.open(filepart + std::string(".BSkel"), std::ios_base::binary);
+			if (FileIn.is_open())
+			{
+				unsigned int Size = 0;
+				FileIn.read((char*)&Size, sizeof(unsigned int));
+				m_Skeleton.mJoints.resize(Size);
+				for (unsigned int i = 0; i < Size; i++)
+				{
+					FileIn.read((char*)&Size, sizeof(unsigned int));
+					char* boneName = new char[Size];
+					FileIn.read(boneName, Size);
+					m_Skeleton.mJoints[i].mName = string(boneName);
+					delete boneName;
+					FileIn.read((char*)&m_Skeleton.mJoints[i].mParentIndex, sizeof(int));
+					FileIn.read((char*)&m_Skeleton.mJoints[i].InverseBindpose, sizeof(XMFLOAT4X4));
+				}
+				BinarySkip = true;
+			}
+			if (BinarySkip)
+				return true;
 			FbxManager* fbxManager = FbxManager::Create();
 			if (!fbxManager)
 				return false;
@@ -200,10 +222,23 @@ namespace MonkeyEngine
 				{
 					out.write(_Material->mSpecularMapName.c_str(), length);
 				}
-				/*out.write((const char*)& _NumIndicies, sizeof(unsigned int));
-				for (unsigned int i = 0; i < _NumIndicies; i++)
-					out.write((const char*)&_Indicies[i], sizeof(unsigned int));*/
 				out.close();
+			}
+			else
+				return false;
+			out.open(filepart + std::string(".BSkel"), std::ios_base::binary);
+			if (out.is_open())
+			{
+				unsigned int Size = (unsigned int)m_Skeleton.mJoints.size();
+				out.write((const char*)&Size, sizeof(unsigned int));
+				for (unsigned int i = 0; i < Size; i++)
+				{
+					Size = (unsigned int)m_Skeleton.mJoints[i].mName.size() + 1;
+					out.write((const char*)&Size, sizeof(unsigned int));
+					out.write(m_Skeleton.mJoints[i].mName.c_str(), m_Skeleton.mJoints[i].mName.size() + 1);
+					out.write((const char*)&m_Skeleton.mJoints[i].mParentIndex, sizeof(int));
+					out.write((const char*)&m_Skeleton.mJoints[i].InverseBindpose, sizeof(XMFLOAT4X4));
+				}
 			}
 			else
 				return false;
@@ -537,24 +572,7 @@ namespace MonkeyEngine
 			std::vector<XMFLOAT4X4> currSkeleton;
 			currSkeleton.resize(m_Skeleton.mJoints.size());
 			for (unsigned int i = 0; i < m_Skeleton.mJoints.size(); i++)
-			{
-				currSkeleton[i]._11 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(0, 0);
-				currSkeleton[i]._12 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(0, 1);
-				currSkeleton[i]._13 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(0, 2);
-				currSkeleton[i]._14 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(0, 3);
-				currSkeleton[i]._21 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(1, 0);
-				currSkeleton[i]._22 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(1, 1);
-				currSkeleton[i]._23 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(1, 2);
-				currSkeleton[i]._24 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(1, 3);
-				currSkeleton[i]._31 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(2, 0);
-				currSkeleton[i]._32 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(2, 1);
-				currSkeleton[i]._33 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(2, 2);
-				currSkeleton[i]._34 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(2, 3);
-				currSkeleton[i]._41 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(3, 0);
-				currSkeleton[i]._42 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(3, 1);
-				currSkeleton[i]._43 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(3, 2);
-				currSkeleton[i]._44 = (float)m_Skeleton.mJoints[i].mAnimation->mGlobalTransform.Get(3, 3);
-			}
+				currSkeleton[i] = m_Skeleton.mJoints[i].Local;
 			((MEObject::SkinnedMeshRenderer*)_Object)->Load(&renderContext->m_BlendState,
 				&renderContext->m_RasterState,
 				&renderContext->m_DSState,
@@ -586,7 +604,7 @@ namespace MonkeyEngine
 		{
 			if (inNode->GetNodeAttribute() && inNode->GetNodeAttribute()->GetAttributeType() && inNode->GetNodeAttribute()->GetAttributeType() == FbxNodeAttribute::eSkeleton)
 			{
-				Joint currJoint;
+				Bone currJoint;
 				currJoint.mParentIndex = inParentIndex;
 				currJoint.mName = inNode->GetName();
 				m_Skeleton.mJoints.push_back(currJoint);
@@ -622,8 +640,10 @@ namespace MonkeyEngine
 			const FbxVector4 lR = inNode->GetGeometricRotation(FbxNode::eSourcePivot);
 			const FbxVector4 lS = inNode->GetGeometricScaling(FbxNode::eSourcePivot);
 			FbxAMatrix geometryTransform = FbxAMatrix(lT, lR, lS);
+			m_Animations.resize(numOfDeformers);
 			for (unsigned int deformerIndex = 0; deformerIndex < numOfDeformers; ++deformerIndex)
 			{
+				m_Animations[deformerIndex].mJoints.resize(m_Skeleton.mJoints.size());
 				FbxSkin* currSkin = reinterpret_cast<FbxSkin*>(currMesh->GetDeformer(deformerIndex, FbxDeformer::eSkin));
 				if (!currSkin)
 					continue;
@@ -639,8 +659,8 @@ namespace MonkeyEngine
 					currCluster->GetTransformMatrix(transformMatrix);
 					currCluster->GetTransformLinkMatrix(transformLinkMatrix);
 					globalBindposeInverseMatrix = transformLinkMatrix.Inverse() * transformMatrix * geometryTransform;
-					m_Skeleton.mJoints[currJointIndex].mGlobalBindposeInverse = globalBindposeInverseMatrix;
-					m_Skeleton.mJoints[currJointIndex].mNode = currCluster->GetLink();
+					m_Animations[deformerIndex].mJoints[currJointIndex].mGlobalBindposeInverse = globalBindposeInverseMatrix;
+					m_Animations[deformerIndex].mJoints[currJointIndex].mNode = currCluster->GetLink();
 					unsigned int numOfIndices = currCluster->GetControlPointIndicesCount();
 					for (unsigned int i = 0; i < numOfIndices; ++i)
 					{
@@ -656,7 +676,7 @@ namespace MonkeyEngine
 					FbxTime start = takeInfo->mLocalTimeSpan.GetStart();
 					FbxTime end = takeInfo->mLocalTimeSpan.GetStop();
 					m_lAnimationLength = end.GetFrameCount(FbxTime::eFrames24) - start.GetFrameCount(FbxTime::eFrames24) + 1;
-					Keyframe** currAnim = &m_Skeleton.mJoints[currJointIndex].mAnimation;
+					Keyframe** currAnim = &m_Animations[deformerIndex].mJoints[currJointIndex].mAnimation;
 					for (FbxLongLong i = start.GetFrameCount(FbxTime::eFrames24); i <= end.GetFrameCount(FbxTime::eFrames24); ++i)
 					{
 						FbxTime currTime;
