@@ -1,4 +1,13 @@
 #include "MountainDew.h"
+
+#include <dxgi1_3.h>
+#include <wrl.h>
+#include <D3Dcompiler.h>
+#include <stdio.h>
+#include <string>
+#include <cstdlib>
+#include <openvr.h>
+
 #include "../Settings/Settings.h"
 #include "../../Utils/Time.h"
 #include "../../Utils/FileIO.h"
@@ -160,6 +169,28 @@ void MouseUp_RenderingPanel(int key)
 		break;
 	case VK_MBUTTON:
 		break;
+	}
+}
+
+void RunGameWindow()
+{
+
+}
+
+void RunGameVR()
+{
+	// Loading the SteamVR Runtime
+	vr::EVRInitError eError = vr::VRInitError_None;
+	vr::IVRSystem* pHMD = vr::VR_Init(&eError, vr::VRApplication_Scene);
+
+	if (eError != vr::VRInitError_None)
+	{
+		pHMD = NULL;
+		//char buf[1024];
+		//sprintf_s(buf, sizeof(buf), "Unable to init VR runtime: %s", vr::VR_GetVRInitErrorAsEnglishDescription(eError));
+		LPCTSTR buf = _T("Unable to launch SteamVR");
+		MessageBox(NULL, buf, NULL, MB_OK);
+		return;
 	}
 }
 

@@ -104,6 +104,16 @@ namespace Editor
 		this->Invalidate();
 	}
 
+	void MyForm::RunInWindowToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
+	{
+		
+	}
+
+	void MyForm::RunInVRToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
+	{
+		RunGameVR();
+	}
+
 	void MyForm::RenderingPanel_SizeChanged(System::Object ^ sender, System::EventArgs ^ e)
 	{
 		ResizeEngine(RenderingPanel->Width, RenderingPanel->Height);
