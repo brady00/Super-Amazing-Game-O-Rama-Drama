@@ -47,5 +47,7 @@ void __declspec(dllexport) UpdateEngine();
 void __declspec(dllexport) ShutdownEngine();
 void __declspec(dllexport) MouseDown_RenderingPanel(int key);
 void __declspec(dllexport) MouseUp_RenderingPanel(int key);
+void __declspec(dllexport) RunGameWindow();
+void __declspec(dllexport) RunGameVR();
 std::vector<MonkeyEngine::MEObject::GameObject*> __declspec(dllexport)&GetSceneObjects();
 

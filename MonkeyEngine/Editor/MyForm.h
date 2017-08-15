@@ -89,6 +89,11 @@ namespace Editor {
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator5;
 	private: System::Windows::Forms::ToolStripMenuItem^  aboutToolStripMenuItem;
 	private: System::ComponentModel::IContainer^  components;
+	private: System::Windows::Forms::ToolStripMenuItem^  gameToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  RunInWindowToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  RunInVRToolStripMenuItem;
+
+
 
 
 
@@ -154,6 +159,9 @@ namespace Editor {
 			this->toolsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->customizeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->optionsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->gameToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->RunInWindowToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->RunInVRToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->helpToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->contentsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->indexToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -397,9 +405,9 @@ namespace Editor {
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
 				this->fileToolStripMenuItem,
-					this->editToolStripMenuItem, this->toolsToolStripMenuItem, this->helpToolStripMenuItem
+					this->editToolStripMenuItem, this->toolsToolStripMenuItem, this->gameToolStripMenuItem, this->helpToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -563,6 +571,32 @@ namespace Editor {
 			this->optionsToolStripMenuItem->Size = System::Drawing::Size(130, 22);
 			this->optionsToolStripMenuItem->Text = L"&Options";
 			// 
+			// gameToolStripMenuItem
+			// 
+			this->gameToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->RunInWindowToolStripMenuItem,
+					this->RunInVRToolStripMenuItem
+			});
+			this->gameToolStripMenuItem->Name = L"gameToolStripMenuItem";
+			this->gameToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::G));
+			this->gameToolStripMenuItem->Size = System::Drawing::Size(50, 20);
+			this->gameToolStripMenuItem->Text = L"&Game";
+			// 
+			// RunInWindowToolStripMenuItem
+			// 
+			this->RunInWindowToolStripMenuItem->Name = L"RunInWindowToolStripMenuItem";
+			this->RunInWindowToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::R));
+			this->RunInWindowToolStripMenuItem->Size = System::Drawing::Size(196, 22);
+			this->RunInWindowToolStripMenuItem->Text = L"&Run in Window";
+			this->RunInWindowToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::RunInWindowToolStripMenuItem_Click);
+			// 
+			// RunInVRToolStripMenuItem
+			// 
+			this->RunInVRToolStripMenuItem->Name = L"RunInVRToolStripMenuItem";
+			this->RunInVRToolStripMenuItem->Size = System::Drawing::Size(196, 22);
+			this->RunInVRToolStripMenuItem->Text = L"Run in VR";
+			this->RunInVRToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::RunInVRToolStripMenuItem_Click);
+			// 
 			// helpToolStripMenuItem
 			// 
 			this->helpToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
@@ -643,6 +677,8 @@ namespace Editor {
 	private: void ObjectTreeView_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e);
 	private: void Form_OnLoad(System::Object^  sender, System::EventArgs^  e);
 	private: void Timer_Tick(System::Object^  sender, System::EventArgs^  e);
+	private: void RunInWindowToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: void RunInVRToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: void RenderingPanel_SizeChanged(System::Object^  sender, System::EventArgs^  e);
 	private: void RenderingPanel_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 	private: void RenderingPanel_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
