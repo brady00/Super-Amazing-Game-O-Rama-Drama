@@ -7,10 +7,12 @@
     <ClCompile Include="MyForm.cpp">
       <Filter>MyForm</Filter>
     </ClCompile>
+    <ClCompile Include="GameWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h" />
     <ClInclude Include="ComponentPanel.h" />
+    <ClInclude Include="GameWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx" />

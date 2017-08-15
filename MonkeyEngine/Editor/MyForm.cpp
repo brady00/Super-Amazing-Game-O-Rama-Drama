@@ -4,6 +4,7 @@
 //#include "Components\Transform\Transform.h"
 #include "../MonkeyEngine/Components/Transform/Transform.h"
 #include "ComponentPanel.h"
+#include "GameWindow.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -106,11 +107,15 @@ namespace Editor
 
 	void MyForm::RunInWindowToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
 	{
-		
+		GameWindow^ win = gcnew GameWindow();
+		win->Show();
+		//InitializeEngine((HWND)(void*)win->Handle, win->Width, win->Height);
 	}
 
 	void MyForm::RunInVRToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
 	{
+		GameWindow^ win = gcnew GameWindow();
+		win->Show();
 		RunGameVR();
 	}
 
