@@ -143,6 +143,7 @@
     <ClCompile Include="Renderer\TextureLoaders\pch.cpp" />
     <ClCompile Include="Renderer\TextureLoaders\WICTextureLoader.cpp" />
     <ClCompile Include="Utils\ComponentObjectFactory.cpp" />
+    <ClCompile Include="Utils\FBXLoader.cpp" />
     <ClCompile Include="Utils\FileIO.cpp" />
     <ClCompile Include="Utils\MemoryManager.cpp" />
     <ClCompile Include="Utils\Time.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="Renderer\TextureLoaders\PlatformHelpers.h" />
     <ClInclude Include="Renderer\TextureLoaders\WICTextureLoader.h" />
     <ClInclude Include="Utils\ComponentObjectFactory.h" />
+    <ClInclude Include="Utils\FBXLoader.h" />
     <ClInclude Include="Utils\FileIO.h" />
     <ClInclude Include="Utils\MemoryManager.h" />
     <ClInclude Include="Utils\Time.h" />

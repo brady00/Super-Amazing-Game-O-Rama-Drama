@@ -51,6 +51,7 @@ namespace MonkeyEngine
 
 		bool FileIO::LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, MEObject::Material*& _Material)
 		{
+#pragma region Binary Loading
 			std::string filepart;
 			std::ifstream FileIn;
 			filepart.append(_FileName.c_str(), _FileName.length() - 4);
@@ -142,10 +143,18 @@ namespace MonkeyEngine
 			}
 			if (BinarySkip)
 				return true;
+#pragma endregion
 			FbxManager* fbxManager = FbxManager::Create();
 			if (!fbxManager)
 				return false;
 			FbxIOSettings* fbxIOSettings = FbxIOSettings::Create(fbxManager, IOSROOT);
+			(*(fbxManager->GetIOSettings())).SetBoolProp(IMP_FBX_MATERIAL, true);
+			(*(fbxManager->GetIOSettings())).SetBoolProp(IMP_FBX_TEXTURE, true);
+			(*(fbxManager->GetIOSettings())).SetBoolProp(IMP_FBX_LINK, false);
+			(*(fbxManager->GetIOSettings())).SetBoolProp(IMP_FBX_SHAPE, false);
+			(*(fbxManager->GetIOSettings())).SetBoolProp(IMP_FBX_GOBO, false);
+			(*(fbxManager->GetIOSettings())).SetBoolProp(IMP_FBX_ANIMATION, true);
+			(*(fbxManager->GetIOSettings())).SetBoolProp(IMP_FBX_GLOBAL_SETTINGS, true);
 			fbxManager->SetIOSettings(fbxIOSettings);
 			m_fbxScene = FbxScene::Create(fbxManager, "myScene");
 			FbxImporter* fbxImporter = FbxImporter::Create(fbxManager, "myImporter");
@@ -176,6 +185,7 @@ namespace MonkeyEngine
 			_Material->mGlossMapName = m_mMaterialLookUp[0]->mGlossMapName;
 			_Material->mNormalMapName = m_mMaterialLookUp[0]->mNormalMapName;
 			_Material->mSpecularMapName = m_mMaterialLookUp[0]->mSpecularMapName;
+#pragma region Binary Saving
 			std::ofstream out;
 			out.open(filepart + std::string(".Bfbx"), std::ios_base::binary);
 			if (out.is_open())
@@ -242,6 +252,7 @@ namespace MonkeyEngine
 			}
 			else
 				return false;
+#pragma endregion
 			return true;
 		}
 
@@ -592,7 +603,6 @@ namespace MonkeyEngine
 
 		void FileIO::ProcessSkeletonHierarchy(FbxNode* inRootNode)
 		{
-
 			for (int childIndex = 0; childIndex < inRootNode->GetChildCount(); ++childIndex)
 			{
 				FbxNode* currNode = inRootNode->GetChild(childIndex);
@@ -632,14 +642,10 @@ namespace MonkeyEngine
 
 		void FileIO::ProcessJointsAndAnimations(FbxNode* inNode) // needs to be looked at
 		{
-			FbxMesh* currMesh = inNode->GetMesh();
-			unsigned int numOfDeformers = currMesh->GetDeformerCount();
 			if (!inNode)
 				throw std::exception("Null for mesh geometry");
-			const FbxVector4 lT = inNode->GetGeometricTranslation(FbxNode::eSourcePivot);
-			const FbxVector4 lR = inNode->GetGeometricRotation(FbxNode::eSourcePivot);
-			const FbxVector4 lS = inNode->GetGeometricScaling(FbxNode::eSourcePivot);
-			FbxAMatrix geometryTransform = FbxAMatrix(lT, lR, lS);
+			FbxMesh* currMesh = inNode->GetMesh();
+			unsigned int numOfDeformers = currMesh->GetDeformerCount();
 			m_Animations.resize(numOfDeformers);
 			for (unsigned int deformerIndex = 0; deformerIndex < numOfDeformers; ++deformerIndex)
 			{
@@ -651,14 +657,15 @@ namespace MonkeyEngine
 				for (unsigned int clusterIndex = 0; clusterIndex < numOfClusters; ++clusterIndex)
 				{
 					FbxCluster* currCluster = currSkin->GetCluster(clusterIndex);
-					std::string currJointName = currCluster->GetLink()->GetName();
+					FbxNode* currJoint = currCluster->GetLink();
+					std::string currJointName =currJoint->GetName();
 					unsigned int currJointIndex = FindJointIndexUsingName(currJointName);
 					FbxAMatrix transformMatrix;
 					FbxAMatrix transformLinkMatrix;
 					FbxAMatrix globalBindposeInverseMatrix;
 					currCluster->GetTransformMatrix(transformMatrix);
 					currCluster->GetTransformLinkMatrix(transformLinkMatrix);
-					globalBindposeInverseMatrix = transformLinkMatrix.Inverse() * transformMatrix * geometryTransform;
+					globalBindposeInverseMatrix = transformLinkMatrix.Inverse() * transformMatrix;
 					m_Animations[deformerIndex].mJoints[currJointIndex].mGlobalBindposeInverse = globalBindposeInverseMatrix;
 					m_Animations[deformerIndex].mJoints[currJointIndex].mNode = currCluster->GetLink();
 					unsigned int numOfIndices = currCluster->GetControlPointIndicesCount();
@@ -683,7 +690,7 @@ namespace MonkeyEngine
 						currTime.SetFrame(i, FbxTime::eFrames24);
 						*currAnim = new Keyframe();
 						(*currAnim)->mFrameNum = i;
-						FbxAMatrix currentTransformOffset = inNode->EvaluateGlobalTransform(currTime) * geometryTransform;
+						FbxAMatrix currentTransformOffset = inNode->EvaluateGlobalTransform(currTime);
 						(*currAnim)->mGlobalTransform = currentTransformOffset.Inverse() * currCluster->GetLink()->EvaluateGlobalTransform(currTime);
 						currAnim = &((*currAnim)->mNext);
 					}
