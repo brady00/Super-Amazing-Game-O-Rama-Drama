@@ -492,7 +492,9 @@
     <ClCompile Include="Engine Base\Settings\Settings.cpp">
       <Filter>Engine Base\Settings</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\FBXLoader.cpp" />
+    <ClCompile Include="Utils\FBXLoader.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine Base\Game Engine\MountainDew.h">
@@ -921,7 +923,9 @@
     <ClInclude Include="Renderer\Containers\Material.h">
       <Filter>Renderer\Containers</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\FBXLoader.h" />
+    <ClInclude Include="Utils\FBXLoader.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Renderer\Shaders\POS_VS.hlsl">

@@ -28,7 +28,7 @@ namespace MonkeyEngine
 				std::string* m_sVertexFileName,
 				MERenderer::VertexFormat* m_eVertexFormat,
 				Material* _Material,
-				std::vector<XMFLOAT4X4> _CurrentSkeleton = std::vector<XMFLOAT4X4>());
+				Skeleton _Skeleton);
 		};
 	}
 }

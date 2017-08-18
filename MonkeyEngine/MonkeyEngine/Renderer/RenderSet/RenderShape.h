@@ -28,7 +28,7 @@ namespace MonkeyEngine
 				int* m_iBaseVertexLocation,
 				std::string* m_sVertexFileName,
 				MERenderer::VertexFormat* m_eVertexFormat,
-				MEObject::Material* _Material) {
+				Material* _Material) {
 				return false;
 			};
 		};

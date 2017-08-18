@@ -7,26 +7,9 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		struct BlendingIndexWeightPair
-		{
-			unsigned int mBlendingIndex;
-			double mBlendingWeight;
-
-			BlendingIndexWeightPair() :
-				mBlendingIndex(0),
-				mBlendingWeight(0)
-			{}
-		};
-
 		struct CtrlPoint
 		{
 			XMFLOAT3 mPosition;
-			std::vector<BlendingIndexWeightPair> mBlendingInfo;
-
-			CtrlPoint()
-			{
-				mBlendingInfo.reserve(4);
-			}
 		};
 
 		struct Triangle

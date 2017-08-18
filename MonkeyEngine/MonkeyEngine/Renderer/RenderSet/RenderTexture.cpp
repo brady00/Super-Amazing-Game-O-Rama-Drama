@@ -28,9 +28,9 @@ namespace MonkeyEngine
 			m_pRenderShapes->Draw();
 		}
 
-		bool RenderTexture::Load(MEObject::Material* _Material)
+		bool RenderTexture::Load(Material* _Material)
 		{
-			m_Material = new MEObject::Material();
+			m_Material = new Material();
 			*m_Material = *_Material;
 			std::string extention(&m_Material->mDiffuseMapName[m_Material->mDiffuseMapName.length() - 4]);
 			if (extention == ".dds" || extention == ".DDS")

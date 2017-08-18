@@ -8,48 +8,16 @@ namespace MonkeyEngine
 
 		struct Keyframe
 		{
-			FbxLongLong mFrameNum;
-			FbxAMatrix mGlobalTransform;
-			Keyframe* mNext;
-
-			Keyframe() :
-				mNext(nullptr)
-			{}
+			unsigned int mFrameNum;
+			std::vector<XMFLOAT4X4> mOffsets;
 		};
 		struct Bone
 		{
 			std::string mName;
 			XMFLOAT4X4 Offset;
+			int mParentIndex;
 			XMFLOAT4X4 Local;
-			int mParentIndex;
 			XMFLOAT4X4 InverseBindpose;
-		};
-
-		struct Joint
-		{
-			std::string mName;
-			int mParentIndex;
-			FbxAMatrix mGlobalBindposeInverse;
-			Keyframe* mAnimation;
-			FbxNode* mNode;
-
-			Joint() :
-				mNode(nullptr),
-				mAnimation(nullptr)
-			{
-				mGlobalBindposeInverse.SetIdentity();
-				mParentIndex = -1;
-			}
-
-			~Joint()
-			{
-				while (mAnimation)
-				{
-					Keyframe* temp = mAnimation->mNext;
-					delete mAnimation;
-					mAnimation = temp;
-				}
-			}
 		};
 
 		class Skeleton
@@ -61,11 +29,11 @@ namespace MonkeyEngine
 		class Animation : public Behaviour
 		{
 		public:
-			std::vector<Joint> mJoints;
+			std::vector<Keyframe*> mKeyFrames;
 			float mTimePassed;
-			float mDuration;
+			int mFrameCount;
 			bool mLooping;
-			std::string mName;
+			std::string AnimationName;
 		};
 	}
 }

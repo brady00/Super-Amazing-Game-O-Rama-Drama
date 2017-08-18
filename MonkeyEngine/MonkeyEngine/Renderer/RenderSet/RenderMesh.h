@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include "../Containers/Material.h"
 #include "../Managers/VertexBufferManager.h"
+#include "../../Components/Behaviour/Animation.h"
 namespace MEFileIO
 {
 	class FileIO;
@@ -29,7 +30,8 @@ namespace MonkeyEngine
 			std::string m_sVertexFileName;
 			RenderSet* m_pRenderTextures;
 			VertexFormat m_eVertexFormat;
-			MEObject::Material* temp_Material;
+			Material* temp_Material;
+			MEObject::Skeleton temp_Skeleton;
 		public:
 			RenderMesh();
 			~RenderMesh();

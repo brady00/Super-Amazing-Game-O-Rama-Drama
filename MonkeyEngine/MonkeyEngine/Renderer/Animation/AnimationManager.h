@@ -11,17 +11,13 @@ namespace MonkeyEngine
 	using namespace MEObject;
 	namespace MERenderer
 	{
-		struct BindPose
-		{
-			std::vector<Joint> mJoints;
-		};
 
 		class AnimationManager
 		{
 		private:
 			std::vector<Animator> m_vAnimators;
 			std::vector<Blender> m_vBlenders;
-			std::vector<BindPose> m_vBindPoses;
+			std::vector<Skeleton> m_vBindPoses;
 		public:
 			AnimationManager();
 			~AnimationManager();

@@ -25,7 +25,7 @@ namespace MonkeyEngine
 			{
 				if (temp->m_vEdges[i].m_fCondition())
 				{
-					m_sNextAnimation = temp->m_vEdges[i].m_pNext->m_pAnimation->mName;
+					m_sNextAnimation = temp->m_vEdges[i].m_pNext->m_pAnimation->AnimationName;
 					m_fNextAnimationElapsedTime = 0.0f;
 					m_bNextAnimLooping = temp->m_vEdges[i].m_pNext->m_pAnimation->mLooping;
 					return true;

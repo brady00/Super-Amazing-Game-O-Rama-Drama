@@ -7,18 +7,11 @@ namespace MonkeyEngine
 		{
 			cbPerSkinnedObject temp = ConstantBufferManager::GetInstance()->GetPerSkinnedObjectCBuffer().GetBufferValue();
 			temp.World = GetTransform()->GetMatrix();
-			memcpy(temp.BoneMatricies, &m_CurrentSkeleton[0], m_CurrentSkeleton.size() * sizeof(XMFLOAT4X4));
+			memcpy(temp.BoneMatricies, &m_CurrentSkeleton.mJoints[0], m_CurrentSkeleton.mJoints.size() * sizeof(XMFLOAT4X4));
 			ConstantBufferManager::GetInstance()->GetPerSkinnedObjectCBuffer().Update(&temp, sizeof(temp));
 			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerSkinnedObjectCBuffer().GetConstantBuffer();
 			Renderer::m_d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
-			if (!m_vIndicies)
-			{
-				Renderer::m_d3DeviceContext->Draw(*m_uiNumVerticies, *m_iBaseVertexLocation);
-			}
-			else
-			{
-				Renderer::m_d3DeviceContext->DrawIndexed(*m_uiNumIndicies, *m_uiStartIndexLocation, *m_iBaseVertexLocation);
-			}
+			Renderer::m_d3DeviceContext->DrawIndexed(*m_uiNumIndicies, *m_uiStartIndexLocation, *m_iBaseVertexLocation);
 		}
 
 		bool SkinnedMeshRenderer::Load(MERenderer::BlendStateManager::BStates* _BlendState,
@@ -33,7 +26,7 @@ namespace MonkeyEngine
 			std::string* _sVertexFileName,
 			MERenderer::VertexFormat* _eVertexFormat,
 			Material* _Material,
-			std::vector<XMFLOAT4X4> _CurrentSkeleton)
+			Skeleton _Skeleton)
 		{
 			m_BlendState = _BlendState;
 			m_RasterState = _RasterState;
@@ -47,7 +40,7 @@ namespace MonkeyEngine
 			m_sVertexFileName = _sVertexFileName;
 			m_eVertexFormat = _eVertexFormat;
 			m_Material = _Material;
-			m_CurrentSkeleton = _CurrentSkeleton;
+			m_CurrentSkeleton = _Skeleton;
 			return true;
 		}
 	}

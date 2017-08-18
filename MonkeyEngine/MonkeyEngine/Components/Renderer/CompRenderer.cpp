@@ -141,7 +141,7 @@ namespace MonkeyEngine
 			std::string* _sVertexFileName,
 			MERenderer::VertexFormat* _eVertexFormat,
 			Material* _Material,
-			std::vector<XMFLOAT4X4> _CurrentSkeleton)
+			Skeleton _Skeleton)
 		{
 			return true;
 		}

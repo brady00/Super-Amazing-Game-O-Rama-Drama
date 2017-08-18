@@ -59,21 +59,24 @@ namespace MonkeyEngine
 		struct VERTEX_POSBONEWEIGHTNORMTEX : public VERTEX
 		{
 			DirectX::XMFLOAT3 position;
-			DirectX::XMINT4   bone;
+			DirectX::XMINT4   bones;
 			DirectX::XMFLOAT4 weights;
 			DirectX::XMFLOAT3 normal;
 			DirectX::XMFLOAT2 texcoord;
+			VERTEX_POSBONEWEIGHTNORMTEX() { bones.x = bones.y = bones.z = bones.w = -1; }
+
 		};
 		struct VERTEX_POSBONEWEIGHTNORMTANTEX : public VERTEX
 		{
 			DirectX::XMFLOAT3 position;
 			DirectX::XMFLOAT3 normal;
 			DirectX::XMFLOAT2 texcoord;
-			DirectX::XMINT4   bone;
+			DirectX::XMINT4   bones;
 			DirectX::XMFLOAT4 weights;
 			DirectX::XMFLOAT3 tangent;
 			float determinant;
 			DirectX::XMFLOAT3 binormal;
+			VERTEX_POSBONEWEIGHTNORMTANTEX() { bones.x = bones.y = bones.z = bones.w = -1; }
 		};
 		class InputLayoutManager
 		{

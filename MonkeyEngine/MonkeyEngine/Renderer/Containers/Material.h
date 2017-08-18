@@ -4,7 +4,7 @@ using namespace DirectX;
 #include <string>
 namespace MonkeyEngine
 {
-	namespace MEObject
+	namespace MERenderer
 	{
 		class Material
 		{

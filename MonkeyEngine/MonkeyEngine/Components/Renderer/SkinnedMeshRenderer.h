@@ -7,7 +7,7 @@ namespace MonkeyEngine
 		class SkinnedMeshRenderer : public MeshRenderer
 		{
 		private:
-			std::vector<XMFLOAT4X4> m_CurrentSkeleton;
+			Skeleton m_CurrentSkeleton;
 		public:
 			SkinnedMeshRenderer() : MeshRenderer() {};
 			~SkinnedMeshRenderer() {};
@@ -25,7 +25,7 @@ namespace MonkeyEngine
 				std::string* m_sVertexFileName,
 				MERenderer::VertexFormat* m_eVertexFormat,
 				Material* _Material,
-				std::vector<XMFLOAT4X4> _CurrentSkeleton = std::vector<XMFLOAT4X4>());
+				Skeleton _Skeleton);
 		};
 	}
 }

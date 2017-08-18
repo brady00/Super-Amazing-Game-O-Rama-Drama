@@ -72,7 +72,7 @@ CONSTANT_BUFFER_BEGIN(cbPerSkinnedObject, b5)
 #ifdef __cplusplus
 	const static int REGISTER_SLOT = 5;
 #endif	
-	const static int NUM_BONES = 50;
+	const static int NUM_BONES = 75;
 	float4x4	World;
 	float4x4	BoneMatricies[NUM_BONES];
 CONSTANT_BUFFER_END

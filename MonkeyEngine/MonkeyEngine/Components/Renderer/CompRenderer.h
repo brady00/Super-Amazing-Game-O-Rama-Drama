@@ -1,9 +1,11 @@
 #pragma once
 #include "../Base/Component.h"
 #include "../../Renderer/RenderSet/RenderShape.h"
+#include "../Behaviour/Animation.h"
 using namespace DirectX;
 namespace MonkeyEngine
 {
+	using namespace MERenderer;
 	namespace MEObject
 	{
 		class CompRenderer : public MERenderer::RenderShape, public Component
@@ -63,7 +65,7 @@ namespace MonkeyEngine
 				std::string* m_sVertexFileName,
 				MERenderer::VertexFormat* m_eVertexFormat,
 				Material* _Material,
-				std::vector<XMFLOAT4X4> _CurrentSkeleton = std::vector<XMFLOAT4X4>());
+				Skeleton _Skeleton);
 		};
 	}
 }
