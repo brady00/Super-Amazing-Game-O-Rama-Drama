@@ -1,4 +1,5 @@
 #include "FBXLoader.h"
+#include <unordered_map>
 namespace MonkeyEngine
 {
 	namespace MEFileIO
@@ -40,7 +41,7 @@ namespace MonkeyEngine
 			else
 			{
 				DisplayContent(lScene);
-				//DisplayAnimation(lScene);
+				DisplayAnimation(lScene);
 			}
 
 			// Destroy all objects created by the FBX SDK.
@@ -126,7 +127,7 @@ namespace MonkeyEngine
 
 			if (pNode->GetNodeAttribute())
 			{
-				lAttributeType = (pNode->GetNodeAttribute()->GetAttributeType());
+				lAttributeType = pNode->GetNodeAttribute()->GetAttributeType();
 
 				switch (lAttributeType)
 				{
@@ -136,6 +137,7 @@ namespace MonkeyEngine
 				{
 					Bone temp;
 					temp.mParentIndex = depth - 1;
+					temp.pNode = pNode;
 					m_Skeleton.mJoints.push_back(temp);
 					break;
 				}
@@ -170,9 +172,9 @@ namespace MonkeyEngine
 			m_Verticies.resize(lControlPointsCount + m_Verticies.size());
 			for (int i = 0; i < lControlPointsCount; i++)
 			{
-				m_Verticies[i+startingIndex].position.x = (float)lControlPoints[i].mData[0];
-				m_Verticies[i+startingIndex].position.y = (float)lControlPoints[i].mData[1];
-				m_Verticies[i+startingIndex].position.z = (float)lControlPoints[i].mData[2];
+				m_Verticies[i + startingIndex].position.x = (float)lControlPoints[i].mData[0];
+				m_Verticies[i + startingIndex].position.y = (float)lControlPoints[i].mData[1];
+				m_Verticies[i + startingIndex].position.z = (float)lControlPoints[i].mData[2];
 			}
 
 		}
@@ -547,6 +549,59 @@ namespace MonkeyEngine
 					m_Skeleton.mJoints[j].Offset._44 = (float)lMatrix.Get(3, 3);
 
 					XMStoreFloat4x4(&m_Skeleton.mJoints[j].InverseBindpose, XMMatrixInverse(0, XMLoadFloat4x4(&m_Skeleton.mJoints[j].Offset)) * XMLoadFloat4x4(&m_Skeleton.mJoints[j].Local));
+				}
+			}
+		}
+
+		void FBXLoader::DisplayAnimation(FbxScene* pScene)
+		{
+			int AnimationCount = pScene->GetSrcObjectCount<FbxAnimStack>();
+			m_Animations.resize(AnimationCount);
+			for (int i = 0; i < AnimationCount; i++)
+			{
+				FbxAnimStack* lAnimStack = pScene->GetSrcObject<FbxAnimStack>(i);
+				m_Animations[i] = new Animation();
+				m_Animations[i]->AnimationName = std::string(lAnimStack->GetName());
+				DisplayAnimation(m_Animations[i], lAnimStack, pScene);
+			}
+		}
+
+		void FBXLoader::DisplayAnimation(Animation* pAnim, FbxAnimStack* pAnimStack, FbxScene* pScene)
+		{
+			FbxTakeInfo* takeInfo = pScene->GetTakeInfo(pAnimStack->GetName());
+			FbxTime start = takeInfo->mLocalTimeSpan.GetStart();
+			FbxTime end = takeInfo->mLocalTimeSpan.GetStop();
+			FbxLongLong tempend = end.GetFrameCount(FbxTime::eFrames24);
+			pAnim->mFrameCount = (int)(tempend + 1);
+			pAnim->mKeyFrames.resize(pAnim->mFrameCount);
+			for (FbxLongLong i = 0; i <= tempend; ++i)
+			{
+				FbxTime currTime;
+				currTime.SetFrame(i, FbxTime::eFrames24);
+				pAnim->mKeyFrames[i] = new Keyframe();
+				pAnim->mKeyFrames[i]->mFrameNum = (int)i;
+				int boneCount = (int)m_Skeleton.mJoints.size();
+				pAnim->mKeyFrames[i]->mOffsets.resize(boneCount);
+				for (int j = 0; j < boneCount; j++)
+				{
+					FbxAMatrix currentTransformOffset = m_Skeleton.mJoints[j].pNode->EvaluateGlobalTransform(currTime);
+					FbxAMatrix temp = currentTransformOffset.Inverse();
+					pAnim->mKeyFrames[i]->mOffsets[j]._11 = (float)temp.Get(0, 0);
+					pAnim->mKeyFrames[i]->mOffsets[j]._12 = (float)temp.Get(0, 1);
+					pAnim->mKeyFrames[i]->mOffsets[j]._13 = (float)temp.Get(0, 2);
+					pAnim->mKeyFrames[i]->mOffsets[j]._14 = (float)temp.Get(0, 3);
+					pAnim->mKeyFrames[i]->mOffsets[j]._21 = (float)temp.Get(1, 0);
+					pAnim->mKeyFrames[i]->mOffsets[j]._22 = (float)temp.Get(1, 1);
+					pAnim->mKeyFrames[i]->mOffsets[j]._23 = (float)temp.Get(1, 2);
+					pAnim->mKeyFrames[i]->mOffsets[j]._24 = (float)temp.Get(1, 3);
+					pAnim->mKeyFrames[i]->mOffsets[j]._31 = (float)temp.Get(2, 0);
+					pAnim->mKeyFrames[i]->mOffsets[j]._32 = (float)temp.Get(2, 1);
+					pAnim->mKeyFrames[i]->mOffsets[j]._33 = (float)temp.Get(2, 2);
+					pAnim->mKeyFrames[i]->mOffsets[j]._34 = (float)temp.Get(2, 3);
+					pAnim->mKeyFrames[i]->mOffsets[j]._41 = (float)temp.Get(3, 0);
+					pAnim->mKeyFrames[i]->mOffsets[j]._42 = (float)temp.Get(3, 1);
+					pAnim->mKeyFrames[i]->mOffsets[j]._43 = (float)temp.Get(3, 2);
+					pAnim->mKeyFrames[i]->mOffsets[j]._44 = (float)temp.Get(3, 3);
 				}
 			}
 		}

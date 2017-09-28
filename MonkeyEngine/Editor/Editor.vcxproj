@@ -147,7 +147,7 @@
   <ItemGroup>
     <ClCompile Include="ComponentPanel.cpp" />
     <ClCompile Include="GameWindow.cpp" />
-    <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="Editor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComponentPanel.h">
@@ -156,7 +156,7 @@
     <ClInclude Include="GameWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="MyForm.h">
+    <ClInclude Include="Editor.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
@@ -164,8 +164,8 @@
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyForm.resx">
-      <DependentUpon>MyForm.h</DependentUpon>
+    <EmbeddedResource Include="Editor.resx">
+      <DependentUpon>Editor.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -18,6 +18,7 @@ namespace MonkeyEngine
 			int mParentIndex;
 			XMFLOAT4X4 Local;
 			XMFLOAT4X4 InverseBindpose;
+			FbxNode* pNode;
 		};
 
 		class Skeleton

@@ -115,7 +115,11 @@ void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight)
 	std::vector<MEObject::GameObject*> objects;
 	temp->m_pScene = new Scene;
 	temp->m_pScene->initialize(_ScreenWidth, _ScreenHeight);
-	MEFileIO::FileIO::LoadScene("../MonkeyEngine/Assets/Scenes/TestScene.mes", temp->m_pScene->m_vObjects);
+}
+
+bool LoadScene(string& _FileName)
+{
+	return MEFileIO::FileIO::LoadScene(_FileName, MountainDew::GetInstance()->m_pScene->m_vObjects);
 }
 
 void ResizeEngine(int _ScreenWidth, int _ScreenHeight)

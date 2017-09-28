@@ -27,7 +27,10 @@ namespace MonkeyEngine
 			void DisplayPolygons(FbxMesh* pMesh);
 			void DisplayMaterial(FbxGeometry* pGeometry);
 			void DisplayLink(FbxGeometry* pGeometry);
+			void DisplayAnimation(FbxScene* pScene);
+			void DisplayAnimation(Animation* pAnim, FbxAnimStack* pAnimStack, FbxScene* pScene);
 			int startingIndex;
+			int boneIndex;
 		public:
 			Material* m_Material;
 			std::vector<unsigned int> m_Indices;

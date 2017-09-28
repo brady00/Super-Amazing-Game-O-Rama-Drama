@@ -224,9 +224,41 @@ namespace MonkeyEngine
 					out.write((const char*)&_Skeleton.mJoints[i].Offset, sizeof(XMFLOAT4X4));
 					out.write((const char*)&_Skeleton.mJoints[i].Local, sizeof(XMFLOAT4X4));
 				}
+				out.close();
 			}
 			else
 				return false;
+			for (unsigned int i = 0; i < Loader.m_Animations.size(); i++)
+			{
+				Animation* Anim = Loader.m_Animations[i];
+				out.open(filepart + Anim->AnimationName + std::string(".Anim"), std::ios_base::binary);
+				if (out.is_open())
+				{
+					//Animation Name Size
+					unsigned int size = (unsigned int)Anim->AnimationName.size() + 1;
+					out.write((const char *)&size, sizeof(unsigned int));
+					//Animation Name
+					out.write(Anim->AnimationName.c_str(), size);
+					//Animation Frame Count
+					out.write((const char*)&Anim->mFrameCount, sizeof(int));
+					//KeyFrames
+					for (int j = 0; j < Anim->mFrameCount; j++)
+					{
+						Keyframe* Key = Anim->mKeyFrames[j];
+						//Frame Number
+						out.write((const char*)&Key->mFrameNum, sizeof(unsigned int));
+						//Offsets Size
+						size = (unsigned int)Key->mOffsets.size();
+						out.write((const char*)&size, sizeof(unsigned int));
+						//Offsets
+						for (unsigned int k = 0; k < size; k++)
+							out.write((const char*)&(Key->mOffsets[k]), sizeof(XMFLOAT4X4));
+					}
+					out.close();
+				}
+				else
+					return false;
+			}
 #pragma endregion
 			return true;
 		}

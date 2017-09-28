@@ -4,18 +4,19 @@
     <ClCompile Include="ComponentPanel.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="MyForm.cpp">
+    <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="Editor.cpp">
       <Filter>MyForm</Filter>
     </ClCompile>
-    <ClCompile Include="GameWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyForm.h" />
     <ClInclude Include="ComponentPanel.h" />
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="Editor.h" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyForm.resx" />
+    <EmbeddedResource Include="GameWindow.resx" />
+    <EmbeddedResource Include="Editor.resx" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

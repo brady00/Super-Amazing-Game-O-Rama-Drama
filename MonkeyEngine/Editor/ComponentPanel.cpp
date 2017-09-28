@@ -1,5 +1,5 @@
 ﻿#include "ComponentPanel.h"
-#include "MyForm.h"
+#include "Editor.h"
 namespace Editor
 {
 	void ComponentPanel::CollapseButton_Click(System::Object^ sender, EventArgs^ e)
@@ -8,13 +8,13 @@ namespace Editor
 		{
 			CollapseButton->Text = "V";
 			this->Size = System::Drawing::Size(this->MinimumSize.Width, 200);
-			MyForm::ButtonExpanded(Index, Parent);
+			Editor::ButtonExpanded(Index, Parent);
 		}
 		else
 		{
 			CollapseButton->Text = ">";
 			this->Size = System::Drawing::Size(this->MinimumSize.Width, this->MinimumSize.Height);
-			MyForm::ButtonCollapsed(Index, Parent);
+			Editor::ButtonCollapsed(Index, Parent);
 		}
 	}
 
