@@ -49,6 +49,6 @@ void __declspec(dllexport) MouseDown_RenderingPanel(int key);
 void __declspec(dllexport) MouseUp_RenderingPanel(int key);
 void __declspec(dllexport) RunGameWindow();
 void __declspec(dllexport) RunGameVR();
-bool __declspec(dllexport) LoadScene(string& _FileName);
+void __declspec(dllexport) LoadMonkeyEngineScene(string& _FileName, float& percentLoaded, bool& Success);
 std::vector<MonkeyEngine::MEObject::GameObject*> __declspec(dllexport)&GetSceneObjects();
 

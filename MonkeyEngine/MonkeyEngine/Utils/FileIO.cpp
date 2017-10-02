@@ -370,13 +370,16 @@ namespace MonkeyEngine
 			return true;
 		}
 
-		bool FileIO::LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects)
+		void FileIO::LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects, float& percentLoaded, bool& Succeeded)
 		{
 			tinyxml2::XMLDocument doc;
 			doc.LoadFile(_FileName.c_str());
 			XMLElement* root = doc.FirstChildElement();
 			if (!root)
-				return false;
+			{
+				Succeeded = false;
+				return;
+			}
 			XMLElement* child = root->FirstChildElement();
 			while (child)
 			{
@@ -391,13 +394,15 @@ namespace MonkeyEngine
 						delete Object;
 					else
 						_GameObjects.push_back(Object);
+					percentLoaded += 0.33f;
 				}
 				default:
 					break;
 				}
 				child = child->NextSiblingElement();
 			}
-			return true;
+			Succeeded = true;
+			percentLoaded = 1.0f;
 		}
 
 		bool FileIO::OutputSettings(std::string _FileName, std::vector<SettingData*> _SettingData)

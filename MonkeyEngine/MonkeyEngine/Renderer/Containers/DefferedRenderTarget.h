@@ -21,7 +21,7 @@ namespace MonkeyEngine
 			void Initialize(ID3D11Device* _Device, UINT _ScreenHeight, UINT _ScreenWidth);
 			void Update();
 			void Shutdown();
-
+			void ResizeBuffers(ID3D11Device* _Device, UINT _ScreenHeight, UINT _ScreenWidth);
 			void SetAsRenderTarget(ID3D11DepthStencilView* _StencilView, ID3D11DeviceContext* _DeviceContext);
 		};
 	}

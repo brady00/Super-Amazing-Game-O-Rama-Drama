@@ -96,6 +96,58 @@ namespace MonkeyEngine
 
 		}
 
+		void DefferedRenderTarget::ResizeBuffers(ID3D11Device* _Device, UINT _ScreenHeight, UINT _ScreenWidth)
+		{
+			D3D11_TEXTURE2D_DESC textureDesc;
+			ZeroMemory(&textureDesc, sizeof(textureDesc));
+			textureDesc.Width = _ScreenWidth;
+			textureDesc.Height = _ScreenHeight;
+			textureDesc.MipLevels = 1;
+			textureDesc.ArraySize = 1;
+			textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+			textureDesc.SampleDesc.Count = 1;
+			textureDesc.Usage = D3D11_USAGE_DEFAULT;
+			textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+			textureDesc.CPUAccessFlags = 0;
+			textureDesc.MiscFlags = 0;
+			for (unsigned int i = 0; i < m_uiBufferCount; i++)
+			{
+				if (m_d3GbufferTarget[i])
+				{
+					m_d3GbufferTarget[i]->Release();
+					m_d3GbufferTarget[i] = nullptr;
+				}
+				_Device->CreateTexture2D(&textureDesc, NULL, &m_d3GbufferTarget[i]);
+			}
+			D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
+			renderTargetViewDesc.Format = textureDesc.Format;
+			renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+			renderTargetViewDesc.Texture2D.MipSlice = 0;
+			for (unsigned int i = 0; i < m_uiBufferCount; i++)
+			{
+				if (m_d3GBufferTargetView[i])
+				{
+					m_d3GBufferTargetView[i]->Release();
+					m_d3GBufferTargetView[i] = nullptr;
+				}
+				_Device->CreateRenderTargetView(m_d3GbufferTarget[i], &renderTargetViewDesc, &m_d3GBufferTargetView[i]);
+			}
+			D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
+			shaderResourceViewDesc.Format = textureDesc.Format;
+			shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+			shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
+			shaderResourceViewDesc.Texture2D.MipLevels = 1;
+			for (unsigned int i = 0; i < m_uiBufferCount; i++)
+			{
+				if (m_d3GBufferShaderView[i])
+				{
+					m_d3GBufferShaderView[i]->Release();
+					m_d3GBufferShaderView[i] = nullptr;
+				}
+				_Device->CreateShaderResourceView(m_d3GbufferTarget[i], &shaderResourceViewDesc, &m_d3GBufferShaderView[i]);
+			}
+		}
+
 		void DefferedRenderTarget::Update()
 		{
 			Renderer::m_d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(VertexFormat::eVERTEX_POSTEX));

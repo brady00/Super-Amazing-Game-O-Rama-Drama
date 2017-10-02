@@ -30,7 +30,7 @@ namespace MonkeyEngine
 			static bool LoadFBX(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, Material*& _Material, Skeleton& _Skelton);
 			static bool LoadOBJ(std::string _FileName, MERenderer::VertexFormat _VertexFormat, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies);
 			//scene
-			static bool LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects);
+			static void LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects, float& percentLoaded, bool& Success);
 			// Settings
 			static bool OutputSettings(std::string _FileName, std::vector<SettingData*> _SettingData);
 			static bool LoadSettings(std::string _FileName, std::vector<SettingData*> &_SettingData);

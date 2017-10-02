@@ -154,7 +154,7 @@ namespace MonkeyEngine
 			MountainDew::GetInstance()->m_pScene->GetDebugCamera()->Resize(0.1f, 999999.9f, 90.0f, (float)_ScreenHeight, (float)_ScreenWidth);
 
 			// Render Target
-			m_pDeferredRenderTarget->Initialize(m_d3Device, _ScreenHeight, _ScreenWidth);
+			m_pDeferredRenderTarget->ResizeBuffers(m_d3Device, _ScreenHeight, _ScreenWidth);
 		}
 
 		void Renderer::Update()

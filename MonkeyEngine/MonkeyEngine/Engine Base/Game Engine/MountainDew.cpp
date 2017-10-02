@@ -117,9 +117,9 @@ void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight)
 	temp->m_pScene->initialize(_ScreenWidth, _ScreenHeight);
 }
 
-bool LoadScene(string& _FileName)
+void LoadMonkeyEngineScene(string& _FileName, float& _percentLoaded, bool& Success)
 {
-	return MEFileIO::FileIO::LoadScene(_FileName, MountainDew::GetInstance()->m_pScene->m_vObjects);
+	MEFileIO::FileIO::LoadScene( _FileName, MountainDew::GetInstance()->m_pScene->m_vObjects, _percentLoaded, Success);
 }
 
 void ResizeEngine(int _ScreenWidth, int _ScreenHeight)
