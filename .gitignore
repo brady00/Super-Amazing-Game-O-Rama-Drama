@@ -19,11 +19,11 @@
 *.app
 
 # Other Files
-config.txt
-Test.Bfbx
-
+MemoryMangerDebug.txt
 *_DebugStaging/
 *_BuiltUnits/
+*.Bfbx
+*.BObj
 *.VC
 *.vs
 *.db
@@ -35,10 +35,3 @@ Test.Bfbx
 *.vcxproj.user
 *.suo
 *.exp
-MonkeyEngine/MonkeyEngine.VC.db
-MonkeyEngine/Editor/MemoryMangerDebug.txt
-MonkeyEngine/Editor/MonkeyEngine.dll
-MonkeyEngine/Editor/MonkeyEngine.exp
-MonkeyEngine/Editor/MonkeyEngine.lib
-MonkeyEngine/Editor/MonkeyEngine.pdb
-MonkeyEngine/Editor/MonkeyEngine.ilk
