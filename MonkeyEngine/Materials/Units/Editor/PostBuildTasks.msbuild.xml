@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<ProductDirectory>$(ProjectDir)..\..\..</ProductDirectory>
+		<PrebuiltUnitsDirectory>$(ProductDirectory)\Materials\PrebuiltUnits</PrebuiltUnitsDirectory>
+		<BuiltUnitsDirectory>$(ProductDirectory)\Materials\_BuiltUnits</BuiltUnitsDirectory>
+		<DebugStagingDirectory>$(ProductDirectory)\Tools\_DebugStaging</DebugStagingDirectory>
+	</PropertyGroup>
+	<ItemGroup>
+		<BinariesToCopy Include="$(PrebuiltUnitsDirectory)\**\lib\$(Configuration)\*.lib"/>
+		<BinariesToCopy Include="$(PrebuiltUnitsDirectory)\**\lib\$(Configuration)\*.dll"/>
+		<BinariesToCopy Include="$(PrebuiltUnitsDirectory)\**\lib\$(Configuration)\*.pdb"/>
+		<BinariesToCopy Include="$(BuiltUnitsDirectory)\**\Binary\$(Configuration)\*.exe"/>
+		<BinariesToCopy Include="$(BuiltUnitsDirectory)\**\Binary\$(Configuration)\*.dll"/>
+		<BinariesToCopy Include="$(BuiltUnitsDirectory)\**\Binary\$(Configuration)\*.pdb"/>
+		<ShadersToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\ShaderCSO\**"/>
+		<ScenesToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Scenes\**"/>
+		<TexturesToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Textures\**"/>
+		<BinaryToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Binaries\**"/>
+		<ModelsToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Models\**"/>
+	</ItemGroup>
+	<Target Name="PostBuildTasks">
+		<Message Importance="High" Text="Copying $(Configuration) Files to the Sandbox" />
+		<Copy SourceFiles="@(BinariesToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"/>
+		<Copy SourceFiles="@(ShadersToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\ShaderCSO\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
+		<Copy SourceFiles="@(ScenesToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\Scenes\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
+		<Copy SourceFiles="@(TexturesToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\Textures\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
+		<Copy SourceFiles="@(BinaryToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\Binaries\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
+		<Copy SourceFiles="@(ModelsToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\Models\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
+	</Target>
+</Project>

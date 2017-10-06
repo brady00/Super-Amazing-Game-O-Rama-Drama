@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{218fec19-b9a8-4478-a0bf-182114518df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{21de81ba-a57b-45bf-a84d-93a3018d3071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{9e86fe8e-be5b-4595-a1c1-8c9a7ecbd821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderSet">
+      <UniqueIdentifier>{1b103462-8e43-4989-9151-b56ca6287ff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TextureLoaders">
+      <UniqueIdentifier>{949a9367-c6ea-47de-a80e-0da092adf3ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TextureLoaders\Helpers">
+      <UniqueIdentifier>{fa180619-2301-461b-a6f4-182a6f949fa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderBuffers">
+      <UniqueIdentifier>{fc0a12c8-d333-4352-ad44-b98bd915c0e8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\TextureLoaders\DDSTextureLoader.cpp">
+      <Filter>TextureLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextureLoaders\pch.cpp">
+      <Filter>TextureLoaders\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextureLoaders\WICTextureLoader.cpp">
+      <Filter>TextureLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderSet\RenderContext.cpp">
+      <Filter>RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderSet\RenderMesh.cpp">
+      <Filter>RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderSet\RenderNode.cpp">
+      <Filter>RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderSet\RenderSet.cpp">
+      <Filter>RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderSet\RenderTexture.cpp">
+      <Filter>RenderSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Animation\AnimationGraph.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Animation\AnimationManager.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Animation\Blender.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Containers\DefferedRenderTarget.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Containers\IndexBuffer.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Managers\BlendStateManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Managers\ConstantBufferManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Managers\DepthStencilStateManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Managers\InputLayoutManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Managers\RasterizerStateManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Managers\ShaderManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Managers\VertexBufferManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\TextureLoaders\dds.h">
+      <Filter>TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextureLoaders\DDSTextureLoader.h">
+      <Filter>TextureLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextureLoaders\DirectXHelpers.h">
+      <Filter>TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextureLoaders\LoaderHelpers.h">
+      <Filter>TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextureLoaders\pch.h">
+      <Filter>TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextureLoaders\PlatformHelpers.h">
+      <Filter>TextureLoaders\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextureLoaders\WICTextureLoader.h">
+      <Filter>TextureLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderSet\RenderContext.h">
+      <Filter>RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderSet\RenderMesh.h">
+      <Filter>RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderSet\RenderNode.h">
+      <Filter>RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderSet\RenderSet.h">
+      <Filter>RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderSet\rendershape.h">
+      <Filter>RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderSet\RenderTexture.h">
+      <Filter>RenderSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animation\AnimationGraph.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animation\AnimationManager.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animation\blender.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Containers\ConstantBuffer.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Containers\ConstantBuffer.hpp">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Containers\DefferedRenderTarget.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Containers\IndexBuffer.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Containers\VertexBuffer.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Containers\VertexBuffer.hpp">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Managers\BlendStateManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Managers\ConstantBufferManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Managers\DepthStencilStateManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Managers\InputLayoutManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Managers\RasterizerStateManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Managers\ShaderManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Managers\VertexBufferManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShaderBuffers\ConstantBuffers.h">
+      <Filter>ShaderBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShaderBuffers\LightBuffers.h">
+      <Filter>ShaderBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShaderBuffers\SharedDefines.h">
+      <Filter>ShaderBuffers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

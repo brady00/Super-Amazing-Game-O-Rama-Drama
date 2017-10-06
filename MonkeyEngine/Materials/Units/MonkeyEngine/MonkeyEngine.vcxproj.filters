@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Engine Base">
+      <UniqueIdentifier>{eeece361-d7fb-4a57-bc4f-27168e0c0bc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Base\GameEngine">
+      <UniqueIdentifier>{6562271c-6616-4ecc-b4ec-ac0e6b03453d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Base\Scene">
+      <UniqueIdentifier>{a211ba53-d9cd-4fbd-81b9-94d2590cec2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Base\Settings">
+      <UniqueIdentifier>{70acfa4e-9a34-4a25-8c4a-ce6ab97be326}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{8b84a83f-0bdd-4bf1-bcfb-383c6ccf26ac}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Engine Base\Game Engine\MountainDew.cpp">
+      <Filter>Engine Base\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DebugCamera\DebugCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine Base\Scene\Scene.cpp">
+      <Filter>Engine Base\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Engine Base\Game Engine\MountainDew.h">
+      <Filter>Engine Base\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DebugCamera\DebugCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine Base\Scene\Scene.h">
+      <Filter>Engine Base\Scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

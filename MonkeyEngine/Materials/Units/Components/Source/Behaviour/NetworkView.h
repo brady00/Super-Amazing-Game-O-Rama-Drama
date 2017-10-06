@@ -1,0 +1,11 @@
+#pragma once
+#include "Behaviour.h"
+namespace MonkeyEngine
+{
+	namespace MEObject
+	{
+		class NetworkView : public Behaviour
+		{
+		};
+	}
+}

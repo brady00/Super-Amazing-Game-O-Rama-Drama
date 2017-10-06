@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{62E1B773-7E0F-4A00-9B6F-BCDD70FC4873}</ProjectGuid>
+    <RootNamespace>RenderTools</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Animation\AnimationGraph.cpp" />
+    <ClCompile Include="Source\Animation\AnimationManager.cpp" />
+    <ClCompile Include="Source\Animation\Blender.cpp" />
+    <ClCompile Include="Source\Containers\DefferedRenderTarget.cpp" />
+    <ClCompile Include="Source\Containers\IndexBuffer.cpp" />
+    <ClCompile Include="Source\Managers\BlendStateManager.cpp" />
+    <ClCompile Include="Source\Managers\ConstantBufferManager.cpp" />
+    <ClCompile Include="Source\Managers\DepthStencilStateManager.cpp" />
+    <ClCompile Include="Source\Managers\InputLayoutManager.cpp" />
+    <ClCompile Include="Source\Managers\RasterizerStateManager.cpp" />
+    <ClCompile Include="Source\Managers\ShaderManager.cpp" />
+    <ClCompile Include="Source\Managers\VertexBufferManager.cpp" />
+    <ClCompile Include="Source\RenderSet\RenderContext.cpp" />
+    <ClCompile Include="Source\RenderSet\RenderMesh.cpp" />
+    <ClCompile Include="Source\RenderSet\RenderNode.cpp" />
+    <ClCompile Include="Source\RenderSet\RenderSet.cpp" />
+    <ClCompile Include="Source\RenderSet\RenderTexture.cpp" />
+    <ClCompile Include="Source\TextureLoaders\DDSTextureLoader.cpp" />
+    <ClCompile Include="Source\TextureLoaders\pch.cpp" />
+    <ClCompile Include="Source\TextureLoaders\WICTextureLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Animation\AnimationGraph.h" />
+    <ClInclude Include="Source\Animation\AnimationManager.h" />
+    <ClInclude Include="Source\Animation\blender.h" />
+    <ClInclude Include="Source\Containers\ConstantBuffer.h" />
+    <ClInclude Include="Source\Containers\ConstantBuffer.hpp" />
+    <ClInclude Include="Source\Containers\DefferedRenderTarget.h" />
+    <ClInclude Include="Source\Containers\IndexBuffer.h" />
+    <ClInclude Include="Source\Containers\VertexBuffer.h" />
+    <ClInclude Include="Source\Containers\VertexBuffer.hpp" />
+    <ClInclude Include="Source\Managers\BlendStateManager.h" />
+    <ClInclude Include="Source\Managers\ConstantBufferManager.h" />
+    <ClInclude Include="Source\Managers\DepthStencilStateManager.h" />
+    <ClInclude Include="Source\Managers\InputLayoutManager.h" />
+    <ClInclude Include="Source\Managers\RasterizerStateManager.h" />
+    <ClInclude Include="Source\Managers\ShaderManager.h" />
+    <ClInclude Include="Source\Managers\VertexBufferManager.h" />
+    <ClInclude Include="Source\RenderSet\RenderContext.h" />
+    <ClInclude Include="Source\RenderSet\RenderMesh.h" />
+    <ClInclude Include="Source\RenderSet\RenderNode.h" />
+    <ClInclude Include="Source\RenderSet\RenderSet.h" />
+    <ClInclude Include="Source\RenderSet\rendershape.h" />
+    <ClInclude Include="Source\RenderSet\RenderTexture.h" />
+    <ClInclude Include="Source\ShaderBuffers\ConstantBuffers.h" />
+    <ClInclude Include="Source\ShaderBuffers\LightBuffers.h" />
+    <ClInclude Include="Source\ShaderBuffers\SharedDefines.h" />
+    <ClInclude Include="Source\TextureLoaders\dds.h" />
+    <ClInclude Include="Source\TextureLoaders\DDSTextureLoader.h" />
+    <ClInclude Include="Source\TextureLoaders\DirectXHelpers.h" />
+    <ClInclude Include="Source\TextureLoaders\LoaderHelpers.h" />
+    <ClInclude Include="Source\TextureLoaders\pch.h" />
+    <ClInclude Include="Source\TextureLoaders\PlatformHelpers.h" />
+    <ClInclude Include="Source\TextureLoaders\WICTextureLoader.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Base">
+      <UniqueIdentifier>{5e215fd9-0bea-4b4c-b9c7-c80c0d52526f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviour">
+      <UniqueIdentifier>{44d23507-b39a-48cb-a669-e540fb11a29c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collider">
+      <UniqueIdentifier>{2104267a-2b5b-46a3-8c26-722c70d4c55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collider2D">
+      <UniqueIdentifier>{5eb56b36-c929-4a4f-aa7d-dd3dc542613c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effector2D">
+      <UniqueIdentifier>{7dd78460-62df-47ca-9980-b1290a05a4f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{ed56edd8-47eb-4638-9232-9749ccbbce76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Joint">
+      <UniqueIdentifier>{ca57be61-d816-466e-8e9f-6303dd736b7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Joint2D">
+      <UniqueIdentifier>{91a4fe6a-bb34-4b3a-843f-55ca52414e93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{60413fc9-c37c-438d-896e-9de88ff951e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PhysicsUpdateBehaviour2D">
+      <UniqueIdentifier>{7b536785-fa2d-4051-a68a-f3999ef108f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{0d655f38-fa61-47f4-a93e-4f1e52381be4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transform">
+      <UniqueIdentifier>{df30aece-5400-4552-82d0-001729453940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{b198ed50-73c4-4e54-a58f-a8862d62be39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{e5343590-0dc9-4e4c-8cac-1acf23c6b118}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Base\Component.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Animation.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Animator.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\AudioChorusFilter.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\AudioDistortionFilter.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\AudioEchoFilter.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\AudioHighPassFilter.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\AudioListener.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\AudioLowPassFilter.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\AudioReverbFilter.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\AudioReverbZone.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\AudioSource.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Behaviour.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Camera.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Canvas.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\ConstantForce.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\FlareLayer.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Light.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\LightProbeGroup.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\LightProbeProxyVolume.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\NavMeshAgent.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\NavMeshObstacle.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\NetworkView.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Projector.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\ReflectionProbe.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Script.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Skybox.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Behaviour\Terrain.cpp">
+      <Filter>Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider\BoxCollider.cpp">
+      <Filter>Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider\CapsuleCollider.cpp">
+      <Filter>Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider\Collider.cpp">
+      <Filter>Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider\MeshCollider.cpp">
+      <Filter>Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider\SphereCollider.cpp">
+      <Filter>Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider\TerrainCollider.cpp">
+      <Filter>Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider\WheelCollider.cpp">
+      <Filter>Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider2D\BoxCollider2D.cpp">
+      <Filter>Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider2D\CircleCollider2D.cpp">
+      <Filter>Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider2D\Collider2D.cpp">
+      <Filter>Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider2D\EdgeCollider2D.cpp">
+      <Filter>Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collider2D\PolygonCollider2D.cpp">
+      <Filter>Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Effector2D\AreaEffector2D.cpp">
+      <Filter>Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Effector2D\BuoyancyEffector2D.cpp">
+      <Filter>Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Effector2D\Effector2D.cpp">
+      <Filter>Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Effector2D\PlatformEffector2D.cpp">
+      <Filter>Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Effector2D\PointEffector2D.cpp">
+      <Filter>Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Effector2D\SurfaceEffector2D.cpp">
+      <Filter>Effector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GUI\GUIElement.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GUI\GUILayer.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GUI\GUIText.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GUI\GUITexture.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameObject\GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint\CharacterJoint.cpp">
+      <Filter>Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint\ConfigurableJoint.cpp">
+      <Filter>Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint\FixedJoint.cpp">
+      <Filter>Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint\HingeJoint.cpp">
+      <Filter>Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint\Joint.cpp">
+      <Filter>Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint\SpringJoint.cpp">
+      <Filter>Joint</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\AnchoredJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\DistanceJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\FixedJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\FrictionJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\HingeJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\Joint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\RelativeJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\SliderJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\SpringJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\TargetJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Joint2D\WheelJoint2D.cpp">
+      <Filter>Joint2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\CanvasGroup.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\CanvasRenderer.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\Cloth.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\LODGroup.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\OcclusionArea.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\OcclusionPortal.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\OffMeshLink.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\ParticleSystem.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\RigidBody.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\RigidBody2D.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\TextMesh.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\Tree.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Object\Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PhyscicsUpdateBehaviour2D\ConstantForce2D.cpp">
+      <Filter>PhysicsUpdateBehaviour2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PhyscicsUpdateBehaviour2D\PhysicsUpdateBehaviour2D.cpp">
+      <Filter>PhysicsUpdateBehaviour2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\CompRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\LineRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\MeshRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\ParticleSystemRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\SkinnedMeshRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\SpriteRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\TrailRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Transform\RectTransform.cpp">
+      <Filter>Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Transform\Transform.cpp">
+      <Filter>Transform</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Base\component.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Animation.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Animator.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\AudioChorusFilter.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\AudioDistortionFilter.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\AudioEchoFilter.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\AudioHighPassFilter.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\AudioListener.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\AudioLowPassFilter.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\AudioReverbFilter.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\AudioReverbZone.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\AudioSource.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Behaviour.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Camera.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Canvas.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\ConstantForce.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\FlareLayer.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Light.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\LightProbeGroup.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\LightProbeProxyVolume.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\NavMeshAgent.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\NavMeshObstacle.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\NetworkView.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Projector.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\ReflectionProbe.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Script.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Skybox.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Behaviour\Terrain.h">
+      <Filter>Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider\BoxCollider.h">
+      <Filter>Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider\CapsuleCollider.h">
+      <Filter>Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider\Collider.h">
+      <Filter>Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider\MeshCollider.h">
+      <Filter>Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider\SphereCollider.h">
+      <Filter>Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider\TerrainCollider.h">
+      <Filter>Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider\WheelCollider.h">
+      <Filter>Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider2D\BoxCollider2D.h">
+      <Filter>Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider2D\CircleCollider2D.h">
+      <Filter>Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider2D\Collider2D.h">
+      <Filter>Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider2D\EdgeCollider2D.h">
+      <Filter>Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collider2D\PolygonCollider2D.h">
+      <Filter>Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Effector2D\AreaEffector2D.h">
+      <Filter>Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Effector2D\BuoyancyEffector2D.h">
+      <Filter>Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Effector2D\Effector2D.h">
+      <Filter>Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Effector2D\PlatformEffector2D.h">
+      <Filter>Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Effector2D\PointEffector2D.h">
+      <Filter>Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Effector2D\SurfaceEffector2D.h">
+      <Filter>Effector2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GUI\GUIElement.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GUI\GUILayer.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GUI\GUIText.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GUI\GUITexture.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObject\GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint\CharacterJoint.h">
+      <Filter>Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint\ConfigurableJoint.h">
+      <Filter>Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint\FixedJoint.h">
+      <Filter>Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint\HingeJoint.h">
+      <Filter>Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint\Joint.h">
+      <Filter>Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint\SpringJoint.h">
+      <Filter>Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\AnchoredJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\DistanceJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\FixedJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\FrictionJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\HingeJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\Joint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\RelativeJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\SliderJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\SpringJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\TargetJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Joint2D\WheelJoint2D.h">
+      <Filter>Joint2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\CanvasGroup.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\CanvasRenderer.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\Cloth.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\LODGroup.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\OcclusionArea.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\OcclusionPortal.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\OffMeshLink.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\ParticleSystem.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\RigidBody.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\RigidBody2D.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\TextMesh.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\Tree.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Object\Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhyscicsUpdateBehaviour2D\ConstantForce2D.h">
+      <Filter>PhysicsUpdateBehaviour2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhyscicsUpdateBehaviour2D\PhysicsUpdateBehaviour2D.h">
+      <Filter>PhysicsUpdateBehaviour2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\CompRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\LineRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\MeshRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\ParticleSystemRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\SkinnedMeshRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\SpriteRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\TrailRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Transform\RectTransform.h">
+      <Filter>Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Transform\Transform.h">
+      <Filter>Transform</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3300BF38-FA30-4297-BCB9-5C6F3047AA83}</ProjectGuid>
+    <RootNamespace>Components</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;RenderTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;RenderTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Base\Component.cpp" />
+    <ClCompile Include="Source\Behaviour\Animation.cpp" />
+    <ClCompile Include="Source\Behaviour\Animator.cpp" />
+    <ClCompile Include="Source\Behaviour\AudioChorusFilter.cpp" />
+    <ClCompile Include="Source\Behaviour\AudioDistortionFilter.cpp" />
+    <ClCompile Include="Source\Behaviour\AudioEchoFilter.cpp" />
+    <ClCompile Include="Source\Behaviour\AudioHighPassFilter.cpp" />
+    <ClCompile Include="Source\Behaviour\AudioListener.cpp" />
+    <ClCompile Include="Source\Behaviour\AudioLowPassFilter.cpp" />
+    <ClCompile Include="Source\Behaviour\AudioReverbFilter.cpp" />
+    <ClCompile Include="Source\Behaviour\AudioReverbZone.cpp" />
+    <ClCompile Include="Source\Behaviour\AudioSource.cpp" />
+    <ClCompile Include="Source\Behaviour\Behaviour.cpp" />
+    <ClCompile Include="Source\Behaviour\Camera.cpp" />
+    <ClCompile Include="Source\Behaviour\Canvas.cpp" />
+    <ClCompile Include="Source\Behaviour\ConstantForce.cpp" />
+    <ClCompile Include="Source\Behaviour\FlareLayer.cpp" />
+    <ClCompile Include="Source\Behaviour\Light.cpp" />
+    <ClCompile Include="Source\Behaviour\LightProbeGroup.cpp" />
+    <ClCompile Include="Source\Behaviour\LightProbeProxyVolume.cpp" />
+    <ClCompile Include="Source\Behaviour\NavMeshAgent.cpp" />
+    <ClCompile Include="Source\Behaviour\NavMeshObstacle.cpp" />
+    <ClCompile Include="Source\Behaviour\NetworkView.cpp" />
+    <ClCompile Include="Source\Behaviour\Projector.cpp" />
+    <ClCompile Include="Source\Behaviour\ReflectionProbe.cpp" />
+    <ClCompile Include="Source\Behaviour\Script.cpp" />
+    <ClCompile Include="Source\Behaviour\Skybox.cpp" />
+    <ClCompile Include="Source\Behaviour\Terrain.cpp" />
+    <ClCompile Include="Source\Collider2D\BoxCollider2D.cpp" />
+    <ClCompile Include="Source\Collider2D\CircleCollider2D.cpp" />
+    <ClCompile Include="Source\Collider2D\Collider2D.cpp" />
+    <ClCompile Include="Source\Collider2D\EdgeCollider2D.cpp" />
+    <ClCompile Include="Source\Collider2D\PolygonCollider2D.cpp" />
+    <ClCompile Include="Source\Collider\BoxCollider.cpp" />
+    <ClCompile Include="Source\Collider\CapsuleCollider.cpp" />
+    <ClCompile Include="Source\Collider\Collider.cpp" />
+    <ClCompile Include="Source\Collider\MeshCollider.cpp" />
+    <ClCompile Include="Source\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Source\Collider\TerrainCollider.cpp" />
+    <ClCompile Include="Source\Collider\WheelCollider.cpp" />
+    <ClCompile Include="Source\Effector2D\AreaEffector2D.cpp" />
+    <ClCompile Include="Source\Effector2D\BuoyancyEffector2D.cpp" />
+    <ClCompile Include="Source\Effector2D\Effector2D.cpp" />
+    <ClCompile Include="Source\Effector2D\PlatformEffector2D.cpp" />
+    <ClCompile Include="Source\Effector2D\PointEffector2D.cpp" />
+    <ClCompile Include="Source\Effector2D\SurfaceEffector2D.cpp" />
+    <ClCompile Include="Source\GameObject\GameObject.cpp" />
+    <ClCompile Include="Source\GUI\GUIElement.cpp" />
+    <ClCompile Include="Source\GUI\GUILayer.cpp" />
+    <ClCompile Include="Source\GUI\GUIText.cpp" />
+    <ClCompile Include="Source\GUI\GUITexture.cpp" />
+    <ClCompile Include="Source\Joint2D\AnchoredJoint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\DistanceJoint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\FixedJoint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\FrictionJoint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\HingeJoint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\Joint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\RelativeJoint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\SliderJoint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\SpringJoint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\TargetJoint2D.cpp" />
+    <ClCompile Include="Source\Joint2D\WheelJoint2D.cpp" />
+    <ClCompile Include="Source\Joint\CharacterJoint.cpp" />
+    <ClCompile Include="Source\Joint\ConfigurableJoint.cpp" />
+    <ClCompile Include="Source\Joint\FixedJoint.cpp" />
+    <ClCompile Include="Source\Joint\HingeJoint.cpp" />
+    <ClCompile Include="Source\Joint\Joint.cpp" />
+    <ClCompile Include="Source\Joint\SpringJoint.cpp" />
+    <ClCompile Include="Source\Misc\CanvasGroup.cpp" />
+    <ClCompile Include="Source\Misc\CanvasRenderer.cpp" />
+    <ClCompile Include="Source\Misc\Cloth.cpp" />
+    <ClCompile Include="Source\Misc\LODGroup.cpp" />
+    <ClCompile Include="Source\Misc\OcclusionArea.cpp" />
+    <ClCompile Include="Source\Misc\OcclusionPortal.cpp" />
+    <ClCompile Include="Source\Misc\OffMeshLink.cpp" />
+    <ClCompile Include="Source\Misc\ParticleSystem.cpp" />
+    <ClCompile Include="Source\Misc\RigidBody.cpp" />
+    <ClCompile Include="Source\Misc\RigidBody2D.cpp" />
+    <ClCompile Include="Source\Misc\TextMesh.cpp" />
+    <ClCompile Include="Source\Misc\Tree.cpp" />
+    <ClCompile Include="Source\Object\Object.cpp" />
+    <ClCompile Include="Source\PhyscicsUpdateBehaviour2D\ConstantForce2D.cpp" />
+    <ClCompile Include="Source\PhyscicsUpdateBehaviour2D\PhysicsUpdateBehaviour2D.cpp" />
+    <ClCompile Include="Source\Renderer\CompRenderer.cpp" />
+    <ClCompile Include="Source\Renderer\LineRenderer.cpp" />
+    <ClCompile Include="Source\Renderer\MeshRenderer.cpp" />
+    <ClCompile Include="Source\Renderer\ParticleSystemRenderer.cpp" />
+    <ClCompile Include="Source\Renderer\SkinnedMeshRenderer.cpp" />
+    <ClCompile Include="Source\Renderer\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\Renderer\TrailRenderer.cpp" />
+    <ClCompile Include="Source\Transform\RectTransform.cpp" />
+    <ClCompile Include="Source\Transform\Transform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Base\component.h" />
+    <ClInclude Include="Source\Behaviour\Animation.h" />
+    <ClInclude Include="Source\Behaviour\Animator.h" />
+    <ClInclude Include="Source\Behaviour\AudioChorusFilter.h" />
+    <ClInclude Include="Source\Behaviour\AudioDistortionFilter.h" />
+    <ClInclude Include="Source\Behaviour\AudioEchoFilter.h" />
+    <ClInclude Include="Source\Behaviour\AudioHighPassFilter.h" />
+    <ClInclude Include="Source\Behaviour\AudioListener.h" />
+    <ClInclude Include="Source\Behaviour\AudioLowPassFilter.h" />
+    <ClInclude Include="Source\Behaviour\AudioReverbFilter.h" />
+    <ClInclude Include="Source\Behaviour\AudioReverbZone.h" />
+    <ClInclude Include="Source\Behaviour\AudioSource.h" />
+    <ClInclude Include="Source\Behaviour\Behaviour.h" />
+    <ClInclude Include="Source\Behaviour\Camera.h" />
+    <ClInclude Include="Source\Behaviour\Canvas.h" />
+    <ClInclude Include="Source\Behaviour\ConstantForce.h" />
+    <ClInclude Include="Source\Behaviour\FlareLayer.h" />
+    <ClInclude Include="Source\Behaviour\Light.h" />
+    <ClInclude Include="Source\Behaviour\LightProbeGroup.h" />
+    <ClInclude Include="Source\Behaviour\LightProbeProxyVolume.h" />
+    <ClInclude Include="Source\Behaviour\NavMeshAgent.h" />
+    <ClInclude Include="Source\Behaviour\NavMeshObstacle.h" />
+    <ClInclude Include="Source\Behaviour\NetworkView.h" />
+    <ClInclude Include="Source\Behaviour\Projector.h" />
+    <ClInclude Include="Source\Behaviour\ReflectionProbe.h" />
+    <ClInclude Include="Source\Behaviour\Script.h" />
+    <ClInclude Include="Source\Behaviour\Skybox.h" />
+    <ClInclude Include="Source\Behaviour\Terrain.h" />
+    <ClInclude Include="Source\Collider2D\BoxCollider2D.h" />
+    <ClInclude Include="Source\Collider2D\CircleCollider2D.h" />
+    <ClInclude Include="Source\Collider2D\Collider2D.h" />
+    <ClInclude Include="Source\Collider2D\EdgeCollider2D.h" />
+    <ClInclude Include="Source\Collider2D\PolygonCollider2D.h" />
+    <ClInclude Include="Source\Collider\BoxCollider.h" />
+    <ClInclude Include="Source\Collider\CapsuleCollider.h" />
+    <ClInclude Include="Source\Collider\Collider.h" />
+    <ClInclude Include="Source\Collider\MeshCollider.h" />
+    <ClInclude Include="Source\Collider\SphereCollider.h" />
+    <ClInclude Include="Source\Collider\TerrainCollider.h" />
+    <ClInclude Include="Source\Collider\WheelCollider.h" />
+    <ClInclude Include="Source\Effector2D\AreaEffector2D.h" />
+    <ClInclude Include="Source\Effector2D\BuoyancyEffector2D.h" />
+    <ClInclude Include="Source\Effector2D\Effector2D.h" />
+    <ClInclude Include="Source\Effector2D\PlatformEffector2D.h" />
+    <ClInclude Include="Source\Effector2D\PointEffector2D.h" />
+    <ClInclude Include="Source\Effector2D\SurfaceEffector2D.h" />
+    <ClInclude Include="Source\GameObject\GameObject.h" />
+    <ClInclude Include="Source\GUI\GUIElement.h" />
+    <ClInclude Include="Source\GUI\GUILayer.h" />
+    <ClInclude Include="Source\GUI\GUIText.h" />
+    <ClInclude Include="Source\GUI\GUITexture.h" />
+    <ClInclude Include="Source\Joint2D\AnchoredJoint2D.h" />
+    <ClInclude Include="Source\Joint2D\DistanceJoint2D.h" />
+    <ClInclude Include="Source\Joint2D\FixedJoint2D.h" />
+    <ClInclude Include="Source\Joint2D\FrictionJoint2D.h" />
+    <ClInclude Include="Source\Joint2D\HingeJoint2D.h" />
+    <ClInclude Include="Source\Joint2D\Joint2D.h" />
+    <ClInclude Include="Source\Joint2D\RelativeJoint2D.h" />
+    <ClInclude Include="Source\Joint2D\SliderJoint2D.h" />
+    <ClInclude Include="Source\Joint2D\SpringJoint2D.h" />
+    <ClInclude Include="Source\Joint2D\TargetJoint2D.h" />
+    <ClInclude Include="Source\Joint2D\WheelJoint2D.h" />
+    <ClInclude Include="Source\Joint\CharacterJoint.h" />
+    <ClInclude Include="Source\Joint\ConfigurableJoint.h" />
+    <ClInclude Include="Source\Joint\FixedJoint.h" />
+    <ClInclude Include="Source\Joint\HingeJoint.h" />
+    <ClInclude Include="Source\Joint\Joint.h" />
+    <ClInclude Include="Source\Joint\SpringJoint.h" />
+    <ClInclude Include="Source\Misc\CanvasGroup.h" />
+    <ClInclude Include="Source\Misc\CanvasRenderer.h" />
+    <ClInclude Include="Source\Misc\Cloth.h" />
+    <ClInclude Include="Source\Misc\LODGroup.h" />
+    <ClInclude Include="Source\Misc\OcclusionArea.h" />
+    <ClInclude Include="Source\Misc\OcclusionPortal.h" />
+    <ClInclude Include="Source\Misc\OffMeshLink.h" />
+    <ClInclude Include="Source\Misc\ParticleSystem.h" />
+    <ClInclude Include="Source\Misc\RigidBody.h" />
+    <ClInclude Include="Source\Misc\RigidBody2D.h" />
+    <ClInclude Include="Source\Misc\TextMesh.h" />
+    <ClInclude Include="Source\Misc\Tree.h" />
+    <ClInclude Include="Source\Object\Object.h" />
+    <ClInclude Include="Source\PhyscicsUpdateBehaviour2D\ConstantForce2D.h" />
+    <ClInclude Include="Source\PhyscicsUpdateBehaviour2D\PhysicsUpdateBehaviour2D.h" />
+    <ClInclude Include="Source\Renderer\CompRenderer.h" />
+    <ClInclude Include="Source\Renderer\LineRenderer.h" />
+    <ClInclude Include="Source\Renderer\MeshRenderer.h" />
+    <ClInclude Include="Source\Renderer\ParticleSystemRenderer.h" />
+    <ClInclude Include="Source\Renderer\SkinnedMeshRenderer.h" />
+    <ClInclude Include="Source\Renderer\SpriteRenderer.h" />
+    <ClInclude Include="Source\Renderer\TrailRenderer.h" />
+    <ClInclude Include="Source\Transform\RectTransform.h" />
+    <ClInclude Include="Source\Transform\Transform.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
