@@ -29,6 +29,12 @@ Test.Bfbx
 *.db
 *.opendb
 *.tmp
+*.BSkel
+*.BObj
+*.Anim
+*.vcxproj.user
+*.suo
+*.exp
 MonkeyEngine/MonkeyEngine.VC.db
 MonkeyEngine/Editor/MemoryMangerDebug.txt
 MonkeyEngine/Editor/MonkeyEngine.dll
