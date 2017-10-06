@@ -1,0 +1,4 @@
+ScreenWidth=1920
+ScreenHeight=1080
+MouseSensitivity=2.5
+MovementSpeed=1.0
