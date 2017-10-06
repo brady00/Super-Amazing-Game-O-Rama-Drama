@@ -22,8 +22,8 @@
 config.txt
 Test.Bfbx
 
-*Debug/
-*Release/
+*_DebugStaging/
+*_BuiltUnits/
 *.VC
 *.vs
 *.db
