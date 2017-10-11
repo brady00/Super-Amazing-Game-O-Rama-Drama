@@ -1,17 +1,20 @@
 #pragma once
 #include "Object/Object.h"
 #include "GameObject/GameObject.h"
-
+#include "Registrar\Registrar.h"
+#define REGISTER_CLASS(NAME, TYPE) \
+	static Registrar<TYPE> registrar(NAME);
 namespace MonkeyEngine
 {
 	namespace MEObject
 	{
 		class Transform;
-		class Component : public Object
+		class __declspec(dllexport) Component : public Object
 		{
 			friend class GameObject;
 		private:
 			GameObject* m_pGameObject;
+		protected:
 		public:
 			Component();
 			virtual ~Component();

@@ -3,7 +3,6 @@
 #include <vector>
 #include <unordered_map>
 #include "GameObject/GameObject.h"
-#include "Renderer/CompRenderer.h"
 #include "tinyxml2.h"
 #include "FBXLoader.h"
 #include "Settings.h"
@@ -14,7 +13,7 @@ namespace MonkeyEngine
 	namespace MEFileIO
 	{
 		typedef bool(*compFuntion)(XMLElement*, MEObject::Component*&);
-		class FileIO
+		class __declspec(dllexport) FileIO
 		{
 		private:
 			//object

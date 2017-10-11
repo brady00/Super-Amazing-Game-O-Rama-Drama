@@ -10,9 +10,6 @@
     <Filter Include="Engine Base\Scene">
       <UniqueIdentifier>{a211ba53-d9cd-4fbd-81b9-94d2590cec2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Base\Settings">
-      <UniqueIdentifier>{70acfa4e-9a34-4a25-8c4a-ce6ab97be326}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{8b84a83f-0bdd-4bf1-bcfb-383c6ccf26ac}</UniqueIdentifier>
     </Filter>

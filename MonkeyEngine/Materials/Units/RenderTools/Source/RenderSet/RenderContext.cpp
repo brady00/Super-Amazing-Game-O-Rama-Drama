@@ -14,10 +14,6 @@ namespace MonkeyEngine
 
 		RenderContext::~RenderContext()
 		{
-			InputLayoutManager::DeleteInstance();
-			BlendStateManager::DeleteInstance();
-			RasterizerStateManager::DeleteInstance();
-			DepthStencilStateManager::DeleteInstance();
 			delete m_pRenderMeshes;
 		}
 

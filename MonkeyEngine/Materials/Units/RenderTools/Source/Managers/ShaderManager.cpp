@@ -4,7 +4,6 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		ShaderManager* ShaderManager::m_pInstance = nullptr;
 
 		ShaderManager::ShaderManager()
 		{
@@ -34,18 +33,8 @@ namespace MonkeyEngine
 
 		ShaderManager* ShaderManager::GetInstance()
 		{
-			if (m_pInstance == nullptr)
-			{
-				m_pInstance = new ShaderManager;
-			}
-			return m_pInstance;
-		}
-
-		void ShaderManager::DeleteInstance()
-		{
-			if (m_pInstance)
-				delete m_pInstance;
-			m_pInstance = nullptr;
+			static ShaderManager m_pInstance;
+			return &m_pInstance;
 		}
 
 		void ShaderManager::CreateShaders(ID3D11Device* d3Device)

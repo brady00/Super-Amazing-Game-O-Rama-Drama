@@ -6,7 +6,7 @@ namespace MonkeyEngine
 {
 	namespace MEObject
 	{
-		class Transform : public Component
+		class __declspec(dllexport) Transform : public Component
 		{
 			friend class GameObject;
 		private:
@@ -37,15 +37,4 @@ namespace MonkeyEngine
 			XMFLOAT4X4 GetMatrix();
 		};
 	}
-}
-
-extern "C"
-{
-	__declspec(dllexport) void GetTransformPosRotScale(MonkeyEngine::MEObject::Transform* _object, float& posx, float& posy, float& posz, float& rotx, float& roty, float& rotz, float& scalex, float& sclaey, float& scalez);
-	__declspec(dllexport) void SetTransformPosRotScale(MonkeyEngine::MEObject::Transform* _object, float posx, float posy, float posz, float rotx, float roty, float rotz, float scalex, float sclaey, float scalez);
-	__declspec(dllexport) MonkeyEngine::MEObject::Transform** GetTransformChildren(MonkeyEngine::MEObject::Transform* _object, unsigned int& size);
-	__declspec(dllexport) void AddTransformChild(MonkeyEngine::MEObject::Transform* _object, MonkeyEngine::MEObject::Transform* _child);
-	__declspec(dllexport) void RemoveTransformChild(MonkeyEngine::MEObject::Transform* _object, MonkeyEngine::MEObject::Transform* _child);
-	__declspec(dllexport) MonkeyEngine::MEObject::Transform* GetTransformParent(MonkeyEngine::MEObject::Transform* _object);
-	__declspec(dllexport) void SetTransformParent(MonkeyEngine::MEObject::Transform* _object, MonkeyEngine::MEObject::Transform* _parent);
 }

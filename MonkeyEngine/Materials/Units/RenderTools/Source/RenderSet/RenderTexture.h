@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include "RenderNode.h"
 #include "RenderSet.h"
 #include <d3d11.h>
@@ -14,7 +15,7 @@ namespace MonkeyEngine
 	namespace MERenderer
 	{
 		class RenderShape;
-		class RenderTexture : public RenderNode
+		class RENDERTOOLS_EXPORT RenderTexture : public RenderNode
 		{
 			friend MEFileIO::FileIO;
 		private:

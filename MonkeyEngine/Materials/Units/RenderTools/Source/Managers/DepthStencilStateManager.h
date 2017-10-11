@@ -1,10 +1,11 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include <d3d11.h>
 namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		class DepthStencilStateManager
+		class RENDERTOOLS_EXPORT DepthStencilStateManager
 		{
 		public:
 			enum DSStates {
@@ -21,16 +22,14 @@ namespace MonkeyEngine
 			DepthStencilStateManager();
 			DepthStencilStateManager(const DepthStencilStateManager &) {}
 			DepthStencilStateManager(const DepthStencilStateManager &&) {}
-			DepthStencilStateManager &operator=(const DepthStencilStateManager &) {}
-			DepthStencilStateManager &operator=(const DepthStencilStateManager &&) {}
-			static DepthStencilStateManager *m_pInstance;
+			DepthStencilStateManager &operator=(const DepthStencilStateManager &) { return *this; }
+			DepthStencilStateManager &operator=(const DepthStencilStateManager &&) { return *this; }
 			ID3D11DepthStencilState* m_vDepthStates[DSS_COUNT];
 			UINT m_vStencilRefs[DSS_COUNT];
 			DSStates m_eCurrentState;
 		public:
 			~DepthStencilStateManager(void);
 			static DepthStencilStateManager* GetInstance();
-			static void DeleteInstance();
 			void CreateStates(ID3D11Device* d3Device);
 			bool ApplyState(DSStates state, ID3D11DeviceContext* d3DeviceContext);
 			DSStates GetCurrentState();

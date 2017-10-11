@@ -3,7 +3,6 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		RasterizerStateManager *RasterizerStateManager::m_pInstance = 0;
 
 		RasterizerStateManager::RasterizerStateManager()
 		{
@@ -25,15 +24,8 @@ namespace MonkeyEngine
 
 		RasterizerStateManager* RasterizerStateManager::GetInstance()
 		{
-			if (!m_pInstance)
-				m_pInstance = new RasterizerStateManager;
-			return m_pInstance;
-		}
-
-		void RasterizerStateManager::DeleteInstance()
-		{
-			delete m_pInstance;
-			m_pInstance = nullptr;
+			static RasterizerStateManager m_pInstance;
+			return &m_pInstance;
 		}
 
 		bool RasterizerStateManager::ApplyState(RasterStates state, ID3D11DeviceContext* d3DeviceContext)

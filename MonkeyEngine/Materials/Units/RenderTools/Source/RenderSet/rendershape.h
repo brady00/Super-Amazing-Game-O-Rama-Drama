@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include "RenderNode.h"
 #include <DirectXMath.h>
 #include "Managers/InputLayoutManager.h"

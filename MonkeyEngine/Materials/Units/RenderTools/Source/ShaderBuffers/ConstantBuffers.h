@@ -1,4 +1,8 @@
+#ifdef __cplusplus
 #pragma once
+#else
+#pragma warning(disable: 3568)
+#endif
 #include "SharedDefines.h"
 
 #pragma region World Matrix Constant buffer

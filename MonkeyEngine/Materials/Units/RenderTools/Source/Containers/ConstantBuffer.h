@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include <d3d11.h>
 namespace MonkeyEngine
 {

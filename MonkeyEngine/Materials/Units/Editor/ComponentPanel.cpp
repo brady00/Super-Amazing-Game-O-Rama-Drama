@@ -40,41 +40,5 @@ namespace Editor
 		this->AutoScroll = false;
 		this->BringToFront();
 		this->Invalidate();
-		String^ temp = gcnew String("MonkeyEngine.MEObject." + this->CompLabel->Text);
-		Assembly^ ASSembly = Assembly::GetExecutingAssembly();
-		AssemblyName^ name = AssemblyName::GetAssemblyName("MonkeyEngine.dll");
-		//ComponentCreation?????
-		//Components are managed but #pragma unmanaged
-		//Component Factor will be managed using this to created componetns
-		///Object^ obj = Type::GetType(temp)->GetConstructor(Type::EmptyTypes)->Invoke(gcnew cli::array<Object^>(0));
-		///pin_ptr<Object^> pinnedPtr = &obj;
-		///MonkeyEngine::MEObject::Component* temp = (MonkeyEngine::MEObject::Component*)pinnedPtr;
-		String^ str = gcnew String("MonkeyEngine.MEObject." + this->CompLabel->Text);
-		Type^ t = Type::GetType(str);
-		for each(MemberInfo^ variable in t->GetMembers(static_cast<BindingFlags>(BindingFlags::Public | BindingFlags::Instance | BindingFlags::DeclaredOnly)))
-		{
-			mapToVariable.Add(variable->Name, variable);
-		}
-		/*for (int i = 0; i < Getters.Count; i++)
-		{
-			switch (Getters[i].ReturnType.Name)
-			{
-			case "Float3":
-				compElem.Labels.Add(new Label());
-				compElem.Labels.Add(new Label());
-				compElem.Labels.Add(new Label());
-				compElem.TextBoxes.Add(new TextBox());
-				compElem.TextBoxes.Add(new TextBox());
-				compElem.TextBoxes.Add(new TextBox());
-				break;
-			default:
-				break;
-			}
-		}*/
-		//String == textbox
-		//Gameobject == Box
-		//Type thisType = Comp.GetType();
-		//MethodInfo theMethod = thisType.GetMethod(fieldNames[0]);
-		//var temp = theMethod.Invoke(Comp, null);
 	}
 }

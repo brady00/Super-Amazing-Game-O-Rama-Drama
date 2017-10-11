@@ -14,6 +14,7 @@ namespace MonkeyEngine
 		int size;
 		bool used;
 	};
+	static int MemorySize = 0;
 	static void* m_pMemory = nullptr;
 	static void* m_pEndMemory = nullptr;
 	const float m_fPercentComplete = 0.75f;

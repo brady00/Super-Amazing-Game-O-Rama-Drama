@@ -43,6 +43,12 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{e5343590-0dc9-4e4c-8cac-1acf23c6b118}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{ecfe4e2c-8717-4ed7-960b-a7fda35b118d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Registrar">
+      <UniqueIdentifier>{e3cbd569-7a80-4aa9-b7ee-71ceb9e4cbf1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Base\Component.cpp">
@@ -321,6 +327,9 @@
     <ClCompile Include="Source\Transform\Transform.cpp">
       <Filter>Transform</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Factory\ComponentObjectFactory.cpp">
+      <Filter>Factory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Base\component.h">
@@ -598,6 +607,12 @@
     </ClInclude>
     <ClInclude Include="Source\Transform\Transform.h">
       <Filter>Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Factory\ComponentObjectFactory.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Registrar\Registrar.h">
+      <Filter>Registrar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

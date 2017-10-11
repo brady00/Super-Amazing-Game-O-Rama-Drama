@@ -182,5 +182,6 @@
     <ClInclude Include="Source\ShaderBuffers\SharedDefines.h">
       <Filter>ShaderBuffers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\RenderToolsDLL.h" />
   </ItemGroup>
 </Project>

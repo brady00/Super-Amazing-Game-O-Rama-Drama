@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include "RenderNode.h"
 #include "RenderSet.h"
 #include <d3d11.h>
@@ -16,7 +17,7 @@ namespace MonkeyEngine
 	{
 		struct VERTEX;
 		class RenderTexture;
-		class RenderMesh : public RenderNode
+		class RENDERTOOLS_EXPORT RenderMesh : public RenderNode
 		{
 			friend class MEFileIO::FileIO;
 		private:

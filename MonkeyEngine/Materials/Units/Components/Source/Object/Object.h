@@ -1,11 +1,12 @@
 #pragma once
+#pragma warning(disable: 4251)
 #include <string>
 using namespace std;
 namespace MonkeyEngine
 {
 	namespace MEObject
 	{
-		class Object
+		class __declspec(dllexport) Object
 		{
 			friend class GameObject;
 		protected:
@@ -14,11 +15,11 @@ namespace MonkeyEngine
 		public:
 			Object();
 			virtual ~Object();
-			string __declspec(dllexport) GetName();
-			const char __declspec(dllexport) *GetCharName();
-			void __declspec(dllexport) SetName(std::string _Name);
-			unsigned int __declspec(dllexport) GetFlags();
-			void __declspec(dllexport) SetFlags(unsigned int _Flags);
+			string GetName();
+			const char *GetCharName();
+			void SetName(std::string _Name);
+			unsigned int GetFlags();
+			void SetFlags(unsigned int _Flags);
 		private:
 			virtual void Initialize() {};
 			virtual void Update() {};

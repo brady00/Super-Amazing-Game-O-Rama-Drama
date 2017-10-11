@@ -1,5 +1,5 @@
 #pragma once
-#pragma unmanaged
+#include "RenderToolsDLL.h"
 #include "Containers/ConstantBuffer.h"
 #include "ShaderBuffers/ConstantBuffers.h"
 #include "ShaderBuffers/LightBuffers.h"
@@ -7,15 +7,14 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		class ConstantBufferManager
+		class RENDERTOOLS_EXPORT ConstantBufferManager
 		{
 		private:
 			ConstantBufferManager();
 			ConstantBufferManager(const ConstantBufferManager &) {}
 			ConstantBufferManager(const ConstantBufferManager &&) {}
-			ConstantBufferManager &operator=(const ConstantBufferManager &) {}
-			ConstantBufferManager &operator=(const ConstantBufferManager &&) {}
-			static ConstantBufferManager m_pInstance;
+			ConstantBufferManager &operator=(const ConstantBufferManager &) { return *this; }
+			ConstantBufferManager &operator=(const ConstantBufferManager &&) { return *this; }
 			ConstantBuffer<cbPerObject>				m_PerObjectCBuffer;
 			ConstantBuffer<cbPerCamera>				m_PerCameraCBuffer;
 			ConstantBuffer<cbMisc>					m_MiscCBuffer;

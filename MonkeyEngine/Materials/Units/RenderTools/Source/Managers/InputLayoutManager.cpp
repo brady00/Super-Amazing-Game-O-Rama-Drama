@@ -16,7 +16,7 @@ namespace MonkeyEngine
 			"VERTEX_POSBONEWEIGHTNORMTEX",
 			"VERTEX_POSBONEWEIGHTNORMTANTEX"
 		};
-		InputLayoutManager* InputLayoutManager::m_pInstance = nullptr;
+		
 		InputLayoutManager::InputLayoutManager(void)
 		{
 			for (VertexFormat index = VertexFormat(0); index < eVERTEX_MAX; index = VertexFormat(index + 1))
@@ -37,14 +37,8 @@ namespace MonkeyEngine
 
 		InputLayoutManager* InputLayoutManager::GetInstance()
 		{
-			if (0 == m_pInstance)
-				m_pInstance = new InputLayoutManager;
-			return m_pInstance;
-		}
-		void InputLayoutManager::DeleteInstance()
-		{
-			delete m_pInstance;
-			m_pInstance = 0;
+			static InputLayoutManager m_pInstance;
+			return &m_pInstance;
 		}
 
 		void InputLayoutManager::CreateLayouts(ID3D11Device* d3Device)

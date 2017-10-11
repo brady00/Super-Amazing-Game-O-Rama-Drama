@@ -4,7 +4,6 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		BlendStateManager *BlendStateManager::m_pInstance = 0;
 
 		BlendStateManager::BlendStateManager() : m_eCurrentState(BS_COUNT)
 		{
@@ -26,23 +25,16 @@ namespace MonkeyEngine
 
 		BlendStateManager *BlendStateManager::GetInstance()
 		{
-			if (!m_pInstance)
-				m_pInstance = new BlendStateManager;
-			return m_pInstance;
-		}
-
-		void BlendStateManager::DeleteInstance()
-		{
-			delete m_pInstance;
-			m_pInstance = nullptr;
+			static BlendStateManager m_pInstance;
+			return &m_pInstance;
 		}
 
 		bool BlendStateManager::ApplyState(BStates state, ID3D11DeviceContext* d3DeviceContext)
 		{
 			if (state >= BS_COUNT)
 				return false;
-
-			d3DeviceContext->OMSetBlendState(m_vBlendStates[state], 0, 0xffffffff);
+			UINT SampleMask = 0xffffffff;
+			d3DeviceContext->OMSetBlendState(m_vBlendStates[state], 0, SampleMask);
 			m_eCurrentState = state;
 			return true;
 		}

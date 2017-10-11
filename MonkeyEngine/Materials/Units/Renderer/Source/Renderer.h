@@ -4,7 +4,6 @@
 #include <DirectXMath.h>
 #include <d3d11.h>
 #pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "Utilities.lib")
 
 namespace MonkeyEngine
 {
@@ -25,7 +24,7 @@ namespace MonkeyEngine
 		class DefferedRenderTarget;
 		using namespace DirectX;
 
-		class Renderer
+		class __declspec(dllexport) Renderer
 		{
 		private:
 			//static Skybox* m_pSkybox;
@@ -38,13 +37,6 @@ namespace MonkeyEngine
 			DefferedRenderTarget* m_pDeferredRenderTarget;
 			__int64	m_dPrevFrame = 0;
 			float m_fFPS = 0.0f;
-		public:
-			Renderer();
-			~Renderer();
-			void Initialize(HWND _window, UINT _ScreenWidth, UINT _ScreenHeight);
-			void Resize(UINT _ScreenWidth, UINT _ScreenHeight);
-			void Update();
-			void Shutdown();
 			static ID3D11Device* m_d3Device;
 			static ID3D11DeviceContext* m_d3DeviceContext;
 			static IDXGISwapChain* m_d3SwapChain;
@@ -58,6 +50,26 @@ namespace MonkeyEngine
 			static UINT m_uiScreenXPositionOffset;
 			static UINT m_uiScreenYPositionOffset;
 			static bool m_bFullScreen;
+		public:
+			Renderer();
+			~Renderer();
+			void Initialize(HWND _window, UINT _ScreenWidth, UINT _ScreenHeight);
+			void Resize(UINT _ScreenWidth, UINT _ScreenHeight);
+			void Update();
+			void Shutdown();
+			static ID3D11Device* GetDevice();
+			static ID3D11DeviceContext* GetDeviceContext();
+			static IDXGISwapChain* GetSwapChain();
+			static ID3D11RenderTargetView* GetBackBufferTargetView();
+			static ID3D11Texture2D* GetDepthBuffer();
+			static ID3D11DepthStencilView* GetDepthStencilView();
+			static D3D11_VIEWPORT GetViewPort();
+			static IDXGIOutput* GetOutput();
+			static UINT GetScreenHeight();
+			static UINT GetScreenWidth();
+			static UINT GetScreenXPositionOffset();
+			static UINT GetScreenYPositionOffset();
+			static bool GetFullScreen();
 			static RenderContext* AddNewTransparentContext(RenderContext*& _context);
 			static RenderContext* AddNewnonTransparentContext(RenderContext*& _context);
 		};

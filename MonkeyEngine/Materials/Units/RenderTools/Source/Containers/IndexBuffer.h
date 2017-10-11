@@ -1,10 +1,11 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include <d3d11.h>
 namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		class IndexBuffer
+		class RENDERTOOLS_EXPORT IndexBuffer
 		{
 		private:
 			IndexBuffer();

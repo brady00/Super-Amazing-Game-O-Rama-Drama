@@ -1,10 +1,11 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include <d3d11.h>
 namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		class ShaderManager
+		class RENDERTOOLS_EXPORT ShaderManager
 		{
 		public:
 			enum VertexShaderType {
@@ -29,15 +30,13 @@ namespace MonkeyEngine
 			ShaderManager();
 			ShaderManager(const ShaderManager &) {}
 			ShaderManager(const ShaderManager &&) {}
-			ShaderManager &operator=(const ShaderManager &) {}
-			ShaderManager &operator=(const ShaderManager &&) {}
-			static ShaderManager* m_pInstance;
+			ShaderManager &operator=(const ShaderManager &) { return *this; }
+			ShaderManager &operator=(const ShaderManager &&) { return *this; }
 			ID3D11VertexShader* m_d3VertexShaders[eShader_VS_MAX];
 			ID3D11PixelShader* m_d3PixelShaders[eShader_PS_MAX];
 		public:
 			~ShaderManager();
 			static ShaderManager* GetInstance();
-			static void DeleteInstance();
 			void CreateShaders(ID3D11Device* d3Device);
 			ID3D11VertexShader* GetVertexShader(VertexShaderType _Type);
 			ID3D11PixelShader* GetPixelShader(PixelShaderType _Type);

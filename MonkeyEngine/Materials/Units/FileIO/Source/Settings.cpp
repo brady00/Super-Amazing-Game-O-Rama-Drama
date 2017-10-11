@@ -5,6 +5,20 @@ namespace MonkeyEngine
 {
 	Settings* Settings::m_pSettingsPtr = nullptr;
 
+	Settings* Settings::GetInstance()
+	{
+		if (!m_pSettingsPtr) 
+			m_pSettingsPtr = new Settings;  
+		return m_pSettingsPtr; 
+	}
+
+	void Settings::DestroyInstance()
+	{
+		if (m_pSettingsPtr)
+			delete m_pSettingsPtr; 
+		m_pSettingsPtr = m_pSettingsPtr; 
+	}
+
 	Settings::Settings()
 	{
 		// Fill vector with defaults

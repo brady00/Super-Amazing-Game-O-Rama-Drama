@@ -1,5 +1,5 @@
 #pragma once
-//#include "Behaviour/Animation.h"
+#include "RenderToolsDLL.h"
 #include <unordered_map>
 namespace MonkeyEngine
 {
@@ -17,7 +17,7 @@ namespace MonkeyEngine
 			std::vector<Edge> m_vEdges;
 			//Animation* m_pAnimation;
 		};
-		class AnimationGraph
+		class RENDERTOOLS_EXPORT AnimationGraph
 		{
 		private:
 			Node* m_pBaseAnimation;

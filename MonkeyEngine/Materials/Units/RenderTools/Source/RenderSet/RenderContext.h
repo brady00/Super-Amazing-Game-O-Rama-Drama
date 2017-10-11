@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include "RenderNode.h"
 #include <string>
 #include "../Managers/InputLayoutManager.h"
@@ -15,7 +16,7 @@ namespace MonkeyEngine
 	{
 		class RenderSet;
 		class RenderMesh;
-		class RenderContext : public RenderNode
+		class RENDERTOOLS_EXPORT RenderContext : public RenderNode
 		{
 			friend class MEFileIO::FileIO;
 			friend class Renderer;

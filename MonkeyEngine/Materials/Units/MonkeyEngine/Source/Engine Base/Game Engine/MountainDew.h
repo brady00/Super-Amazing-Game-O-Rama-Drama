@@ -2,7 +2,6 @@
 #include <Windows.h>
 #include "Renderer.h"
 #include "../Scene/Scene.h"
-
 namespace MonkeyEngine
 {
 	class Scene;
@@ -20,8 +19,8 @@ namespace MonkeyEngine
 		MountainDew() {};
 		MountainDew(const MountainDew&) {};
 		MountainDew(const MountainDew&&) {};
-		MountainDew &operator=(const MountainDew&) {};
-		MountainDew &operator=(const MountainDew&&) {};
+		MountainDew &operator=(const MountainDew&) { return *this; };
+		MountainDew &operator=(const MountainDew&&) { return *this; };
 
 	public:
 		HINSTANCE m_hInst;

@@ -3,7 +3,6 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		DepthStencilStateManager *DepthStencilStateManager::m_pInstance = 0;
 
 		DepthStencilStateManager::DepthStencilStateManager() : m_eCurrentState(DSS_COUNT)
 		{
@@ -25,15 +24,8 @@ namespace MonkeyEngine
 
 		DepthStencilStateManager* DepthStencilStateManager::GetInstance()
 		{
-			if (!m_pInstance)
-				m_pInstance = new DepthStencilStateManager;
-			return m_pInstance;
-		}
-
-		void DepthStencilStateManager::DeleteInstance()
-		{
-			delete m_pInstance;
-			m_pInstance = nullptr;
+			static DepthStencilStateManager	m_pInstance;
+			return &m_pInstance;
 		}
 
 		bool DepthStencilStateManager::ApplyState(DSStates state, ID3D11DeviceContext* d3DeviceContext)

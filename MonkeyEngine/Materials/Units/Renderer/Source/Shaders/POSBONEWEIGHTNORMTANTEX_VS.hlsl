@@ -1,4 +1,6 @@
+#ifdef __cplusplus
 #pragma row_major
+#endif
 #include "VertexLayouts.hlsli"
 #include "ShaderBuffers/ConstantBuffers.h"
 

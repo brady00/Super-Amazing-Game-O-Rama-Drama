@@ -74,7 +74,6 @@ namespace MonkeyEngine
 			m_d3ViewPort.MaxDepth = 1.0f;
 			m_pNonTranparentObjects = new RenderSet;
 			m_pTransparentObjects = new RenderSet;
-			ConstantBufferManager::GetInstance()->CreateBuffers(m_d3Device);
 
 			D3D11_TEXTURE2D_DESC depthBufferDesc;
 			ZeroMemory(&depthBufferDesc, sizeof(depthBufferDesc));
@@ -266,5 +265,69 @@ namespace MonkeyEngine
 			return _context;
 		}
 
+		ID3D11Device* Renderer::GetDevice()
+		{
+			return m_d3Device;
+		}
+
+		ID3D11DeviceContext* Renderer::GetDeviceContext()
+		{
+			return m_d3DeviceContext;
+		}
+
+		IDXGISwapChain*	Renderer::GetSwapChain()
+		{
+			return m_d3SwapChain;
+		}
+
+		ID3D11RenderTargetView* Renderer::GetBackBufferTargetView()
+		{
+			return m_d3BackBufferTargetView;
+		}
+
+		ID3D11Texture2D* Renderer::GetDepthBuffer()
+		{
+			return m_d3DepthBuffer;
+		}
+
+		ID3D11DepthStencilView* Renderer::GetDepthStencilView()
+		{
+			return m_d3DepthStencilView;
+		}
+
+		D3D11_VIEWPORT Renderer::GetViewPort()
+		{
+			return m_d3ViewPort;
+		}
+
+		IDXGIOutput* Renderer::GetOutput()
+		{
+			return m_d3Output;
+		}
+
+		UINT Renderer::GetScreenHeight()
+		{
+			return m_uiScreenHeight;
+		}
+
+		UINT Renderer::GetScreenWidth()
+		{
+			return m_uiScreenWidth;
+		}
+
+		UINT Renderer::GetScreenXPositionOffset()
+		{
+			return m_uiScreenXPositionOffset;
+		}
+
+		UINT Renderer::GetScreenYPositionOffset()
+		{
+			return m_uiScreenYPositionOffset;
+		}
+
+		bool Renderer::GetFullScreen()
+		{
+			return m_bFullScreen;
+		}
 	}
 }

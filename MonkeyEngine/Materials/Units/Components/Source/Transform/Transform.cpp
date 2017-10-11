@@ -3,7 +3,7 @@ namespace MonkeyEngine
 {
 	namespace MEObject
 	{
-
+		REGISTER_CLASS("Transform", Transform)
 		Transform::Transform(XMFLOAT4X4 _WorldMatrix)
 		{
 			m_xmWorldMatrix = _WorldMatrix;
@@ -32,8 +32,9 @@ namespace MonkeyEngine
 
 		void Transform::UpdateTransform()
 		{
+			XMFLOAT3 zerovector = XMFLOAT3(0, 0, 0);
 			XMMATRIX temp = XMMatrixAffineTransformation(XMLoadFloat3(&m_xmScale),
-				XMVECTOR(XMLoadFloat3(&(XMFLOAT3(0, 0, 0)))),
+				XMVECTOR(XMLoadFloat3(&(zerovector))),
 				XMQuaternionRotationRollPitchYawFromVector(XMLoadFloat3(&m_xmRotation)),
 				XMLoadFloat3(&m_xmPosition));
 			XMStoreFloat4x4(&m_xmWorldMatrix, temp);
@@ -125,54 +126,4 @@ namespace MonkeyEngine
 		}
 
 	}
-}
-
-void GetTransformPosRotScale(MonkeyEngine::MEObject::Transform* _object, float& posx, float& posy, float& posz, float& rotx, float& roty, float& rotz, float& scalex, float& scaley, float& scalez)
-{
-	XMFLOAT3 pos, rot, scale;
-	pos = _object->GetPosition();
-	rot = _object->GetRotation();
-	scale = _object->GetScale();
-	posx = pos.x;
-	posy = pos.y;
-	posz = pos.z;
-	rotx = rot.x;
-	roty = rot.y;
-	rotz = rot.z;
-	scalex = scale.x;
-	scaley = scale.y;
-	scalez = scale.z;
-}
-
-void SetTransformPosRotScale(MonkeyEngine::MEObject::Transform* _object, float posx, float posy, float posz, float rotx, float roty, float rotz, float scalex, float scaley, float scalez)
-{
-	_object->GetPosition() = XMFLOAT3(posx, posy, posz);
-	_object->GetRotation() = XMFLOAT3(rotx, roty, rotz);
-	_object->GetScale() = XMFLOAT3(scalex, scaley, scalez);
-}
-
-MonkeyEngine::MEObject::Transform** GetTransformChildren(MonkeyEngine::MEObject::Transform* _object, unsigned int& Amount)
-{
-	Amount = (unsigned int)_object->GetChildren().size();
-	return &_object->GetChildren()[0];
-}
-
-void AddTransformChild(MonkeyEngine::MEObject::Transform* _object, MonkeyEngine::MEObject::Transform* _child)
-{
-	_object->AddChild(_child);
-}
-
-void RemoveTransformChild(MonkeyEngine::MEObject::Transform* _object, MonkeyEngine::MEObject::Transform* _child)
-{
-	_object->RemoveChild(_child);
-}
-
-MonkeyEngine::MEObject::Transform* GetTransformParent(MonkeyEngine::MEObject::Transform* _object)
-{
-	return _object->GetParent();
-}
-
-void SetTransformParent(MonkeyEngine::MEObject::Transform* _object, MonkeyEngine::MEObject::Transform* _parent)
-{
-	_object->SetParent(_parent);
 }

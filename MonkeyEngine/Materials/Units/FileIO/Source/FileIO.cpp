@@ -1,13 +1,17 @@
 #include "FileIO.h"
 #include <fstream>
 #include <algorithm>
-#include "ComponentObjectFactory.h"
 #include "RenderSet/RenderSet.h"
 #include "RenderSet/RenderContext.h"
 #include "RenderSet/RenderMesh.h"
 #include "RenderSet/RenderTexture.h"
 #include "Renderer/MeshRenderer.h"
+#include "Containers\IndexBuffer.h"
 #include "Renderer.h"
+#include "Transform\Transform.h"
+#include "Renderer/CompRenderer.h"
+#include "Factory\ComponentObjectFactory.h"
+#include "Renderer\SkinnedMeshRenderer.h"
 namespace MonkeyEngine
 {
 	namespace MEFileIO
@@ -42,8 +46,12 @@ namespace MonkeyEngine
 #pragma region Binary Loading
 			std::string filepart;
 			std::ifstream FileIn;
-			filepart.append(_FileName.c_str(), _FileName.length() - 4);
-			FileIn.open(filepart + ".Bfbx", std::ios_base::binary);
+			char* File = new char[256];
+			_splitpath_s(_FileName.c_str(), NULL, 0, NULL, 0, File, 256, NULL, 0);
+			std::string finalPath("Assets/Binaries/" + std::string(File) + ".Bfbx");
+			std::string finalSkelPath("Assets/Binaries/" + std::string(File) + ".Bskel");
+			std::string AssetPath("Assets/Models/" + std::string(File) + ".fbx");
+			FileIn.open(finalPath, std::ios_base::binary);
 			bool BinarySkip = false;
 			if (FileIn.is_open())
 			{
@@ -109,7 +117,7 @@ namespace MonkeyEngine
 					delete spec;
 				}
 				FileIn.close();
-				FileIn.open(filepart + std::string(".BSkel"), std::ios_base::binary);
+				FileIn.open(finalSkelPath, std::ios_base::binary);
 				if (FileIn.is_open())
 				{
 					unsigned int Size = 0;
@@ -132,7 +140,7 @@ namespace MonkeyEngine
 			}
 #pragma endregion
 			FBXLoader Loader;
-			if (!Loader.LoadFBX(_FileName))
+			if (!Loader.LoadFBX(AssetPath))
 				return false;
 			_NumVerticies = (unsigned int)Loader.m_Verticies.size();
 			_Verticies = new MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX[_NumVerticies];
@@ -150,8 +158,10 @@ namespace MonkeyEngine
 			_Material->mSpecularMapName = Loader.m_Material->mSpecularMapName;
 			_Skeleton = Loader.m_Skeleton;
 #pragma region Binary Saving
+			string Xcopy = "\"xcopy " + _FileName + " " + AssetPath;
+			system(Xcopy.c_str());
 			std::ofstream out;
-			out.open(filepart + std::string(".Bfbx"), std::ios_base::binary);
+			out.open(finalPath.c_str(), std::ios_base::binary);
 			if (out.is_open())
 			{
 				out.write((const char*)& _NumVerticies, sizeof(unsigned int));
@@ -203,7 +213,9 @@ namespace MonkeyEngine
 			}
 			else
 				return false;
-			out.open(filepart + std::string(".BSkel"), std::ios_base::binary);
+			string SkelFile;
+			SkelFile.append(finalPath.c_str(), finalPath.length() - 4);
+			out.open(SkelFile + std::string(".BSkel"), std::ios_base::binary);
 			if (out.is_open())
 			{
 				unsigned int Size = (unsigned int)_Skeleton.mJoints.size();
@@ -222,10 +234,12 @@ namespace MonkeyEngine
 			}
 			else
 				return false;
+			string AnimFile;
+			AnimFile.append(finalPath.c_str(), finalPath.length() - 4);
 			for (unsigned int i = 0; i < Loader.m_Animations.size(); i++)
 			{
 				Animation* Anim = Loader.m_Animations[i];
-				out.open(filepart + Anim->AnimationName + std::string(".Anim"), std::ios_base::binary);
+				out.open(AnimFile + Anim->AnimationName + std::string(".Anim"), std::ios_base::binary);
 				if (out.is_open())
 				{
 					//Animation Name Size
@@ -261,8 +275,12 @@ namespace MonkeyEngine
 		{
 			std::string filepart;
 			std::ifstream FileIn;
+			char* File = new char[256];
+			_splitpath_s(_FileName.c_str(), NULL, 0, NULL, 0, File, 256, NULL, 0);
+			std::string finalPath("Assets/Binaries/" + std::string(File) + ".BObj");
+			std::string AssetPath("Assets/Models/" + std::string(File) + ".Obj");
 			filepart.append(_FileName.c_str(), _FileName.length() - 4);
-			FileIn.open(filepart + ".Bobj", std::ios_base::binary);
+			FileIn.open(finalPath, std::ios_base::binary);
 			if (FileIn.is_open())
 			{
 				FileIn.read((char*)& _NumVerticies, sizeof(unsigned int));
@@ -275,7 +293,9 @@ namespace MonkeyEngine
 				}
 				return true;
 			}
-			std::string finalPath(_FileName);
+			string Xcopy = "\"xcopy " + _FileName + " " + AssetPath;
+			system(Xcopy.c_str());
+			delete File;
 			std::vector<XMFLOAT3> temp_vertices;
 			std::vector<XMFLOAT2> temp_uvs;
 			std::vector<XMFLOAT3> temp_normals;
@@ -283,7 +303,7 @@ namespace MonkeyEngine
 			std::vector< unsigned int > normalIndices;
 			std::vector< unsigned int > uvIndices;
 			FILE* file = nullptr;
-			fopen_s(&file, finalPath.c_str(), "r");
+			fopen_s(&file, AssetPath.c_str(), "r");
 			if (file == NULL)
 				return false;
 			while (true)
@@ -455,7 +475,7 @@ namespace MonkeyEngine
 			XMLElement* child = _ObjectRoot->FirstChildElement();
 			while (child)
 			{
-				MEObject::Component* comp = ComponentObjectFactory::GetInstance()->Create(child->Value());
+				Component* comp = ComponentObjectFactory::GetInstance()->Create(std::string(child->Value()));
 				if (componentFunctions.at(std::string(child->Value()))(child, comp))
 					_Object->AddComponent(comp, componentIDS.at(std::string(child->Value())));
 				else
@@ -533,10 +553,52 @@ namespace MonkeyEngine
 			else
 				renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
 
-			MERenderer::RenderMesh* tempMesh = renderContext->AddMesh(VertexFileName, Renderer::m_d3Device, Renderer::m_d3DeviceContext);
-			MERenderer::RenderTexture* tempTex = tempMesh->AddTexture(DiffuseFileName, Renderer::m_d3Device);
+
+
+			MERenderer::RenderMesh* tempMesh = renderContext->AddMesh(VertexFileName, Renderer::GetDevice(), Renderer::GetDeviceContext());
+			MERenderer::RenderTexture* tempTex = tempMesh->AddTexture(DiffuseFileName, Renderer::GetDevice());
 			MEObject::CompRenderer* comprend = (MEObject::CompRenderer*)_Object;
 			tempTex->AddShape((MERenderer::RenderShape*)comprend);
+			if (tempfilename == ".obj" || tempfilename == ".OBJ")
+			{
+				if (!MEFileIO::FileIO::LoadOBJ(tempMesh->m_sVertexFileName, tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies))
+					return false;
+			}
+			else if (tempfilename == ".fbx" || tempfilename == ".FBX")
+			{
+				if (!MEFileIO::FileIO::LoadFBX(tempMesh->m_sVertexFileName, tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, tempMesh->temp_Material, tempMesh->temp_Skeleton))
+					return false;
+				IndexBuffer::GetInstance()->AddIndicies(tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+			}
+			switch (tempMesh->m_eVertexFormat)
+			{
+			case MERenderer::eVERTEX_POS:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts((VERTEX_POS*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSCOLOR:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionColorBuffer().AddVerts((VERTEX_POSCOLOR*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionTexBuffer().AddVerts((VERTEX_POSTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSNORMTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTexBuffer().AddVerts((VERTEX_POSNORMTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSNORMTANTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().AddVerts((VERTEX_POSNORMTANTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSBONEWEIGHT:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().AddVerts((VERTEX_POSBONEWEIGHT*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTANTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			default:
+				break;
+			}
 			((MEObject::MeshRenderer*)_Object)->Load(&renderContext->m_BlendState,
 				&renderContext->m_RasterState,
 				&renderContext->m_DSState,
@@ -588,10 +650,50 @@ namespace MonkeyEngine
 				renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
 			else
 				renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
-			MERenderer::RenderMesh* tempMesh = renderContext->AddMesh(VertexFileName, Renderer::m_d3Device, Renderer::m_d3DeviceContext);
-			MERenderer::RenderTexture* tempTex = tempMesh->AddTexture(DiffuseFileName, Renderer::m_d3Device);
+			MERenderer::RenderMesh* tempMesh = renderContext->AddMesh(VertexFileName, Renderer::GetDevice(), Renderer::GetDeviceContext());
+			MERenderer::RenderTexture* tempTex = tempMesh->AddTexture(DiffuseFileName, Renderer::GetDevice());
 			MEObject::CompRenderer* comprend = (MEObject::CompRenderer*)_Object;
 			tempTex->AddShape((MERenderer::RenderShape*)comprend);
+			if (tempfilename == ".obj" || tempfilename == ".OBJ")
+			{
+				if (!MEFileIO::FileIO::LoadOBJ(tempMesh->m_sVertexFileName, tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies))
+					return false;
+			}
+			else if (tempfilename == ".fbx" || tempfilename == ".FBX")
+			{
+				if (!MEFileIO::FileIO::LoadFBX(tempMesh->m_sVertexFileName, tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, tempMesh->temp_Material, tempMesh->temp_Skeleton))
+					return false;
+				IndexBuffer::GetInstance()->AddIndicies(tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+			}
+			switch (tempMesh->m_eVertexFormat)
+			{
+			case MERenderer::eVERTEX_POS:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts((VERTEX_POS*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSCOLOR:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionColorBuffer().AddVerts((VERTEX_POSCOLOR*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionTexBuffer().AddVerts((VERTEX_POSTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSNORMTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTexBuffer().AddVerts((VERTEX_POSNORMTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSNORMTANTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().AddVerts((VERTEX_POSNORMTANTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSBONEWEIGHT:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().AddVerts((VERTEX_POSBONEWEIGHT*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
+				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTANTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			default:
+				break;
+			}
 			((MEObject::SkinnedMeshRenderer*)_Object)->Load(&renderContext->m_BlendState,
 				&renderContext->m_RasterState,
 				&renderContext->m_DSState,

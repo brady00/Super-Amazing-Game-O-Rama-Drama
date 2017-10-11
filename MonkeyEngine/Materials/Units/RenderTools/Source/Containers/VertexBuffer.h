@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include "../Managers/InputLayoutManager.h"
 namespace MonkeyEngine
 {

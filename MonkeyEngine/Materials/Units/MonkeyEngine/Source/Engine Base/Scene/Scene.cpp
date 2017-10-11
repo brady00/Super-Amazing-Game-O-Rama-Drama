@@ -33,7 +33,7 @@ namespace MonkeyEngine
 		for (unsigned int i = 0; i < size; i++)
 			if (m_vObjects[i]->GetActive())
 				m_vObjects[i]->Update();
-		m_pDebugCamera->Update(MERenderer::Renderer::m_d3DeviceContext);
+		m_pDebugCamera->Update(MERenderer::Renderer::GetDeviceContext());
 	}
 
 	void Scene::Shutdown()

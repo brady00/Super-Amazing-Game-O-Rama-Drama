@@ -5,7 +5,6 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		VertexBufferManager *VertexBufferManager::m_pInstance = 0;
 
 		VertexBufferManager::VertexBufferManager(void)
 		{
@@ -20,17 +19,8 @@ namespace MonkeyEngine
 
 		VertexBufferManager* VertexBufferManager::GetInstance()
 		{
-			if (0 == m_pInstance)
-			{
-				m_pInstance = new VertexBufferManager;
-			}
-			return m_pInstance;
-		}
-
-		void VertexBufferManager::DeleteInstance()
-		{
-			delete m_pInstance;
-			m_pInstance = 0;
+			static VertexBufferManager m_pInstance;
+			return &m_pInstance;
 		}
 
 		template <>

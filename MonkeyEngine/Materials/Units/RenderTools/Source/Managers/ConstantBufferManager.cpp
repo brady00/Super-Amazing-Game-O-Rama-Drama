@@ -4,7 +4,6 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		ConstantBufferManager ConstantBufferManager::m_pInstance;
 
 		ConstantBufferManager::ConstantBufferManager()
 		{
@@ -18,6 +17,7 @@ namespace MonkeyEngine
 
 		ConstantBufferManager* ConstantBufferManager::GetInstance()
 		{
+			static ConstantBufferManager m_pInstance;
 			return&m_pInstance;
 		}
 

@@ -1,10 +1,11 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include <d3d11.h>
 namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		class RenderNode
+		class RENDERTOOLS_EXPORT RenderNode
 		{
 		private:
 			RenderNode* m_pNext;

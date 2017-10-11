@@ -1,10 +1,11 @@
 #pragma once
+#pragma warning(disable: 4251)
 #include <string>
 #include <vector>
 #include <Windows.h>
 namespace MonkeyEngine
 {
-	struct SettingData
+	struct __declspec(dllexport) SettingData
 	{
 		std::string Name;
 		std::string Value;
@@ -17,7 +18,7 @@ namespace MonkeyEngine
 		};
 	};
 
-	class Settings
+	class __declspec(dllexport) Settings
 	{
 	private:
 		// Static Instance for Singleton
@@ -35,8 +36,8 @@ namespace MonkeyEngine
 		Settings();
 		~Settings();
 
-		static Settings* GetInstance() { if (!m_pSettingsPtr) m_pSettingsPtr = new Settings;  return m_pSettingsPtr; }
-		static void DestroyInstance() { if (m_pSettingsPtr) delete m_pSettingsPtr; m_pSettingsPtr = m_pSettingsPtr; }
+		static Settings* GetInstance();
+		static void DestroyInstance();
 
 		void Initialize();
 		void Shutdown();

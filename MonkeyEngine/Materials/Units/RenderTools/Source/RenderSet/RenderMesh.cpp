@@ -14,9 +14,6 @@ namespace MonkeyEngine
 
 		RenderMesh::~RenderMesh()
 		{
-			VertexBufferManager::DeleteInstance();
-			IndexBuffer::DeleteInstance();
-			ShaderManager::DeleteInstance();
 			delete[] m_vVerticies;
 			delete[] m_vIndicies;
 			delete m_pRenderTextures;
@@ -114,47 +111,9 @@ namespace MonkeyEngine
 			m_sVertexFileName = _VertexFileName;
 			std::string tempfilename(&m_sVertexFileName[m_sVertexFileName.length() - 4]);
 			if (tempfilename == ".obj" || tempfilename == ".OBJ")
-			{
-				//if (!MEFileIO::FileIO::LoadOBJ(m_sVertexFileName, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies))
-				//	return false;
 				m_eVertexFormat = _VertexFormat = MERenderer::eVERTEX_POSNORMTEX;
-			}
 			else if (tempfilename == ".fbx" || tempfilename == ".FBX")
-			{
-				//if (!MEFileIO::FileIO::LoadFBX(m_sVertexFileName, m_vVerticies, m_uiNumVerticies, m_vIndicies, m_uiNumIndicies, temp_Material, temp_Skeleton))
-				//	return false;
-				IndexBuffer::GetInstance()->AddIndicies(m_vIndicies, m_uiNumIndicies, d3Device, d3DeviceContext);
 				m_eVertexFormat = _VertexFormat = MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX;
-			}
-			switch (m_eVertexFormat)
-			{
-			case MERenderer::eVERTEX_POS:
-				m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts((VERTEX_POS*)m_vVerticies, m_uiNumVerticies, d3Device, d3DeviceContext);
-				break;
-			case MERenderer::eVERTEX_POSCOLOR:
-				m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionColorBuffer().AddVerts((VERTEX_POSCOLOR*)m_vVerticies, m_uiNumVerticies, d3Device, d3DeviceContext);
-				break;
-			case MERenderer::eVERTEX_POSTEX:
-				m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionTexBuffer().AddVerts((VERTEX_POSTEX*)m_vVerticies, m_uiNumVerticies, d3Device, d3DeviceContext);
-				break;
-			case MERenderer::eVERTEX_POSNORMTEX:
-				m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTexBuffer().AddVerts((VERTEX_POSNORMTEX*)m_vVerticies, m_uiNumVerticies, d3Device, d3DeviceContext);
-				break;
-			case MERenderer::eVERTEX_POSNORMTANTEX:
-				m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().AddVerts((VERTEX_POSNORMTANTEX*)m_vVerticies, m_uiNumVerticies, d3Device, d3DeviceContext);
-				break;
-			case MERenderer::eVERTEX_POSBONEWEIGHT:
-				m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().AddVerts((VERTEX_POSBONEWEIGHT*)m_vVerticies, m_uiNumVerticies, d3Device, d3DeviceContext);
-				break;
-			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
-				m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTEX*)m_vVerticies, m_uiNumVerticies, d3Device, d3DeviceContext);
-				break;
-			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
-				m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTANTEX*)m_vVerticies, m_uiNumVerticies, d3Device, d3DeviceContext);
-				break;
-			default:
-				break;
-			}
 			return true;
 		}
 

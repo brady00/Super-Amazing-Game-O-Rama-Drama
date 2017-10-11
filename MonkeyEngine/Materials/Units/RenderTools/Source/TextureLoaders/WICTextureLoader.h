@@ -34,6 +34,7 @@
 #endif
 
 #include <stdint.h>
+#include "RenderToolsDLL.h"
 
 
 namespace DirectX
@@ -54,7 +55,7 @@ namespace DirectX
         _Outptr_opt_ ID3D11ShaderResourceView** textureView,
         _In_ size_t maxsize = 0);
 
-    HRESULT __cdecl CreateWICTextureFromFile(
+    HRESULT RENDERTOOLS_EXPORT CreateWICTextureFromFile(
         _In_ ID3D11Device* d3dDevice,
         _In_z_ const wchar_t* szFileName,
         _Outptr_opt_ ID3D11Resource** texture,

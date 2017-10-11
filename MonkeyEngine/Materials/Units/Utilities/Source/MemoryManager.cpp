@@ -6,6 +6,7 @@ namespace MonkeyEngine
 {
 	void Initialize(std::size_t size)
 	{
+		MemorySize = size;
 		m_pMemory = std::malloc(size + sizeof(Header) + sizeof(Footer));
 		((Header*)m_pMemory)->size = (int)size;
 		((Header*)m_pMemory)->used = false;
@@ -163,7 +164,7 @@ namespace MonkeyEngine
 		}
 		temp = (char*)m_pMemory;
 		temp += sizeof(Header);
-		if (ptr == temp)
+		if (((Header*)m_pMemory)->size == MemorySize)
 			Shutdown();
 	}
 

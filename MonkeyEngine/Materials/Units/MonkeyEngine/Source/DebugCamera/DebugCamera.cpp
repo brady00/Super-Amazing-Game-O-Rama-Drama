@@ -107,7 +107,7 @@ namespace MonkeyEngine
 				XMStoreFloat4x4(&tempBuffer.InvViewProj, XMMatrixMultiply(XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_xmViewMatrix)), XMLoadFloat4x4(&m_xmProjMatrix)));
 				ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().Update(&tempBuffer, sizeof(tempBuffer), d3DeviceContext);
 				ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
-				Renderer::m_d3DeviceContext->VSSetConstantBuffers(tempBuffer.REGISTER_SLOT, 1, &buf);
+				Renderer::GetDeviceContext()->VSSetConstantBuffers(tempBuffer.REGISTER_SLOT, 1, &buf);
 
 				m_Resize = false;
 				m_RunOnce = false;

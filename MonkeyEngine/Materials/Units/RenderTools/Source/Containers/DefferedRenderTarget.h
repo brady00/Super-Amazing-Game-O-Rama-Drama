@@ -1,12 +1,12 @@
 #pragma once
-#pragma unmanaged
+#include "RenderToolsDLL.h"
 #include <d3d11.h>
 namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
 #define ReleaseCOM(x) { if(x){ x->Release(); x = 0; } }
-		class DefferedRenderTarget
+		class RENDERTOOLS_EXPORT DefferedRenderTarget
 		{
 		private:
 			ID3D11Texture2D* m_d3GbufferTarget[2];

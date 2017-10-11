@@ -27,6 +27,7 @@
 #endif
 
 #include <stdint.h>
+#include "RenderToolsDLL.h"
 
 
 namespace DirectX
@@ -50,7 +51,7 @@ namespace DirectX
         _In_ size_t maxsize = 0,
         _Out_opt_ DDS_ALPHA_MODE* alphaMode = nullptr);
 
-    HRESULT __cdecl CreateDDSTextureFromFile(
+    HRESULT RENDERTOOLS_EXPORT CreateDDSTextureFromFile(
         _In_ ID3D11Device* d3dDevice,
         _In_z_ const wchar_t* szFileName,
         _Outptr_opt_ ID3D11Resource** texture,

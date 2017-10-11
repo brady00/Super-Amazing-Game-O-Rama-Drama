@@ -1,19 +1,19 @@
 #pragma once
+#include "RenderToolsDLL.h"
 #include "../Containers/VertexBuffer.h"
 
 namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		class VertexBufferManager
+		class RENDERTOOLS_EXPORT VertexBufferManager
 		{
 		private:
 			VertexBufferManager();
 			VertexBufferManager(const VertexBufferManager &) {}
 			VertexBufferManager(const VertexBufferManager &&) {}
-			VertexBufferManager &operator=(const VertexBufferManager &) {}
-			VertexBufferManager &operator=(const VertexBufferManager &&) {}
-			static VertexBufferManager *m_pInstance;
+			VertexBufferManager &operator=(const VertexBufferManager &) { return *this; }
+			VertexBufferManager &operator=(const VertexBufferManager &&) { return *this; }
 			VertexBuffer<VERTEX_POS> m_PositionBuffer;
 			VertexBuffer<VERTEX_POSCOLOR> m_PositionColorBuffer;
 			VertexBuffer<VERTEX_POSTEX> m_PositionTexBuffer;
@@ -25,7 +25,6 @@ namespace MonkeyEngine
 		public:
 			~VertexBufferManager(void);
 			static VertexBufferManager* GetInstance();
-			static void DeleteInstance();
 			VertexBuffer<VERTEX_POS> &GetPositionBuffer();
 			VertexBuffer<VERTEX_POSCOLOR> &GetPositionColorBuffer();
 			VertexBuffer<VERTEX_POSTEX> &GetPositionTexBuffer();

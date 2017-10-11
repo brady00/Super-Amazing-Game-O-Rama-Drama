@@ -8,7 +8,7 @@ namespace MonkeyEngine
 	{
 		class Transform;
 		class Component;
-		class GameObject : public Object
+		class __declspec(dllexport) GameObject : public Object
 		{
 			friend class Scene;
 		public:
@@ -126,18 +126,18 @@ namespace MonkeyEngine
 		public:
 			GameObject();
 			~GameObject();
-			void __declspec(dllexport) SetActive(bool _Active);
-			bool __declspec(dllexport) GetActive();
-			void __declspec(dllexport) SetStatic(bool _Static);
-			bool __declspec(dllexport) GetStatic();
-			void __declspec(dllexport) SetLayer(unsigned int _Layer);
-			unsigned int __declspec(dllexport) GetLayer();
+			void SetActive(bool _Active);
+			bool GetActive();
+			void SetStatic(bool _Static);
+			bool GetStatic();
+			void SetLayer(unsigned int _Layer);
+			unsigned int GetLayer();
 			void SetScene(Scene* _Scene);
 			Scene* GetScene();
 			void AddTag(std::string _Tag);
 			void RemoveTag(std::string _Tag);
 			std::vector<std::string>& GetTags();
-			Transform __declspec(dllexport) *GetTransform();
+			Transform *GetTransform();
 			void AddComponent(Component* _Component, COMPONENT_ID _ID);
 			void RemoveComponent(Component* _Component, COMPONENT_ID _ID);
 			void BroadcastMessage(std::string _Message);
@@ -159,8 +159,8 @@ namespace MonkeyEngine
 			template <typename CompType>
 			std::vector<CompType*> GetComponentsinParent();
 
-			std::vector<Component*> __declspec(dllexport) &GetAllComponents();
-			std::vector<Component*> __declspec(dllexport) &GetAllScritps();
+			std::vector<Component*> &GetAllComponents();
+			std::vector<Component*> &GetAllScritps();
 		private:
 			void Initialize();
 			void Update();
