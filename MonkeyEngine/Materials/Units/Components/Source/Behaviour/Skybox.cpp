@@ -3,10 +3,12 @@
 #include "Managers/RasterizerStateManager.h"
 #include "Managers/BlendStateManager.h"
 #include "RenderStructures.h"
+#include "Transform\Transform.h"
 namespace MonkeyEngine
 {
-	namespace MERenderer
+	namespace MEObject
 	{
+		REGISTER_CLASS("Skybox", Skybox)
 		Skybox::Skybox()
 		{
 			m_ObjectConstantBuffer = nullptr;
@@ -34,7 +36,7 @@ namespace MonkeyEngine
 				m_Layout->Release();
 		}
 
-		void Skybox::Initialize(ID3D11Device* _device, ID3D11DeviceContext* d3DeviceContext, wchar_t* _TextureFilePath)
+		void Skybox::Load(ID3D11Device* _device, ID3D11DeviceContext* d3DeviceContext, wchar_t* _TextureFilePath)
 		{
 			VERTEX_POS data[8];
 			data[0].position = { -0.5f, 0.5f, 0.5f };
@@ -46,7 +48,7 @@ namespace MonkeyEngine
 			data[6].position = { 0.5f, -0.5f, -0.5f };
 			data[7].position = { -0.5f, -0.5f, -0.5f };
 
-			m_StartIndexLocation = VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts(data, 8, _device, d3DeviceContext);
+			m_BaseVertexLocation = VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts(data, 8, _device, d3DeviceContext);
 
 			UINT indicies[36] =
 			{
@@ -75,7 +77,7 @@ namespace MonkeyEngine
 				2, 6, 5
 			};
 
-			m_BaseVertexLocation = IndexBuffer::GetInstance()->AddIndicies(indicies, 36, _device, d3DeviceContext);
+			m_StartIndexLocation = IndexBuffer::GetInstance()->AddIndicies(indicies, 36, _device, d3DeviceContext);
 
 			m_VertexShader = ShaderManager::GetInstance()->GetVertexShader(ShaderManager::eShader_VS_SKYBOX);
 			m_PixelShader = ShaderManager::GetInstance()->GetPixelShader(ShaderManager::eShader_PS_SKYBOX);
@@ -84,11 +86,15 @@ namespace MonkeyEngine
 			CreateDDSTextureFromFile(_device, _TextureFilePath, NULL, &m_Material.m_d3DiffuseTexture);
 		}
 
+		void Skybox::Initialize(ID3D11Device* _device, ID3D11DeviceContext* d3DeviceContext, wchar_t* _TextureFilePath)
+		{
+		}
+
 		void Skybox::Update()
 		{
 		}
 
-		void Skybox::Draw(float _cameraPosX, float _cameraPosY, float _cameraPosZ, ID3D11DeviceContext* d3DeviceContext)
+		void Skybox::Draw(ID3D11DeviceContext* d3DeviceContext)
 		{
 			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_Default, d3DeviceContext);
 			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_Default, d3DeviceContext);
@@ -100,9 +106,9 @@ namespace MonkeyEngine
 			d3DeviceContext->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 			m_IndexBuffer = IndexBuffer::GetInstance()->GetIndicies();
 			d3DeviceContext->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-			m_cbPerObject.world._41 = _cameraPosX;
-			m_cbPerObject.world._42 = _cameraPosY;
-			m_cbPerObject.world._43 = _cameraPosZ;
+			m_cbPerObject.world._41 = GetTransform()->GetPosition().x;
+			m_cbPerObject.world._42 = GetTransform()->GetPosition().y;
+			m_cbPerObject.world._43 = GetTransform()->GetPosition().z;
 			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&m_cbPerObject, sizeof(cbPerObject), d3DeviceContext);
 			m_ObjectConstantBuffer = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
 			d3DeviceContext->VSSetConstantBuffers(0, 1, &m_ObjectConstantBuffer);

@@ -122,6 +122,7 @@
     <ClCompile Include="Source\Collider\SphereCollider.cpp" />
     <ClCompile Include="Source\Collider\TerrainCollider.cpp" />
     <ClCompile Include="Source\Collider\WheelCollider.cpp" />
+    <ClCompile Include="Source\DebugCamera\DebugCamera.cpp" />
     <ClCompile Include="Source\Effector2D\AreaEffector2D.cpp" />
     <ClCompile Include="Source\Effector2D\BuoyancyEffector2D.cpp" />
     <ClCompile Include="Source\Effector2D\Effector2D.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Source\Collider\SphereCollider.h" />
     <ClInclude Include="Source\Collider\TerrainCollider.h" />
     <ClInclude Include="Source\Collider\WheelCollider.h" />
+    <ClInclude Include="Source\DebugCamera\DebugCamera.h" />
     <ClInclude Include="Source\Effector2D\AreaEffector2D.h" />
     <ClInclude Include="Source\Effector2D\BuoyancyEffector2D.h" />
     <ClInclude Include="Source\Effector2D\Effector2D.h" />

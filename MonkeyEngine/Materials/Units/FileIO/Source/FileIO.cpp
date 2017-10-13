@@ -12,6 +12,7 @@
 #include "Renderer/CompRenderer.h"
 #include "Factory\ComponentObjectFactory.h"
 #include "Renderer\SkinnedMeshRenderer.h"
+#include "DebugCamera\DebugCamera.h"
 namespace MonkeyEngine
 {
 	namespace MEFileIO
@@ -21,14 +22,16 @@ namespace MonkeyEngine
 		{
 			{ "Transform", &FileIO::LoadTranform },
 			{ "MeshRenderer", &FileIO::LoadMeshRenderer },
-			{ "SkinnedMeshRenderer", &FileIO::LoadSkinnedMeshRenderer }
+			{ "SkinnedMeshRenderer", &FileIO::LoadSkinnedMeshRenderer },
+			{ "Camera", &FileIO::LoadCamera }
 		};
 
 		const std::unordered_map<std::string, MEObject::GameObject::COMPONENT_ID> FileIO::componentIDS =
 		{
 			{ "Transform", MEObject::GameObject::COMPONENT_ID::eTransform },
 			{ "MeshRenderer", MEObject::GameObject::COMPONENT_ID::eMeshRenderer },
-			{ "SkinnedMeshRenderer", MEObject::GameObject::COMPONENT_ID::eSkinnedMeshRenderer }
+			{ "SkinnedMeshRenderer", MEObject::GameObject::COMPONENT_ID::eSkinnedMeshRenderer },
+			{ "Camera", MEObject::GameObject::COMPONENT_ID::eCamera }
 		};
 
 		FileIO::FileIO()
@@ -408,7 +411,11 @@ namespace MonkeyEngine
 				switch (child->Value()[0])
 				{
 					//Scene Specific data
-
+				case 'D':
+				{
+					LoadDebugCamera(child);
+					break;
+				}
 					//GameObjects
 				case 'G':
 				{
@@ -708,6 +715,50 @@ namespace MonkeyEngine
 				tempTex->m_Material,
 				tempMesh->temp_Skeleton);
 			_Object->SetName("MeshRenderer");
+			return true;
+		}
+
+		bool FileIO::LoadCamera(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
+		{
+			bool Enabled = _ObjectRoot->BoolAttribute("Enabled");
+			XMLElement* child = _ObjectRoot->FirstChildElement();
+			if (strcmp(child->Name(), "Skybox") == 0)
+			{	
+				const char* text = child->Attribute("TextureName");
+				size_t origsize = strlen(text) + 1;
+				const size_t newsize = 100;
+				size_t convertedChars = 0;
+				wchar_t wText[newsize];
+				mbstowcs_s(&convertedChars, wText, origsize, text, _TRUNCATE);
+				((Camera*)_Object)->GetSkybox()->Load(Renderer::GetDevice(), Renderer::GetDeviceContext(), wText);
+			}
+			else
+			{
+
+			}
+			_Object->SetName("Camera");
+			Renderer::GetCameras().push_back((Camera*)_Object);
+			return true;
+		}
+
+		bool FileIO::LoadDebugCamera(XMLElement* _ObjectRoot)
+		{
+			XMLElement* child = _ObjectRoot->FirstChildElement();
+			if (strcmp(child->Name(), "Skybox") == 0)
+			{
+				const char* text = child->Attribute("TextureName");
+				size_t origsize = strlen(text) + 1;
+				const size_t newsize = 100;
+				size_t convertedChars = 0;
+				wchar_t wText[newsize];
+				mbstowcs_s(&convertedChars, wText, origsize, text, _TRUNCATE);
+				((Camera*)DebugCamera::GetInstance())->GetSkybox()->Load(Renderer::GetDevice(), Renderer::GetDeviceContext(), wText);
+			}
+			else
+			{
+
+			}
+			Renderer::SetDebugCamera(DebugCamera::GetInstance());
 			return true;
 		}
 	}

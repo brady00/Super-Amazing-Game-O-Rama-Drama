@@ -16,9 +16,9 @@ namespace MonkeyEngine
 		
 		bool AnimationGraph::Update()
 		{
-			m_fCurrentAnimationElapsedTime += Time::DeltaTime;
+			m_fCurrentAnimationElapsedTime += Time::GetDeltaTime();
 			if (m_sNextAnimation != "")
-				m_fNextAnimationElapsedTime += Time::DeltaTime;
+				m_fNextAnimationElapsedTime += Time::GetDeltaTime();
 			//m_vAnimations[m_sCurrentAnimation]->m_pAnimation->mTimePassed = m_fCurrentAnimationElapsedTime;
 			Node* temp = m_vAnimations[m_sCurrentAnimation];
 			for (unsigned int i = 0; i < temp->m_vEdges.size(); i++)

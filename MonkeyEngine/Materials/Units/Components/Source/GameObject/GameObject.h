@@ -48,6 +48,7 @@ namespace MonkeyEngine
 				eConfigurableJoint,
 				eConstantForce,
 				eConstantForce2D,
+				eDebugCamera,
 				eDistanceJoint2D,
 				eEdgeCollider2D,
 				eEffector2D,

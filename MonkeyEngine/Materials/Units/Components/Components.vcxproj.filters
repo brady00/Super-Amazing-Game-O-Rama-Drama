@@ -49,6 +49,9 @@
     <Filter Include="Registrar">
       <UniqueIdentifier>{e3cbd569-7a80-4aa9-b7ee-71ceb9e4cbf1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DebugCamera">
+      <UniqueIdentifier>{2ee0c73a-5d49-4b9d-b941-cbbfec257baa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Base\Component.cpp">
@@ -329,6 +332,9 @@
     </ClCompile>
     <ClCompile Include="Source\Factory\ComponentObjectFactory.cpp">
       <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DebugCamera\DebugCamera.cpp">
+      <Filter>DebugCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -613,6 +619,9 @@
     </ClInclude>
     <ClInclude Include="Source\Registrar\Registrar.h">
       <Filter>Registrar</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DebugCamera\DebugCamera.h">
+      <Filter>DebugCamera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

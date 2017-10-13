@@ -16,10 +16,18 @@ using namespace System::Text;
 [STAThread]
 void Main(cli::array<String^>^ args)
 {
+	if (args->Length >= 2)
+	{
+		//Need to break here
+	}
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 
 	Editor::Editor form;
+	if (args->Length > 0)
+		form.OpenFile = args[0];
+	else
+		form.OpenFile = "Assets/Scenes/Default.mes";
 	Application::Run(%form);
 }
 
@@ -55,7 +63,7 @@ namespace Editor
 
 	void Editor::Form_OnLoad(System::Object^  sender, System::EventArgs^  e)
 	{
-		InitializeEngine((HWND)(void*)RenderingPanel->Handle, RenderingPanel->Width, RenderingPanel->Height);
+		InitializeEngine((HWND)(void*)RenderingPanel->Handle, RenderingPanel->Width, RenderingPanel->Height, string((const char*)(Marshal::StringToHGlobalAnsi(OpenFile)).ToPointer()));
 		MainWindowRenderingTimer->Start();
 		this->DoubleBuffered = true;
 		this->SetStyle(ControlStyles::DoubleBuffer, true);
@@ -128,11 +136,11 @@ namespace Editor
 	{
 		GameWindow^ win = gcnew GameWindow();
 		win->Show();
-		//InitializeEngine((HWND)(void*)win->Handle, win->Width, win->Height);
 	}
 
 	void Editor::RunInVRToolStripMenuItem_Click(System::Object ^ sender, System::EventArgs ^ e)
 	{
+		//Check Box to Play Button
 		GameWindow^ win = gcnew GameWindow();
 		win->Show();
 		RunGameVR();
@@ -140,7 +148,7 @@ namespace Editor
 
 	void Editor::RenderingPanel_SizeChanged(System::Object ^ sender, System::EventArgs ^ e)
 	{
-		//ResizeEngine(RenderingPanel->Width, RenderingPanel->Height);
+
 	}
 
 	void Editor::RenderingPanel_MouseDown(System::Object ^ sender, System::Windows::Forms::MouseEventArgs ^ e)

@@ -23,7 +23,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -54,11 +54,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\Components\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Utilities.lib;dxgi.lib;d3dcompiler.lib;openvr_api.lib;RenderTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;dxgi.lib;d3dcompiler.lib;openvr_api.lib;RenderTools.lib;Components.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)..\RenderTools\Source\</AdditionalIncludeDirectories>
@@ -78,13 +78,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Utilities.lib;dxgi.lib;d3dcompiler.lib;openvr_api.lib;RenderTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;dxgi.lib;d3dcompiler.lib;openvr_api.lib;Components.lib;RenderTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)..\RenderTools\Source\</AdditionalIncludeDirectories>

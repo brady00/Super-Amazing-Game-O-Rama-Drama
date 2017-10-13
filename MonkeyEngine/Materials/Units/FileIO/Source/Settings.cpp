@@ -1,5 +1,6 @@
 #include "Settings.h"
 #include "FileIO.h"
+#include "DebugCamera\DebugCamera.h"
 
 namespace MonkeyEngine
 {
@@ -74,6 +75,8 @@ namespace MonkeyEngine
 
 		// Set Singleton
 		m_pSettingsPtr = this;
+		DebugCamera::GetInstance()->SetMovementSpeed(m_MovementSpeed);
+		DebugCamera::GetInstance()->SetMouseSensitivity(m_MouseSensitivity);
 	}
 
 	void Settings::Shutdown()

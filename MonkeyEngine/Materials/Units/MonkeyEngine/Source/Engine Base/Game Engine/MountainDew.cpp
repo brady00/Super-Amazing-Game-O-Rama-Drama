@@ -83,7 +83,7 @@ namespace MonkeyEngine
 		}
 		ShowWindow(m_HWnd, nCmdShow);
 		UpdateWindow(m_HWnd);
-		InitializeEngine(m_HWnd, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight());
+		InitializeEngine(m_HWnd, Settings::GetInstance()->GetScreenWidth(), Settings::GetInstance()->GetScreenHeight(), "Assets/Scenes/Default.mes");
 	}
 
 	void MountainDew::Update()
@@ -104,7 +104,7 @@ namespace MonkeyEngine
 	}
 }
 using namespace MonkeyEngine;
-void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight)
+void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight, string _SceneFileName)
 {
 	int size = sizeof(window);
 	MountainDew* temp = MountainDew::GetInstance();
@@ -114,6 +114,10 @@ void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight)
 	Settings::GetInstance()->Initialize();
 	std::vector<MEObject::GameObject*> objects;
 	temp->m_pScene = new Scene;
+	float _percentLoaded = 0.0f;
+	bool Success = false;
+	MEFileIO::FileIO::LoadScene(_SceneFileName, MountainDew::GetInstance()->m_pScene->m_vObjects, _percentLoaded, Success);
+	while (!Success || _percentLoaded != 1.0f) {}
 	temp->m_pScene->initialize(_ScreenWidth, _ScreenHeight);
 }
 

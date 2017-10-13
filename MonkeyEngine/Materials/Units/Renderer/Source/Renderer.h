@@ -3,8 +3,8 @@
 #include <Windows.h>
 #include <DirectXMath.h>
 #include <d3d11.h>
+#include "Behaviour\Camera.h"
 #pragma comment(lib, "d3d11.lib")
-
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -19,7 +19,6 @@ namespace MonkeyEngine
 		class IndexBufferManager;
 		class ConstantBufferManager;
 		class Object;
-		class Camera;
 		class RenderContext;
 		class DefferedRenderTarget;
 		using namespace DirectX;
@@ -31,9 +30,10 @@ namespace MonkeyEngine
 			static RenderSet* m_pNonTranparentObjects;
 			static RenderSet* m_pTransparentObjects;
 			//std::vector<Canvas*> m_vCanvases;
-			//std::vector<Camera*> m_vCameras;
+			static std::vector<MEObject::Camera*> m_vCameras;
+			static unsigned int m_ActiveCamera;
+			static Camera* m_DebugCamera;
 			XMFLOAT4X4 m_DebugCameraViewMatrix;
-			unsigned int m_uiActiveCamera;
 			DefferedRenderTarget* m_pDeferredRenderTarget;
 			__int64	m_dPrevFrame = 0;
 			float m_fFPS = 0.0f;
@@ -72,6 +72,9 @@ namespace MonkeyEngine
 			static bool GetFullScreen();
 			static RenderContext* AddNewTransparentContext(RenderContext*& _context);
 			static RenderContext* AddNewnonTransparentContext(RenderContext*& _context);
+			static std::vector<Camera*>& GetCameras();
+			static void SetActiveCamera(unsigned int index);
+			static void SetDebugCamera(Camera* cam);
 		};
 	}
 }

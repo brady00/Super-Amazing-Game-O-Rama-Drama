@@ -31,7 +31,7 @@ namespace MonkeyEngine
 			m_pGameObject->RecieveMessage(_Message);
 			m_pGameObject->SendMessageUpwards(_Message);
 			m_pGameObject->SendMessageString(_Message);
-			m_pGameObject->SendMessageDownwards(_Message); (_Message);
+			m_pGameObject->SendMessageDownwards(_Message);
 		}
 
 		void Component::SendMessageUpwards(std::string _Message)

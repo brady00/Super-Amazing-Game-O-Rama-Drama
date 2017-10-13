@@ -5,7 +5,7 @@ namespace MonkeyEngine
 {
 	namespace MEObject
 	{
-		class Behaviour : public Component
+		class __declspec(dllexport) Behaviour : public Component
 		{
 		private:
 			bool m_bEnabled;

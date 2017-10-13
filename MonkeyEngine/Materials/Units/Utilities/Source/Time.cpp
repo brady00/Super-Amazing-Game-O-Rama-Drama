@@ -26,4 +26,14 @@ namespace MonkeyEngine
 		if (DeltaTime > 0.2f)
 			DeltaTime = 0.2f;
 	}
+
+	float Time::GetDeltaTime()
+	{
+		return DeltaTime;
+	}
+
+	float Time::GetTimeSinceStart()
+	{
+		return TimeSinceStart;
+	}
 }

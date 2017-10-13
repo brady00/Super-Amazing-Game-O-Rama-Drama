@@ -10,6 +10,9 @@
     <Filter Include="Shaders\PS">
       <UniqueIdentifier>{23b5128b-3988-4da1-889d-a28c0bb82905}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{aec17f39-c419-4561-8e69-e98a12f8cc4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Renderer.cpp" />

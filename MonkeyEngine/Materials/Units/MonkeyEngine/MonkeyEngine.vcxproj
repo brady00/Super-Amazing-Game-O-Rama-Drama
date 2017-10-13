@@ -11,12 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\DebugCamera\DebugCamera.cpp" />
     <ClCompile Include="Source\Engine Base\Game Engine\MountainDew.cpp" />
     <ClCompile Include="Source\Engine Base\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\DebugCamera\DebugCamera.h" />
     <ClInclude Include="Source\Engine Base\Game Engine\MountainDew.h" />
     <ClInclude Include="Source\Engine Base\Scene\Scene.h" />
   </ItemGroup>

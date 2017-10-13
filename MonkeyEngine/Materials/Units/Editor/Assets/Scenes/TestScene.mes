@@ -1,15 +1,30 @@
 <MonkeyEngineScene>
-	<GameObject Name="f" Static="false" Active="true" Layer="1">
-		<Transform>
-			<Position X="0" Y="0" Z="0"/>
-			<Rotation X="0" Y="0" Z="0"/>
-			<Scale X="1" Y="1" Z="1"/>
-		</Transform>
-		<SkinnedMeshRenderer Enabled="true" Skinned="false" Opaque="true">
-			<VertexFileName  File="Assets/Models/Test.fbx"/>
-			<DiffuseFileName File="Assets/Textures/images.png"/>		
-		</SkinnedMeshRenderer>
-	</GameObject>
+  <DebugCamera>
+    <Skybox TextureName ="Assets/Textures/SkyboxNorthernLights.dds">
+    </Skybox>
+  </DebugCamera>
+  <GameObject Name="Camera" Static="false" Active="true" Layer="2">
+    <Transform>
+      <Position X="0" Y="0" Z="0"/>
+      <Rotation X="0" Y="0" Z="0"/>
+      <Scale X="1" Y="1" Z="1"/>
+    </Transform>
+    <Camera Enabled="true">
+      <Skybox TextureName ="Assets/Textures/SkyboxNorthernLights.dds">
+      </Skybox>
+    </Camera>
+  </GameObject>
+  <GameObject Name="f" Static="false" Active="true" Layer="1">
+    <Transform>
+      <Position X="0" Y="0" Z="0"/>
+      <Rotation X="0" Y="0" Z="0"/>
+      <Scale X="1" Y="1" Z="1"/>
+    </Transform>
+    <SkinnedMeshRenderer Enabled="true" Skinned="false" Opaque="true">
+      <VertexFileName  File="Assets/Models/Test.fbx"/>
+      <DiffuseFileName File="Assets/Textures/images.png"/>
+    </SkinnedMeshRenderer>
+  </GameObject>
   <GameObject Name="ff" Static="false" Active="true" Layer="0">
     <Transform>
       <Position X="0" Y="0" Z="50"/>
@@ -28,8 +43,8 @@
       <Scale X="1" Y="1" Z="1"/>
     </Transform>
     <MeshRenderer Enabled="true" Skinned="false" Opaque="true">
-      <VertexFileName 	File="Assets//Models/testObj.obj"/>
-      <DiffuseFileName 	File="Assets//Textures/images.png"/>
+      <VertexFileName 	File="Assets/Models/testObj.obj"/>
+      <DiffuseFileName 	File="Assets/Textures/images.png"/>
     </MeshRenderer>
   </GameObject>
 </MonkeyEngineScene>

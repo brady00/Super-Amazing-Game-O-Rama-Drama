@@ -1,6 +1,7 @@
 #pragma once
 #include "Base/Component.h"
 #include <DirectXMath.h>
+
 using namespace DirectX;
 namespace MonkeyEngine
 {

@@ -97,6 +97,9 @@ namespace Editor {
 	private: System::Windows::Forms::Label^  LoadingLabel;
 	private: System::Windows::Forms::Panel^  LoadingBackground;
 	private: System::Windows::Forms::Panel^  LoadingForeground;
+	private: System::Windows::Forms::Button^  button3;
+	private: System::Windows::Forms::Button^  button2;
+	private: System::Windows::Forms::Button^  button1;
 
 
 
@@ -146,7 +149,12 @@ namespace Editor {
 			this->ActiveBox = (gcnew System::Windows::Forms::CheckBox());
 			this->NameBox = (gcnew System::Windows::Forms::TextBox());
 			this->BackgroundPanel = (gcnew System::Windows::Forms::Panel());
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->LoadingPanel = (gcnew System::Windows::Forms::Panel());
+			this->LoadingBackground = (gcnew System::Windows::Forms::Panel());
+			this->LoadingForeground = (gcnew System::Windows::Forms::Panel());
 			this->LoadingLabel = (gcnew System::Windows::Forms::Label());
 			this->MainWindowRenderingTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
@@ -183,8 +191,6 @@ namespace Editor {
 			this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->LoadingTimer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->LoadingBackground = (gcnew System::Windows::Forms::Panel());
-			this->LoadingForeground = (gcnew System::Windows::Forms::Panel());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
@@ -203,8 +209,8 @@ namespace Editor {
 			this->NameBackgroundPanel->SuspendLayout();
 			this->BackgroundPanel->SuspendLayout();
 			this->LoadingPanel->SuspendLayout();
-			this->menuStrip1->SuspendLayout();
 			this->LoadingBackground->SuspendLayout();
+			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// splitContainer1
@@ -213,7 +219,7 @@ namespace Editor {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->splitContainer1->BackColor = System::Drawing::SystemColors::AppWorkspace;
-			this->splitContainer1->Location = System::Drawing::Point(0, 0);
+			this->splitContainer1->Location = System::Drawing::Point(0, 32);
 			this->splitContainer1->Name = L"splitContainer1";
 			// 
 			// splitContainer1.Panel1
@@ -224,7 +230,7 @@ namespace Editor {
 			// 
 			this->splitContainer1->Panel2->Controls->Add(this->InspectorBackgroundPanel);
 			this->splitContainer1->Panel2MinSize = 324;
-			this->splitContainer1->Size = System::Drawing::Size(1904, 1017);
+			this->splitContainer1->Size = System::Drawing::Size(1904, 985);
 			this->splitContainer1->SplitterDistance = 1564;
 			this->splitContainer1->TabIndex = 19;
 			// 
@@ -237,7 +243,7 @@ namespace Editor {
 			// splitContainer2.Panel2
 			// 
 			this->splitContainer2->Panel2->Controls->Add(this->splitContainer3);
-			this->splitContainer2->Size = System::Drawing::Size(1564, 1017);
+			this->splitContainer2->Size = System::Drawing::Size(1564, 985);
 			this->splitContainer2->SplitterDistance = 217;
 			this->splitContainer2->TabIndex = 3;
 			// 
@@ -251,8 +257,8 @@ namespace Editor {
 			// splitContainer3.Panel1
 			// 
 			this->splitContainer3->Panel1->Controls->Add(this->splitContainer4);
-			this->splitContainer3->Size = System::Drawing::Size(1343, 1017);
-			this->splitContainer3->SplitterDistance = 793;
+			this->splitContainer3->Size = System::Drawing::Size(1343, 985);
+			this->splitContainer3->SplitterDistance = 768;
 			this->splitContainer3->TabIndex = 5;
 			// 
 			// splitContainer4
@@ -268,7 +274,7 @@ namespace Editor {
 			// splitContainer4.Panel2
 			// 
 			this->splitContainer4->Panel2->Controls->Add(this->ObjectTreeView);
-			this->splitContainer4->Size = System::Drawing::Size(1343, 793);
+			this->splitContainer4->Size = System::Drawing::Size(1343, 768);
 			this->splitContainer4->SplitterDistance = 1090;
 			this->splitContainer4->TabIndex = 0;
 			// 
@@ -279,7 +285,7 @@ namespace Editor {
 			this->RenderingPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->RenderingPanel->Location = System::Drawing::Point(0, 0);
 			this->RenderingPanel->Name = L"RenderingPanel";
-			this->RenderingPanel->Size = System::Drawing::Size(1090, 793);
+			this->RenderingPanel->Size = System::Drawing::Size(1090, 768);
 			this->RenderingPanel->TabIndex = 11;
 			this->RenderingPanel->SizeChanged += gcnew System::EventHandler(this, &Editor::RenderingPanel_SizeChanged);
 			this->RenderingPanel->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Editor::RenderingPanel_MouseDown);
@@ -290,7 +296,7 @@ namespace Editor {
 			this->ObjectTreeView->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ObjectTreeView->Location = System::Drawing::Point(0, 0);
 			this->ObjectTreeView->Name = L"ObjectTreeView";
-			this->ObjectTreeView->Size = System::Drawing::Size(249, 793);
+			this->ObjectTreeView->Size = System::Drawing::Size(249, 768);
 			this->ObjectTreeView->TabIndex = 13;
 			this->ObjectTreeView->AfterSelect += gcnew System::Windows::Forms::TreeViewEventHandler(this, &Editor::ObjectTreeView_AfterSelect);
 			// 
@@ -413,6 +419,10 @@ namespace Editor {
 			// 
 			// BackgroundPanel
 			// 
+			this->BackgroundPanel->BackColor = System::Drawing::SystemColors::ActiveBorder;
+			this->BackgroundPanel->Controls->Add(this->button3);
+			this->BackgroundPanel->Controls->Add(this->button2);
+			this->BackgroundPanel->Controls->Add(this->button1);
 			this->BackgroundPanel->Controls->Add(this->LoadingPanel);
 			this->BackgroundPanel->Controls->Add(this->splitContainer1);
 			this->BackgroundPanel->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -420,6 +430,36 @@ namespace Editor {
 			this->BackgroundPanel->Name = L"BackgroundPanel";
 			this->BackgroundPanel->Size = System::Drawing::Size(1904, 1017);
 			this->BackgroundPanel->TabIndex = 3;
+			// 
+			// button3
+			// 
+			this->button3->Anchor = System::Windows::Forms::AnchorStyles::Top;
+			this->button3->Location = System::Drawing::Point(992, 3);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(47, 23);
+			this->button3->TabIndex = 26;
+			this->button3->Text = L"Stop";
+			this->button3->UseVisualStyleBackColor = true;
+			// 
+			// button2
+			// 
+			this->button2->Anchor = System::Windows::Forms::AnchorStyles::Top;
+			this->button2->Location = System::Drawing::Point(939, 3);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(47, 23);
+			this->button2->TabIndex = 25;
+			this->button2->Text = L"Pause";
+			this->button2->UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			this->button1->Anchor = System::Windows::Forms::AnchorStyles::Top;
+			this->button1->Location = System::Drawing::Point(893, 3);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(40, 23);
+			this->button1->TabIndex = 24;
+			this->button1->Text = L"Play";
+			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// LoadingPanel
 			// 
@@ -431,6 +471,24 @@ namespace Editor {
 			this->LoadingPanel->Size = System::Drawing::Size(237, 113);
 			this->LoadingPanel->TabIndex = 20;
 			this->LoadingPanel->Visible = false;
+			// 
+			// LoadingBackground
+			// 
+			this->LoadingBackground->BackColor = System::Drawing::Color::SeaShell;
+			this->LoadingBackground->Controls->Add(this->LoadingForeground);
+			this->LoadingBackground->Location = System::Drawing::Point(24, 65);
+			this->LoadingBackground->Name = L"LoadingBackground";
+			this->LoadingBackground->Size = System::Drawing::Size(193, 23);
+			this->LoadingBackground->TabIndex = 3;
+			// 
+			// LoadingForeground
+			// 
+			this->LoadingForeground->BackColor = System::Drawing::Color::Lime;
+			this->LoadingForeground->Location = System::Drawing::Point(0, 0);
+			this->LoadingForeground->MaximumSize = System::Drawing::Size(193, 0);
+			this->LoadingForeground->Name = L"LoadingForeground";
+			this->LoadingForeground->Size = System::Drawing::Size(193, 0);
+			this->LoadingForeground->TabIndex = 5;
 			// 
 			// LoadingLabel
 			// 
@@ -624,6 +682,8 @@ namespace Editor {
 			// 
 			// RunInWindowToolStripMenuItem
 			// 
+			this->RunInWindowToolStripMenuItem->Checked = true;
+			this->RunInWindowToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->RunInWindowToolStripMenuItem->Name = L"RunInWindowToolStripMenuItem";
 			this->RunInWindowToolStripMenuItem->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::R));
 			this->RunInWindowToolStripMenuItem->Size = System::Drawing::Size(196, 22);
@@ -686,24 +746,6 @@ namespace Editor {
 			this->LoadingTimer->Interval = 1;
 			this->LoadingTimer->Tick += gcnew System::EventHandler(this, &Editor::LoadingTimer_Tick);
 			// 
-			// LoadingBackground
-			// 
-			this->LoadingBackground->BackColor = System::Drawing::Color::SeaShell;
-			this->LoadingBackground->Controls->Add(this->LoadingForeground);
-			this->LoadingBackground->Location = System::Drawing::Point(24, 65);
-			this->LoadingBackground->Name = L"LoadingBackground";
-			this->LoadingBackground->Size = System::Drawing::Size(193, 23);
-			this->LoadingBackground->TabIndex = 3;
-			// 
-			// LoadingForeground
-			// 
-			this->LoadingForeground->BackColor = System::Drawing::Color::Lime;
-			this->LoadingForeground->Location = System::Drawing::Point(0, 0);
-			this->LoadingForeground->MaximumSize = System::Drawing::Size(193, 0);
-			this->LoadingForeground->Name = L"LoadingForeground";
-			this->LoadingForeground->Size = System::Drawing::Size(193, 23);
-			this->LoadingForeground->TabIndex = 5;
-			// 
 			// Editor
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -735,9 +777,9 @@ namespace Editor {
 			this->BackgroundPanel->ResumeLayout(false);
 			this->LoadingPanel->ResumeLayout(false);
 			this->LoadingPanel->PerformLayout();
+			this->LoadingBackground->ResumeLayout(false);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
-			this->LoadingBackground->ResumeLayout(false);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -758,5 +800,6 @@ namespace Editor {
 	public: static void Editor::ButtonExpanded(unsigned int buttonIndex, MonkeyEngine::MEObject::GameObject* _Object);
 	private: void openToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: void LoadHelper();
+	public: String^ OpenFile;
 };
 }

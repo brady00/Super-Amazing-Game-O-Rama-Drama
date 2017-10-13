@@ -14,9 +14,9 @@ using namespace MonkeyEngine::MERenderer;
 
 namespace MonkeyEngine
 {
-	namespace MERenderer
+	namespace MEObject
 	{
-		class Skybox : public Behaviour // *Behavior
+		class __declspec(dllexport) Skybox : public Behaviour
 		{
 		private:
 			ID3D11Buffer* m_ObjectConstantBuffer;
@@ -34,8 +34,9 @@ namespace MonkeyEngine
 			Skybox();
 			~Skybox();
 			void Initialize(ID3D11Device* _device, ID3D11DeviceContext* d3DeviceContext, wchar_t* _TextureFilePath);
+			void Load(ID3D11Device* _device, ID3D11DeviceContext* d3DeviceContext, wchar_t* _TextureFilePath);
 			void Update();
-			void Draw(float _cameraPosX, float _cameraPosY, float _cameraPosZ, ID3D11DeviceContext* d3DeviceContext);
+			void Draw(ID3D11DeviceContext* d3DeviceContext);
 		};
 	}
 }

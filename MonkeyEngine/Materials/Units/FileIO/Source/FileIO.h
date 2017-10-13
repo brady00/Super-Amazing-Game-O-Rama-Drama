@@ -22,6 +22,8 @@ namespace MonkeyEngine
 			static bool LoadTranform(XMLElement* _ObjectRoot, MEObject::Component*& _Object);
 			static bool LoadMeshRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object);
 			static bool LoadSkinnedMeshRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object);
+			static bool LoadCamera(XMLElement* _ObjectRoot, MEObject::Component*& _Object);
+			static bool LoadDebugCamera(XMLElement* _ObjectRoot);
 		public:
 			FileIO();
 			~FileIO();

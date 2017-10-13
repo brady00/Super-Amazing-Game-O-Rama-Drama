@@ -23,6 +23,9 @@ namespace MonkeyEngine
 		UINT Renderer::m_uiScreenWidth = 0;
 		UINT Renderer::m_uiScreenXPositionOffset = 0;
 		UINT Renderer::m_uiScreenYPositionOffset = 0;
+		std::vector<Camera*> Renderer::m_vCameras;
+		unsigned int Renderer::m_ActiveCamera = 0;
+		Camera* Renderer::m_DebugCamera = nullptr;
 #ifdef _DEBUG
 		bool Renderer::m_bFullScreen = false;
 #else
@@ -94,10 +97,6 @@ namespace MonkeyEngine
 			depthViewDesc.Texture2D.MipSlice = 0;
 			m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
 
-			// Skybox initialization
-			//m_pSkybox = new Skybox();
-			//m_pSkybox->Initialize(m_d3Device, L"../MonkeyEngine/Assets/Textures/SkyboxNorthernLights.dds");
-
 			m_pDeferredRenderTarget = new DefferedRenderTarget;
 			m_pDeferredRenderTarget->Initialize(m_d3Device, m_d3DeviceContext, _ScreenHeight, _ScreenWidth);
 			BlendStateManager::GetInstance()->CreateStates(m_d3Device);
@@ -168,9 +167,8 @@ namespace MonkeyEngine
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 			m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
 
-			// Skybox draw call
-			//m_DebugCameraViewMatrix = MERenderer::DebugCamera::GetInstance()->GetViewMatrix();
-			//m_pSkybox->Draw(m_DebugCameraViewMatrix._41, m_DebugCameraViewMatrix._42, m_DebugCameraViewMatrix._43); // Skybox's Draw() calls ClearDepthStencilView()
+			m_DebugCamera->GetSkybox()->Draw(m_d3DeviceContext);
+			//m_vCameras[m_ActiveCamera]->GetSkybox()->Draw(m_d3DeviceContext);
 
 			m_pNonTranparentObjects->Draw(m_d3DeviceContext);
 			m_pTransparentObjects->Draw(m_d3DeviceContext);
@@ -329,5 +327,21 @@ namespace MonkeyEngine
 		{
 			return m_bFullScreen;
 		}
+
+		std::vector<Camera*>& Renderer::GetCameras()
+		{
+			return m_vCameras;
+		}
+
+		void Renderer::SetActiveCamera(unsigned int index)
+		{
+			m_ActiveCamera = index;
+		}
+
+		void Renderer::SetDebugCamera(Camera* cam)
+		{
+			m_DebugCamera = cam;
+		}
+
 	}
 }
