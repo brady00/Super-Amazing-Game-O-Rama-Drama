@@ -6,7 +6,7 @@ namespace MonkeyEngine
 	namespace MEObject
 	{
 		REGISTER_CLASS("SkinnedMeshRenderer", SkinnedMeshRenderer)
-		void SkinnedMeshRenderer::Draw(ID3D11DeviceContext* d3DeviceContext)
+		void SkinnedMeshRenderer::Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State)
 		{
 			cbPerSkinnedObject temp = ConstantBufferManager::GetInstance()->GetPerSkinnedObjectCBuffer().GetBufferValue();
 			temp.World = GetTransform()->GetMatrix();

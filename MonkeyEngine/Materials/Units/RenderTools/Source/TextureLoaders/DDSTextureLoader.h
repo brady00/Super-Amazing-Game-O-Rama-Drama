@@ -104,7 +104,7 @@ namespace DirectX
         _Outptr_opt_ ID3D11ShaderResourceView** textureView,
         _Out_opt_ DDS_ALPHA_MODE* alphaMode = nullptr);
 
-    HRESULT __cdecl CreateDDSTextureFromFileEx(
+    HRESULT RENDERTOOLS_EXPORT CreateDDSTextureFromFileEx(
         _In_ ID3D11Device* d3dDevice,
         _In_z_ const wchar_t* szFileName,
         _In_ size_t maxsize,

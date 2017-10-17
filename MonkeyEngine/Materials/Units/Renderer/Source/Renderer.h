@@ -9,6 +9,9 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
+		enum RenderState{GAME_RENDERING = 0, EDITOR_RENDERING, VR_RENDERING, STATE_COUNT};
+
+
 #define ReleaseCOM(x) { if(x){ x->Release(); x = 0; } }
 		class Skybox;
 		class RenderSet;
@@ -50,6 +53,7 @@ namespace MonkeyEngine
 			static UINT m_uiScreenXPositionOffset;
 			static UINT m_uiScreenYPositionOffset;
 			static bool m_bFullScreen;
+			static RenderState m_RenderState;
 		public:
 			Renderer();
 			~Renderer();
@@ -75,6 +79,7 @@ namespace MonkeyEngine
 			static std::vector<Camera*>& GetCameras();
 			static void SetActiveCamera(unsigned int index);
 			static void SetDebugCamera(Camera* cam);
+			static RenderState GetRenderState();
 		};
 	}
 }

@@ -97,7 +97,7 @@ namespace MonkeyEngine
 		void Skybox::Draw(ID3D11DeviceContext* d3DeviceContext)
 		{
 			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_Default, d3DeviceContext);
-			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_Default, d3DeviceContext);
+			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL, d3DeviceContext);
 			BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default, d3DeviceContext);
 			d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POS));
 			m_VertexBuffer = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();

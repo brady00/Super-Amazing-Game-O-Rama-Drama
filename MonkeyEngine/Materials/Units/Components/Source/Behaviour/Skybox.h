@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "../Behaviour/Behaviour.h"
 #include "TextureLoaders/DDSTextureLoader.h"
+#include "TextureLoaders\WICTextureLoader.h"
 #include "Managers/ShaderManager.h"
 #include "Managers/ConstantBufferManager.h"
 #include "RenderStructures.h"

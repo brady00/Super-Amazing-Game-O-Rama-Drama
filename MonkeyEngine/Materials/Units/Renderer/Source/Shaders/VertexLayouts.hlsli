@@ -65,6 +65,19 @@ struct VERTEX_POSBONEWEIGHTNORMTANTEX
 	float3 binormal		: BINORMAL0;
 };
 
+struct VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR
+{
+	float3 position :	POSITION0;
+	float3 normal	:	NORMAL0;
+	float2 texCoord :	TEXCOORD0;
+	int4   bone     :   BONEIDS0;
+	float4 weights  :   BONEWEIGHTS0;
+	float4 color	:	COLOR0;
+	float3 tangent		: TANGENT0;
+	float determinant : TANGENT1;
+	float3 binormal		: BINORMAL0;
+};
+
 struct VERTEX_TERRAIN
 {
 	float2 position : POSITION0;
@@ -112,6 +125,7 @@ struct GBufferVertexOut
 {
 	float4 position			: SV_POSITION;
 	float3 normal			: NORMAL0;
+	float4 color			: COLOR0;
 	float2 texCoord			: TEXCOORD0;
 	float2 depthDiv			: TEXCOORD1;
 };

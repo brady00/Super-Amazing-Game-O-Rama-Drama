@@ -17,7 +17,7 @@ namespace MonkeyEngine
 
 		void GameObject::Initialize()
 		{
-			m_pTransform->Initialize();
+			m_pTransform->UpdateTransform();
 			for (unsigned int i = 0; i < eNumComponents; i++)
 				for (unsigned int j = 0; j < m_vComponents[i].size(); j++)
 					m_vComponents[i][j]->Update();

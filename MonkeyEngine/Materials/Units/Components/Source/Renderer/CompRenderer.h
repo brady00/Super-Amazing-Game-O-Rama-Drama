@@ -54,7 +54,7 @@ namespace MonkeyEngine
 			void SetVertexFileName(std::string&);
 			void SetMaterial(Material&);
 			void(*foo)();
-			virtual void Draw(ID3D11DeviceContext* d3DeviceContext);
+			virtual void Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State);
 			virtual bool Load(MERenderer::BlendStateManager::BStates* m_BlendState,
 				MERenderer::RasterizerStateManager::RasterStates* m_RasterState,
 				MERenderer::DepthStencilStateManager::DSStates* m_DSState,

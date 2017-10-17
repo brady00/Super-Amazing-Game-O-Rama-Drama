@@ -63,7 +63,8 @@ namespace Editor
 
 	void Editor::Form_OnLoad(System::Object^  sender, System::EventArgs^  e)
 	{
-		InitializeEngine((HWND)(void*)RenderingPanel->Handle, RenderingPanel->Width, RenderingPanel->Height, string((const char*)(Marshal::StringToHGlobalAnsi(OpenFile)).ToPointer()));
+		const char* File = (const char*)(Marshal::StringToHGlobalAnsi(OpenFile )).ToPointer();
+		InitializeEngine((HWND)(void*)RenderingPanel->Handle, RenderingPanel->Width, RenderingPanel->Height, File);
 		MainWindowRenderingTimer->Start();
 		this->DoubleBuffered = true;
 		this->SetStyle(ControlStyles::DoubleBuffer, true);

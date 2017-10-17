@@ -27,12 +27,12 @@ namespace MonkeyEngine
 			}
 		}
 
-		void RenderTexture::Draw(ID3D11DeviceContext* d3DeviceContext)
+		void RenderTexture::Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State)
 		{
 
 			d3DeviceContext->PSSetShaderResources(0, 1, &m_Material->m_d3DiffuseTexture);
 			d3DeviceContext->PSSetSamplers(0, 1, &m_d3SamplerState);
-			m_pRenderShapes->Draw(d3DeviceContext);
+			m_pRenderShapes->Draw(d3DeviceContext, State);
 		}
 		
 		bool RenderTexture::Load(Material* _Material, ID3D11Device* d3Device)

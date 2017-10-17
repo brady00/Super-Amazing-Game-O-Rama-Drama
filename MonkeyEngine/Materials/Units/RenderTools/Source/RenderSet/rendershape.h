@@ -18,7 +18,7 @@ namespace MonkeyEngine
 		public:
 			RenderShape() {};
 			~RenderShape() {};
-			virtual void Draw(ID3D11DeviceContext* d3DeviceContext) {};
+			virtual void Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int EngineState) {};
 		};
 
 

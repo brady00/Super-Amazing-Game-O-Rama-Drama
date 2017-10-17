@@ -21,12 +21,12 @@ namespace MonkeyEngine
 			}
 		}
 
-		void RenderSet::Draw(ID3D11DeviceContext* d3DeviceContext)
+		void RenderSet::Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State)
 		{
 			RenderNode* draw = m_pHead;
 			while (draw != nullptr)
 			{
-				draw->Draw(d3DeviceContext);
+				draw->Draw(d3DeviceContext, State);
 				draw = draw->GetNext();
 			}
 		}

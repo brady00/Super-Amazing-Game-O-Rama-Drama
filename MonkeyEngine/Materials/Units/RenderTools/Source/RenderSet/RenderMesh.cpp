@@ -19,7 +19,7 @@ namespace MonkeyEngine
 			delete m_pRenderTextures;
 		}
 
-		void RenderMesh::Draw(ID3D11DeviceContext* d3DeviceContext)
+		void RenderMesh::Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State)
 		{
 			//context switching
 			//vertex buffer
@@ -103,7 +103,7 @@ namespace MonkeyEngine
 			//d3DeviceContext->GSSetShader(ShaderManager::GetInstance()->GetGeometryShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 			//d3DeviceContext->DSSetShader(ShaderManager::GetInstance()->GetDomainShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 			//d3DeviceContext->HSSetShader(ShaderManager::GetInstance()->GetHullShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
-			m_pRenderTextures->Draw(d3DeviceContext);
+			m_pRenderTextures->Draw(d3DeviceContext, State);
 		}
 
 		bool RenderMesh::Load(std::string _VertexFileName, VertexFormat& _VertexFormat, ID3D11Device* d3Device, ID3D11DeviceContext* d3DeviceContext)

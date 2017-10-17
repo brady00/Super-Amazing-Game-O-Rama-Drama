@@ -66,6 +66,19 @@ namespace MonkeyEngine
 			DirectX::XMFLOAT3 binormal;
 			VERTEX_POSBONEWEIGHTNORMTANTEX() { bones.x = bones.y = bones.z = bones.w = -1; }
 		};
+		struct VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR : public VERTEX
+		{
+			DirectX::XMFLOAT3 position;
+			DirectX::XMFLOAT3 normal;
+			DirectX::XMFLOAT2 texcoord;
+			DirectX::XMINT4   bones;
+			DirectX::XMFLOAT4 weights;
+			DirectX::XMFLOAT4 color;
+			DirectX::XMFLOAT3 tangent;
+			float determinant;
+			DirectX::XMFLOAT3 binormal;
+			VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR() { bones.x = bones.y = bones.z = bones.w = -1; }
+		};
 		class Material
 		{
 		private:
@@ -91,6 +104,8 @@ namespace MonkeyEngine
 			double mSpecularPower;
 			double mShininess;
 			double mReflectionFactor;
+
+			DirectX::XMFLOAT4 Color;
 		};
 		struct Keyframe
 		{

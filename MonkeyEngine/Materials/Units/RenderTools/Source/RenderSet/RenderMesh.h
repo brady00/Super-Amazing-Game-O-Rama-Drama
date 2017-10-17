@@ -36,7 +36,7 @@ namespace MonkeyEngine
 			RenderMesh();
 			~RenderMesh();
 			const std::string& GetVertexFileName();
-			void Draw(ID3D11DeviceContext* d3DeviceContext);
+			void Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int EngineState);
 			RenderTexture* AddTexture(std::string _TextureFileName, ID3D11Device* d3Device);
 			bool Load(std::string _VertexFileName, VertexFormat& _VertexFormat, ID3D11Device* d3Device, ID3D11DeviceContext* d3DeviceContext);
 			RenderTexture* TextureExsits(std::string _TextureFileName);

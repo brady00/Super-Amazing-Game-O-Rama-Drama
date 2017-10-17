@@ -40,7 +40,7 @@ namespace MonkeyEngine
 
 }
 
-void __declspec(dllexport) InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight, string _SceneFileName);
+void __declspec(dllexport) InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight, const char* _SceneFileName);
 void __declspec(dllexport) ResizeEngine(int _ScreenWidth, int _ScreenHeight);
 void __declspec(dllexport) UpdateEngine();
 void __declspec(dllexport) ShutdownEngine();

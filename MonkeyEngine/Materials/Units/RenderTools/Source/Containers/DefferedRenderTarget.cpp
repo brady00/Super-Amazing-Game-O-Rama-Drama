@@ -180,7 +180,7 @@ namespace MonkeyEngine
 		void DefferedRenderTarget::SetAsRenderTarget(ID3D11DepthStencilView* _StencilView, ID3D11DeviceContext* _DeviceContext)
 		{
 			float color[] = { 0,0,1,1 };
-			_DeviceContext->OMSetRenderTargets(m_uiBufferCount, m_d3GBufferTargetView, 0);
+			_DeviceContext->OMSetRenderTargets(m_uiBufferCount, m_d3GBufferTargetView, _StencilView);
 			for (unsigned int i = 0; i < m_uiBufferCount; i++)
 				_DeviceContext->ClearRenderTargetView(m_d3GBufferTargetView[i], color);
 		}

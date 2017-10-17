@@ -5,11 +5,16 @@
 using namespace DirectX;
 namespace MonkeyEngine
 {
+	namespace MERenderer
+	{
+		class DebugCamera;
+	}
 	namespace MEObject
 	{
 		class __declspec(dllexport) Transform : public Component
 		{
 			friend class GameObject;
+			friend class MERenderer::DebugCamera;
 		private:
 			XMFLOAT3 m_xmPosition;
 			XMFLOAT3 m_xmRotation;

@@ -14,7 +14,7 @@ namespace MonkeyEngine
 			virtual ~RenderNode();
 			RenderNode* GetNext();
 			void SetNext(RenderNode* _Next);
-			virtual void Draw(ID3D11DeviceContext* d3DeviceContext) = 0;
+			virtual void Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State) = 0;
 		};
 	}
 }

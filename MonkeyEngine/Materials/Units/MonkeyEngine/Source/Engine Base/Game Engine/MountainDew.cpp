@@ -104,7 +104,7 @@ namespace MonkeyEngine
 	}
 }
 using namespace MonkeyEngine;
-void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight, string _SceneFileName)
+void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight, const char* _SceneFileName)
 {
 	int size = sizeof(window);
 	MountainDew* temp = MountainDew::GetInstance();
@@ -116,7 +116,7 @@ void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight, string _
 	temp->m_pScene = new Scene;
 	float _percentLoaded = 0.0f;
 	bool Success = false;
-	MEFileIO::FileIO::LoadScene(_SceneFileName, MountainDew::GetInstance()->m_pScene->m_vObjects, _percentLoaded, Success);
+	MEFileIO::FileIO::LoadScene(std::string(_SceneFileName), MountainDew::GetInstance()->m_pScene->m_vObjects, _percentLoaded, Success);
 	while (!Success || _percentLoaded != 1.0f) {}
 	temp->m_pScene->initialize(_ScreenWidth, _ScreenHeight);
 }
@@ -134,7 +134,7 @@ void ResizeEngine(int _ScreenWidth, int _ScreenHeight)
 		renderer->Resize((UINT)_ScreenWidth, (UINT)_ScreenHeight);
 	DebugCamera* Cam = MountainDew::GetInstance()->m_pScene->GetDebugCamera();
 	if(Cam)
-		Cam->Resize(0.1f, 999999.9f, 90.0f, (float)_ScreenHeight, (float)_ScreenWidth);
+		Cam->Resize((float)_ScreenHeight, (float)_ScreenWidth);
 }
 
 void UpdateEngine()
