@@ -26,7 +26,6 @@ namespace MonkeyEngine
 		std::vector<Camera*> Renderer::m_vCameras;
 		unsigned int Renderer::m_ActiveCamera = 0;
 		Camera* Renderer::m_DebugCamera = nullptr;
-		RenderState Renderer::m_RenderState = RenderState::EDITOR_RENDERING;
 #ifdef _DEBUG
 		bool Renderer::m_bFullScreen = false;
 #else
@@ -168,14 +167,14 @@ namespace MonkeyEngine
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 			m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
 
-			//if(m_RenderState == RenderState::EDITOR_RENDERING)
+			if(RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
 				m_DebugCamera->GetSkybox()->Draw(m_d3DeviceContext);
-			//else
-			//	m_vCameras[m_ActiveCamera]->GetSkybox()->Draw(m_d3DeviceContext);
+			else
+				m_vCameras[m_ActiveCamera]->GetSkybox()->Draw(m_d3DeviceContext);
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-			m_pNonTranparentObjects->Draw(m_d3DeviceContext, m_RenderState);
-			m_pTransparentObjects->Draw(m_d3DeviceContext, m_RenderState);
+			m_pNonTranparentObjects->Draw(m_d3DeviceContext);
+			m_pTransparentObjects->Draw(m_d3DeviceContext);
 			//draw lights
 			//set backbuffer
 			float color[] = { 0,0,1,1 };
@@ -345,11 +344,6 @@ namespace MonkeyEngine
 		void Renderer::SetDebugCamera(Camera* cam)
 		{
 			m_DebugCamera = cam;
-		}
-
-		RenderState Renderer::GetRenderState()
-		{
-			return m_RenderState;
 		}
 
 	}

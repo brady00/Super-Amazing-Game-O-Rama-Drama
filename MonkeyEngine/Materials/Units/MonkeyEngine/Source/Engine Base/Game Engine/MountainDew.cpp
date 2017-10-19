@@ -206,3 +206,8 @@ std::vector<MonkeyEngine::MEObject::GameObject*>& GetSceneObjects()
 {
 	return MountainDew::GetInstance()->m_pScene->GetObjects();
 }
+
+void SetMonkeyEngineRenderState(RenderState::RState State)
+{
+	RenderState::SetRenderState(State);
+}

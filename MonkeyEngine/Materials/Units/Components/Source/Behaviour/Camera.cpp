@@ -11,6 +11,15 @@ namespace MonkeyEngine
 		{
 			m_Skybox = (MEObject::Skybox*)ComponentObjectFactory::GetInstance()->Create("Skybox");
 		}
+		void Camera::Initialize()
+		{
+			GetGameObject()->AddComponent(m_Skybox, GameObject::COMPONENT_ID::eSkybox);
+		}
+
+		void Camera::Update()
+		{
+
+		}
 
 		Skybox* Camera::GetSkybox()
 		{

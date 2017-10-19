@@ -21,11 +21,26 @@ struct VERTEX_POSTEX
 	float2 texCoord :	TEXCOORD0;
 };
 
+struct VERTEX_POSTEXCOLOR
+{
+	float3 position :	POSITION0;
+	float2 texCoord :	TEXCOORD0;
+	float4 color	:	COLOR0;
+};
+
 struct VERTEX_POSNORMTEX
 {
 	float3 position :	POSITION0;
 	float3 normal	:	NORMAL0;
 	float2 texCoord :	TEXCOORD0;
+};
+
+struct VERTEX_POSNORMTEXCOLOR
+{
+	float3 position :	POSITION0;
+	float3 normal	:	NORMAL0;
+	float2 texCoord :	TEXCOORD0;
+	float4 color	:	COLOR0;
 };
 
 struct VERTEX_POSNORMTANTEX
@@ -37,11 +52,29 @@ struct VERTEX_POSNORMTANTEX
 	float determinant	: TANGENT1;
 };
 
+struct VERTEX_POSNORMTANTEXCOLOR
+{
+	float3 position		: POSITION0;
+	float3 normal		: NORMAL0;
+	float2 texCoord		: TEXCOORD0;
+	float3 tangent		: TANGENT0;
+	float determinant : TANGENT1;
+	float4 color	:	COLOR0;
+};
+
 struct VERTEX_POSBONEWEIGHT
 {
 	float3 position :	POSITION0;
 	int4   bone     :   BONEIDS0;
 	float4 weights  :   BONEWEIGHTS0;
+};
+
+struct VERTEX_POSBONEWEIGHTCOLOR
+{
+	float3 position :	POSITION0;
+	int4   bone     :   BONEIDS0;
+	float4 weights  :   BONEWEIGHTS0;
+	float4 color	:	COLOR0;
 };
 
 struct VERTEX_POSBONEWEIGHTNORMTEX
@@ -51,6 +84,16 @@ struct VERTEX_POSBONEWEIGHTNORMTEX
 	float4 weights  :   BONEWEIGHTS0;
 	float3 normal	:	NORMAL0;
 	float2 texCoord :	TEXCOORD0;
+};
+
+struct VERTEX_POSBONEWEIGHTNORMTEXCOLOR
+{
+	float3 position :	POSITION0;
+	int4   bone     :   BONEIDS0;
+	float4 weights  :   BONEWEIGHTS0;
+	float3 normal	:	NORMAL0;
+	float2 texCoord :	TEXCOORD0;
+	float4 color	:	COLOR0;
 };
 
 struct VERTEX_POSBONEWEIGHTNORMTANTEX
@@ -72,10 +115,10 @@ struct VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR
 	float2 texCoord :	TEXCOORD0;
 	int4   bone     :   BONEIDS0;
 	float4 weights  :   BONEWEIGHTS0;
-	float4 color	:	COLOR0;
 	float3 tangent		: TANGENT0;
 	float determinant : TANGENT1;
 	float3 binormal		: BINORMAL0;
+	float4 color	:	COLOR0;
 };
 
 struct VERTEX_TERRAIN
@@ -261,6 +304,12 @@ struct TESS_TERRAIN_DS_OUT
 struct SKYBOX_VS_OUT
 {
 	float3 initialCoordinate : POSITION;
+	float4 projectedCoordinate : SV_POSITION;
+};
+
+struct SKYBOXCOLOR_VS_OUT
+{
+	float4 color : COLOR;
 	float4 projectedCoordinate : SV_POSITION;
 };
 

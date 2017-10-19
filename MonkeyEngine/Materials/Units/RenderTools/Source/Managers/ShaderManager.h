@@ -12,18 +12,27 @@ namespace MonkeyEngine
 				eShader_VS_POS = 0,
 				eShader_VS_POSCOLOR,
 				eShader_VS_POSTEX,
+				eShader_VS_POSTEXCOLOR,
 				eShader_VS_POSNORMTEX,
+				eShader_VS_POSNORMTEXCOLOR,
 				eShader_VS_POSNORMTANTEX,
+				eShader_VS_POSNORMTANTEXCOLOR,
 				eShader_VS_POSBONEWEIGHT,
+				eShader_VS_POSBONEWEIGHTCOLOR,
 				eShader_VS_POSBONEWEIGHTNORMTEX,
+				eShader_VS_POSBONEWEIGHTNORMTEXCOLOR,
 				eShader_VS_POSBONEWEIGHTNORMTANTEX,
+				eShader_VS_POSBONEWEIGHTNORMTANTEXCOLOR,
 				eShader_VS_SKYBOX,
+				eShader_VS_SKYBOXCOLOR,
 				eShader_VS_MAX
 			};
 			enum PixelShaderType {
-				eShader_PS_DEFAULT = 0,
+				eShader_PS_COLOR_GBUFFER_BUMP = 0,
+				eShader_PS_TEXTURE_GBUFFER_BUMP = 0,
 				eShader_PS_GBUFFER,
 				eShader_PS_SKYBOX,
+				eShader_PS_SKYBOXCOLOR,
 				eShader_PS_MAX
 			};
 		private:

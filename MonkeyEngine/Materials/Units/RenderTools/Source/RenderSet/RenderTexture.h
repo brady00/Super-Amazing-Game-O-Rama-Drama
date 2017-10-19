@@ -25,7 +25,7 @@ namespace MonkeyEngine
 		public:
 			RenderTexture();
 			~RenderTexture();
-			void Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int EngineState);
+			void Draw(ID3D11DeviceContext* d3DeviceContext);
 			bool Load(Material* _Material, ID3D11Device* d3Device);
 			const std::string& GetTextureFileName();
 			void AddShape(RenderShape*);

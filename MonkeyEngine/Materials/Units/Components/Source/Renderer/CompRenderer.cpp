@@ -125,7 +125,7 @@ namespace MonkeyEngine
 			*m_Material = mat;
 		}
 
-		void CompRenderer::Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State)
+		void CompRenderer::Draw(ID3D11DeviceContext* d3DeviceContext)
 		{
 
 		}

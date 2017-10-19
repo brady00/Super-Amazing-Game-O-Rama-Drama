@@ -1,4 +1,6 @@
 #include "DepthStencilStateManager.h"
+#include "RenderStructures.h"
+
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -32,7 +34,6 @@ namespace MonkeyEngine
 		{
 			if (state >= DSS_COUNT)
 				return false;
-
 			d3DeviceContext->OMSetDepthStencilState(m_vDepthStates[state], m_vStencilRefs[state]);
 			m_eCurrentState = state;
 			return true;

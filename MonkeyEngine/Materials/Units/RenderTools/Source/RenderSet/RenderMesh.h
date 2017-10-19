@@ -26,7 +26,8 @@ namespace MonkeyEngine
 			unsigned int* m_vIndicies;
 			unsigned int m_uiNumIndicies;
 			unsigned int m_uiStartIndexLocation;
-			int m_iBaseVertexLocation;
+			int m_iBaseVertexLocationEditor;
+			int m_iBaseVertexLocationGame;
 			std::string m_sVertexFileName;
 			RenderSet* m_pRenderTextures;
 			VertexFormat m_eVertexFormat;
@@ -36,7 +37,7 @@ namespace MonkeyEngine
 			RenderMesh();
 			~RenderMesh();
 			const std::string& GetVertexFileName();
-			void Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int EngineState);
+			void Draw(ID3D11DeviceContext* d3DeviceContext);
 			RenderTexture* AddTexture(std::string _TextureFileName, ID3D11Device* d3Device);
 			bool Load(std::string _VertexFileName, VertexFormat& _VertexFormat, ID3D11Device* d3Device, ID3D11DeviceContext* d3DeviceContext);
 			RenderTexture* TextureExsits(std::string _TextureFileName);

@@ -1,4 +1,6 @@
 #include "RasterizerStateManager.h"
+#include "RenderStructures.h"
+
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -32,7 +34,6 @@ namespace MonkeyEngine
 		{
 			if (state >= RS_COUNT)
 				return false;
-
 			d3DeviceContext->RSSetState(m_vRasterStates[state]);
 			m_eCurrentState = state;
 			return true;

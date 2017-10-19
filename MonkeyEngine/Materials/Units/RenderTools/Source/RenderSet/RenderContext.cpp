@@ -17,7 +17,7 @@ namespace MonkeyEngine
 			delete m_pRenderMeshes;
 		}
 
-		void RenderContext::Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State)
+		void RenderContext::Draw(ID3D11DeviceContext* d3DeviceContext)
 		{
 			//context switching
 			//input layout
@@ -28,7 +28,7 @@ namespace MonkeyEngine
 			RasterizerStateManager::GetInstance()->ApplyState(m_RasterState, d3DeviceContext);
 			//depthbuffer
 			DepthStencilStateManager::GetInstance()->ApplyState(m_DSState, d3DeviceContext);
-			m_pRenderMeshes->Draw(d3DeviceContext, State);
+			m_pRenderMeshes->Draw(d3DeviceContext);
 		}
 
 		RenderMesh* RenderContext::AddMesh(std::string VertexFileName, ID3D11Device* d3Device, ID3D11DeviceContext* d3DeviceContext)

@@ -23,53 +23,6 @@ namespace MonkeyEngine
 			return &m_pInstance;
 		}
 
-		template <>
-		VertexBuffer<VERTEX_POS> &VertexBufferManager::GetVertexBuffer()
-		{
-			return GetPositionBuffer();
-		}
-
-		template <>
-		VertexBuffer<VERTEX_POSCOLOR> &VertexBufferManager::GetVertexBuffer()
-		{
-			return GetPositionColorBuffer();
-		}
-
-		template <>
-		VertexBuffer<VERTEX_POSTEX> &VertexBufferManager::GetVertexBuffer()
-		{
-			return GetPositionTexBuffer();
-		}
-
-		template <>
-		VertexBuffer<VERTEX_POSNORMTEX> &VertexBufferManager::GetVertexBuffer()
-		{
-			return GetPosNormTexBuffer();
-		}
-
-		template <>
-		VertexBuffer<VERTEX_POSNORMTANTEX> &VertexBufferManager::GetVertexBuffer()
-		{
-			return GetPosNormTanTexBuffer();
-		}
-
-		template <>
-		VertexBuffer<VERTEX_POSBONEWEIGHT> &VertexBufferManager::GetVertexBuffer()
-		{
-			return GetPosBoneWeightBuffer();
-		}
-
-		template <>
-		VertexBuffer<VERTEX_POSBONEWEIGHTNORMTEX> &VertexBufferManager::GetVertexBuffer()
-		{
-			return GetPosBoneWeightNormTexBuffer();
-		}
-
-		template<>
-		VertexBuffer<VERTEX_POSBONEWEIGHTNORMTANTEX> &VertexBufferManager::GetVertexBuffer()
-		{
-			return GetPosBoneWeightNormTanTexBuffer();
-		}
 
 		VertexBuffer<VERTEX_POS>& VertexBufferManager::GetPositionBuffer()
 		{
@@ -86,9 +39,20 @@ namespace MonkeyEngine
 			return m_PositionTexBuffer;
 		}
 
+		VertexBuffer<VERTEX_POSTEXCOLOR> &VertexBufferManager::GetPositionTexColorBuffer()
+		{
+			return m_PositionTexColorBuffer;
+		}
+
 		VertexBuffer<VERTEX_POSNORMTEX>& VertexBufferManager::GetPosNormTexBuffer()
 		{
 			return m_PosNormTexBuffer;
+		}
+
+		VertexBuffer<VERTEX_POSNORMTEXCOLOR> &VertexBufferManager::GetPosNormTexColorBuffer()
+		{
+			return m_PosNormTexColorBuffer;
+
 		}
 
 		VertexBuffer<VERTEX_POSNORMTANTEX>&	VertexBufferManager::GetPosNormTanTexBuffer()
@@ -96,9 +60,19 @@ namespace MonkeyEngine
 			return m_PosNormTanTexBuffer;
 		}
 
+		VertexBuffer<VERTEX_POSNORMTANTEXCOLOR> &VertexBufferManager::GetPosNormTanTexColorBuffer()
+		{
+			return m_PosNormTanTexColorBuffer;
+		}
+
 		VertexBuffer<VERTEX_POSBONEWEIGHT>&	VertexBufferManager::GetPosBoneWeightBuffer()
 		{
 			return m_PosBoneWeightBuffer;
+		}
+
+		VertexBuffer<VERTEX_POSBONEWEIGHTCOLOR> &VertexBufferManager::GetPosBoneWeightColorBuffer()
+		{
+			return m_PosBoneWeightColorBuffer;
 		}
 
 		VertexBuffer<VERTEX_POSBONEWEIGHTNORMTEX>&VertexBufferManager::GetPosBoneWeightNormTexBuffer()
@@ -106,9 +80,19 @@ namespace MonkeyEngine
 			return m_PosNormBoneWeightTexBuffer;
 		}
 
+		VertexBuffer<VERTEX_POSBONEWEIGHTNORMTEXCOLOR> &VertexBufferManager::GetPosBoneWeightNormTexColorBuffer()
+		{
+			return m_PosNormBoneWeightTexColorBuffer;
+		}
+
 		VertexBuffer<VERTEX_POSBONEWEIGHTNORMTANTEX>& VertexBufferManager::GetPosBoneWeightNormTanTexBuffer()
 		{
 			return m_PosNormBoneWeightTanTexBuffer;
+		}
+
+		VertexBuffer<VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR> &VertexBufferManager::GetPosBoneWeightNormTanTexColorBuffer()
+		{
+			return m_PosNormBoneWeightTanTexColorBuffer;
 		}
 	}
 }

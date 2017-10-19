@@ -6,7 +6,7 @@ namespace MonkeyEngine
 	namespace MERenderer
 	{
 		template <typename VertexFormat>
-		class VertexBuffer
+		class __declspec(dllexport) VertexBuffer
 		{
 			friend class VertexBufferManager;
 		private:

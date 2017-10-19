@@ -7,7 +7,7 @@ namespace MonkeyEngine
 	namespace MEObject
 	{
 		REGISTER_CLASS("MeshRenderer", MeshRenderer)
-		void MeshRenderer::Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State)
+		void MeshRenderer::Draw(ID3D11DeviceContext* d3DeviceContext)
 		{
 			cbPerObject temp = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetBufferValue();
 			temp.world = GetTransform()->GetMatrix();

@@ -67,9 +67,21 @@ namespace MonkeyEngine
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSTEXCOLOR_VS.cso"))
+			{
+				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_POSTEXCOLOR]);
+				delete[] byteCode;
+				byteCode = nullptr;
+			}
 			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSNORMTEX_VS.cso"))
 			{
 				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_POSNORMTEX]);
+				delete[] byteCode;
+				byteCode = nullptr;
+			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSNORMTEXCOLOR_VS.cso"))
+			{
+				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_POSNORMTEXCOLOR]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
@@ -79,9 +91,21 @@ namespace MonkeyEngine
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSNORMTANTEXCOLOR_VS.cso"))
+			{
+				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_POSNORMTANTEXCOLOR]);
+				delete[] byteCode;
+				byteCode = nullptr;
+			}
 			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSBONEWEIGHT_VS.cso"))
 			{
 				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_POSBONEWEIGHT]);
+				delete[] byteCode;
+				byteCode = nullptr;
+			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSBONEWEIGHTCOLOR_VS.cso"))
+			{
+				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_POSBONEWEIGHTCOLOR]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
@@ -91,15 +115,33 @@ namespace MonkeyEngine
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSBONEWEIGHTNORMTEXCOLOR_VS.cso"))
+			{
+				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_POSBONEWEIGHTNORMTEXCOLOR]);
+				delete[] byteCode;
+				byteCode = nullptr;
+			}
 			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEX_VS.cso"))
 			{
 				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_POSBONEWEIGHTNORMTANTEX]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/POSBONEWEIGHTNORMTANTEXCOLOR_VS.cso"))
+			{
+				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_POSBONEWEIGHTNORMTANTEXCOLOR]);
+				delete[] byteCode;
+				byteCode = nullptr;
+			}
 			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/Skybox_VS.cso"))
 			{
 				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_SKYBOX]);
+				delete[] byteCode;
+				byteCode = nullptr;
+			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/SkyboxColor_VS.cso"))
+			{
+				HRESULT hr = d3Device->CreateVertexShader(byteCode, byteCodeSize, nullptr, &m_d3VertexShaders[eShader_VS_SKYBOXCOLOR]);
 				delete[] byteCode;
 				byteCode = nullptr;
 			}
@@ -110,15 +152,25 @@ namespace MonkeyEngine
 				HRESULT hr = d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_PS_GBUFFER]);
 				delete[] byteCode;
 			}
-			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/Default_PS.cso"))
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/ColorGBufferBump_PS.cso"))
 			{
-				HRESULT hr = d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_PS_DEFAULT]);
+				HRESULT hr = d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_PS_COLOR_GBUFFER_BUMP]);
+				delete[] byteCode;
+			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/TextureGBufferBump_PS.cso"))
+			{
+				HRESULT hr = d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_PS_TEXTURE_GBUFFER_BUMP]);
 				delete[] byteCode;
 			}
 
 			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/Skybox_PS.cso"))
 			{
 				HRESULT hr = d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_PS_SKYBOX]);
+				delete[] byteCode;
+			}
+			if (LoadShaderData(&byteCode, byteCodeSize, "Assets/ShaderCSO/SkyboxColor_PS.cso"))
+			{
+				HRESULT hr = d3Device->CreatePixelShader(byteCode, byteCodeSize, nullptr, &m_d3PixelShaders[eShader_PS_SKYBOXCOLOR]);
 				delete[] byteCode;
 			}
 #pragma endregion

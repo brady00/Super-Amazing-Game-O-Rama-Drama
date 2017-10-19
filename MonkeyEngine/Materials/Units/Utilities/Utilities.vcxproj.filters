@@ -9,5 +9,6 @@
   <ItemGroup>
     <ClCompile Include="Source\MemoryManager.cpp" />
     <ClCompile Include="Source\Time.cpp" />
+    <ClCompile Include="Source\RenderStructures.cpp" />
   </ItemGroup>
 </Project>

@@ -39,7 +39,7 @@ namespace MonkeyEngine
 		void DebugCamera::Initialize(ID3D11Device* d3Device, ID3D11DeviceContext* d3DeviceContext, float _WindowHeight, float _WindowWidth)
 		{
 			m_xmViewMatrix = XMFLOAT4X4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(90), _WindowWidth / _WindowHeight, 0.1, 99999.9f));
+			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(90.0f), _WindowWidth / _WindowHeight, 0.1f, 99999.9f));
 			GetCursorPos(&m_pPrevMousePos);
 			cbPerCamera tempBuffer = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetBufferValue();
 			XMStoreFloat4x4(&tempBuffer.ViewProj, XMMatrixMultiply(XMLoadFloat4x4(&m_xmViewMatrix), XMLoadFloat4x4(&m_xmProjMatrix)));
@@ -52,7 +52,7 @@ namespace MonkeyEngine
 		void DebugCamera::Resize(float _WindowHeight, float _WindowWidth)
 		{
 			m_Resize = true;
-			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(90), (_WindowWidth / _WindowHeight), 0.1, 99999.9f));
+			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(90), (_WindowWidth / _WindowHeight), 0.1f, 99999.9f));
 		}
 
 		void DebugCamera::Update(ID3D11DeviceContext* d3DeviceContext)

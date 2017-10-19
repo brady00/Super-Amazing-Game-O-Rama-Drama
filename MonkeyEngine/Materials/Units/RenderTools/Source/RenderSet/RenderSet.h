@@ -14,7 +14,7 @@ namespace MonkeyEngine
 			RenderSet();
 			~RenderSet();
 
-			void Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State);
+			void Draw(ID3D11DeviceContext* d3DeviceContext);
 			void AddNode(RenderNode* _Node);
 			const RenderNode* getHead();
 		};

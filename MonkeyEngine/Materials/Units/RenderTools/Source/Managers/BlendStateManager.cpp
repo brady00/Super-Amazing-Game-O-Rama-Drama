@@ -1,4 +1,5 @@
 #include "BlendStateManager.h"
+#include "RenderStructures.h"
 
 namespace MonkeyEngine
 {

@@ -14,7 +14,7 @@ namespace MonkeyEngine
 			SkinnedMeshRenderer() : MeshRenderer() {};
 			~SkinnedMeshRenderer() {};
 
-			void Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State);
+			void Draw(ID3D11DeviceContext* d3DeviceContext);
 			bool Load(MERenderer::BlendStateManager::BStates* m_BlendState,
 				MERenderer::RasterizerStateManager::RasterStates* m_RasterState,
 				MERenderer::DepthStencilStateManager::DSStates* m_DSState,

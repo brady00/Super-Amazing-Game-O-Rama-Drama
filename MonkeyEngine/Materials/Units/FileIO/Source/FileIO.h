@@ -6,9 +6,14 @@
 #include "tinyxml2.h"
 #include "FBXLoader.h"
 #include "Settings.h"
+#include "Managers\InputLayoutManager.h"
 using namespace tinyxml2;
 namespace MonkeyEngine
 {
+	namespace MERenderer
+	{
+		class RenderMesh;
+	}
 	using namespace MERenderer;
 	namespace MEFileIO
 	{
@@ -24,6 +29,8 @@ namespace MonkeyEngine
 			static bool LoadSkinnedMeshRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object);
 			static bool LoadCamera(XMLElement* _ObjectRoot, MEObject::Component*& _Object);
 			static bool LoadDebugCamera(XMLElement* _ObjectRoot);
+			static bool LoadSkybox(XMLElement* _ObjectRoot, MEObject::Component* _Object);
+			static bool LoadVertexBuffer(VertexFormat format, MERenderer::RenderMesh* mesh, Material* material);
 		public:
 			FileIO();
 			~FileIO();

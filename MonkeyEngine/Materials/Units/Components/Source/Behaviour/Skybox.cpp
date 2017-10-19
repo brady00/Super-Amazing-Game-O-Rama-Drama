@@ -9,13 +9,15 @@ namespace MonkeyEngine
 	namespace MEObject
 	{
 		REGISTER_CLASS("Skybox", Skybox)
-		Skybox::Skybox()
+			Skybox::Skybox()
 		{
 			m_ObjectConstantBuffer = nullptr;
 			m_VertexBuffer = nullptr;
 			m_IndexBuffer = nullptr;
-			m_VertexShader = nullptr;
-			m_PixelShader = nullptr;
+			m_VertexShaderColor = nullptr;
+			m_VertexShaderTexture = nullptr;
+			m_PixelShaderColor = nullptr;
+			m_PixelShaderTexture = nullptr;
 			m_Layout = nullptr;
 			XMStoreFloat4x4(&m_cbPerObject.world, XMMatrixIdentity());
 		}
@@ -28,16 +30,21 @@ namespace MonkeyEngine
 				m_VertexBuffer->Release();
 			if (m_IndexBuffer != nullptr)
 				m_IndexBuffer->Release();
-			if (m_VertexShader != nullptr)
-				m_VertexShader->Release();
-			if (m_PixelShader != nullptr)
-				m_PixelShader->Release();
+			if (m_VertexShaderTexture != nullptr)
+				m_VertexShaderTexture->Release();
+			if (m_PixelShaderTexture != nullptr)
+				m_PixelShaderTexture->Release();
+			if (m_VertexShaderColor != nullptr)
+				m_VertexShaderColor->Release();
+			if (m_PixelShaderColor != nullptr)
+				m_PixelShaderColor->Release();
 			if (m_Layout != nullptr)
 				m_Layout->Release();
 		}
 
-		void Skybox::Load(ID3D11Device* _device, ID3D11DeviceContext* d3DeviceContext, wchar_t* _TextureFilePath)
+		void Skybox::Load(ID3D11Device* _device, ID3D11DeviceContext* d3DeviceContext, wchar_t* _TextureFilePath, Material _Material)
 		{
+			m_Material = _Material;
 			VERTEX_POS data[8];
 			data[0].position = { -0.5f, 0.5f, 0.5f };
 			data[1].position = { 0.5f, 0.5f, 0.5f };
@@ -47,8 +54,25 @@ namespace MonkeyEngine
 			data[5].position = { 0.5f, -0.5f, 0.5f };
 			data[6].position = { 0.5f, -0.5f, -0.5f };
 			data[7].position = { -0.5f, -0.5f, -0.5f };
-
-			m_BaseVertexLocation = VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts(data, 8, _device, d3DeviceContext);
+			VERTEX_POSCOLOR data2[8];
+			data2[0].position = data[0].position;
+			data2[0].color = m_Material.Color;
+			data2[1].position = data[1].position;
+			data2[1].color = m_Material.Color;
+			data2[2].position = data[2].position;
+			data2[2].color = m_Material.Color;
+			data2[3].position = data[3].position;
+			data2[3].color = m_Material.Color;
+			data2[4].position = data[4].position;
+			data2[4].color = m_Material.Color;
+			data2[5].position = data[5].position;
+			data2[5].color = m_Material.Color;
+			data2[6].position = data[6].position;
+			data2[6].color = m_Material.Color;
+			data2[7].position = data[7].position;
+			data2[7].color = m_Material.Color;
+			m_BaseVertexLocationTexture = VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts(data, 8, _device, d3DeviceContext);
+			m_BaseVertexLocationColor = VertexBufferManager::GetInstance()->GetPositionColorBuffer().AddVerts(data2, 8, _device, d3DeviceContext);
 
 			UINT indicies[36] =
 			{
@@ -79,11 +103,13 @@ namespace MonkeyEngine
 
 			m_StartIndexLocation = IndexBuffer::GetInstance()->AddIndicies(indicies, 36, _device, d3DeviceContext);
 
-			m_VertexShader = ShaderManager::GetInstance()->GetVertexShader(ShaderManager::eShader_VS_SKYBOX);
-			m_PixelShader = ShaderManager::GetInstance()->GetPixelShader(ShaderManager::eShader_PS_SKYBOX);
 
-			m_Material.mName = "Skybox";
-			CreateDDSTextureFromFile(_device, _TextureFilePath, NULL, &m_Material.m_d3DiffuseTexture);
+			m_VertexShaderTexture = ShaderManager::GetInstance()->GetVertexShader(ShaderManager::eShader_VS_SKYBOX);
+			m_VertexShaderColor = ShaderManager::GetInstance()->GetVertexShader(ShaderManager::eShader_VS_SKYBOXCOLOR);
+			m_PixelShaderTexture = ShaderManager::GetInstance()->GetPixelShader(ShaderManager::eShader_PS_SKYBOX);
+			m_PixelShaderColor = ShaderManager::GetInstance()->GetPixelShader(ShaderManager::eShader_PS_SKYBOXCOLOR);
+			if(m_Material.mDiffuseMapName.length() != 0)
+				CreateDDSTextureFromFile(_device, _TextureFilePath, NULL, &m_Material.m_d3DiffuseTexture);
 		}
 
 		void Skybox::Initialize(ID3D11Device* _device, ID3D11DeviceContext* d3DeviceContext, wchar_t* _TextureFilePath)
@@ -99,9 +125,19 @@ namespace MonkeyEngine
 			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_Default, d3DeviceContext);
 			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL, d3DeviceContext);
 			BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default, d3DeviceContext);
-			d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POS));
-			m_VertexBuffer = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();
-			UINT stride = sizeof(VERTEX_POS);
+			UINT stride;
+			if (m_Material.m_d3DiffuseTexture)
+			{
+				d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POS));
+				m_VertexBuffer = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();
+				stride = sizeof(VERTEX_POS);
+			}
+			else
+			{
+				d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POSCOLOR));
+				m_VertexBuffer = VertexBufferManager::GetInstance()->GetPositionColorBuffer().GetVertexBuffer();
+				stride = sizeof(VERTEX_POSCOLOR);
+			}
 			UINT offset = 0;
 			d3DeviceContext->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 			m_IndexBuffer = IndexBuffer::GetInstance()->GetIndicies();
@@ -112,11 +148,22 @@ namespace MonkeyEngine
 			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&m_cbPerObject, sizeof(cbPerObject), d3DeviceContext);
 			m_ObjectConstantBuffer = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
 			d3DeviceContext->VSSetConstantBuffers(0, 1, &m_ObjectConstantBuffer);
-			d3DeviceContext->VSSetShader(m_VertexShader, NULL, 0);
-			d3DeviceContext->PSSetShader(m_PixelShader, NULL, 0);
+			if (m_Material.m_d3DiffuseTexture)
+			{
+				d3DeviceContext->VSSetShader(m_VertexShaderTexture, NULL, 0);
+				d3DeviceContext->PSSetShader(m_PixelShaderTexture, NULL, 0);
+			}
+			else
+			{
+				d3DeviceContext->VSSetShader(m_VertexShaderColor, NULL, 0);
+				d3DeviceContext->PSSetShader(m_PixelShaderColor, NULL, 0);
+			}
 			d3DeviceContext->PSSetShaderResources(0, 1, &m_Material.m_d3DiffuseTexture);
 			d3DeviceContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			d3DeviceContext->DrawIndexed(36, m_StartIndexLocation, m_BaseVertexLocation); // m_StartIndexLocation and m_BaseVertexLocation gotten from AddVerts() and AddIndicies()
+			if (m_Material.m_d3DiffuseTexture)
+				d3DeviceContext->DrawIndexed(36, m_StartIndexLocation, m_BaseVertexLocationTexture);
+			else
+				d3DeviceContext->DrawIndexed(36, m_StartIndexLocation, m_BaseVertexLocationColor);
 		}
 	}
 }

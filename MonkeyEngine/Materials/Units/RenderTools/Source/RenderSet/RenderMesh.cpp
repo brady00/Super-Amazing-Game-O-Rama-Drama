@@ -7,7 +7,7 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		RenderMesh::RenderMesh() : m_vVerticies(nullptr), m_uiNumVerticies(0), m_vIndicies(nullptr), m_uiNumIndicies(0), m_uiStartIndexLocation(0), m_iBaseVertexLocation(0), m_pRenderTextures(nullptr), m_eVertexFormat(eVERTEX_MAX)
+		RenderMesh::RenderMesh() : m_vVerticies(nullptr), m_uiNumVerticies(0), m_vIndicies(nullptr), m_uiNumIndicies(0), m_uiStartIndexLocation(0), m_iBaseVertexLocationEditor(0), m_iBaseVertexLocationGame(0), m_pRenderTextures(nullptr), m_eVertexFormat(eVERTEX_MAX)
 		{
 
 		}
@@ -19,7 +19,7 @@ namespace MonkeyEngine
 			delete m_pRenderTextures;
 		}
 
-		void RenderMesh::Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int State)
+		void RenderMesh::Draw(ID3D11DeviceContext* d3DeviceContext)
 		{
 			//context switching
 			//vertex buffer
@@ -29,15 +29,11 @@ namespace MonkeyEngine
 			{
 				UINT Stride = sizeof(VERTEX_POS);
 				UINT Offset = 0;
-				ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();
-				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
-				break;
-			}
-			case MERenderer::eVERTEX_POSCOLOR:
-			{
-				UINT Stride = sizeof(VERTEX_POSCOLOR);
-				UINT Offset = 0;
-				ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionColorBuffer().GetVertexBuffer();
+				ID3D11Buffer* vertbuff;
+				if(RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
+					vertbuff = VertexBufferManager::GetInstance()->GetPositionColorBuffer().GetVertexBuffer();
+				else
+					vertbuff = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 				break;
 			}
@@ -45,7 +41,11 @@ namespace MonkeyEngine
 			{
 				UINT Stride = sizeof(VERTEX_POSTEX);
 				UINT Offset = 0;
-				ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionTexBuffer().GetVertexBuffer();
+				ID3D11Buffer* vertbuff;
+				if (RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
+					vertbuff = VertexBufferManager::GetInstance()->GetPositionTexColorBuffer().GetVertexBuffer();
+				else
+					vertbuff = VertexBufferManager::GetInstance()->GetPositionTexBuffer().GetVertexBuffer();
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 				break;
 			}
@@ -53,7 +53,11 @@ namespace MonkeyEngine
 			{
 				UINT Stride = sizeof(VERTEX_POSNORMTEX);
 				UINT Offset = 0;
-				ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosNormTexBuffer().GetVertexBuffer();
+				ID3D11Buffer* vertbuff;
+				if (RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
+					vertbuff = VertexBufferManager::GetInstance()->GetPosNormTexColorBuffer().GetVertexBuffer();
+				else
+					vertbuff = VertexBufferManager::GetInstance()->GetPosNormTexBuffer().GetVertexBuffer();	
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 				break;
 			}
@@ -61,7 +65,11 @@ namespace MonkeyEngine
 			{
 				UINT Stride = sizeof(VERTEX_POSNORMTANTEX);
 				UINT Offset = 0;
-				ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().GetVertexBuffer();
+				ID3D11Buffer* vertbuff;
+				if (RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
+					vertbuff = VertexBufferManager::GetInstance()->GetPosNormTanTexColorBuffer().GetVertexBuffer();
+				else
+					vertbuff = VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().GetVertexBuffer();
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 				break;
 			}
@@ -69,7 +77,11 @@ namespace MonkeyEngine
 			{
 				UINT Stride = sizeof(VERTEX_POSBONEWEIGHT);
 				UINT Offset = 0;
-				ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().GetVertexBuffer();
+				ID3D11Buffer* vertbuff;
+				if (RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
+					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightColorBuffer().GetVertexBuffer();
+				else
+					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().GetVertexBuffer();
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 				break;
 			}
@@ -77,15 +89,29 @@ namespace MonkeyEngine
 			{
 				UINT Stride = sizeof(VERTEX_POSBONEWEIGHTNORMTEX);
 				UINT Offset = 0;
-				ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().GetVertexBuffer();
+				ID3D11Buffer* vertbuff;
+				if (RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
+					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexColorBuffer().GetVertexBuffer();
+				else
+					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().GetVertexBuffer();
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 				break;
 			}
 			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
 			{
-				UINT Stride = sizeof(VERTEX_POSBONEWEIGHTNORMTANTEX);
+				UINT Stride;
 				UINT Offset = 0;
-				ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().GetVertexBuffer();
+				ID3D11Buffer* vertbuff;
+				if (RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
+				{
+					Stride = sizeof(VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR);
+					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexColorBuffer().GetVertexBuffer();
+				}
+				else
+				{
+					Stride = sizeof(VERTEX_POSBONEWEIGHTNORMTANTEX);
+					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().GetVertexBuffer();
+				}
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 				break;
 			}
@@ -99,11 +125,11 @@ namespace MonkeyEngine
 			d3DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			//shaders
 			d3DeviceContext->VSSetShader(ShaderManager::GetInstance()->GetVertexShader((ShaderManager::VertexShaderType)m_eVertexFormat), 0, 0);
-			d3DeviceContext->PSSetShader(ShaderManager::GetInstance()->GetPixelShader(ShaderManager::PixelShaderType::eShader_PS_DEFAULT), 0, 0);
+			d3DeviceContext->PSSetShader(ShaderManager::GetInstance()->GetPixelShader(ShaderManager::PixelShaderType::eShader_PS_TEXTURE_GBUFFER_BUMP), 0, 0);
 			//d3DeviceContext->GSSetShader(ShaderManager::GetInstance()->GetGeometryShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 			//d3DeviceContext->DSSetShader(ShaderManager::GetInstance()->GetDomainShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 			//d3DeviceContext->HSSetShader(ShaderManager::GetInstance()->GetHullShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
-			m_pRenderTextures->Draw(d3DeviceContext, State);
+			m_pRenderTextures->Draw(d3DeviceContext);
 		}
 
 		bool RenderMesh::Load(std::string _VertexFileName, VertexFormat& _VertexFormat, ID3D11Device* d3Device, ID3D11DeviceContext* d3DeviceContext)

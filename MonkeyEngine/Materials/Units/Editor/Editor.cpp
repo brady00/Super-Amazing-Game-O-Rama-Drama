@@ -239,4 +239,15 @@ namespace Editor
 			tempThread->Start();
 		}
 	}
+	
+	void Editor::PlayButton_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		SetMonkeyEngineRenderState(RenderState::GAME_RENDERING);
+	}
+	
+	void Editor::StopButton_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		SetMonkeyEngineRenderState(RenderState::EDITOR_RENDERING);
+	}
+
 }

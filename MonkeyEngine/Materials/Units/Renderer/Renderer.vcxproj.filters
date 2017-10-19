@@ -18,12 +18,6 @@
     <ClInclude Include="Source\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Source\Shaders\Default_PS.hlsl">
-      <Filter>Shaders\PS</Filter>
-    </FxCompile>
-    <FxCompile Include="Source\Shaders\GBuffer_PS.hlsl">
-      <Filter>Shaders\PS</Filter>
-    </FxCompile>
     <FxCompile Include="Source\Shaders\Skybox_PS.hlsl">
       <Filter>Shaders\PS</Filter>
     </FxCompile>
@@ -55,6 +49,36 @@
       <Filter>Shaders\VS</Filter>
     </FxCompile>
     <FxCompile Include="Source\Shaders\POSBONEWEIGHTNORMTANTEXCOLOR_VS.hlsl">
+      <Filter>Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\POSBONEWEIGHTCOLOR_VS.hlsl">
+      <Filter>Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\POSBONEWEIGHTNORMTEXCOLOR_VS.hlsl">
+      <Filter>Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\POSNORMTANTEXCOLOR_VS.hlsl">
+      <Filter>Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\POSNORMTEXCOLOR_VS.hlsl">
+      <Filter>Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\POSTEXCOLOR_VS.hlsl">
+      <Filter>Shaders\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\ColorGBufferBump_PS.hlsl">
+      <Filter>Shaders\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\GBuffer_PS.hlsl">
+      <Filter>Shaders\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\TextureGBufferBump_PS.hlsl">
+      <Filter>Shaders\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\SkyboxColor_PS.hlsl">
+      <Filter>Shaders\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\Shaders\SkyboxColor_VS.hlsl">
       <Filter>Shaders\VS</Filter>
     </FxCompile>
   </ItemGroup>

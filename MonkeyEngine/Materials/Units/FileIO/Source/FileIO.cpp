@@ -13,6 +13,7 @@
 #include "Factory\ComponentObjectFactory.h"
 #include "Renderer\SkinnedMeshRenderer.h"
 #include "DebugCamera\DebugCamera.h"
+#include "Behaviour\Skybox.h"
 namespace MonkeyEngine
 {
 	namespace MEFileIO
@@ -559,9 +560,6 @@ namespace MonkeyEngine
 				renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
 			else
 				renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
-
-
-
 			MERenderer::RenderMesh* tempMesh = renderContext->AddMesh(VertexFileName, Renderer::GetDevice(), Renderer::GetDeviceContext());
 			MERenderer::RenderTexture* tempTex = tempMesh->AddTexture(DiffuseFileName, Renderer::GetDevice());
 			MEObject::CompRenderer* comprend = (MEObject::CompRenderer*)_Object;
@@ -577,35 +575,7 @@ namespace MonkeyEngine
 					return false;
 				IndexBuffer::GetInstance()->AddIndicies(tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, Renderer::GetDevice(), Renderer::GetDeviceContext());
 			}
-			switch (tempMesh->m_eVertexFormat)
-			{
-			case MERenderer::eVERTEX_POS:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts((VERTEX_POS*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSCOLOR:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionColorBuffer().AddVerts((VERTEX_POSCOLOR*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionTexBuffer().AddVerts((VERTEX_POSTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSNORMTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTexBuffer().AddVerts((VERTEX_POSNORMTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSNORMTANTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().AddVerts((VERTEX_POSNORMTANTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSBONEWEIGHT:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().AddVerts((VERTEX_POSBONEWEIGHT*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTANTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			default:
-				break;
-			}
+			LoadVertexBuffer(tempMesh->m_eVertexFormat, tempMesh, tempTex->m_Material);
 			((MEObject::MeshRenderer*)_Object)->Load(&renderContext->m_BlendState,
 				&renderContext->m_RasterState,
 				&renderContext->m_DSState,
@@ -614,7 +584,7 @@ namespace MonkeyEngine
 				tempMesh->m_vIndicies,
 				&tempMesh->m_uiNumIndicies,
 				&tempMesh->m_uiStartIndexLocation,
-				&tempMesh->m_iBaseVertexLocation,
+				&tempMesh->m_iBaseVertexLocationGame,
 				&tempMesh->m_sVertexFileName,
 				&tempMesh->m_eVertexFormat,
 				tempTex->m_Material,
@@ -672,35 +642,7 @@ namespace MonkeyEngine
 					return false;
 				IndexBuffer::GetInstance()->AddIndicies(tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, Renderer::GetDevice(), Renderer::GetDeviceContext());
 			}
-			switch (tempMesh->m_eVertexFormat)
-			{
-			case MERenderer::eVERTEX_POS:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts((VERTEX_POS*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSCOLOR:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionColorBuffer().AddVerts((VERTEX_POSCOLOR*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPositionTexBuffer().AddVerts((VERTEX_POSTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSNORMTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTexBuffer().AddVerts((VERTEX_POSNORMTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSNORMTANTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().AddVerts((VERTEX_POSNORMTANTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSBONEWEIGHT:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().AddVerts((VERTEX_POSBONEWEIGHT*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
-				tempMesh->m_iBaseVertexLocation = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTANTEX*)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
-				break;
-			default:
-				break;
-			}
+			LoadVertexBuffer(tempMesh->m_eVertexFormat, tempMesh, tempTex->m_Material);
 			((MEObject::SkinnedMeshRenderer*)_Object)->Load(&renderContext->m_BlendState,
 				&renderContext->m_RasterState,
 				&renderContext->m_DSState,
@@ -709,7 +651,7 @@ namespace MonkeyEngine
 				tempMesh->m_vIndicies,
 				&tempMesh->m_uiNumIndicies,
 				&tempMesh->m_uiStartIndexLocation,
-				&tempMesh->m_iBaseVertexLocation,
+				&tempMesh->m_iBaseVertexLocationGame,
 				&tempMesh->m_sVertexFileName,
 				&tempMesh->m_eVertexFormat,
 				tempTex->m_Material,
@@ -723,15 +665,7 @@ namespace MonkeyEngine
 			bool Enabled = _ObjectRoot->BoolAttribute("Enabled");
 			XMLElement* child = _ObjectRoot->FirstChildElement();
 			if (strcmp(child->Name(), "Skybox") == 0)
-			{	
-				const char* text = child->Attribute("TextureName");
-				size_t origsize = strlen(text) + 1;
-				const size_t newsize = 100;
-				size_t convertedChars = 0;
-				wchar_t wText[newsize];
-				mbstowcs_s(&convertedChars, wText, origsize, text, _TRUNCATE);
-				((Camera*)_Object)->GetSkybox()->Load(Renderer::GetDevice(), Renderer::GetDeviceContext(), wText);
-			}
+				LoadSkybox(child, (Component*)((Camera*)_Object)->GetSkybox());
 			else
 			{
 
@@ -745,20 +679,125 @@ namespace MonkeyEngine
 		{
 			XMLElement* child = _ObjectRoot->FirstChildElement();
 			if (strcmp(child->Name(), "Skybox") == 0)
-			{
-				const char* text = child->Attribute("TextureName");
-				size_t origsize = strlen(text) + 1;
-				const size_t newsize = 100;
-				size_t convertedChars = 0;
-				wchar_t wText[newsize];
-				mbstowcs_s(&convertedChars, wText, origsize, text, _TRUNCATE);
-				((Camera*)DebugCamera::GetInstance())->GetSkybox()->Load(Renderer::GetDevice(), Renderer::GetDeviceContext(), wText);
-			}
+				LoadSkybox(child, (Component*)DebugCamera::GetInstance()->GetSkybox());
 			else
 			{
 
 			}
 			Renderer::SetDebugCamera(DebugCamera::GetInstance());
+			return true;
+		}
+
+		bool FileIO::LoadSkybox(XMLElement* _ObjectRoot, MEObject::Component* _Object)
+		{
+			XMLElement* material = _ObjectRoot->FirstChildElement();
+			XMLElement* child = material->FirstChildElement();
+			Material temp;
+			const char* text;
+			const size_t newsize = 100;
+			wchar_t wText[newsize];
+			if (strcmp(child->Name(), "TextureName") == 0)
+			{
+				text = child->Attribute("File");
+				temp.mDiffuseMapName = std::string(text);
+				child = child->NextSiblingElement();
+				size_t origsize = strlen(temp.mDiffuseMapName.c_str()) + 1;
+				size_t convertedChars = 0;
+				mbstowcs_s(&convertedChars, wText, origsize, temp.mDiffuseMapName.c_str(), _TRUNCATE);
+			}
+			if (strcmp(child->Name(), "Color") == 0)
+			{
+				temp.Color.x = child->FloatAttribute("R");
+				temp.Color.y = child->FloatAttribute("G");
+				temp.Color.z = child->FloatAttribute("B");
+				temp.Color.w = child->FloatAttribute("A");
+			}
+
+			((MEObject::Skybox*)_Object)->Load(Renderer::GetDevice(), Renderer::GetDeviceContext(), wText, temp);
+			return true;
+		}
+
+		bool FileIO::LoadVertexBuffer(VertexFormat format, MERenderer::RenderMesh* mesh, Material* material)
+		{
+			switch (format)
+			{
+			case MERenderer::eVERTEX_POS:
+			{
+				mesh->m_iBaseVertexLocationGame = (int)VertexBufferManager::GetInstance()->GetPositionBuffer().AddVerts((VERTEX_POS*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				VERTEX_POSCOLOR* temp = new VERTEX_POSCOLOR[mesh->m_uiNumVerticies];
+				for (unsigned int i = 0; i < mesh->m_uiNumVerticies; i++)
+				{
+					temp[i].position = ((VERTEX_POS*)mesh->m_vVerticies)[i].position;
+					temp[i].color = material->Color;
+				}
+				mesh->m_iBaseVertexLocationEditor = (int)VertexBufferManager::GetInstance()->GetPositionColorBuffer().AddVerts((VERTEX_POSCOLOR*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			}
+			case MERenderer::eVERTEX_POSTEX:
+			{
+				mesh->m_iBaseVertexLocationGame = (int)VertexBufferManager::GetInstance()->GetPositionTexBuffer().AddVerts((VERTEX_POSTEX*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				VERTEX_POSTEXCOLOR* temp = new VERTEX_POSTEXCOLOR[mesh->m_uiNumVerticies];
+				for (unsigned int i = 0; i < mesh->m_uiNumVerticies; i++)
+				{
+					temp[i].position = ((VERTEX_POSTEX*)mesh->m_vVerticies)[i].position;
+					temp[i].texcoord = ((VERTEX_POSTEX*)mesh->m_vVerticies)[i].texcoord;
+					temp[i].color = material->Color;
+				}
+				mesh->m_iBaseVertexLocationEditor = (int)VertexBufferManager::GetInstance()->GetPositionTexColorBuffer().AddVerts((VERTEX_POSTEXCOLOR*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			}
+			case MERenderer::eVERTEX_POSNORMTEX:
+			{
+				mesh->m_iBaseVertexLocationGame = (int)VertexBufferManager::GetInstance()->GetPosNormTexBuffer().AddVerts((VERTEX_POSNORMTEX*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				VERTEX_POSNORMTEXCOLOR* temp = new VERTEX_POSNORMTEXCOLOR[mesh->m_uiNumVerticies];
+				for (unsigned int i = 0; i < mesh->m_uiNumVerticies; i++)
+				{
+					temp[i].position = ((VERTEX_POSNORMTEX*)mesh->m_vVerticies)[i].position;
+					temp[i].texcoord = ((VERTEX_POSNORMTEX*)mesh->m_vVerticies)[i].texcoord;
+					temp[i].normal = ((VERTEX_POSNORMTEX*)mesh->m_vVerticies)[i].normal;
+					temp[i].color = material->Color;
+				}
+				mesh->m_iBaseVertexLocationEditor = (int)VertexBufferManager::GetInstance()->GetPosNormTexColorBuffer().AddVerts((VERTEX_POSNORMTEXCOLOR*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			}
+			case MERenderer::eVERTEX_POSNORMTANTEX:
+			{
+				mesh->m_iBaseVertexLocationGame = (int)VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().AddVerts((VERTEX_POSNORMTANTEX*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			}
+			case MERenderer::eVERTEX_POSBONEWEIGHT:
+			{
+				mesh->m_iBaseVertexLocationGame = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().AddVerts((VERTEX_POSBONEWEIGHT*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			}
+			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
+			{
+				mesh->m_iBaseVertexLocationGame = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTEX*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			}
+			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
+			{
+				mesh->m_iBaseVertexLocationGame = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().AddVerts((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR* temp = new VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR[mesh->m_uiNumVerticies];
+				for (unsigned int i = 0; i < mesh->m_uiNumVerticies; i++)
+				{
+					temp[i].position = ((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies)[i].position;
+					temp[i].texcoord = ((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies)[i].texcoord;
+					temp[i].normal = ((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies)[i].normal;
+					temp[i].bones = ((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies)[i].bones;
+					temp[i].weights = ((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies)[i].weights;
+					temp[i].tangent = ((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies)[i].tangent;
+					temp[i].binormal = ((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies)[i].binormal;
+					temp[i].determinant = ((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies)[i].determinant;
+					temp[i].tangent = ((VERTEX_POSBONEWEIGHTNORMTANTEX*)mesh->m_vVerticies)[i].tangent;
+					temp[i].color = material->Color;
+				}
+				mesh->m_iBaseVertexLocationEditor = (int)VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexColorBuffer().AddVerts(temp, mesh->m_uiNumVerticies, Renderer::GetDevice(), Renderer::GetDeviceContext());
+				break;
+			}
+			default:
+				break;
+			}
 			return true;
 		}
 	}

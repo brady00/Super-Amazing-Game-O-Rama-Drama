@@ -103,6 +103,8 @@ namespace MonkeyEngine
 			/*Callback*/void OnRenderObject();
 			/*Callback*/void OnWillRenderObject();
 			Skybox* GetSkybox();
+			virtual void Initialize();
+			virtual void Update();
 		};
 	}
 }

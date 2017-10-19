@@ -6,7 +6,7 @@ namespace MonkeyEngine
 	namespace MERenderer
 	{
 		template <typename BufferType>
-		class ConstantBuffer
+		class __declspec(dllexport) ConstantBuffer
 		{
 			friend class ConstantBufferManager;
 		private:
