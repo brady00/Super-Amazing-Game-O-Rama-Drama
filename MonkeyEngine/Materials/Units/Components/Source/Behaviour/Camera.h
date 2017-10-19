@@ -105,6 +105,7 @@ namespace MonkeyEngine
 			Skybox* GetSkybox();
 			virtual void Initialize();
 			virtual void Update();
+			void Load(ID3D11Device* d3Device, ID3D11DeviceContext* d3DeviceContext, float _WindowHeight, float _WindowWidth);
 		};
 	}
 }

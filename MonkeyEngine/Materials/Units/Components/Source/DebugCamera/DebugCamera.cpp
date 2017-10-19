@@ -122,21 +122,20 @@ namespace MonkeyEngine
 						XMStoreFloat4x4(&m_xmViewMatrix, temp);
 					}
 				}
-
-				cbPerCamera tempBuffer = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetBufferValue();
-				XMStoreFloat4x4(&tempBuffer.ViewProj, XMMatrixMultiply(XMLoadFloat4x4(&m_xmViewMatrix), XMLoadFloat4x4(&m_xmProjMatrix)));
-				XMStoreFloat4x4(&tempBuffer.InvViewProj, XMMatrixMultiply(XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_xmViewMatrix)), XMLoadFloat4x4(&m_xmProjMatrix)));
-				ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().Update(&tempBuffer, sizeof(tempBuffer), d3DeviceContext);
-				ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
-				d3DeviceContext->VSSetConstantBuffers(tempBuffer.REGISTER_SLOT, 1, &buf);
-
-				m_Resize = false;
-				m_RunOnce = false;
-				XMFLOAT3& temp = ThrowAwayTransform->GetPosition();
-				temp.x = m_xmViewMatrix._41;
-				temp.y = m_xmViewMatrix._42;
-				temp.z = m_xmViewMatrix._43;
 			}
+			cbPerCamera tempBuffer = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetBufferValue();
+			XMStoreFloat4x4(&tempBuffer.ViewProj, XMMatrixMultiply(XMLoadFloat4x4(&m_xmViewMatrix), XMLoadFloat4x4(&m_xmProjMatrix)));
+			XMStoreFloat4x4(&tempBuffer.InvViewProj, XMMatrixMultiply(XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_xmViewMatrix)), XMLoadFloat4x4(&m_xmProjMatrix)));
+			ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().Update(&tempBuffer, sizeof(tempBuffer), d3DeviceContext);
+			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
+			d3DeviceContext->VSSetConstantBuffers(tempBuffer.REGISTER_SLOT, 1, &buf);
+
+			m_Resize = false;
+			m_RunOnce = false;
+			XMFLOAT3& temp = ThrowAwayTransform->GetPosition();
+			temp.x = m_xmViewMatrix._41;
+			temp.y = m_xmViewMatrix._42;
+			temp.z = m_xmViewMatrix._43;
 		}
 
 		void DebugCamera::RightMouseDown(POINT _CursorPos)

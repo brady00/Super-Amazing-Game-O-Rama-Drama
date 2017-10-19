@@ -45,6 +45,8 @@ namespace MonkeyEngine
 
 		void Renderer::Initialize(HWND _window, UINT _ScreenWidth, UINT _ScreenHeight)
 		{
+			m_uiScreenHeight = _ScreenHeight;
+			m_uiScreenWidth = _ScreenWidth;
 			ID3D11Texture2D* BackBuffer;
 			DXGI_SWAP_CHAIN_DESC desc;
 			ZeroMemory(&desc, sizeof(desc));
@@ -109,6 +111,8 @@ namespace MonkeyEngine
 
 		void Renderer::Resize(UINT _ScreenWidth, UINT _ScreenHeight)
 		{
+			m_uiScreenHeight = _ScreenHeight;
+			m_uiScreenWidth = _ScreenWidth;
 			// Back Buffer
 			if (m_d3BackBufferTargetView != nullptr)
 				m_d3BackBufferTargetView->Release();
@@ -170,7 +174,10 @@ namespace MonkeyEngine
 			if(RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
 				m_DebugCamera->GetSkybox()->Draw(m_d3DeviceContext);
 			else
+			{
+				m_vCameras[m_ActiveCamera]->Draw(m_d3DeviceContext);
 				m_vCameras[m_ActiveCamera]->GetSkybox()->Draw(m_d3DeviceContext);
+			}
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 			m_pNonTranparentObjects->Draw(m_d3DeviceContext);

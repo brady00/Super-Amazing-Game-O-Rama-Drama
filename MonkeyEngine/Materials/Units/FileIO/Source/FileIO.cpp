@@ -671,6 +671,7 @@ namespace MonkeyEngine
 
 			}
 			_Object->SetName("Camera");
+			((Camera*)_Object)->Load(Renderer::GetDevice(), Renderer::GetDeviceContext(), Renderer::GetScreenWidth(), Renderer::GetScreenHeight());
 			Renderer::GetCameras().push_back((Camera*)_Object);
 			return true;
 		}
