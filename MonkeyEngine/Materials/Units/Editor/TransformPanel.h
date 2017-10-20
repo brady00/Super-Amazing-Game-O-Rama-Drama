@@ -1,12 +1,11 @@
 #pragma once
-#include "ComponentPanel.h"
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
 using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
-
+#include "ComponentPanel.h"
 
 namespace Editor {
 
@@ -40,7 +39,6 @@ namespace Editor {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -49,6 +47,7 @@ namespace Editor {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			ComponentPanel::InitializeComponent();
 		}
 #pragma endregion
 	};

@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4561)
 #include "GameObject/GameObject.h"
 #include "ComponentPanel.h"
 namespace Editor {

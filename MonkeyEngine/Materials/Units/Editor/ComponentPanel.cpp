@@ -13,7 +13,7 @@ namespace Editor
 			CollapseButton->Text = "V";
 			this->Size = System::Drawing::Size(this->MinimumSize.Width, 200);
 			Editor::ButtonExpanded(Index, GOParent);
-			for (unsigned int i = 0; i < this->Controls->Count; i++)
+			for (int i = 0; i < this->Controls->Count; i++)
 				this->Controls[i]->Visible = true;
 		}
 		else
@@ -21,7 +21,7 @@ namespace Editor
 			CollapseButton->Text = ">";
 			this->Size = System::Drawing::Size(this->MinimumSize.Width, this->MinimumSize.Height);
 			Editor::ButtonCollapsed(Index, GOParent);
-			for (unsigned int i = 0; i < this->Controls->Count; i++)
+			for (int i = 0; i < this->Controls->Count; i++)
 				if(this->Controls[i] != this->CompLabel && this->Controls[i] != CollapseButton)
 					this->Controls[i]->Visible = false;
 		}

@@ -1,9 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
@@ -13,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Source\FBXLoader.cpp">
       <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <ClCompile Include="Source\FileIO.cpp" />
     <ClCompile Include="Source\Settings.cpp" />
@@ -36,7 +45,21 @@
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>false</CLRSupport>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
@@ -51,13 +74,23 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Configuration)\</OutDir>
@@ -72,7 +105,27 @@
       <PreprocessorDefinitions>FBXSDK_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk.lib;Utilities.lib;TinyXML.lib;Renderer.lib;RenderTools.lib;Components.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\PrebuiltUnits\TinyXML\include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\include\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Renderer\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FBXSDK_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libfbxsdk.lib;Utilities.lib;TinyXML.lib;Renderer.lib;RenderTools.lib;Components.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
@@ -84,6 +137,31 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\PrebuiltUnits\TinyXML\include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\include\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\ComponentFactory\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FBXSDK_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\ComponentFactory\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk.lib;libfbxsdk-md.lib;Utilities.lib;TinyXML.lib;Renderer.lib;RenderTools.lib;ComponentFactory.lib;Components.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>

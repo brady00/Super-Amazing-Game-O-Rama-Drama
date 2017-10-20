@@ -56,14 +56,14 @@ namespace Editor {
 	public: unsigned int Index;
 	protected: System::Windows::Forms::Label ^CompLabel;
 	protected: System::Windows::Forms::Button ^CollapseButton;
-	private: System::ComponentModel::Container ^components;
+	protected: System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		void InitializeComponent(void)
+	protected: void InitializeComponent(void)
 		{
 			this->CollapseButton = (gcnew System::Windows::Forms::Button());
 			this->CompLabel = (gcnew System::Windows::Forms::Label());

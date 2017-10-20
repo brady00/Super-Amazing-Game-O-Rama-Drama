@@ -17,5 +17,6 @@
     <EmbeddedResource Include="GameWindow.resx" />
     <EmbeddedResource Include="Editor.resx" />
     <EmbeddedResource Include="TransformPanel.resx" />
+    <EmbeddedResource Include="ComponentPanel.resx" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
@@ -32,7 +40,21 @@
     <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>false</CLRSupport>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
@@ -47,21 +69,37 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Platform)\$(Configuration)\</OutDir>
     <IncludePath>$(WindowsSdkDir)\include;$(IncludePath)</IncludePath>
-    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(WindowsSdkDir)\include;$(IncludePath)</IncludePath>
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(WindowsSdkDir)\include;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Binary\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(WindowsSdkDir)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -79,7 +117,26 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;FBXSDK_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -100,7 +157,29 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\ComponentFactory\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;FileIO.lib;ComponentFactory.lib;Components.lib;RenderTools.lib;Renderer.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Utilities.lib;FileIO.lib;ComponentFactory.lib;Components.lib;RenderTools.lib;Renderer.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

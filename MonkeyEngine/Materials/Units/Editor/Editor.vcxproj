@@ -1,9 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
@@ -26,7 +34,21 @@
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
@@ -41,19 +63,35 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)..\..\..\Tools\_DebugStaging\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)..\..\..\Tools\_DebugStaging\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)..\..\..\Tools\_DebugStaging\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(ProjectDir)..\..\_BuiltUnits\$(ProjectName)\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\Tools\_DebugStaging\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -67,7 +105,34 @@
       <AdditionalDependencies>MonkeyEngine.lib;Components.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>Main</EntryPointSymbol>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+    </Link>
+    <CustomBuildStep>
+      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration)</Command>
+      <Outputs>none</Outputs>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>MonkeyEngine.lib;Components.lib</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>Main</EntryPointSymbol>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <CustomBuildStep>
       <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration)</Command>
@@ -83,6 +148,30 @@
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>MonkeyEngine.lib;Components.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\</AdditionalLibraryDirectories>
+    </Link>
+    <CustomBuildStep>
+      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration)</Command>
+      <Outputs>none</Outputs>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
