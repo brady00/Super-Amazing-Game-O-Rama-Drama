@@ -13,7 +13,8 @@ namespace MonkeyEngine
 		}
 		void Camera::Initialize()
 		{
-			GetGameObject()->AddComponent(m_Skybox, GameObject::COMPONENT_ID::eSkybox);
+			GetGameObject()->m_vComponents[GameObject::eSkybox].push_back(m_Skybox);
+			((Component*)m_Skybox)->m_pGameObject = GetGameObject();
 		}
 
 		void Camera::Update()

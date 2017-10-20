@@ -1,29 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ComponentPanel.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Editor.cpp">
-      <Filter>MyForm</Filter>
-    </ClCompile>
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="ComponentPanel.cpp" />
+    <ClCompile Include="TransformPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComponentPanel.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Editor.h" />
+    <ClInclude Include="StringToVariableDictionary.h" />
+    <ClInclude Include="TransformPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameWindow.resx" />
     <EmbeddedResource Include="Editor.resx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Component">
-      <UniqueIdentifier>{297fbfdb-2e18-4973-9895-6b0537aaa63c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MyForm">
-      <UniqueIdentifier>{2c13380e-794b-4f6d-b043-d5cc7c556371}</UniqueIdentifier>
-    </Filter>
+    <EmbeddedResource Include="TransformPanel.resx" />
   </ItemGroup>
 </Project>

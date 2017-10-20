@@ -9,12 +9,14 @@ namespace MonkeyEngine
 	namespace MEObject
 	{
 		class Transform;
+		class Camera;
 		class __declspec(dllexport) Component : public Object
 		{
 			friend class GameObject;
+			friend class Camera;
 		private:
-			GameObject* m_pGameObject;
 		protected:
+			GameObject* m_pGameObject;
 		public:
 			Component();
 			virtual ~Component();

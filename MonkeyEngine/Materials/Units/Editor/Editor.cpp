@@ -1,8 +1,8 @@
 #include "Editor.h"
 #include "Engine Base/Game Engine/MountainDew.h"
 #include "Transform/Transform.h"
-#include "ComponentPanel.h"
 #include "GameWindow.h"
+#include "TransformPanel.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -74,6 +74,42 @@ namespace Editor
 		this->SetStyle(ControlStyles::Opaque, false);
 		this->SetStyle(ControlStyles::OptimizedDoubleBuffer, true);
 		this->SetStyle(ControlStyles::ResizeRedraw, true);
+		GameObjects = GetSceneObjects();
+		unsigned int compIndex = 0;
+		for (unsigned int i = 0; i < GameObjects.size(); i++)
+		{
+			CompStartIndex[GameObjects[i]] = compIndex;
+			System::String^ ObjectName = gcnew System::String(GameObjects[i]->GetCharName());
+			ObjectTreeView->Nodes->Add(ObjectName);
+			std::vector<MonkeyEngine::MEObject::Component*>& comps = GameObjects[i]->GetAllComponents();
+			std::vector<MonkeyEngine::MEObject::Component*>& scripts = GameObjects[i]->GetAllScritps();
+			MonkeyEngine::MEObject::Component* transform = (MonkeyEngine::MEObject::Component*)GameObjects[i]->GetTransform();
+			CompSize[GameObjects[i]] = (unsigned int)comps.size() + (unsigned int)scripts.size() + 1;
+			CompPanels[compIndex] = gcnew ComponentPanel();
+			CompPanels[compIndex]->Comp = transform;
+			CompPanels[compIndex]->GOParent = GameObjects[i];
+			CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, 0);
+			compIndex++;
+			for (unsigned int j = 0; j < comps.size(); j++)
+			{
+				//CreateComponent(GameObjects[i], comps[j], j+1, inspectorbackground panel)
+				//switch comps[j]->GetName() to create TransformPanel
+				CompPanels[compIndex] = gcnew TransformPanel();
+				CompPanels[compIndex]->GOParent = GameObjects[i];
+				CompPanels[compIndex]->Comp = comps[j];
+				CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, j + 1);
+				compIndex++;
+			}
+			for (unsigned int j = 0; j < scripts.size(); j++)
+			{
+				CompPanels[compIndex] = gcnew ComponentPanel();
+				CompPanels[compIndex]->GOParent = GameObjects[i];
+				CompPanels[compIndex]->Comp = scripts[j];
+				CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, j + 1 + (unsigned int)comps.size());
+				compIndex++;
+			}
+			GameObjectMap[std::string(GameObjects[i]->GetCharName())] = GameObjects[i];
+		}
 	}
 
 	void Editor::MainWindowRenderingTimer_Tick(System::Object^  sender, System::EventArgs^  e)

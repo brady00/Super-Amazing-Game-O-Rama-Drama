@@ -8,9 +8,11 @@ namespace MonkeyEngine
 	{
 		class Transform;
 		class Component;
+		class Camera;
 		class __declspec(dllexport) GameObject : public Object
 		{
 			friend class Scene;
+			friend class Camera;
 		public:
 			friend class Scene;
 			enum COMPONENT_ID
