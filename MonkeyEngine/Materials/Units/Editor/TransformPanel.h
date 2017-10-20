@@ -1,4 +1,5 @@
 #pragma once
+
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
@@ -6,7 +7,6 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 #include "ComponentPanel.h"
-
 namespace Editor {
 
 	/// <summary>
@@ -22,7 +22,6 @@ namespace Editor {
 			//TODO: Add the constructor code here
 			//
 		}
-
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -47,7 +46,7 @@ namespace Editor {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			ComponentPanel::InitializeComponent();
+
 		}
 #pragma endregion
 	};

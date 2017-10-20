@@ -151,12 +151,14 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>MonkeyEngine.lib;Components.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <EntryPointSymbol>Main</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <CustomBuildStep>
       <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration)</Command>
@@ -175,12 +177,14 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>MonkeyEngine.lib;Components.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
+      <EntryPointSymbol>Main</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <CustomBuildStep>
       <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration)</Command>
@@ -209,9 +213,7 @@
     <ClCompile Include="TransformPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ComponentPanel.h">
-      <FileType>CppClass</FileType>
-    </ClInclude>
+    <ClInclude Include="ComponentPanel.h" />
     <ClInclude Include="GameWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -224,9 +226,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ComponentPanel.resx">
-      <DependentUpon>ComponentPanel.h</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.h</DependentUpon>
     </EmbeddedResource>

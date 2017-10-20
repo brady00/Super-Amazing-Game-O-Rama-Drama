@@ -52,6 +52,9 @@
     <Filter Include="DebugCamera">
       <UniqueIdentifier>{2ee0c73a-5d49-4b9d-b941-cbbfec257baa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Panel">
+      <UniqueIdentifier>{6d5a2e00-cf51-4775-936d-015f0322ac17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Base\Component.cpp">

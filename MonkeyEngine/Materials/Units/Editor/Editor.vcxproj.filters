@@ -3,15 +3,15 @@
   <ItemGroup>
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Editor.cpp" />
-    <ClCompile Include="ComponentPanel.cpp" />
     <ClCompile Include="TransformPanel.cpp" />
+    <ClCompile Include="ComponentPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ComponentPanel.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Editor.h" />
-    <ClInclude Include="StringToVariableDictionary.h" />
     <ClInclude Include="TransformPanel.h" />
+    <ClInclude Include="ComponentPanel.h" />
+    <ClInclude Include="StringToVariableDictionary.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameWindow.resx" />

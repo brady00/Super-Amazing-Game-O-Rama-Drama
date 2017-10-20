@@ -2,7 +2,7 @@
 #include "Engine Base/Game Engine/MountainDew.h"
 #include "Transform/Transform.h"
 #include "GameWindow.h"
-#include "TransformPanel.h"
+#include "ComponentPanel.h"
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -94,7 +94,7 @@ namespace Editor
 			{
 				//CreateComponent(GameObjects[i], comps[j], j+1, inspectorbackground panel)
 				//switch comps[j]->GetName() to create TransformPanel
-				CompPanels[compIndex] = gcnew TransformPanel();
+				CompPanels[compIndex] = gcnew ComponentPanel();
 				CompPanels[compIndex]->GOParent = GameObjects[i];
 				CompPanels[compIndex]->Comp = comps[j];
 				CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, j + 1);
