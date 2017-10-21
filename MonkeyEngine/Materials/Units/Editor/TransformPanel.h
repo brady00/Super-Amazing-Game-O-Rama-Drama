@@ -46,8 +46,9 @@ namespace Editor {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-
+			ComponentPanel::InitializeComponent();
 		}
 #pragma endregion
+	public: void CreatePanel(Panel^ InspectorBackgroundPanel, unsigned int Index) override;
 	};
 }

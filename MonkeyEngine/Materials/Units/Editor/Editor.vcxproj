@@ -108,7 +108,7 @@
       <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <CustomBuildStep>
-      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration)</Command>
+      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration) /property:Platform=$(Platform)</Command>
       <Outputs>none</Outputs>
     </CustomBuildStep>
     <PostBuildEvent>
@@ -213,7 +213,9 @@
     <ClCompile Include="TransformPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ComponentPanel.h" />
+    <ClInclude Include="ComponentPanel.h">
+      <FileType>CppClass</FileType>
+    </ClInclude>
     <ClInclude Include="GameWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -226,6 +228,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ComponentPanel.resx">
+      <DependentUpon>ComponentPanel.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.h</DependentUpon>
     </EmbeddedResource>

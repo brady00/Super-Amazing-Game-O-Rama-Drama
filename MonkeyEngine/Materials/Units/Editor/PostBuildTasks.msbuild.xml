@@ -7,16 +7,17 @@
 		<DebugStagingDirectory>$(ProductDirectory)\Tools\_DebugStaging</DebugStagingDirectory>
 	</PropertyGroup>
 	<ItemGroup>
-		<BinariesToCopy Include="$(PrebuiltUnitsDirectory)\**\lib\$(Configuration)\*.lib"/>
-		<BinariesToCopy Include="$(PrebuiltUnitsDirectory)\**\lib\$(Configuration)\*.dll"/>
-		<BinariesToCopy Include="$(PrebuiltUnitsDirectory)\**\lib\$(Configuration)\*.pdb"/>
-		<BinariesToCopy Include="$(BuiltUnitsDirectory)\**\Binary\$(Configuration)\*.exe"/>
-		<BinariesToCopy Include="$(BuiltUnitsDirectory)\**\Binary\$(Configuration)\*.dll"/>
-		<BinariesToCopy Include="$(BuiltUnitsDirectory)\**\Binary\$(Configuration)\*.pdb"/>
+		<BinariesToCopy Include="$(PrebuiltUnitsDirectory)\**\lib\$(Platform)\$(Configuration)\*.lib"/>
+		<BinariesToCopy Include="$(PrebuiltUnitsDirectory)\**\lib\$(Platform)\$(Configuration)\*.dll"/>
+		<BinariesToCopy Include="$(PrebuiltUnitsDirectory)\**\lib\$(Platform)\$(Configuration)\*.pdb"/>
+		<BinariesToCopy Include="$(BuiltUnitsDirectory)\**\Binary\$(Platform)\$(Configuration)\*.exe"/>
+		<BinariesToCopy Include="$(BuiltUnitsDirectory)\**\Binary\$(Platform)\$(Configuration)\*.dll"/>
+		<BinariesToCopy Include="$(BuiltUnitsDirectory)\**\Binary\$(Platform)\$(Configuration)\*.pdb"/>
 		<ShadersToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\ShaderCSO\**"/>
 		<ScenesToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Scenes\**"/>
 		<TexturesToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Textures\**"/>
-		<BinaryToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Binaries\**"/>
+    <BinaryFolder Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Binaries\"/>
+    <BinaryToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Binaries\**"/>
 		<ModelsToCopy Include="$(ProductDirectory)\Materials\Units\Editor\Assets\Models\**"/>
 	</ItemGroup>
 	<Target Name="PostBuildTasks">
@@ -25,7 +26,8 @@
 		<Copy SourceFiles="@(ShadersToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\ShaderCSO\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
 		<Copy SourceFiles="@(ScenesToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\Scenes\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
 		<Copy SourceFiles="@(TexturesToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\Textures\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
-		<Copy SourceFiles="@(BinaryToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\Binaries\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
+    <MakeDir Directories="$(DebugStagingDirectory)\$(Configuration)\Assets\Binaries"/>
+    <Copy SourceFiles="@(BinaryToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\Binaries\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
 		<Copy SourceFiles="@(ModelsToCopy)" DestinationFolder="$(DebugStagingDirectory)\$(Configuration)\Assets\Models\" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true"/>
 	</Target>
 </Project>
