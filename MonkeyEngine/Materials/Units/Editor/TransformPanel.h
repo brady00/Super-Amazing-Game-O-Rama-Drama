@@ -33,7 +33,8 @@ namespace Editor {
 				delete components;
 			}
 		}
-
+		TextBox^ PosX, ^PosY, ^PosZ, ^RotX, ^RotY, ^RotZ, ^ScaX, ^ScaY, ^ScaZ;
+		Windows::Forms::Label^ Position, ^PositionX, ^PositionY, ^PositionZ, ^Rotation, ^RotationX, ^RotationY, ^RotationZ, ^Scale, ^ScaleX, ^ScaleY, ^ScaleZ;
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -50,5 +51,14 @@ namespace Editor {
 		}
 #pragma endregion
 	public: virtual void CreatePanel(Panel^ InspectorBackgroundPanel, unsigned int Index) override;
+	private: void OnPosXChange(System::Object^  sender, System::EventArgs^  e);
+	private: void OnPosYChange(System::Object^  sender, System::EventArgs^  e);
+	private: void OnPosZChange(System::Object^  sender, System::EventArgs^  e);
+	private: void OnRotXChange(System::Object^  sender, System::EventArgs^  e);
+	private: void OnRotYChange(System::Object^  sender, System::EventArgs^  e);
+	private: void OnRotZChange(System::Object^  sender, System::EventArgs^  e);
+	private: void OnScaXChange(System::Object^  sender, System::EventArgs^  e);
+	private: void OnScaYChange(System::Object^  sender, System::EventArgs^  e);
+	private: void OnScaZChange(System::Object^  sender, System::EventArgs^  e);
 	};
 }

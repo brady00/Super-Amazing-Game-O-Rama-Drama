@@ -135,7 +135,7 @@
       <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MonkeyEngine\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <CustomBuildStep>
-      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration)</Command>
+      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration) /property:Platform=$(Platform)</Command>
       <Outputs>none</Outputs>
     </CustomBuildStep>
     <PostBuildEvent>
@@ -161,7 +161,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <CustomBuildStep>
-      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration)</Command>
+      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration) /property:Platform=$(Platform)</Command>
       <Outputs>none</Outputs>
     </CustomBuildStep>
     <PostBuildEvent>
@@ -187,7 +187,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <CustomBuildStep>
-      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration)</Command>
+      <Command>C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe PostBuildTasks.msbuild.xml /t:PostBuildTasks /property:Configuration=$(Configuration) /property:Platform=$(Platform)</Command>
       <Outputs>none</Outputs>
     </CustomBuildStep>
     <PostBuildEvent>

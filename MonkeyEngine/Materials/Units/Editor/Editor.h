@@ -233,9 +233,10 @@ namespace Editor {
 				 // splitContainer1.Panel2
 				 // 
 				 this->splitContainer1->Panel2->Controls->Add(this->InspectorBackgroundPanel);
-				 this->splitContainer1->Panel2MinSize = 324;
-				 this->splitContainer1->Size = System::Drawing::Size(1904, 985);
-				 this->splitContainer1->SplitterDistance = 1564;
+				 this->splitContainer1->Panel2MinSize = 378;
+				 this->splitContainer1->Size = System::Drawing::Size(2221, 985);
+				 this->splitContainer1->SplitterDistance = 1824;
+				 this->splitContainer1->SplitterWidth = 5;
 				 this->splitContainer1->TabIndex = 19;
 				 // 
 				 // splitContainer2
@@ -247,8 +248,9 @@ namespace Editor {
 				 // splitContainer2.Panel2
 				 // 
 				 this->splitContainer2->Panel2->Controls->Add(this->splitContainer3);
-				 this->splitContainer2->Size = System::Drawing::Size(1564, 985);
-				 this->splitContainer2->SplitterDistance = 217;
+				 this->splitContainer2->Size = System::Drawing::Size(1824, 985);
+				 this->splitContainer2->SplitterDistance = 253;
+				 this->splitContainer2->SplitterWidth = 5;
 				 this->splitContainer2->TabIndex = 3;
 				 // 
 				 // splitContainer3
@@ -261,7 +263,7 @@ namespace Editor {
 				 // splitContainer3.Panel1
 				 // 
 				 this->splitContainer3->Panel1->Controls->Add(this->splitContainer4);
-				 this->splitContainer3->Size = System::Drawing::Size(1343, 985);
+				 this->splitContainer3->Size = System::Drawing::Size(1566, 985);
 				 this->splitContainer3->SplitterDistance = 768;
 				 this->splitContainer3->TabIndex = 5;
 				 // 
@@ -278,8 +280,9 @@ namespace Editor {
 				 // splitContainer4.Panel2
 				 // 
 				 this->splitContainer4->Panel2->Controls->Add(this->ObjectTreeView);
-				 this->splitContainer4->Size = System::Drawing::Size(1343, 768);
-				 this->splitContainer4->SplitterDistance = 1090;
+				 this->splitContainer4->Size = System::Drawing::Size(1566, 768);
+				 this->splitContainer4->SplitterDistance = 1316;
+				 this->splitContainer4->SplitterWidth = 5;
 				 this->splitContainer4->TabIndex = 0;
 				 // 
 				 // RenderingPanel
@@ -289,7 +292,7 @@ namespace Editor {
 				 this->RenderingPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 				 this->RenderingPanel->Location = System::Drawing::Point(0, 0);
 				 this->RenderingPanel->Name = L"RenderingPanel";
-				 this->RenderingPanel->Size = System::Drawing::Size(1090, 768);
+				 this->RenderingPanel->Size = System::Drawing::Size(1316, 768);
 				 this->RenderingPanel->TabIndex = 11;
 				 this->RenderingPanel->SizeChanged += gcnew System::EventHandler(this, &Editor::RenderingPanel_SizeChanged);
 				 this->RenderingPanel->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Editor::RenderingPanel_MouseDown);
@@ -298,9 +301,11 @@ namespace Editor {
 				 // ObjectTreeView
 				 // 
 				 this->ObjectTreeView->Dock = System::Windows::Forms::DockStyle::Fill;
+				 this->ObjectTreeView->Font = (gcnew System::Drawing::Font(L"Adobe Fan Heiti Std B", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+					 static_cast<System::Byte>(0)));
 				 this->ObjectTreeView->Location = System::Drawing::Point(0, 0);
 				 this->ObjectTreeView->Name = L"ObjectTreeView";
-				 this->ObjectTreeView->Size = System::Drawing::Size(249, 768);
+				 this->ObjectTreeView->Size = System::Drawing::Size(245, 768);
 				 this->ObjectTreeView->TabIndex = 13;
 				 this->ObjectTreeView->AfterSelect += gcnew System::Windows::Forms::TreeViewEventHandler(this, &Editor::ObjectTreeView_AfterSelect);
 				 // 
@@ -313,15 +318,17 @@ namespace Editor {
 				 this->InspectorBackgroundPanel->BackColor = System::Drawing::SystemColors::ControlDark;
 				 this->InspectorBackgroundPanel->Controls->Add(this->NameBackgroundPanel);
 				 this->InspectorBackgroundPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+				 this->InspectorBackgroundPanel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold,
+					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 				 this->InspectorBackgroundPanel->Location = System::Drawing::Point(0, 0);
-				 this->InspectorBackgroundPanel->MinimumSize = System::Drawing::Size(324, 1017);
+				 this->InspectorBackgroundPanel->MinimumSize = System::Drawing::Size(378, 1017);
 				 this->InspectorBackgroundPanel->Name = L"InspectorBackgroundPanel";
-				 this->InspectorBackgroundPanel->Size = System::Drawing::Size(336, 1017);
+				 this->InspectorBackgroundPanel->Size = System::Drawing::Size(392, 1017);
 				 this->InspectorBackgroundPanel->TabIndex = 19;
 				 // 
 				 // NameBackgroundPanel
 				 // 
-				 this->NameBackgroundPanel->BackColor = System::Drawing::SystemColors::ControlDarkDark;
+				 this->NameBackgroundPanel->BackColor = System::Drawing::Color::Silver;
 				 this->NameBackgroundPanel->Controls->Add(this->RemoveTagButton);
 				 this->NameBackgroundPanel->Controls->Add(this->AddTagButton);
 				 this->NameBackgroundPanel->Controls->Add(this->LayerText);
@@ -334,23 +341,27 @@ namespace Editor {
 				 this->NameBackgroundPanel->Dock = System::Windows::Forms::DockStyle::Top;
 				 this->NameBackgroundPanel->Location = System::Drawing::Point(0, 0);
 				 this->NameBackgroundPanel->Name = L"NameBackgroundPanel";
-				 this->NameBackgroundPanel->Size = System::Drawing::Size(336, 101);
+				 this->NameBackgroundPanel->Size = System::Drawing::Size(392, 101);
 				 this->NameBackgroundPanel->TabIndex = 19;
 				 // 
 				 // RemoveTagButton
 				 // 
-				 this->RemoveTagButton->Location = System::Drawing::Point(109, 65);
+				 this->RemoveTagButton->Font = (gcnew System::Drawing::Font(L"Adobe Fan Heiti Std B", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+					 static_cast<System::Byte>(0)));
+				 this->RemoveTagButton->Location = System::Drawing::Point(127, 72);
 				 this->RemoveTagButton->Name = L"RemoveTagButton";
-				 this->RemoveTagButton->Size = System::Drawing::Size(62, 23);
+				 this->RemoveTagButton->Size = System::Drawing::Size(59, 26);
 				 this->RemoveTagButton->TabIndex = 23;
-				 this->RemoveTagButton->Text = L"Remove";
+				 this->RemoveTagButton->Text = L"Rem";
 				 this->RemoveTagButton->UseVisualStyleBackColor = true;
 				 // 
 				 // AddTagButton
 				 // 
-				 this->AddTagButton->Location = System::Drawing::Point(46, 65);
+				 this->AddTagButton->Font = (gcnew System::Drawing::Font(L"Adobe Fan Heiti Std B", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+					 static_cast<System::Byte>(0)));
+				 this->AddTagButton->Location = System::Drawing::Point(54, 72);
 				 this->AddTagButton->Name = L"AddTagButton";
-				 this->AddTagButton->Size = System::Drawing::Size(57, 23);
+				 this->AddTagButton->Size = System::Drawing::Size(67, 26);
 				 this->AddTagButton->TabIndex = 22;
 				 this->AddTagButton->Text = L"Add";
 				 this->AddTagButton->UseVisualStyleBackColor = true;
@@ -358,20 +369,24 @@ namespace Editor {
 				 // LayerText
 				 // 
 				 this->LayerText->AutoSize = true;
-				 this->LayerText->BackColor = System::Drawing::SystemColors::ControlDarkDark;
-				 this->LayerText->Location = System::Drawing::Point(171, 41);
+				 this->LayerText->BackColor = System::Drawing::Color::Silver;
+				 this->LayerText->Font = (gcnew System::Drawing::Font(L"Adobe Fan Heiti Std B", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+					 static_cast<System::Byte>(0)));
+				 this->LayerText->Location = System::Drawing::Point(181, 39);
 				 this->LayerText->Name = L"LayerText";
-				 this->LayerText->Size = System::Drawing::Size(33, 13);
+				 this->LayerText->Size = System::Drawing::Size(49, 20);
 				 this->LayerText->TabIndex = 21;
 				 this->LayerText->Text = L"Layer";
 				 // 
 				 // TagTex
 				 // 
 				 this->TagTex->AutoSize = true;
-				 this->TagTex->BackColor = System::Drawing::SystemColors::ControlDarkDark;
-				 this->TagTex->Location = System::Drawing::Point(9, 41);
+				 this->TagTex->BackColor = System::Drawing::Color::Silver;
+				 this->TagTex->Font = (gcnew System::Drawing::Font(L"Adobe Fan Heiti Std B", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+					 static_cast<System::Byte>(0)));
+				 this->TagTex->Location = System::Drawing::Point(2, 39);
 				 this->TagTex->Name = L"TagTex";
-				 this->TagTex->Size = System::Drawing::Size(31, 13);
+				 this->TagTex->Size = System::Drawing::Size(44, 20);
 				 this->TagTex->TabIndex = 20;
 				 this->TagTex->Text = L"Tags";
 				 // 
@@ -379,27 +394,29 @@ namespace Editor {
 				 // 
 				 this->LayerComboBox->FormattingEnabled = true;
 				 this->LayerComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Layer 1", L"Layer 2", L"Layer 3" });
-				 this->LayerComboBox->Location = System::Drawing::Point(210, 38);
+				 this->LayerComboBox->Location = System::Drawing::Point(245, 38);
 				 this->LayerComboBox->Name = L"LayerComboBox";
-				 this->LayerComboBox->Size = System::Drawing::Size(106, 21);
+				 this->LayerComboBox->Size = System::Drawing::Size(144, 28);
 				 this->LayerComboBox->TabIndex = 19;
 				 // 
 				 // TagComboBox
 				 // 
 				 this->TagComboBox->FormattingEnabled = true;
 				 this->TagComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Player", L"Enemy" });
-				 this->TagComboBox->Location = System::Drawing::Point(46, 38);
+				 this->TagComboBox->Location = System::Drawing::Point(54, 38);
 				 this->TagComboBox->Name = L"TagComboBox";
-				 this->TagComboBox->Size = System::Drawing::Size(106, 21);
+				 this->TagComboBox->Size = System::Drawing::Size(123, 28);
 				 this->TagComboBox->TabIndex = 18;
 				 // 
 				 // StaticBox
 				 // 
 				 this->StaticBox->AutoSize = true;
-				 this->StaticBox->BackColor = System::Drawing::SystemColors::ControlDarkDark;
-				 this->StaticBox->Location = System::Drawing::Point(263, 16);
+				 this->StaticBox->BackColor = System::Drawing::Color::Silver;
+				 this->StaticBox->Font = (gcnew System::Drawing::Font(L"Adobe Fan Heiti Std B", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+					 static_cast<System::Byte>(0)));
+				 this->StaticBox->Location = System::Drawing::Point(319, 13);
 				 this->StaticBox->Name = L"StaticBox";
-				 this->StaticBox->Size = System::Drawing::Size(53, 17);
+				 this->StaticBox->Size = System::Drawing::Size(70, 24);
 				 this->StaticBox->TabIndex = 17;
 				 this->StaticBox->Text = L"Static";
 				 this->StaticBox->UseVisualStyleBackColor = false;
@@ -408,7 +425,7 @@ namespace Editor {
 				 // 
 				 this->ActiveBox->AutoSize = true;
 				 this->ActiveBox->BackColor = System::Drawing::SystemColors::ControlDark;
-				 this->ActiveBox->Location = System::Drawing::Point(61, 16);
+				 this->ActiveBox->Location = System::Drawing::Point(65, 20);
 				 this->ActiveBox->Name = L"ActiveBox";
 				 this->ActiveBox->Size = System::Drawing::Size(15, 14);
 				 this->ActiveBox->TabIndex = 16;
@@ -416,9 +433,11 @@ namespace Editor {
 				 // 
 				 // NameBox
 				 // 
-				 this->NameBox->Location = System::Drawing::Point(82, 13);
+				 this->NameBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+					 static_cast<System::Byte>(0)));
+				 this->NameBox->Location = System::Drawing::Point(103, 13);
 				 this->NameBox->Name = L"NameBox";
-				 this->NameBox->Size = System::Drawing::Size(175, 20);
+				 this->NameBox->Size = System::Drawing::Size(210, 26);
 				 this->NameBox->TabIndex = 15;
 				 // 
 				 // BackgroundPanel
@@ -432,15 +451,15 @@ namespace Editor {
 				 this->BackgroundPanel->Dock = System::Windows::Forms::DockStyle::Fill;
 				 this->BackgroundPanel->Location = System::Drawing::Point(0, 24);
 				 this->BackgroundPanel->Name = L"BackgroundPanel";
-				 this->BackgroundPanel->Size = System::Drawing::Size(1904, 1017);
+				 this->BackgroundPanel->Size = System::Drawing::Size(2221, 1017);
 				 this->BackgroundPanel->TabIndex = 3;
 				 // 
 				 // StopButton
 				 // 
 				 this->StopButton->Anchor = System::Windows::Forms::AnchorStyles::Top;
-				 this->StopButton->Location = System::Drawing::Point(992, 3);
+				 this->StopButton->Location = System::Drawing::Point(1157, 3);
 				 this->StopButton->Name = L"StopButton";
-				 this->StopButton->Size = System::Drawing::Size(47, 23);
+				 this->StopButton->Size = System::Drawing::Size(55, 23);
 				 this->StopButton->TabIndex = 26;
 				 this->StopButton->Text = L"Stop";
 				 this->StopButton->UseVisualStyleBackColor = true;
@@ -449,9 +468,9 @@ namespace Editor {
 				 // PauseButton
 				 // 
 				 this->PauseButton->Anchor = System::Windows::Forms::AnchorStyles::Top;
-				 this->PauseButton->Location = System::Drawing::Point(939, 3);
+				 this->PauseButton->Location = System::Drawing::Point(1095, 3);
 				 this->PauseButton->Name = L"PauseButton";
-				 this->PauseButton->Size = System::Drawing::Size(47, 23);
+				 this->PauseButton->Size = System::Drawing::Size(55, 23);
 				 this->PauseButton->TabIndex = 25;
 				 this->PauseButton->Text = L"Pause";
 				 this->PauseButton->UseVisualStyleBackColor = true;
@@ -459,9 +478,9 @@ namespace Editor {
 				 // PlayButton
 				 // 
 				 this->PlayButton->Anchor = System::Windows::Forms::AnchorStyles::Top;
-				 this->PlayButton->Location = System::Drawing::Point(893, 3);
+				 this->PlayButton->Location = System::Drawing::Point(1042, 3);
 				 this->PlayButton->Name = L"PlayButton";
-				 this->PlayButton->Size = System::Drawing::Size(40, 23);
+				 this->PlayButton->Size = System::Drawing::Size(47, 23);
 				 this->PlayButton->TabIndex = 24;
 				 this->PlayButton->Text = L"Play";
 				 this->PlayButton->UseVisualStyleBackColor = true;
@@ -472,9 +491,9 @@ namespace Editor {
 				 this->LoadingPanel->BackColor = System::Drawing::Color::Gray;
 				 this->LoadingPanel->Controls->Add(this->LoadingBackground);
 				 this->LoadingPanel->Controls->Add(this->LoadingLabel);
-				 this->LoadingPanel->Location = System::Drawing::Point(507, 352);
+				 this->LoadingPanel->Location = System::Drawing::Point(591, 352);
 				 this->LoadingPanel->Name = L"LoadingPanel";
-				 this->LoadingPanel->Size = System::Drawing::Size(237, 113);
+				 this->LoadingPanel->Size = System::Drawing::Size(277, 113);
 				 this->LoadingPanel->TabIndex = 20;
 				 this->LoadingPanel->Visible = false;
 				 // 
@@ -482,18 +501,18 @@ namespace Editor {
 				 // 
 				 this->LoadingBackground->BackColor = System::Drawing::Color::SeaShell;
 				 this->LoadingBackground->Controls->Add(this->LoadingForeground);
-				 this->LoadingBackground->Location = System::Drawing::Point(24, 65);
+				 this->LoadingBackground->Location = System::Drawing::Point(28, 65);
 				 this->LoadingBackground->Name = L"LoadingBackground";
-				 this->LoadingBackground->Size = System::Drawing::Size(193, 23);
+				 this->LoadingBackground->Size = System::Drawing::Size(225, 23);
 				 this->LoadingBackground->TabIndex = 3;
 				 // 
 				 // LoadingForeground
 				 // 
 				 this->LoadingForeground->BackColor = System::Drawing::Color::Lime;
 				 this->LoadingForeground->Location = System::Drawing::Point(0, 0);
-				 this->LoadingForeground->MaximumSize = System::Drawing::Size(193, 0);
+				 this->LoadingForeground->MaximumSize = System::Drawing::Size(225, 0);
 				 this->LoadingForeground->Name = L"LoadingForeground";
-				 this->LoadingForeground->Size = System::Drawing::Size(193, 0);
+				 this->LoadingForeground->Size = System::Drawing::Size(225, 0);
 				 this->LoadingForeground->TabIndex = 5;
 				 // 
 				 // LoadingLabel
@@ -502,7 +521,7 @@ namespace Editor {
 				 this->LoadingLabel->Font = (gcnew System::Drawing::Font(L"MS Reference Sans Serif", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->LoadingLabel->ForeColor = System::Drawing::Color::White;
-				 this->LoadingLabel->Location = System::Drawing::Point(54, 35);
+				 this->LoadingLabel->Location = System::Drawing::Point(63, 35);
 				 this->LoadingLabel->Name = L"LoadingLabel";
 				 this->LoadingLabel->Size = System::Drawing::Size(133, 15);
 				 this->LoadingLabel->TabIndex = 1;
@@ -522,7 +541,8 @@ namespace Editor {
 				 });
 				 this->menuStrip1->Location = System::Drawing::Point(0, 0);
 				 this->menuStrip1->Name = L"menuStrip1";
-				 this->menuStrip1->Size = System::Drawing::Size(1904, 24);
+				 this->menuStrip1->Padding = System::Windows::Forms::Padding(7, 2, 0, 2);
+				 this->menuStrip1->Size = System::Drawing::Size(2221, 24);
 				 this->menuStrip1->TabIndex = 4;
 				 this->menuStrip1->Text = L"menuStrip1";
 				 // 
@@ -754,11 +774,13 @@ namespace Editor {
 				 // 
 				 // Editor
 				 // 
-				 this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+				 this->AutoScaleDimensions = System::Drawing::SizeF(7, 13);
 				 this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-				 this->ClientSize = System::Drawing::Size(1904, 1041);
+				 this->ClientSize = System::Drawing::Size(2221, 1041);
 				 this->Controls->Add(this->BackgroundPanel);
 				 this->Controls->Add(this->menuStrip1);
+				 this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.5F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+					 static_cast<System::Byte>(0)));
 				 this->MainMenuStrip = this->menuStrip1;
 				 this->Name = L"Editor";
 				 this->Text = L"Monkey Engine";

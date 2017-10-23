@@ -51,7 +51,7 @@ namespace Editor {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-	public: static const System::Drawing::Point ComponentStartingLocation = System::Drawing::Point(3, 107);
+	public: static const System::Drawing::Point ComponentStartingLocation = System::Drawing::Point(0, 100);
 	public: MonkeyEngine::MEObject::GameObject* GOParent;
 	public: MonkeyEngine::MEObject::Component* Comp;
 	public: unsigned int Index;

@@ -85,7 +85,7 @@ namespace Editor
 			std::vector<MonkeyEngine::MEObject::Component*>& scripts = GameObjects[i]->GetAllScritps();
 			MonkeyEngine::MEObject::Component* transform = (MonkeyEngine::MEObject::Component*)GameObjects[i]->GetTransform();
 			CompSize[GameObjects[i]] = (unsigned int)comps.size() + (unsigned int)scripts.size() + 1;
-			CompPanels[compIndex] = gcnew ComponentPanel();
+			CompPanels[compIndex] = gcnew TransformPanel();
 			CompPanels[compIndex]->Comp = transform;
 			CompPanels[compIndex]->GOParent = GameObjects[i];
 			CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, 0);
@@ -94,7 +94,7 @@ namespace Editor
 			{
 				//CreateComponent(GameObjects[i], comps[j], j+1, inspectorbackground panel)
 				//switch comps[j]->GetName() to create TransformPanel
-				CompPanels[compIndex] = gcnew TransformPanel();
+				CompPanels[compIndex] = gcnew ComponentPanel();
 				CompPanels[compIndex]->GOParent = GameObjects[i];
 				CompPanels[compIndex]->Comp = comps[j];
 				CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, j + 1);
