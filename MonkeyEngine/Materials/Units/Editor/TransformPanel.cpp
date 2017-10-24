@@ -40,7 +40,7 @@ namespace Editor
 		PositionX->Width = 20;
 		PositionY->Width = 20;
 		PositionZ->Width = 20;
-		if(pos.x - (int)pos.x == 0)
+		if (pos.x - (int)pos.x == 0)
 			PosX->Text = gcnew String(std::string(std::to_string((int)pos.x)).c_str());
 		else
 			PosX->Text = gcnew String(std::string(std::to_string((float)pos.x)).c_str());
@@ -180,17 +180,27 @@ namespace Editor
 		Scale->Visible = false;
 		Scale->Font = (gcnew System::Drawing::Font(L"Adobe Fan Heiti Std B", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 		Scale->ForeColor = Color::White;
-		
-		PosX->TextChanged += gcnew System::EventHandler(this, &TransformPanel::OnPosXChange);
-		PosY->TextChanged += gcnew System::EventHandler(this, &TransformPanel::OnPosYChange);
-		PosZ->TextChanged += gcnew System::EventHandler(this, &TransformPanel::OnPosZChange);
-		RotX->TextChanged += gcnew System::EventHandler(this, &TransformPanel::OnRotXChange);
-		RotY->TextChanged += gcnew System::EventHandler(this, &TransformPanel::OnRotYChange);
-		RotZ->TextChanged += gcnew System::EventHandler(this, &TransformPanel::OnRotZChange);
-		ScaX->TextChanged += gcnew System::EventHandler(this, &TransformPanel::OnScaXChange);
-		ScaY->TextChanged += gcnew System::EventHandler(this, &TransformPanel::OnScaYChange);
-		ScaZ->TextChanged += gcnew System::EventHandler(this, &TransformPanel::OnScaZChange);
-		
+
+		PosX->KeyDown += gcnew KeyEventHandler(this, &TransformPanel::OnKeyDown);
+		PosY->KeyDown += gcnew KeyEventHandler(this, &TransformPanel::OnKeyDown);
+		PosZ->KeyDown += gcnew KeyEventHandler(this, &TransformPanel::OnKeyDown);
+		RotX->KeyDown += gcnew KeyEventHandler(this, &TransformPanel::OnKeyDown);
+		RotY->KeyDown += gcnew KeyEventHandler(this, &TransformPanel::OnKeyDown);
+		RotZ->KeyDown += gcnew KeyEventHandler(this, &TransformPanel::OnKeyDown);
+		ScaX->KeyDown += gcnew KeyEventHandler(this, &TransformPanel::OnKeyDown);
+		ScaY->KeyDown += gcnew KeyEventHandler(this, &TransformPanel::OnKeyDown);
+		ScaZ->KeyDown += gcnew KeyEventHandler(this, &TransformPanel::OnKeyDown);
+
+		PosX->TextChanged += gcnew EventHandler(this, &TransformPanel::OnPosXChange);
+		PosY->TextChanged += gcnew EventHandler(this, &TransformPanel::OnPosYChange);
+		PosZ->TextChanged += gcnew EventHandler(this, &TransformPanel::OnPosZChange);
+		RotX->TextChanged += gcnew EventHandler(this, &TransformPanel::OnRotXChange);
+		RotY->TextChanged += gcnew EventHandler(this, &TransformPanel::OnRotYChange);
+		RotZ->TextChanged += gcnew EventHandler(this, &TransformPanel::OnRotZChange);
+		ScaX->TextChanged += gcnew EventHandler(this, &TransformPanel::OnScaXChange);
+		ScaY->TextChanged += gcnew EventHandler(this, &TransformPanel::OnScaYChange);
+		ScaZ->TextChanged += gcnew EventHandler(this, &TransformPanel::OnScaZChange);
+
 		this->Controls->Add(Scale);
 		this->Controls->Add(ScaleX);
 		this->Controls->Add(ScaX);
@@ -215,48 +225,110 @@ namespace Editor
 		this->MaximumSize = System::Drawing::Size(0, 80);
 	}
 
-	void TransformPanel::OnPosXChange(System::Object^  sender, System::EventArgs^  e)
+	void TransformPanel::OnKeyDown(System::Object^  sender, KeyEventArgs^  e)
 	{
-		((MonkeyEngine::MEObject::Transform*)Comp)->GetPosition().x = System::Convert::ToDouble(PosX->Text);
+		if (!((e->KeyCode >= Keys::D0 && e->KeyCode <= Keys::D9) ||
+			(e->KeyCode >= Keys::NumPad0 && e->KeyCode <= Keys::NumPad9) ||
+			e->KeyCode == Keys::Decimal || e->KeyCode == Keys::Back))
+			e->SuppressKeyPress = true;
 	}
 
-	void TransformPanel::OnPosYChange(System::Object^  sender, System::EventArgs^  e)
+	void TransformPanel::OnPosXChange(System::Object^  sender, EventArgs^  e)
 	{
-		((MonkeyEngine::MEObject::Transform*)Comp)->GetPosition().y = System::Convert::ToDouble(PosX->Text);
+		try
+		{
+			double temp = System::Convert::ToDouble(PosX->Text);
+			((MonkeyEngine::MEObject::Transform*)Comp)->GetPosition().x = temp;
+			return;
+		}
+		catch (System::FormatException^ exception) {}
 	}
 
-	void TransformPanel::OnPosZChange(System::Object^  sender, System::EventArgs^  e)
+	void TransformPanel::OnPosYChange(System::Object^  sender, EventArgs^  e)
 	{
-		((MonkeyEngine::MEObject::Transform*)Comp)->GetPosition().z = System::Convert::ToDouble(PosX->Text);
+		try
+		{
+			double temp = System::Convert::ToDouble(PosY->Text);
+			((MonkeyEngine::MEObject::Transform*)Comp)->GetPosition().y = temp;
+			return;
+		}
+		catch (System::FormatException^ exception) {}
 	}
 
-	void TransformPanel::OnRotXChange(System::Object^  sender, System::EventArgs^  e)
+	void TransformPanel::OnPosZChange(System::Object^  sender, EventArgs^  e)
 	{
-		((MonkeyEngine::MEObject::Transform*)Comp)->GetRotation().x = System::Convert::ToDouble(PosX->Text);
+		try
+		{
+			double temp = System::Convert::ToDouble(PosZ->Text);
+			((MonkeyEngine::MEObject::Transform*)Comp)->GetPosition().z = temp;
+			return;
+		}
+		catch (System::FormatException^ exception) {}
 	}
 
-	void TransformPanel::OnRotYChange(System::Object^  sender, System::EventArgs^  e)
+	void TransformPanel::OnRotXChange(System::Object^  sender, EventArgs^  e)
 	{
-		((MonkeyEngine::MEObject::Transform*)Comp)->GetRotation().y = System::Convert::ToDouble(PosX->Text);
+		try
+		{
+			double temp = System::Convert::ToDouble(RotX->Text);
+			((MonkeyEngine::MEObject::Transform*)Comp)->GetRotation().x = temp;
+			return;
+		}
+		catch (System::FormatException^ exception) {}
 	}
-	
-	void TransformPanel::OnRotZChange(System::Object^  sender, System::EventArgs^  e)
+
+	void TransformPanel::OnRotYChange(System::Object^  sender, EventArgs^  e)
 	{
-		((MonkeyEngine::MEObject::Transform*)Comp)->GetRotation().z = System::Convert::ToDouble(PosX->Text);
+		try
+		{
+			double temp = System::Convert::ToDouble(RotY->Text);
+			((MonkeyEngine::MEObject::Transform*)Comp)->GetRotation().y = temp;
+			return;
+		}
+		catch (System::FormatException^ exception) {}
 	}
-	
-	void TransformPanel::OnScaXChange(System::Object^  sender, System::EventArgs^  e)
+
+	void TransformPanel::OnRotZChange(System::Object^  sender, EventArgs^  e)
 	{
-		((MonkeyEngine::MEObject::Transform*)Comp)->GetScale().x = System::Convert::ToDouble(PosX->Text);
+		try
+		{
+			double temp = System::Convert::ToDouble(RotZ->Text);
+			((MonkeyEngine::MEObject::Transform*)Comp)->GetRotation().z = temp;
+			return;
+		}
+		catch (System::FormatException^ exception) {}
 	}
-	
-	void TransformPanel::OnScaYChange(System::Object^  sender, System::EventArgs^  e)
+
+	void TransformPanel::OnScaXChange(System::Object^  sender, EventArgs^  e)
 	{
-		((MonkeyEngine::MEObject::Transform*)Comp)->GetScale().y = System::Convert::ToDouble(PosX->Text);
+		try
+		{
+			double temp = System::Convert::ToDouble(ScaX->Text);
+			((MonkeyEngine::MEObject::Transform*)Comp)->GetScale().x = temp;
+			return;
+		}
+		catch (System::FormatException^ exception) {}
 	}
-	
-	void TransformPanel::OnScaZChange(System::Object^  sender, System::EventArgs^  e)
+
+	void TransformPanel::OnScaYChange(System::Object^  sender, EventArgs^  e)
 	{
-		((MonkeyEngine::MEObject::Transform*)Comp)->GetScale().z = System::Convert::ToDouble(PosX->Text);
+		try
+		{
+			double temp = System::Convert::ToDouble(ScaY->Text);
+			((MonkeyEngine::MEObject::Transform*)Comp)->GetScale().y = temp;
+			return;
+		}
+		catch (System::FormatException^ exception) {}
+	}
+
+	void TransformPanel::OnScaZChange(System::Object^  sender, EventArgs^  e)
+	{
+		try
+		{
+			double temp = System::Convert::ToDouble(ScaZ->Text);
+			((MonkeyEngine::MEObject::Transform*)Comp)->GetScale().z = temp;
+			return;
+		}
+		catch (System::FormatException^ exception) {}
 	}
 }

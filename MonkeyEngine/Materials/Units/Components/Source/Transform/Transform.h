@@ -25,6 +25,7 @@ namespace MonkeyEngine
 			void UpdateTransform();
 			virtual void Update();
 			virtual void ShutDown();
+			bool dirty;
 		public:
 			Transform() {};
 			Transform(XMFLOAT4X4 _WorldMatrix);

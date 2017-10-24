@@ -19,6 +19,7 @@ namespace MonkeyEngine
 			axis = XMVectorScale(axis, angle);
 			XMStoreFloat3(&m_xmScale, axis);
 			m_pParent = nullptr;
+			dirty = true;
 		}
 
 		Transform::Transform(XMFLOAT3 _Position, XMFLOAT3 _Rotation, XMFLOAT3 _Scale)
@@ -38,6 +39,7 @@ namespace MonkeyEngine
 				XMQuaternionRotationRollPitchYawFromVector(XMLoadFloat3(&m_xmRotation)),
 				XMLoadFloat3(&m_xmPosition));
 			XMStoreFloat4x4(&m_xmWorldMatrix, temp);
+			dirty = false;
 		}
 
 		void Transform::Update()
@@ -107,21 +109,32 @@ namespace MonkeyEngine
 
 		XMFLOAT3& Transform::GetPosition()
 		{
+			dirty = true;
+			for (unsigned int i = 0; i < m_vChildren.size(); i++)
+				m_vChildren[i]->dirty = true;
 			return m_xmPosition;
 		}
 
 		XMFLOAT3& Transform::GetRotation()
 		{
+			dirty = true;
+			for (unsigned int i = 0; i < m_vChildren.size(); i++)
+				m_vChildren[i]->dirty = true;
 			return m_xmRotation;
 		}
 
 		XMFLOAT3& Transform::GetScale()
 		{
+			dirty = true;
+			for (unsigned int i = 0; i < m_vChildren.size(); i++)
+				m_vChildren[i]->dirty = true;
 			return m_xmScale;
 		}
 
 		XMFLOAT4X4 Transform::GetMatrix()
 		{
+			if (dirty)
+				UpdateTransform();
 			return m_xmWorldMatrix;
 		}
 

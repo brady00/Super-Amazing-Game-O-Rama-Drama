@@ -51,14 +51,16 @@ namespace Editor {
 		}
 #pragma endregion
 	public: virtual void CreatePanel(Panel^ InspectorBackgroundPanel, unsigned int Index) override;
-	private: void OnPosXChange(System::Object^  sender, System::EventArgs^  e);
-	private: void OnPosYChange(System::Object^  sender, System::EventArgs^  e);
-	private: void OnPosZChange(System::Object^  sender, System::EventArgs^  e);
-	private: void OnRotXChange(System::Object^  sender, System::EventArgs^  e);
-	private: void OnRotYChange(System::Object^  sender, System::EventArgs^  e);
-	private: void OnRotZChange(System::Object^  sender, System::EventArgs^  e);
-	private: void OnScaXChange(System::Object^  sender, System::EventArgs^  e);
-	private: void OnScaYChange(System::Object^  sender, System::EventArgs^  e);
-	private: void OnScaZChange(System::Object^  sender, System::EventArgs^  e);
+	private: void OnKeyDown(System::Object^  sender, KeyEventArgs^  e);
+
+	private: void OnPosXChange(System::Object^  sender, EventArgs^  e);
+	private: void OnPosYChange(System::Object^  sender, EventArgs^  e);
+	private: void OnPosZChange(System::Object^  sender, EventArgs^  e);
+	private: void OnRotXChange(System::Object^  sender, EventArgs^  e);
+	private: void OnRotYChange(System::Object^  sender, EventArgs^  e);
+	private: void OnRotZChange(System::Object^  sender, EventArgs^  e);
+	private: void OnScaXChange(System::Object^  sender, EventArgs^  e);
+	private: void OnScaYChange(System::Object^  sender, EventArgs^  e);
+	private: void OnScaZChange(System::Object^  sender, EventArgs^  e);
 	};
 }
