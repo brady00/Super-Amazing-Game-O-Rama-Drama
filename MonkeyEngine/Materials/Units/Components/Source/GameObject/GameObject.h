@@ -3,6 +3,10 @@
 #include <vector>
 namespace MonkeyEngine
 {
+	namespace MEFileIO
+	{
+		class FileIO;
+	}
 	class Scene;
 	namespace MEObject
 	{
@@ -12,6 +16,7 @@ namespace MonkeyEngine
 		class __declspec(dllexport) GameObject : public Object
 		{
 			friend class Scene;
+			friend class MEFileIO::FileIO;
 			friend class Camera;
 		public:
 			friend class Scene;

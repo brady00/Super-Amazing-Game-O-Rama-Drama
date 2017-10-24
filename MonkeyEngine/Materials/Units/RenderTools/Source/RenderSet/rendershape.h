@@ -1,6 +1,7 @@
 #pragma once
 #include "RenderToolsDLL.h"
 #include "RenderNode.h"
+#pragma warning(disable: 4793)
 #include <DirectXMath.h>
 #include "Managers/InputLayoutManager.h"
 #include "Managers/BlendStateManager.h"

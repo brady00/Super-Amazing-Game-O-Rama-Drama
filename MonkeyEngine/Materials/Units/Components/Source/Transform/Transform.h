@@ -1,5 +1,6 @@
 #pragma once
 #include "Base/Component.h"
+#pragma warning(disable: 4793)
 #include <DirectXMath.h>
 
 using namespace DirectX;

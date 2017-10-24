@@ -1,6 +1,9 @@
 <MonkeyEngineScene>
   <DebugCamera>
-    <Skybox TextureName ="Assets/Textures/SkyboxNorthernLights.dds">
+    <Skybox>
+      <Material>
+        <TextureName File ="Assets/Textures/default.dds"/>
+      </Material>
     </Skybox>
   </DebugCamera>
   <GameObject Name="Camera" Static="false" Active="true" Layer="2">
@@ -10,7 +13,11 @@
       <Scale X="1" Y="1" Z="1"/>
     </Transform>
     <Camera Enabled="true">
-      <Skybox TextureName ="Assets/Textures/SkyboxNorthernLights.dds">
+      <Skybox>
+        <Material>
+          <TextureName File ="Assets/Textures/default.dds"/>
+          <Color R="1.0" G="1.0" B="1.0" A="1.0"/>
+        </Material>
       </Skybox>
     </Camera>
   </GameObject>

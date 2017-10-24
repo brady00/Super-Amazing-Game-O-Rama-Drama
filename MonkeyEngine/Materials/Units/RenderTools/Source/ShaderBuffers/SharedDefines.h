@@ -2,7 +2,8 @@
 
 #ifdef __cplusplus
 	#pragma once
-	#include <DirectXMath.h>
+#pragma warning(disable: 4793)
+#include <DirectXMath.h>
 	typedef unsigned int		uint;
 	typedef DirectX::XMFLOAT2	float2;
 	typedef DirectX::XMFLOAT3	float3;

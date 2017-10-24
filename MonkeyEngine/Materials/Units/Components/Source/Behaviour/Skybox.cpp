@@ -1,3 +1,4 @@
+#pragma warning(disable: 4561)
 #include "Skybox.h"
 #include "Managers/DepthStencilStateManager.h"
 #include "Managers/RasterizerStateManager.h"

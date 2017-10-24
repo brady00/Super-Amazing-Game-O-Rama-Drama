@@ -1,5 +1,7 @@
 #pragma once
+#pragma warning(disable: 4561)
 #include <d3d11.h>
+#pragma warning(disable: 4793)
 #include <DirectXMath.h>
 #include <Windows.h>
 #include "Behaviour\Camera.h"

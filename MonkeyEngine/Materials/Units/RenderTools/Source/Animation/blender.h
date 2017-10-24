@@ -1,5 +1,6 @@
 #pragma once
 //#include "Behaviour/Animation.h"
+#pragma warning(disable: 4793)
 #include <DirectXMath.h>
 #include <vector>
 #include <unordered_map>

@@ -1,3 +1,4 @@
+#pragma warning(disable: 4561)
 #include "Camera.h"
 #include "Transform\Transform.h"
 

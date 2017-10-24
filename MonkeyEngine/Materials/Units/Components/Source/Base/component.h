@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4561)
 #include "Object/Object.h"
 #include "GameObject/GameObject.h"
 #include "Registrar\Registrar.h"

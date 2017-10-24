@@ -1,4 +1,6 @@
 #pragma once
+#pragma warning(disable: 4793)
+#pragma warning(disable: 4561)
 #include <DirectXMath.h>
 #include <Windows.h>
 #include "../Behaviour/Behaviour.h"

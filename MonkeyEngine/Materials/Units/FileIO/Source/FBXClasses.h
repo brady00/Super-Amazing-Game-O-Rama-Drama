@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4793)
 #include <DirectXMath.h>
 using namespace DirectX;
 namespace MonkeyEngine

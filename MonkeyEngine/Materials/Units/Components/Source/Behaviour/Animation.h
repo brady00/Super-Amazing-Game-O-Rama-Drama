@@ -1,5 +1,6 @@
 #pragma once
 #include "Behaviour.h"
+#pragma warning(disable: 4793)
 #include <DirectXMath.h>
 #include "RenderStructures.h"
 using namespace DirectX;

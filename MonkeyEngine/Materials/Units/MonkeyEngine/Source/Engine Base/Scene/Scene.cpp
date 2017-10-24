@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "DebugCamera/DebugCamera.h"
 #include "Renderer.h"
+#include "FileIO.h"
 namespace MonkeyEngine
 {
 	Scene::Scene()
@@ -54,8 +55,19 @@ namespace MonkeyEngine
 	{
 		return m_vObjects;
 	}
+
 	MERenderer::DebugCamera* Scene::GetDebugCamera()
 	{
 		return m_pDebugCamera;
+	}
+
+	void Scene::Load(string& _FileName, float& _percentLoaded, bool& Success)
+	{
+		MEFileIO::FileIO::LoadScene(_FileName, m_vObjects, _percentLoaded, Success);
+	}
+
+	bool Scene::Save(string& _FileName)
+	{
+		return MEFileIO::FileIO::SaveScene(_FileName, m_vObjects);
 	}
 }

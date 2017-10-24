@@ -1,4 +1,6 @@
 #pragma once
+#pragma warning(disable: 4561)
+#pragma warning(disable: 4793)
 #pragma warning(disable: 4251)
 #include <string>
 using namespace std;

@@ -417,7 +417,7 @@ namespace MonkeyEngine
 					LoadDebugCamera(child);
 					break;
 				}
-					//GameObjects
+				//GameObjects
 				case 'G':
 				{
 					MEObject::GameObject* Object = new MEObject::GameObject;
@@ -433,6 +433,25 @@ namespace MonkeyEngine
 			}
 			Succeeded = true;
 			percentLoaded = 1.0f;
+		}
+
+		bool FileIO::SaveScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects)
+		{
+			tinyxml2::XMLDocument doc;
+			XMLElement* root = doc.NewElement("MonkeyEngineScene");
+			doc.InsertFirstChild(root);
+			XMLElement* prevElem = doc.NewElement("DebugCamera");
+			root->InsertFirstChild(prevElem);
+			SaveDebugCamera(prevElem, doc);
+			for (unsigned int i = 0; i < _GameObjects.size(); i++)
+			{
+				XMLElement* elem = doc.NewElement("GameObject");
+				root->InsertAfterChild(prevElem, elem);
+				SaveGameObject(elem, doc, _GameObjects[i]);
+				prevElem = elem;
+			}
+			doc.SaveFile(_FileName.c_str());
+			return true;
 		}
 
 		bool FileIO::OutputSettings(std::string _FileName, std::vector<SettingData*> _SettingData)
@@ -504,6 +523,49 @@ namespace MonkeyEngine
 			return true;
 		}
 
+		bool FileIO::SaveGameObject(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::GameObject* _Object)
+		{
+			XMLElement* prevElem = doc.NewElement("Transform");
+			_ObjectRoot->InsertFirstChild(prevElem);
+			SaveTranform(prevElem, doc, _Object->m_pTransform);
+			for (unsigned int i = 0; i < _Object->eNumComponents; i++)
+			{
+				for (unsigned int j = 0; j < _Object->m_vComponents[i].size(); j++)
+				{
+					switch (i)
+					{
+					case GameObject::COMPONENT_ID::eMeshRenderer:
+					{
+						XMLElement* Elem = doc.NewElement("MeshRenderer");
+						_ObjectRoot->InsertAfterChild(prevElem, Elem);
+						SaveMeshRenderer(prevElem, doc, _Object->m_vComponents[i][j]);
+						prevElem = Elem;
+						break;
+					}
+					case GameObject::COMPONENT_ID::eSkinnedMeshRenderer:
+					{
+						XMLElement* Elem = doc.NewElement("SkinnedMeshRenderer");
+						_ObjectRoot->InsertAfterChild(prevElem, Elem);
+						SaveMeshRenderer(prevElem, doc, _Object->m_vComponents[i][j]);
+						prevElem = Elem;
+						break;
+					}
+					case GameObject::COMPONENT_ID::eCamera:
+					{
+						XMLElement* Elem = doc.NewElement("Camera");
+						_ObjectRoot->InsertAfterChild(prevElem, Elem);
+						SaveMeshRenderer(prevElem, doc, _Object->m_vComponents[i][j]);
+						prevElem = Elem;
+						break;
+					}
+					default:
+						break;
+					}
+				}
+			}
+			return true;
+		}
+
 		bool FileIO::LoadTranform(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
 		{
 			XMFLOAT3 pos, rot, scale;
@@ -523,6 +585,26 @@ namespace MonkeyEngine
 			((MEObject::Transform*)_Object)->GetRotation() = rot;
 			((MEObject::Transform*)_Object)->GetScale() = scale;
 			_Object->SetName("Transform");
+			return true;
+		}
+
+		bool FileIO::SaveTranform(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
+		{
+			XMLElement* Position = doc.NewElement("Position");
+			Position->SetAttribute("X", ((Transform*)_Object)->GetPosition().x);
+			Position->SetAttribute("Y", ((Transform*)_Object)->GetPosition().y);
+			Position->SetAttribute("Z", ((Transform*)_Object)->GetPosition().z);
+			XMLElement* Rotation = doc.NewElement("Rotation");
+			Rotation->SetAttribute("X", ((Transform*)_Object)->GetRotation().x);
+			Rotation->SetAttribute("Y", ((Transform*)_Object)->GetRotation().y);
+			Rotation->SetAttribute("Z", ((Transform*)_Object)->GetRotation().z);
+			XMLElement* Scale = doc.NewElement("Scale");
+			Scale->SetAttribute("X", ((Transform*)_Object)->GetScale().x);
+			Scale->SetAttribute("Y", ((Transform*)_Object)->GetScale().y);
+			Scale->SetAttribute("Z", ((Transform*)_Object)->GetScale().z);
+			_ObjectRoot->InsertFirstChild(Position);
+			_ObjectRoot->InsertAfterChild(Position, Rotation);
+			_ObjectRoot->InsertAfterChild(Rotation, Scale);
 			return true;
 		}
 
@@ -593,6 +675,11 @@ namespace MonkeyEngine
 			return true;
 		}
 
+		bool FileIO::SaveMeshRenderer(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
+		{
+			return true;
+		}
+
 		bool FileIO::LoadSkinnedMeshRenderer(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
 		{
 			bool Enabled;
@@ -660,6 +747,11 @@ namespace MonkeyEngine
 			return true;
 		}
 
+		bool FileIO::SaveSkinnedMeshRenderer(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
+		{
+			return true;
+		}
+
 		bool FileIO::LoadCamera(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
 		{
 			bool Enabled = _ObjectRoot->BoolAttribute("Enabled");
@@ -676,6 +768,11 @@ namespace MonkeyEngine
 			return true;
 		}
 
+		bool FileIO::SaveCamera(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
+		{
+			return true;
+		}
+
 		bool FileIO::LoadDebugCamera(XMLElement* _ObjectRoot)
 		{
 			XMLElement* child = _ObjectRoot->FirstChildElement();
@@ -686,6 +783,11 @@ namespace MonkeyEngine
 
 			}
 			Renderer::SetDebugCamera(DebugCamera::GetInstance());
+			return true;
+		}
+
+		bool FileIO::SaveDebugCamera(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc)
+		{
 			return true;
 		}
 
@@ -715,6 +817,11 @@ namespace MonkeyEngine
 			}
 
 			((MEObject::Skybox*)_Object)->Load(Renderer::GetDevice(), Renderer::GetDeviceContext(), wText, temp);
+			return true;
+		}
+
+		bool FileIO::SaveSkybox(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
+		{
 			return true;
 		}
 

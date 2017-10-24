@@ -1,3 +1,4 @@
+#pragma warning(disable: 4561)
 #include "DebugCamera.h"
 #include "Managers/ConstantBufferManager.h"
 #include "Time.h"

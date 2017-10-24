@@ -4,6 +4,7 @@
 #include <string>
 #include <d3d11.h>
 #include <unordered_map>
+#pragma warning(disable: 4793)
 #include <DirectXMath.h>
 #include "RenderStructures.h"
 namespace MonkeyEngine

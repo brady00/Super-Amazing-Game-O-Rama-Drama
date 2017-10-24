@@ -39,7 +39,7 @@ namespace Editor
 	std::unordered_map<MonkeyEngine::MEObject::GameObject*, unsigned int> CompSize;
 	float LoadingPercentage = 0.0f;
 	bool LoadingSucceeded = false;
-	string FileName;
+	string CurrentSceneFileName;
 	void Editor::ObjectTreeView_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e)
 	{
 		if (ObjectTreeView->SelectedNode != PrevSelectedObject)
@@ -63,7 +63,8 @@ namespace Editor
 
 	void Editor::Form_OnLoad(System::Object^  sender, System::EventArgs^  e)
 	{
-		const char* File = (const char*)(Marshal::StringToHGlobalAnsi(OpenFile )).ToPointer();
+		const char* File = (const char*)(Marshal::StringToHGlobalAnsi(OpenFile)).ToPointer();
+		CurrentSceneFileName = File;
 		InitializeEngine((HWND)(void*)RenderingPanel->Handle, RenderingPanel->Width, RenderingPanel->Height, File);
 		MainWindowRenderingTimer->Start();
 		this->DoubleBuffered = true;
@@ -258,14 +259,14 @@ namespace Editor
 
 	void Editor::LoadHelper()
 	{
-		LoadMonkeyEngineScene(FileName, LoadingPercentage, LoadingSucceeded);
+		LoadMonkeyEngineScene(CurrentSceneFileName, LoadingPercentage, LoadingSucceeded);
 	}
 
 	void Editor::openToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 		{
-			FileName = string((const char*)(Marshal::StringToHGlobalAnsi(openFileDialog->FileName)).ToPointer());
+			CurrentSceneFileName = (const char*)(Marshal::StringToHGlobalAnsi(openFileDialog->FileName)).ToPointer();
 			MainWindowRenderingTimer->Stop();
 			LoadingTimer->Start();
 			ThreadStart^ params = gcnew ThreadStart(this, &Editor::LoadHelper);
@@ -275,15 +276,27 @@ namespace Editor
 			tempThread->Start();
 		}
 	}
-	
+
+	void Editor::saveToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (CurrentSceneFileName == "Assets/Scenes/Default.mes")
+			if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+				CurrentSceneFileName = (const char*)(Marshal::StringToHGlobalAnsi(saveFileDialog->FileName)).ToPointer();
+		AutoSaveScene();
+	}
+
 	void Editor::PlayButton_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		SetMonkeyEngineRenderState(RenderState::GAME_RENDERING);
 	}
-	
+
 	void Editor::StopButton_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		SetMonkeyEngineRenderState(RenderState::EDITOR_RENDERING);
 	}
 
+	bool Editor::AutoSaveScene()
+	{
+		return SaveMonkeyEngineScene(CurrentSceneFileName);
+	}
 }

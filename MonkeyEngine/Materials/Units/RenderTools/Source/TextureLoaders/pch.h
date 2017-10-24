@@ -42,6 +42,7 @@
 #include <Windows.UI.Core.h>
 #endif
 
+#pragma warning(disable: 4793)
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 #include <DirectXCollision.h>

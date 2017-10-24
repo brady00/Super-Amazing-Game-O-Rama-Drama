@@ -1,6 +1,7 @@
 #pragma once
 #include <d3d11.h>
 #include <vector>
+#pragma warning(disable: 4793)
 #include <DirectXMath.h>
 #ifdef RENDERSTRUCTURES_EXPORTS
 #define RENDERSTRUCTURES_EXPORT __declspec(dllexport)

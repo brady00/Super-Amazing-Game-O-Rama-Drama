@@ -50,5 +50,6 @@ void __declspec(dllexport) RunGameWindow();
 void __declspec(dllexport) RunGameVR();
 void __declspec(dllexport) SetMonkeyEngineRenderState(RenderState::RState State);
 void __declspec(dllexport) LoadMonkeyEngineScene(string& _FileName, float& percentLoaded, bool& Success);
+bool __declspec(dllexport) SaveMonkeyEngineScene(string& _FileName);
 std::vector<MonkeyEngine::MEObject::GameObject*> __declspec(dllexport)&GetSceneObjects();
 

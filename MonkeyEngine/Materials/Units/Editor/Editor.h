@@ -92,6 +92,7 @@ namespace Editor {
 	private: System::Windows::Forms::ToolStripMenuItem^  RunInWindowToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  RunInVRToolStripMenuItem;
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog;
+	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog;
 	private: System::ComponentModel::IContainer^  components;
 	private: System::Windows::Forms::ToolStripMenuItem^  sceneToolStripMenuItem;
 	private: System::Windows::Forms::Panel^  LoadingPanel;
@@ -99,28 +100,8 @@ namespace Editor {
 	private: System::Windows::Forms::Panel^  LoadingBackground;
 	private: System::Windows::Forms::Panel^  LoadingForeground;
 	private: System::Windows::Forms::Button^  StopButton;
-
 	private: System::Windows::Forms::Button^  PauseButton;
-
 	private: System::Windows::Forms::Button^  PlayButton;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	private: TreeNode^ PrevSelectedObject;
 			 /// <summary>
 			 /// Required designer variable.
@@ -195,6 +176,7 @@ namespace Editor {
 				 this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 				 this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 				 this->LoadingTimer = (gcnew System::Windows::Forms::Timer(this->components));
+				 this->saveFileDialog = (gcnew System::Windows::Forms::SaveFileDialog());
 				 (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 				 this->splitContainer1->Panel1->SuspendLayout();
 				 this->splitContainer1->Panel2->SuspendLayout();
@@ -433,6 +415,7 @@ namespace Editor {
 				 // 
 				 // NameBox
 				 // 
+				 this->NameBox->AllowDrop = true;
 				 this->NameBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(0)));
 				 this->NameBox->Location = System::Drawing::Point(103, 13);
@@ -593,6 +576,7 @@ namespace Editor {
 				 this->saveToolStripMenuItem->ShowShortcutKeys = false;
 				 this->saveToolStripMenuItem->Size = System::Drawing::Size(114, 22);
 				 this->saveToolStripMenuItem->Text = L"&Save";
+				 this->saveToolStripMenuItem->Click += gcnew System::EventHandler(this, &Editor::saveToolStripMenuItem_Click);
 				 // 
 				 // saveAsToolStripMenuItem
 				 // 
@@ -774,6 +758,7 @@ namespace Editor {
 				 // 
 				 // Editor
 				 // 
+				 this->AllowDrop = true;
 				 this->AutoScaleDimensions = System::Drawing::SizeF(7, 13);
 				 this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 				 this->ClientSize = System::Drawing::Size(2221, 1041);
@@ -831,5 +816,8 @@ namespace Editor {
 	public: String^ OpenFile;
 	private: void PlayButton_Click(System::Object^  sender, System::EventArgs^  e);
 	private: void StopButton_Click(System::Object^  sender, System::EventArgs^  e);
+	public: bool AutoSaveScene();
+
+private: System::Void saveToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }

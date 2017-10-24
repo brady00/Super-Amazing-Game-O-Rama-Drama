@@ -21,7 +21,8 @@ namespace MonkeyEngine
 		void initialize(int _ScreenWidth, int _ScreenHeight);
 		void Update();
 		void Shutdown();
-
+		void Load(string& _FileName, float& _percentLoaded, bool& Success);
+		bool Save(string& _FileName);
 		std::vector<MEObject::GameObject*>& GetObjects();
 		MERenderer::DebugCamera* GetDebugCamera();
 	};
