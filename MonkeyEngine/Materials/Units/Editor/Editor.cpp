@@ -128,6 +128,7 @@ namespace Editor
 		//DO LOADING SCREEN STUFF HERE
 		if (LoadingSucceeded && LoadingPercentage == 1.0f)
 		{
+
 			GameObjects = GetSceneObjects();
 			unsigned int compIndex = 0;
 			for (unsigned int i = 0; i < GameObjects.size(); i++)
@@ -139,7 +140,7 @@ namespace Editor
 				std::vector<MonkeyEngine::MEObject::Component*>& scripts = GameObjects[i]->GetAllScritps();
 				MonkeyEngine::MEObject::Component* transform = (MonkeyEngine::MEObject::Component*)GameObjects[i]->GetTransform();
 				CompSize[GameObjects[i]] = (unsigned int)comps.size() + (unsigned int)scripts.size() + 1;
-				CompPanels[compIndex] = gcnew ComponentPanel();
+				CompPanels[compIndex] = gcnew TransformPanel();
 				CompPanels[compIndex]->Comp = transform;
 				CompPanels[compIndex]->GOParent = GameObjects[i];
 				CompPanels[compIndex]->CreatePanel(InspectorBackgroundPanel, 0);
@@ -274,6 +275,7 @@ namespace Editor
 			LoadingPanel->Location = Point((int)((this->Width / 2.0f) - (LoadingPanel->Width / 2.0f)), (int)((this->Height / 2.0f) - (LoadingPanel->Height / 2.0f)));
 			LoadingPanel->Show();
 			tempThread->Start();
+			ObjectTreeView->Nodes->Clear();
 		}
 	}
 

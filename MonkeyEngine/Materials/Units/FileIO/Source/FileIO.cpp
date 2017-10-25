@@ -525,6 +525,10 @@ namespace MonkeyEngine
 
 		bool FileIO::SaveGameObject(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::GameObject* _Object)
 		{
+			_ObjectRoot->SetAttribute("Name", _Object->GetCharName());
+			_ObjectRoot->SetAttribute("Static", _Object->GetStatic());
+			_ObjectRoot->SetAttribute("Active", _Object->GetActive());
+			_ObjectRoot->SetAttribute("Layer", _Object->GetLayer());
 			XMLElement* prevElem = doc.NewElement("Transform");
 			_ObjectRoot->InsertFirstChild(prevElem);
 			SaveTranform(prevElem, doc, _Object->m_pTransform);
@@ -538,7 +542,7 @@ namespace MonkeyEngine
 					{
 						XMLElement* Elem = doc.NewElement("MeshRenderer");
 						_ObjectRoot->InsertAfterChild(prevElem, Elem);
-						SaveMeshRenderer(prevElem, doc, _Object->m_vComponents[i][j]);
+						SaveMeshRenderer(Elem, doc, _Object->m_vComponents[i][j]);
 						prevElem = Elem;
 						break;
 					}
@@ -546,7 +550,7 @@ namespace MonkeyEngine
 					{
 						XMLElement* Elem = doc.NewElement("SkinnedMeshRenderer");
 						_ObjectRoot->InsertAfterChild(prevElem, Elem);
-						SaveMeshRenderer(prevElem, doc, _Object->m_vComponents[i][j]);
+						SaveSkinnedMeshRenderer(Elem, doc, _Object->m_vComponents[i][j]);
 						prevElem = Elem;
 						break;
 					}
@@ -554,7 +558,7 @@ namespace MonkeyEngine
 					{
 						XMLElement* Elem = doc.NewElement("Camera");
 						_ObjectRoot->InsertAfterChild(prevElem, Elem);
-						SaveMeshRenderer(prevElem, doc, _Object->m_vComponents[i][j]);
+						SaveCamera(Elem, doc, _Object->m_vComponents[i][j]);
 						prevElem = Elem;
 						break;
 					}
@@ -612,8 +616,6 @@ namespace MonkeyEngine
 		{
 			bool Enabled;
 			_ObjectRoot->QueryBoolAttribute("Enabled", &Enabled);
-			bool Skiined;
-			_ObjectRoot->QueryBoolAttribute("Skinned", &Skiined);
 			bool Opaque;
 			_ObjectRoot->QueryBoolAttribute("Opaque", &Opaque);
 			std::string VertexFileName;
@@ -677,6 +679,14 @@ namespace MonkeyEngine
 
 		bool FileIO::SaveMeshRenderer(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
 		{
+			_ObjectRoot->SetAttribute("Enabled", ((MeshRenderer*)_Object)->GetEnabled());
+			_ObjectRoot->SetAttribute("Opaque", (*((MeshRenderer*)_Object)->m_BlendState) != BlendStateManager::BStates::BS_Alpha);
+			XMLElement* Vertex = doc.NewElement("VertexFileName");
+			Vertex->SetAttribute("File", ((MeshRenderer*)_Object)->GetVertexFileName().c_str());
+			XMLElement* Diffuse = doc.NewElement("DiffuseFileName");
+			Diffuse->SetAttribute("File", ((MeshRenderer*)_Object)->GetMaterial().mDiffuseMapName.c_str());
+			_ObjectRoot->InsertFirstChild(Vertex);
+			_ObjectRoot->InsertAfterChild(Vertex, Diffuse);
 			return true;
 		}
 
@@ -684,8 +694,6 @@ namespace MonkeyEngine
 		{
 			bool Enabled;
 			_ObjectRoot->QueryBoolAttribute("Enabled", &Enabled);
-			bool Skinned;
-			_ObjectRoot->QueryBoolAttribute("Skinned", &Skinned);
 			bool Opaque;
 			_ObjectRoot->QueryBoolAttribute("Opaque", &Opaque);
 			std::string VertexFileName;
@@ -749,6 +757,14 @@ namespace MonkeyEngine
 
 		bool FileIO::SaveSkinnedMeshRenderer(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
 		{
+			_ObjectRoot->SetAttribute("Enabled", ((SkinnedMeshRenderer*)_Object)->GetEnabled());
+			_ObjectRoot->SetAttribute("Opaque", (*((SkinnedMeshRenderer*)_Object)->m_BlendState) != BlendStateManager::BStates::BS_Alpha);
+			XMLElement* Vertex = doc.NewElement("VertexFileName");
+			Vertex->SetAttribute("File", ((SkinnedMeshRenderer*)_Object)->GetVertexFileName().c_str());
+			XMLElement* Diffuse = doc.NewElement("DiffuseFileName");
+			Diffuse->SetAttribute("File", ((SkinnedMeshRenderer*)_Object)->GetMaterial().mDiffuseMapName.c_str());
+			_ObjectRoot->InsertFirstChild(Vertex);
+			_ObjectRoot->InsertAfterChild(Vertex, Diffuse);
 			return true;
 		}
 
@@ -770,6 +786,9 @@ namespace MonkeyEngine
 
 		bool FileIO::SaveCamera(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
 		{
+			XMLElement* skybox = doc.NewElement("Skybox");
+			_ObjectRoot->InsertFirstChild(skybox);
+			SaveSkybox(skybox, doc, ((Camera*)_Object)->GetSkybox());
 			return true;
 		}
 
@@ -788,6 +807,9 @@ namespace MonkeyEngine
 
 		bool FileIO::SaveDebugCamera(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc)
 		{
+			XMLElement* skybox = doc.NewElement("Skybox");
+			_ObjectRoot->InsertFirstChild(skybox);
+			SaveSkybox(skybox, doc, DebugCamera::GetInstance()->GetSkybox());
 			return true;
 		}
 
@@ -822,6 +844,17 @@ namespace MonkeyEngine
 
 		bool FileIO::SaveSkybox(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
 		{
+			XMLElement* material = doc.NewElement("Material");
+			_ObjectRoot->InsertFirstChild(material);
+			XMLElement* texture = doc.NewElement("TextureName");
+			texture->SetAttribute("File", ((MEObject::Skybox*)_Object)->m_Material.mDiffuseMapName.c_str());
+			XMLElement* color = doc.NewElement("Color");
+			color->SetAttribute("R", ((MEObject::Skybox*)_Object)->m_Material.Color.x);
+			color->SetAttribute("G", ((MEObject::Skybox*)_Object)->m_Material.Color.y);
+			color->SetAttribute("B", ((MEObject::Skybox*)_Object)->m_Material.Color.z);
+			color->SetAttribute("A", ((MEObject::Skybox*)_Object)->m_Material.Color.w);
+			material->InsertFirstChild(texture);
+			material->InsertAfterChild(texture, color);
 			return true;
 		}
 

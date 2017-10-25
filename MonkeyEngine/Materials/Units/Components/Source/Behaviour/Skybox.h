@@ -17,10 +17,15 @@ using namespace MonkeyEngine::MERenderer;
 
 namespace MonkeyEngine
 {
+	namespace MEFileIO
+	{
+		class FileIO;
+	}
 	namespace MEObject
 	{
 		class __declspec(dllexport) Skybox : public Behaviour
 		{
+			friend class MEFileIO::FileIO;
 		private:
 			ID3D11Buffer* m_ObjectConstantBuffer;
 			ID3D11Buffer* m_VertexBuffer;

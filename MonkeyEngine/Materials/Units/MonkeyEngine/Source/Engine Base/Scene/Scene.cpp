@@ -42,13 +42,13 @@ namespace MonkeyEngine
 
 	void Scene::Shutdown()
 	{
-		delete m_pDebugCamera;
 		for (unsigned int i = 0; i < m_vObjects.size(); i++)
 		{
 			m_vObjects[i]->ShutDown();
 			delete m_vObjects[i];
 			m_vObjects[i] = nullptr;
 		}
+		m_vObjects.clear();
 	}
 
 	std::vector<MEObject::GameObject*>& Scene::GetObjects()
@@ -63,6 +63,8 @@ namespace MonkeyEngine
 
 	void Scene::Load(string& _FileName, float& _percentLoaded, bool& Success)
 	{
+		if (m_vObjects.size() > 0)
+			Shutdown();
 		MEFileIO::FileIO::LoadScene(_FileName, m_vObjects, _percentLoaded, Success);
 	}
 

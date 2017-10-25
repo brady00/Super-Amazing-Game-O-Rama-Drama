@@ -7,11 +7,16 @@
 using namespace DirectX;
 namespace MonkeyEngine
 {
+	namespace MEFileIO
+	{
+		class FileIO;
+	}
 	using namespace MERenderer;
 	namespace MEObject
 	{
-		class CompRenderer : public MERenderer::RenderShape, public Component
+		class __declspec(dllexport) CompRenderer : public MERenderer::RenderShape, public Component
 		{
+			friend class MEFileIO::FileIO;
 		protected:
 			MERenderer::BlendStateManager::BStates* m_BlendState;
 			MERenderer::RasterizerStateManager::RasterStates* m_RasterState;
@@ -25,27 +30,8 @@ namespace MonkeyEngine
 			std::string* m_sVertexFileName;
 			MERenderer::VertexFormat* m_eVertexFormat;
 			Material* m_Material;
+			bool m_Enabled;
 
-			MERenderer::BlendStateManager::BStates& GetBlendState();
-			MERenderer::RasterizerStateManager::RasterStates& GetRasterState();
-			MERenderer::DepthStencilStateManager::DSStates& GetDepthStencilState();
-			MERenderer::VERTEX*& GetVerticies();
-			unsigned int& GetNumVerticies();
-			unsigned int*& GetIndicies();
-			unsigned int& GetiNumIndicies();
-			unsigned int& GetStartIndexLocation();
-			int& GetBaseVertexLocation();
-			MERenderer::VertexFormat& GetVertexFormat();
-			void SetBlendState(MERenderer::BlendStateManager::BStates*);
-			void SetRasterState(MERenderer::RasterizerStateManager::RasterStates*);
-			void SetDepthStencilState(MERenderer::DepthStencilStateManager::DSStates*);
-			void SetVerticies(MERenderer::VERTEX*);
-			void SetNumVerticies(unsigned int&);
-			void SetIndicies(unsigned int*);
-			void SetiNumIndicies(unsigned int&);
-			void SetStartIndexLocation(unsigned int&);
-			void SetBaseVertexLocation(int&);
-			void SetVertexFormat(MERenderer::VertexFormat&);
 		public:
 			CompRenderer();
 			~CompRenderer();
@@ -54,6 +40,8 @@ namespace MonkeyEngine
 			void SetVertexFileName(std::string&);
 			void SetMaterial(Material&);
 			void(*foo)();
+			bool GetEnabled();
+			void SetEnabled(bool enable);
 			virtual void Draw(ID3D11DeviceContext* d3DeviceContext);
 			virtual bool Load(MERenderer::BlendStateManager::BStates* m_BlendState,
 				MERenderer::RasterizerStateManager::RasterStates* m_RasterState,
