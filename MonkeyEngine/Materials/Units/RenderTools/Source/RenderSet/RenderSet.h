@@ -16,6 +16,7 @@ namespace MonkeyEngine
 
 			void Draw(ID3D11DeviceContext* d3DeviceContext);
 			void AddNode(RenderNode* _Node);
+			void Clear();
 			const RenderNode* getHead();
 		};
 	}

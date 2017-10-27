@@ -58,6 +58,7 @@ namespace MonkeyEngine
 			void Resize(UINT _ScreenWidth, UINT _ScreenHeight);
 			void Update();
 			void Shutdown();
+			static void Reset();
 			static ID3D11Device* GetDevice();
 			static ID3D11DeviceContext* GetDeviceContext();
 			static IDXGISwapChain* GetSwapChain();

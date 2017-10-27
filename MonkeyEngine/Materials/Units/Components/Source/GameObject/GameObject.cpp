@@ -41,8 +41,12 @@ namespace MonkeyEngine
 		{
 			m_pTransform->ShutDown();
 			for (unsigned int i = 0; i < eNumComponents; i++)
-				for (unsigned int j = 0; j < m_vComponents[i].size(); j++)
-					m_vComponents[i][j]->ShutDown();
+				if(i != eSkinnedMeshRenderer && i != eMeshRenderer)
+					for (unsigned int j = 0; j < m_vComponents[i].size(); j++)
+					{
+						m_vComponents[i][j]->ShutDown();
+						delete m_vComponents[i][j];
+					}
 		}
 
 		void GameObject::SetActiveInHeirarchy()

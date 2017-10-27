@@ -12,6 +12,7 @@
 #include "Time.h"
 #include "FileIO.h"
 #include "DebugCamera\DebugCamera.h"
+#include "vld.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR commandLine, int nCmdShow)
 {
@@ -123,6 +124,7 @@ void InitializeEngine(HWND window, int _ScreenWidth, int _ScreenHeight, const ch
 
 void LoadMonkeyEngineScene(string& _FileName, float& _percentLoaded, bool& Success)
 {
+	Renderer::Reset();
 	MountainDew::GetInstance()->m_pScene->Load(_FileName, _percentLoaded, Success);
 }
 

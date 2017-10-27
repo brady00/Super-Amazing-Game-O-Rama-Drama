@@ -14,9 +14,21 @@ namespace MonkeyEngine
 
 		RenderMesh::~RenderMesh()
 		{
-			delete[] m_vVerticies;
-			delete[] m_vIndicies;
-			delete m_pRenderTextures;
+			if (m_vVerticies)
+			{
+				delete[] m_vVerticies;
+				m_vVerticies = nullptr;
+			}
+			if (m_vIndicies)
+			{
+				delete[] m_vIndicies;
+				m_vIndicies = nullptr;
+			}
+			if (m_pRenderTextures)
+			{
+				delete m_pRenderTextures;
+				m_pRenderTextures = nullptr;
+			}
 		}
 
 		void RenderMesh::Draw(ID3D11DeviceContext* d3DeviceContext)

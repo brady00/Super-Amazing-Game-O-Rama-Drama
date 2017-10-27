@@ -1,10 +1,20 @@
 #include "MemoryManager.h"
-#include <cstdlib>
-#include <cstring>
+
 
 namespace MonkeyEngine
 {
-	void Initialize(std::size_t size)
+	static int MemorySize = 0;
+	static void* m_pMemory = nullptr;
+	static void* m_pEndMemory = nullptr;
+	const float m_fPercentComplete = 0.75f;
+	static bool init = false;
+	MemoryManager* MemoryManager::GetInstance()
+	{
+		static MemoryManager m_MemoryManager;
+		return &m_MemoryManager;
+	}
+
+	void MemoryManager::Initialize(std::size_t size)
 	{
 		MemorySize = size;
 		m_pMemory = std::malloc(size + sizeof(Header) + sizeof(Footer));
@@ -24,11 +34,10 @@ namespace MonkeyEngine
 			Output << "Memory Start: " << m_pMemory << "\nMemory End: " << m_pEndMemory << "\n";
 		Output.close();
 	}
-
-	void* Allocate(std::size_t count)
+	void* MemoryManager::Allocate(std::size_t count)
 	{
 		if (!init)
-			Initialize(1000000000);
+			Initialize(100000000);
 		bool Used = ((Header*)m_pMemory)->used;
 		char* temp = (char*)m_pMemory;
 		while (Used == true)
@@ -77,8 +86,11 @@ namespace MonkeyEngine
 		Output.close();
 		return Return;
 	}
-
-	void DeAllocate(void* ptr)
+	void MemoryManager::Shutdown()
+	{
+		std::free(m_pMemory);
+	}
+	void MemoryManager::DeAllocate(void* ptr)
 	{
 		if (ptr == nullptr)
 			return;
@@ -167,29 +179,4 @@ namespace MonkeyEngine
 		if (((Header*)m_pMemory)->size == MemorySize)
 			Shutdown();
 	}
-
-	void Shutdown()
-	{
-		std::free(m_pMemory);
-	}
-}
-
-void* ::operator new  (std::size_t count)
-{
-	return MonkeyEngine::Allocate(count);
-}
-
-void* ::operator new[](std::size_t count)
-{
-	return MonkeyEngine::Allocate(count);
-}
-
-void ::operator delete(void* ptr)
-{
-	MonkeyEngine::DeAllocate(ptr);
-}
-
-void ::operator delete[](void* ptr)
-{
-	MonkeyEngine::DeAllocate(ptr);
 }

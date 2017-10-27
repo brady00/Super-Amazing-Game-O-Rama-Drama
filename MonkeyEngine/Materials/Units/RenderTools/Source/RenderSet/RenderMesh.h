@@ -21,7 +21,8 @@ namespace MonkeyEngine
 		{
 			friend class MEFileIO::FileIO;
 		private:
-			VERTEX* m_vVerticies;
+
+			void* m_vVerticies;
 			unsigned int m_uiNumVerticies;
 			unsigned int* m_vIndicies;
 			unsigned int m_uiNumIndicies;

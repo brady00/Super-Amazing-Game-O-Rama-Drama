@@ -41,8 +41,8 @@ namespace MonkeyEngine
 		public:
 			FileIO();
 			~FileIO();
-			static bool LoadFBX(std::string _FileName, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, Material*& _Material, Skeleton& _Skelton);
-			static bool LoadOBJ(std::string _FileName, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies);
+			static bool LoadFBX(std::string _FileName, MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, Material*& _Material, Skeleton& _Skelton);
+			static bool LoadOBJ(std::string _FileName, MERenderer::VERTEX_POSNORMTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies);
 			//scene
 			static void LoadScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects, float& percentLoaded, bool& Success);
 			static bool SaveScene(std::string _FileName, std::vector<MEObject::GameObject*>& _GameObjects);

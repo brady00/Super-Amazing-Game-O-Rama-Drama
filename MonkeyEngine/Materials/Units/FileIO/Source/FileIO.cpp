@@ -45,16 +45,16 @@ namespace MonkeyEngine
 
 		}
 
-		bool FileIO::LoadFBX(std::string _FileName, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, Material*& _Material, Skeleton& _Skeleton)
+		bool FileIO::LoadFBX(std::string _FileName, MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies, Material*& _Material, Skeleton& _Skeleton)
 		{
-#pragma region Binary Loading
-			std::string filepart;
-			std::ifstream FileIn;
 			char* File = new char[256];
 			_splitpath_s(_FileName.c_str(), NULL, 0, NULL, 0, File, 256, NULL, 0);
 			std::string finalPath("Assets/Binaries/" + std::string(File) + ".Bfbx");
 			std::string finalSkelPath("Assets/Binaries/" + std::string(File) + ".Bskel");
 			std::string AssetPath("Assets/Models/" + std::string(File) + ".fbx");
+#pragma region Binary Loading
+			std::string filepart;
+			std::ifstream FileIn;
 			FileIn.open(finalPath, std::ios_base::binary);
 			bool BinarySkip = false;
 			if (FileIn.is_open())
@@ -63,15 +63,15 @@ namespace MonkeyEngine
 				_Verticies = new MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX[_NumVerticies];
 				for (unsigned int i = 0; i < _NumVerticies; i++)
 				{
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].normal), sizeof(DirectX::XMFLOAT3));
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].texcoord), sizeof(DirectX::XMFLOAT2));
-					((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].texcoord.x = 1 - ((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].texcoord.x;
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].bones), sizeof(DirectX::XMINT4));
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].determinant), sizeof(float));
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].binormal), sizeof(DirectX::XMFLOAT4));
+					FileIn.read((char*)&(_Verticies[i].position), sizeof(DirectX::XMFLOAT3));
+					FileIn.read((char*)&(_Verticies[i].normal), sizeof(DirectX::XMFLOAT3));
+					FileIn.read((char*)&(_Verticies[i].texcoord), sizeof(DirectX::XMFLOAT2));
+					_Verticies[i].texcoord.x = 1 - _Verticies[i].texcoord.x;
+					FileIn.read((char*)&(_Verticies[i].bones), sizeof(DirectX::XMINT4));
+					FileIn.read((char*)&(_Verticies[i].determinant), sizeof(float));
+					FileIn.read((char*)&(_Verticies[i].tangent), sizeof(DirectX::XMFLOAT3));
+					FileIn.read((char*)&(_Verticies[i].weights), sizeof(DirectX::XMFLOAT4));
+					FileIn.read((char*)&(_Verticies[i].binormal), sizeof(DirectX::XMFLOAT4));
 				}
 				FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
 				_Indicies = new unsigned int[_NumIndicies];
@@ -142,14 +142,15 @@ namespace MonkeyEngine
 				}
 				return true;
 			}
-#pragma endregion
+#pragma endregion  
+
 			FBXLoader Loader;
 			if (!Loader.LoadFBX(AssetPath))
 				return false;
 			_NumVerticies = (unsigned int)Loader.m_Verticies.size();
 			_Verticies = new MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX[_NumVerticies];
 			for (unsigned int i = 0; i < Loader.m_Verticies.size(); i++)
-				((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i] = Loader.m_Verticies[i];
+				_Verticies[i] = Loader.m_Verticies[i];
 			_NumIndicies = (unsigned int)Loader.m_Indices.size();
 			_Indicies = new unsigned int[_NumIndicies];
 			for (unsigned int i = 0; i < Loader.m_Indices.size(); i++)
@@ -171,14 +172,14 @@ namespace MonkeyEngine
 				out.write((const char*)& _NumVerticies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumVerticies; i++)
 				{
-					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
-					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].normal), sizeof(DirectX::XMFLOAT3));
-					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].texcoord), sizeof(DirectX::XMFLOAT2));
-					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].bones), sizeof(DirectX::XMINT4));
-					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].determinant), sizeof(float));
-					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].tangent), sizeof(DirectX::XMFLOAT3));
-					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].weights), sizeof(DirectX::XMFLOAT4));
-					out.write((const char*)&(((MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX*)_Verticies)[i].binormal), sizeof(DirectX::XMFLOAT4));
+					out.write((const char*)&(_Verticies[i].position), sizeof(DirectX::XMFLOAT3));
+					out.write((const char*)&(_Verticies[i].normal), sizeof(DirectX::XMFLOAT3));
+					out.write((const char*)&(_Verticies[i].texcoord), sizeof(DirectX::XMFLOAT2));
+					out.write((const char*)&(_Verticies[i].bones), sizeof(DirectX::XMINT4));
+					out.write((const char*)&(_Verticies[i].determinant), sizeof(float));
+					out.write((const char*)&(_Verticies[i].tangent), sizeof(DirectX::XMFLOAT3));
+					out.write((const char*)&(_Verticies[i].weights), sizeof(DirectX::XMFLOAT4));
+					out.write((const char*)&(_Verticies[i].binormal), sizeof(DirectX::XMFLOAT4));
 				}
 				out.write((const char*)& _NumIndicies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumIndicies; i++)
@@ -186,39 +187,29 @@ namespace MonkeyEngine
 				unsigned int length = (unsigned int)_Material->mDiffuseMapName.length() + 1;
 				out.write((const char*)&length, sizeof(unsigned int));
 				if (length > 1)
-				{
 					out.write(_Material->mDiffuseMapName.c_str(), length);
-				}
 				length = (unsigned int)_Material->mEmissiveMapName.length() + 1;
 				out.write((const char*)&length, sizeof(unsigned int));
 				if (length > 1)
-				{
 					out.write(_Material->mEmissiveMapName.c_str(), length);
-				}
 				length = (unsigned int)_Material->mGlossMapName.length() + 1;
 				out.write((const char*)&length, sizeof(unsigned int));
 				if (length > 1)
-				{
 					out.write(_Material->mGlossMapName.c_str(), length);
-				}
 				length = (unsigned int)_Material->mNormalMapName.length() + 1;
 				out.write((const char*)&length, sizeof(unsigned int));
 				if (length > 1)
-				{
 					out.write(_Material->mNormalMapName.c_str(), length);
-				}
 				length = (unsigned int)_Material->mSpecularMapName.length() + 1;
 				out.write((const char*)&length, sizeof(unsigned int));
 				if (length > 1)
-				{
 					out.write(_Material->mSpecularMapName.c_str(), length);
-				}
 				out.close();
 			}
 			else
 				return false;
 			string SkelFile;
-			SkelFile.append(finalPath.c_str(), finalPath.length() - 4);
+			SkelFile.append(finalPath.c_str(), finalPath.length() - 5);
 			out.open(SkelFile + std::string(".BSkel"), std::ios_base::binary);
 			if (out.is_open())
 			{
@@ -275,7 +266,7 @@ namespace MonkeyEngine
 			return true;
 		}
 
-		bool FileIO::LoadOBJ(std::string _FileName, MERenderer::VERTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
+		bool FileIO::LoadOBJ(std::string _FileName, MERenderer::VERTEX_POSNORMTEX*& _Verticies, unsigned int& _NumVerticies, unsigned int*& _Indicies, unsigned int& _NumIndicies)
 		{
 			std::string filepart;
 			std::ifstream FileIn;
@@ -650,12 +641,12 @@ namespace MonkeyEngine
 			tempTex->AddShape((MERenderer::RenderShape*)comprend);
 			if (tempfilename == ".obj" || tempfilename == ".OBJ")
 			{
-				if (!MEFileIO::FileIO::LoadOBJ(tempMesh->m_sVertexFileName, tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies))
+				if (!MEFileIO::FileIO::LoadOBJ(tempMesh->m_sVertexFileName, (VERTEX_POSNORMTEX*&)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies))
 					return false;
 			}
 			else if (tempfilename == ".fbx" || tempfilename == ".FBX")
 			{
-				if (!MEFileIO::FileIO::LoadFBX(tempMesh->m_sVertexFileName, tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, tempMesh->temp_Material, tempMesh->temp_Skeleton))
+				if (!MEFileIO::FileIO::LoadFBX(tempMesh->m_sVertexFileName, (VERTEX_POSBONEWEIGHTNORMTANTEX*&)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, tempMesh->temp_Material, tempMesh->temp_Skeleton))
 					return false;
 				IndexBuffer::GetInstance()->AddIndicies(tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, Renderer::GetDevice(), Renderer::GetDeviceContext());
 			}
@@ -721,19 +712,19 @@ namespace MonkeyEngine
 			if (Opaque)
 				renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
 			else
-				renderContext = MERenderer::Renderer::AddNewnonTransparentContext(renderContext);
+				renderContext = MERenderer::Renderer::AddNewTransparentContext(renderContext);
 			MERenderer::RenderMesh* tempMesh = renderContext->AddMesh(VertexFileName, Renderer::GetDevice(), Renderer::GetDeviceContext());
 			MERenderer::RenderTexture* tempTex = tempMesh->AddTexture(DiffuseFileName, Renderer::GetDevice());
 			MEObject::CompRenderer* comprend = (MEObject::CompRenderer*)_Object;
 			tempTex->AddShape((MERenderer::RenderShape*)comprend);
 			if (tempfilename == ".obj" || tempfilename == ".OBJ")
 			{
-				if (!MEFileIO::FileIO::LoadOBJ(tempMesh->m_sVertexFileName, tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies))
+				if (!MEFileIO::FileIO::LoadOBJ(tempMesh->m_sVertexFileName, (VERTEX_POSNORMTEX*&)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies))
 					return false;
 			}
 			else if (tempfilename == ".fbx" || tempfilename == ".FBX")
 			{
-				if (!MEFileIO::FileIO::LoadFBX(tempMesh->m_sVertexFileName, tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, tempMesh->temp_Material, tempMesh->temp_Skeleton))
+				if (!MEFileIO::FileIO::LoadFBX(tempMesh->m_sVertexFileName, (VERTEX_POSBONEWEIGHTNORMTANTEX*&)tempMesh->m_vVerticies, tempMesh->m_uiNumVerticies, tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, tempMesh->temp_Material, tempMesh->temp_Skeleton))
 					return false;
 				IndexBuffer::GetInstance()->AddIndicies(tempMesh->m_vIndicies, tempMesh->m_uiNumIndicies, Renderer::GetDevice(), Renderer::GetDeviceContext());
 			}

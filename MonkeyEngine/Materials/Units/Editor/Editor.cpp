@@ -45,7 +45,7 @@ namespace Editor
 		if (ObjectTreeView->SelectedNode != PrevSelectedObject)
 		{
 			NameBox->Text = ObjectTreeView->SelectedNode->Text;
-			std::string TextBoxName((const char*)(Marshal::StringToHGlobalAnsi(NameBox->Text)).ToPointer());
+			std::string TextBoxName = (const char*)(Marshal::StringToHGlobalAnsi(NameBox->Text)).ToPointer();
 			ActiveBox->Checked = GameObjectMap[TextBoxName]->GetActive();
 			StaticBox->Checked = GameObjectMap[TextBoxName]->GetStatic();
 			LayerComboBox->SelectedIndex = (int)GameObjectMap[TextBoxName]->GetLayer();
@@ -276,19 +276,26 @@ namespace Editor
 			LoadingPanel->Show();
 			tempThread->Start();
 			ObjectTreeView->Nodes->Clear();
+			ObjectTreeView->SelectedNode = PrevSelectedObject;
+			PrevSelectedObject = nullptr;
+			NameBox->Text = "";
+			ActiveBox->Checked = false;
+			StaticBox->Checked = false;
+			LayerComboBox->SelectedIndex = 0;
+			for each(ComponentPanel^ comp in CompPanels)
+				if(comp)
+					comp->Visible = false;
 		}
 	}
 
 	void Editor::saveToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		if (CurrentSceneFileName == "Assets/Scenes/Default.mes")
-			if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-				CurrentSceneFileName = (const char*)(Marshal::StringToHGlobalAnsi(saveFileDialog->FileName)).ToPointer();
 		AutoSaveScene();
 	}
 
 	void Editor::PlayButton_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+		AutoSaveScene();
 		SetMonkeyEngineRenderState(RenderState::GAME_RENDERING);
 	}
 
@@ -299,6 +306,9 @@ namespace Editor
 
 	bool Editor::AutoSaveScene()
 	{
+		if (CurrentSceneFileName == "Assets/Scenes/Default.mes")
+			if (saveFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+				CurrentSceneFileName = (const char*)(Marshal::StringToHGlobalAnsi(saveFileDialog->FileName)).ToPointer();
 		return SaveMonkeyEngineScene(CurrentSceneFileName);
 	}
 }

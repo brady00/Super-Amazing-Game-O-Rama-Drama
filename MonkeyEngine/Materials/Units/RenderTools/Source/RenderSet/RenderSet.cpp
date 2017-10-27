@@ -13,6 +13,11 @@ namespace MonkeyEngine
 
 		RenderSet::~RenderSet()
 		{
+			Clear();
+		}
+
+		void RenderSet::Clear()
+		{
 			while (m_pHead != nullptr)
 			{
 				RenderNode* temp = m_pHead->GetNext();

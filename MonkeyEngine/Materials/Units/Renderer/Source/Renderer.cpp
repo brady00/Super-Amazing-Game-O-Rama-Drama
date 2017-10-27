@@ -194,6 +194,12 @@ namespace MonkeyEngine
 			m_d3SwapChain->Present(0, 0);
 		}
 
+		void Renderer::Reset()
+		{
+			m_pNonTranparentObjects->Clear();
+			m_pTransparentObjects->Clear();
+		}
+
 		void Renderer::Shutdown()
 		{
 			//delete m_pSkybox;

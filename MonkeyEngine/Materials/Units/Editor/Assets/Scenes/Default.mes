@@ -16,7 +16,7 @@
     <Camera Enabled="true">
       <Skybox>
         <Material>
-          <TextureName File ="Assets/Textures/default.dds"/> 
+          <TextureName File ="Assets/Textures/default.dds"/>
           <Color R="1.0" G="1.0" B="1.0" A="1.0"/>
         </Material>
       </Skybox>
