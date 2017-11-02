@@ -2,6 +2,8 @@
 #include "GameObject\GameObject.h"
 #include "Base\Component.h"
 #include "StringToVariableDictionary.h"
+#include "Float3\Float3.h"
+using namespace MonkeyEngine::MEMath;
 namespace Editor {
 	using namespace System;
 	using namespace System::ComponentModel;

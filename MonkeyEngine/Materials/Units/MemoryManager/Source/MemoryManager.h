@@ -20,13 +20,15 @@ namespace MonkeyEngine
 	{
 	private:
 		MemoryManager() {};
-		~MemoryManager() {};
+		~MemoryManager() { Shutdown(); };
 	public:
 		void Initialize(std::size_t size);
 		void* Allocate(std::size_t count);
 		void Shutdown();
 		void DeAllocate(void* ptr);
 		static MemoryManager* GetInstance();
+		bool HeapWalk();
+		bool m_bShuttingDown = false;
 	};
 }
 

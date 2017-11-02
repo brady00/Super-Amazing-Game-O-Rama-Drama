@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "RenderTexture.h"
 #include "../TextureLoaders/WICTextureLoader.h"
 #include "../TextureLoaders/DDSTextureLoader.h"

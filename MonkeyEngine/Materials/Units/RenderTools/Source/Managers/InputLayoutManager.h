@@ -7,6 +7,7 @@
 #pragma warning(disable: 4793)
 #include <DirectXMath.h>
 #include "RenderStructures.h"
+#include "RenderToolsDLL.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer

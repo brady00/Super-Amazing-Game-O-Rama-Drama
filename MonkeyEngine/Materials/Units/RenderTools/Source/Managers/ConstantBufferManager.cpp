@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ConstantBufferManager.h"
 
 namespace MonkeyEngine

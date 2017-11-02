@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DefferedRenderTarget.h"
 #include "Managers/DepthStencilStateManager.h"
 #include "Managers/VertexBufferManager.h"
@@ -7,8 +8,10 @@
 #include "Managers/ShaderManager.h"
 #include "Managers/ConstantBufferManager.h"
 #include "RenderStructures.h"
+#include "Float3/Float3.h"
 namespace MonkeyEngine
 {
+	using namespace MEMath;
 	namespace MERenderer
 	{
 
@@ -58,17 +61,17 @@ namespace MonkeyEngine
 			top = (float)(_ScreenHeight / 2.0f);
 			bottom = top - (float)_ScreenHeight;
 
-			vertices[0].position = DirectX::XMFLOAT3(-1, -1, 0.0f);
+			vertices[0].position = Float3(-1, -1, 0.0f);
 			vertices[0].texcoord = DirectX::XMFLOAT2(0.0f, 1.0f);
-			vertices[1].position = DirectX::XMFLOAT3(-1, 1, 0.0f);
+			vertices[1].position = Float3(-1, 1, 0.0f);
 			vertices[1].texcoord = DirectX::XMFLOAT2(0.0f, 0.0f);
-			vertices[2].position = DirectX::XMFLOAT3(1, -1, 0.0f);
+			vertices[2].position = Float3(1, -1, 0.0f);
 			vertices[2].texcoord = DirectX::XMFLOAT2(1.0f, 1.0f);
-			vertices[3].position = DirectX::XMFLOAT3(1, -1, 0.0f);
+			vertices[3].position = Float3(1, -1, 0.0f);
 			vertices[3].texcoord = DirectX::XMFLOAT2(1.0f, 1.0f);
-			vertices[4].position = DirectX::XMFLOAT3(-1, 1, 0.0f);
+			vertices[4].position = Float3(-1, 1, 0.0f);
 			vertices[4].texcoord = DirectX::XMFLOAT2(0.0f, 0.0f);
-			vertices[5].position = DirectX::XMFLOAT3(1, 1, 0.0f);
+			vertices[5].position = Float3(1, 1, 0.0f);
 			vertices[5].texcoord = DirectX::XMFLOAT2(1.0f, 0.0f);
 
 			m_uiStartVert = VertexBufferManager::GetInstance()->GetPositionTexBuffer().AddVerts(vertices, 6, _Device, d3DeviceContext);

@@ -112,14 +112,14 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;FBXSDK_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\Math\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\MemoryManager\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;Math.lib;MemoryOverloads.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MemoryOverloads\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Math\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -131,14 +131,14 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;FBXSDK_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\Math\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\MemoryManager\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;Math.lib;MemoryOverloads.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MemoryOverloads\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Math\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,15 +152,15 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\Math\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\MemoryManager\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MemoryOverloads\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Math\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;Math.lib;MemoryOverloads.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -174,15 +174,15 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\Components\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\Math\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\MemoryManager\Source\;$(ProjectDir)..\FileIO\Source\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\Include\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\Include\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Renderer\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Components\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\FileIO\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MemoryOverloads\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Math\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\FBXSDK\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\TinyXML\lib\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\PrebuiltUnits\OpenVR SDK\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;FileIO.lib;Renderer.lib;Components.lib;RenderTools.lib;openvr_api.lib;TinyXML.lib;libfbxsdk.lib;Math.lib;MemoryOverloads.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

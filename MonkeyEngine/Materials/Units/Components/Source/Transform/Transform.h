@@ -1,11 +1,13 @@
 #pragma once
 #include "Base/Component.h"
 #pragma warning(disable: 4793)
+#include "Float3/Float3.h"
 #include <DirectXMath.h>
 
 using namespace DirectX;
 namespace MonkeyEngine
 {
+	using namespace MEMath;
 	namespace MERenderer
 	{
 		class DebugCamera;
@@ -17,9 +19,9 @@ namespace MonkeyEngine
 			friend class GameObject;
 			friend class MERenderer::DebugCamera;
 		private:
-			XMFLOAT3 m_xmPosition;
-			XMFLOAT3 m_xmRotation;
-			XMFLOAT3 m_xmScale;
+			Float3 m_xmPosition;
+			Float3 m_xmRotation;
+			Float3 m_xmScale;
 			XMFLOAT4X4 m_xmWorldMatrix;
 			Transform* m_pParent;
 			vector<Transform*> m_vChildren;
@@ -30,7 +32,7 @@ namespace MonkeyEngine
 		public:
 			Transform() {};
 			Transform(XMFLOAT4X4 _WorldMatrix);
-			Transform(XMFLOAT3 _Position, XMFLOAT3 _Rotation, XMFLOAT3 _Scale);
+			Transform(Float3 _Position, Float3 _Rotation, Float3 _Scale);
 			~Transform() {};
 			Transform* GetParent();
 			void SetParent(Transform* _parent);
@@ -39,9 +41,9 @@ namespace MonkeyEngine
 			vector<Transform*>& GetChildren();
 			void AddChild(Transform* _child);
 			void RemoveChild(Transform* _child);
-			XMFLOAT3& GetPosition();
-			XMFLOAT3& GetRotation();
-			XMFLOAT3& GetScale();
+			Float3& GetPosition();
+			Float3& GetRotation();
+			Float3& GetScale();
 			XMFLOAT4X4 GetMatrix();
 		};
 	}

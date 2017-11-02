@@ -580,30 +580,30 @@ namespace MonkeyEngine
 			{
 				FbxTime currTime;
 				currTime.SetFrame(i, FbxTime::eFrames24);
-				pAnim->mKeyFrames[i] = new Keyframe();
-				pAnim->mKeyFrames[i]->mFrameNum = (int)i;
+				pAnim->mKeyFrames[(unsigned int)i] = new Keyframe();
+				pAnim->mKeyFrames[(unsigned int)i]->mFrameNum = (int)i;
 				int boneCount = (int)m_Skeleton.mJoints.size();
-				pAnim->mKeyFrames[i]->mOffsets.resize(boneCount);
+				pAnim->mKeyFrames[(unsigned int)i]->mOffsets.resize(boneCount);
 				for (int j = 0; j < boneCount; j++)
 				{
 					FbxAMatrix currentTransformOffset = BoneToNode[j]->EvaluateGlobalTransform(currTime);
 					FbxAMatrix temp = currentTransformOffset.Inverse();
-					pAnim->mKeyFrames[i]->mOffsets[j]._11 = (float)temp.Get(0, 0);
-					pAnim->mKeyFrames[i]->mOffsets[j]._12 = (float)temp.Get(0, 1);
-					pAnim->mKeyFrames[i]->mOffsets[j]._13 = (float)temp.Get(0, 2);
-					pAnim->mKeyFrames[i]->mOffsets[j]._14 = (float)temp.Get(0, 3);
-					pAnim->mKeyFrames[i]->mOffsets[j]._21 = (float)temp.Get(1, 0);
-					pAnim->mKeyFrames[i]->mOffsets[j]._22 = (float)temp.Get(1, 1);
-					pAnim->mKeyFrames[i]->mOffsets[j]._23 = (float)temp.Get(1, 2);
-					pAnim->mKeyFrames[i]->mOffsets[j]._24 = (float)temp.Get(1, 3);
-					pAnim->mKeyFrames[i]->mOffsets[j]._31 = (float)temp.Get(2, 0);
-					pAnim->mKeyFrames[i]->mOffsets[j]._32 = (float)temp.Get(2, 1);
-					pAnim->mKeyFrames[i]->mOffsets[j]._33 = (float)temp.Get(2, 2);
-					pAnim->mKeyFrames[i]->mOffsets[j]._34 = (float)temp.Get(2, 3);
-					pAnim->mKeyFrames[i]->mOffsets[j]._41 = (float)temp.Get(3, 0);
-					pAnim->mKeyFrames[i]->mOffsets[j]._42 = (float)temp.Get(3, 1);
-					pAnim->mKeyFrames[i]->mOffsets[j]._43 = (float)temp.Get(3, 2);
-					pAnim->mKeyFrames[i]->mOffsets[j]._44 = (float)temp.Get(3, 3);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._11 = (float)temp.Get(0, 0);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._12 = (float)temp.Get(0, 1);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._13 = (float)temp.Get(0, 2);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._14 = (float)temp.Get(0, 3);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._21 = (float)temp.Get(1, 0);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._22 = (float)temp.Get(1, 1);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._23 = (float)temp.Get(1, 2);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._24 = (float)temp.Get(1, 3);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._31 = (float)temp.Get(2, 0);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._32 = (float)temp.Get(2, 1);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._33 = (float)temp.Get(2, 2);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._34 = (float)temp.Get(2, 3);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._41 = (float)temp.Get(3, 0);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._42 = (float)temp.Get(3, 1);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._43 = (float)temp.Get(3, 2);
+					pAnim->mKeyFrames[(unsigned int)i]->mOffsets[j]._44 = (float)temp.Get(3, 3);
 				}
 			}
 		}

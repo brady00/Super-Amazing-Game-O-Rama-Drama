@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "RenderContext.h"
 #include "RenderMesh.h"
 #include "RenderSet.h"

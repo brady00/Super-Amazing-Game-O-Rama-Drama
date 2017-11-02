@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Source\MathDLL.h" />
+    <ClInclude Include="Source\Float3\Float3.h">
+      <Filter>Float3</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Float3">
+      <UniqueIdentifier>{b3fd1f02-f978-4a64-9f27-87b62e9e5410}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Float3\Float3.cpp">
+      <Filter>Float3</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

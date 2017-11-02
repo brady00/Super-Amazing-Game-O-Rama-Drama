@@ -11,18 +11,22 @@ namespace MonkeyEngine
 			XMVECTOR Scale;
 			XMVECTOR Pos;
 			XMMatrixDecompose(&Scale, &rotQuat, &Pos, XMLoadFloat4x4(&m_xmWorldMatrix));
-			XMStoreFloat3(&m_xmScale, Scale);
-			XMStoreFloat3(&m_xmPosition, Pos);
+			XMFLOAT3 temp;
+			XMStoreFloat3(&temp, Scale);
+			m_xmScale = Float3(temp.x, temp.y, temp.z);
+			XMStoreFloat3(&temp, Pos);
+			m_xmPosition = Float3(temp.x, temp.y, temp.z);
 			XMVECTOR axis;
 			float angle;
 			XMQuaternionToAxisAngle(&axis, &angle, rotQuat);
 			axis = XMVectorScale(axis, angle);
-			XMStoreFloat3(&m_xmScale, axis);
+			XMStoreFloat3(&temp, axis);
+			m_xmRotation = Float3(temp.x, temp.y, temp.z);
 			m_pParent = nullptr;
 			dirty = true;
 		}
 
-		Transform::Transform(XMFLOAT3 _Position, XMFLOAT3 _Rotation, XMFLOAT3 _Scale)
+		Transform::Transform(Float3 _Position, Float3 _Rotation, Float3 _Scale)
 		{
 			m_xmPosition = _Position;
 			m_xmRotation = _Rotation;
@@ -33,11 +37,11 @@ namespace MonkeyEngine
 
 		void Transform::UpdateTransform()
 		{
-			XMFLOAT3 zerovector = XMFLOAT3(0, 0, 0);
-			XMMATRIX temp = XMMatrixAffineTransformation(XMLoadFloat3(&m_xmScale),
-				XMVECTOR(XMLoadFloat3(&(zerovector))),
-				XMQuaternionRotationRollPitchYawFromVector(XMLoadFloat3(&m_xmRotation)),
-				XMLoadFloat3(&m_xmPosition));
+			Float3 zerovector = Float3(0, 0, 0);
+			XMMATRIX temp = XMMatrixAffineTransformation(XMLoadFloat3(&XMFLOAT3(m_xmScale.x, m_xmScale.y, m_xmScale.z)),
+				XMVECTOR(XMLoadFloat3(&XMFLOAT3(zerovector.x, zerovector.y, zerovector.z))),
+				XMQuaternionRotationRollPitchYawFromVector(XMLoadFloat3(&XMFLOAT3(m_xmRotation.x, m_xmRotation.y, m_xmRotation.z))),
+				XMLoadFloat3(&XMFLOAT3(m_xmPosition.x, m_xmPosition.y, m_xmPosition.z)));
 			XMStoreFloat4x4(&m_xmWorldMatrix, temp);
 			dirty = false;
 		}
@@ -107,7 +111,7 @@ namespace MonkeyEngine
 			return m_vChildren;
 		}
 
-		XMFLOAT3& Transform::GetPosition()
+		Float3& Transform::GetPosition()
 		{
 			dirty = true;
 			for (unsigned int i = 0; i < m_vChildren.size(); i++)
@@ -115,7 +119,7 @@ namespace MonkeyEngine
 			return m_xmPosition;
 		}
 
-		XMFLOAT3& Transform::GetRotation()
+		Float3& Transform::GetRotation()
 		{
 			dirty = true;
 			for (unsigned int i = 0; i < m_vChildren.size(); i++)
@@ -123,7 +127,7 @@ namespace MonkeyEngine
 			return m_xmRotation;
 		}
 
-		XMFLOAT3& Transform::GetScale()
+		Float3& Transform::GetScale()
 		{
 			dirty = true;
 			for (unsigned int i = 0; i < m_vChildren.size(); i++)

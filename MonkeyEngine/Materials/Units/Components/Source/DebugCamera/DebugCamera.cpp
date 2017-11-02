@@ -20,9 +20,9 @@ namespace MonkeyEngine
 			ThrowAwayObject->AddComponent((Component*)ThrowAwayTransform, GameObject::eTransform);
 			ThrowAwayObject->AddComponent((Component*)m_Skybox, GameObject::eSkybox);
 			m_Mousesensitivity = m_MovementSpeed = 1.0f;
-			ThrowAwayTransform->GetPosition() = XMFLOAT3(0, 0, 0);
-			ThrowAwayTransform->GetRotation() = XMFLOAT3(0, 0, 0);
-			ThrowAwayTransform->GetScale() = XMFLOAT3(1, 1, 1);
+			ThrowAwayTransform->GetPosition() = Float3(0, 0, 0);
+			ThrowAwayTransform->GetRotation() = Float3(0, 0, 0);
+			ThrowAwayTransform->GetScale() = Float3(1, 1, 1);
 			ThrowAwayTransform->UpdateTransform();
 		}
 
@@ -133,7 +133,7 @@ namespace MonkeyEngine
 
 			m_Resize = false;
 			m_RunOnce = false;
-			XMFLOAT3& temp = ThrowAwayTransform->GetPosition();
+			Float3& temp = ThrowAwayTransform->GetPosition();
 			temp.x = m_xmViewMatrix._41;
 			temp.y = m_xmViewMatrix._42;
 			temp.z = m_xmViewMatrix._43;

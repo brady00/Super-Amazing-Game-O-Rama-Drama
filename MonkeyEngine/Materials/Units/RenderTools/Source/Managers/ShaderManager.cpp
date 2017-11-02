@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ShaderManager.h"
 #include <fstream>
 namespace MonkeyEngine

@@ -1,4 +1,5 @@
 #pragma once
+#include "MemoryOverloads.h"
 #include <string>
 #include <vector>
 #include <unordered_map>

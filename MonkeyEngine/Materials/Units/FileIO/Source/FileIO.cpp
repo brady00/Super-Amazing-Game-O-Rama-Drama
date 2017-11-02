@@ -63,15 +63,15 @@ namespace MonkeyEngine
 				_Verticies = new MERenderer::VERTEX_POSBONEWEIGHTNORMTANTEX[_NumVerticies];
 				for (unsigned int i = 0; i < _NumVerticies; i++)
 				{
-					FileIn.read((char*)&(_Verticies[i].position), sizeof(DirectX::XMFLOAT3));
-					FileIn.read((char*)&(_Verticies[i].normal), sizeof(DirectX::XMFLOAT3));
+					FileIn.read((char*)&(_Verticies[i].position), sizeof(Float3));
+					FileIn.read((char*)&(_Verticies[i].normal), sizeof(Float3));
 					FileIn.read((char*)&(_Verticies[i].texcoord), sizeof(DirectX::XMFLOAT2));
 					_Verticies[i].texcoord.x = 1 - _Verticies[i].texcoord.x;
 					FileIn.read((char*)&(_Verticies[i].bones), sizeof(DirectX::XMINT4));
 					FileIn.read((char*)&(_Verticies[i].determinant), sizeof(float));
-					FileIn.read((char*)&(_Verticies[i].tangent), sizeof(DirectX::XMFLOAT3));
+					FileIn.read((char*)&(_Verticies[i].tangent), sizeof(Float3));
 					FileIn.read((char*)&(_Verticies[i].weights), sizeof(DirectX::XMFLOAT4));
-					FileIn.read((char*)&(_Verticies[i].binormal), sizeof(DirectX::XMFLOAT4));
+					FileIn.read((char*)&(_Verticies[i].binormal), sizeof(Float3));
 				}
 				FileIn.read((char*)& _NumIndicies, sizeof(unsigned int));
 				_Indicies = new unsigned int[_NumIndicies];
@@ -172,14 +172,14 @@ namespace MonkeyEngine
 				out.write((const char*)& _NumVerticies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumVerticies; i++)
 				{
-					out.write((const char*)&(_Verticies[i].position), sizeof(DirectX::XMFLOAT3));
-					out.write((const char*)&(_Verticies[i].normal), sizeof(DirectX::XMFLOAT3));
+					out.write((const char*)&(_Verticies[i].position), sizeof(Float3));
+					out.write((const char*)&(_Verticies[i].normal), sizeof(Float3));
 					out.write((const char*)&(_Verticies[i].texcoord), sizeof(DirectX::XMFLOAT2));
 					out.write((const char*)&(_Verticies[i].bones), sizeof(DirectX::XMINT4));
 					out.write((const char*)&(_Verticies[i].determinant), sizeof(float));
-					out.write((const char*)&(_Verticies[i].tangent), sizeof(DirectX::XMFLOAT3));
+					out.write((const char*)&(_Verticies[i].tangent), sizeof(Float3));
 					out.write((const char*)&(_Verticies[i].weights), sizeof(DirectX::XMFLOAT4));
-					out.write((const char*)&(_Verticies[i].binormal), sizeof(DirectX::XMFLOAT4));
+					out.write((const char*)&(_Verticies[i].binormal), sizeof(Float3));
 				}
 				out.write((const char*)& _NumIndicies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumIndicies; i++)
@@ -282,8 +282,8 @@ namespace MonkeyEngine
 				_Verticies = new MERenderer::VERTEX_POSNORMTEX[_NumVerticies];
 				for (unsigned int i = 0; i < _NumVerticies; i++)
 				{
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
-					FileIn.read((char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal), sizeof(DirectX::XMFLOAT3));
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position), sizeof(Float3));
+					FileIn.read((char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal), sizeof(Float3));
 					FileIn.read((char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].texcoord), sizeof(DirectX::XMFLOAT2));
 				}
 				return true;
@@ -291,9 +291,9 @@ namespace MonkeyEngine
 			string Xcopy = "\"xcopy " + _FileName + " " + AssetPath;
 			system(Xcopy.c_str());
 			delete File;
-			std::vector<XMFLOAT3> temp_vertices;
+			std::vector<Float3> temp_vertices;
 			std::vector<XMFLOAT2> temp_uvs;
-			std::vector<XMFLOAT3> temp_normals;
+			std::vector<Float3> temp_normals;
 			std::vector< unsigned int > vertexIndices;
 			std::vector< unsigned int > normalIndices;
 			std::vector< unsigned int > uvIndices;
@@ -310,7 +310,7 @@ namespace MonkeyEngine
 
 				if (strcmp(lineheader, "v") == 0)
 				{
-					XMFLOAT3 vertex;
+					Float3 vertex;
 					fscanf_s(file, "%f %f %f \n", &vertex.x, &vertex.y, &vertex.z);
 					temp_vertices.push_back(vertex);
 				}
@@ -324,7 +324,7 @@ namespace MonkeyEngine
 				}
 				else if (strcmp(lineheader, "vn") == 0)
 				{
-					XMFLOAT3 vertexn;
+					Float3 vertexn;
 					fscanf_s(file, "%f %f %f \n", &vertexn.x, &vertexn.y, &vertexn.z);
 					temp_normals.push_back(vertexn);
 				}
@@ -368,8 +368,8 @@ namespace MonkeyEngine
 				out.write((const char*)& _NumVerticies, sizeof(unsigned int));
 				for (unsigned int i = 0; i < _NumVerticies; i++)
 				{
-					out.write((const char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position), sizeof(DirectX::XMFLOAT3));
-					out.write((const char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal), sizeof(DirectX::XMFLOAT3));
+					out.write((const char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].position), sizeof(Float3));
+					out.write((const char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].normal), sizeof(Float3));
 					out.write((const char*)&(((MERenderer::VERTEX_POSNORMTEX*)_Verticies)[i].texcoord), sizeof(DirectX::XMFLOAT2));
 				}
 				out.close();
@@ -563,7 +563,7 @@ namespace MonkeyEngine
 
 		bool FileIO::LoadTranform(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
 		{
-			XMFLOAT3 pos, rot, scale;
+			Float3 pos, rot, scale;
 			XMLElement* child = _ObjectRoot->FirstChildElement();
 			child->QueryFloatAttribute("X", &pos.x);
 			child->QueryFloatAttribute("Y", &pos.y);
@@ -770,7 +770,7 @@ namespace MonkeyEngine
 
 			}
 			_Object->SetName("Camera");
-			((Camera*)_Object)->Load(Renderer::GetDevice(), Renderer::GetDeviceContext(), Renderer::GetScreenWidth(), Renderer::GetScreenHeight());
+			((Camera*)_Object)->Load(Renderer::GetDevice(), Renderer::GetDeviceContext(), (float)Renderer::GetScreenWidth(), (float)Renderer::GetScreenHeight());
 			Renderer::GetCameras().push_back((Camera*)_Object);
 			return true;
 		}

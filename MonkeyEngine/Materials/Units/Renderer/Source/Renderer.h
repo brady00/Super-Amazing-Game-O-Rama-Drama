@@ -1,4 +1,5 @@
 #pragma once
+#include "MemoryOverloads.h"
 #include <vector>
 #include <Windows.h>
 #pragma warning(disable: 4793)

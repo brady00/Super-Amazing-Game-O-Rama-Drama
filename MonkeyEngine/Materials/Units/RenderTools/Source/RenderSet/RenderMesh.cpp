@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "RenderMesh.h"
 #include "RenderTexture.h"
 #include "../Managers/InputLayoutManager.h"

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DepthStencilStateManager.h"
 #include "RenderStructures.h"
 

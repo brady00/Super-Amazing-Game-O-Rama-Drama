@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "InputLayoutManager.h"
 #include <fstream>
 

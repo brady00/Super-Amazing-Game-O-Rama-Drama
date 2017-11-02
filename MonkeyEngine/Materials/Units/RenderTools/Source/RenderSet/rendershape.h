@@ -14,7 +14,7 @@ namespace MonkeyEngine
 	namespace MERenderer
 	{
 		
-		class RenderShape : public RenderNode
+		class _declspec(dllexport) RenderShape : public RenderNode
 		{
 		public:
 			RenderShape() {};

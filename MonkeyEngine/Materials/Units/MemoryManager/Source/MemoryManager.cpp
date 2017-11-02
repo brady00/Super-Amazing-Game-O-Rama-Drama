@@ -47,6 +47,8 @@ namespace MonkeyEngine
 			temp += size;
 			temp += sizeof(Footer);
 			int allocatesize = (int)count + sizeof(Header) + sizeof(Footer);
+			if (((Header*)temp)->size > 9999999)
+				int x = 0;
 			if (((Header*)temp)->size == 0 || ((Header*)temp)->size > allocatesize)
 				Used = ((Header*)temp)->used;
 			else
@@ -56,6 +58,7 @@ namespace MonkeyEngine
 		((Header*)temp)->size = (int)count;
 		((Header*)temp)->used = true;
 		void* Return = temp + sizeof(Header);
+		memset(Return, 7, count);
 		temp += sizeof(Header);
 		temp += count;
 		((Footer*)temp)->size = (int)count;
@@ -84,6 +87,8 @@ namespace MonkeyEngine
 		Output.open("MemoryMangerDebug.txt", std::ios_base::app);
 		Output << "Data Location: " << (void*)Return << " Data Size: " << count << "\n";
 		Output.close();
+		if (!HeapWalk())
+			int x = 0;
 		return Return;
 	}
 	void MemoryManager::Shutdown()
@@ -119,6 +124,7 @@ namespace MonkeyEngine
 		}
 		else
 			RightUsed = true;
+		memset(ptr, 6, MiddleSize);
 		std::ofstream Output;
 		Output.open("MemoryMangerDebug.txt", std::ios_base::app);
 		Output << "Data Location: " << ptr << " Left used: " << LeftUsed << " Right Used: " << RightUsed << "\n";
@@ -176,7 +182,37 @@ namespace MonkeyEngine
 		}
 		temp = (char*)m_pMemory;
 		temp += sizeof(Header);
-		if (((Header*)m_pMemory)->size == MemorySize)
+		if (((Header*)m_pMemory)->size == MemorySize && m_bShuttingDown)
 			Shutdown();
+		if (!HeapWalk())
+			int x = 0;
+	}
+
+	bool MemoryManager::HeapWalk()
+	{
+		try
+		{
+			char* temp = (char*)m_pMemory;
+			char* end = (char*)m_pEndMemory + sizeof(Footer);
+			while (temp != end)
+			{
+				int size = ((Header*)temp)->size;
+
+				temp += sizeof(Header);
+
+				temp += size;
+				if (((Footer*)temp)->size != size)
+				{
+					temp -= size;
+					return false;
+				}
+				temp += sizeof(Footer);
+			}
+		}
+		catch (std::exception e)
+		{
+			return false;
+		}
+		return true;
 	}
 }

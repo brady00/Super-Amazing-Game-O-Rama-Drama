@@ -20,7 +20,7 @@ namespace MonkeyEngine
 			m_PixelShaderColor = nullptr;
 			m_PixelShaderTexture = nullptr;
 			m_Layout = nullptr;
-			XMStoreFloat4x4(&m_cbPerObject.world, XMMatrixIdentity());
+			XMStoreFloat4x4(&m_cbPerObject, XMMatrixIdentity());
 		}
 
 		Skybox::~Skybox()
@@ -143,10 +143,12 @@ namespace MonkeyEngine
 			d3DeviceContext->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 			m_IndexBuffer = IndexBuffer::GetInstance()->GetIndicies();
 			d3DeviceContext->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-			m_cbPerObject.world._41 = GetTransform()->GetPosition().x;
-			m_cbPerObject.world._42 = GetTransform()->GetPosition().y;
-			m_cbPerObject.world._43 = GetTransform()->GetPosition().z;
-			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&m_cbPerObject, sizeof(cbPerObject), d3DeviceContext);
+			m_cbPerObject._41 = GetTransform()->GetPosition().x;
+			m_cbPerObject._42 = GetTransform()->GetPosition().y;
+			m_cbPerObject._43 = GetTransform()->GetPosition().z;
+			cbPerObject temp;
+			temp.world = m_cbPerObject;
+			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&temp, sizeof(cbPerObject), d3DeviceContext);
 			m_ObjectConstantBuffer = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
 			d3DeviceContext->VSSetConstantBuffers(0, 1, &m_ObjectConstantBuffer);
 			if (m_Material.m_d3DiffuseTexture)
