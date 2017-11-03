@@ -41,11 +41,9 @@ namespace MonkeyEngine
 				D3D11_BUFFER_DESC ibd;
 				m_D3VertexBuffer->GetDesc(&ibd);
 				D3D11_SUBRESOURCE_DATA iinitData;
-				UINT oldBuffeSize = ibd.ByteWidth;
-				UINT newBuffeSize = oldBuffeSize + _numVerts * sizeof(VertexFormat);
+				UINT oldBuffeSize = ibd.ByteWidth / sizeof(VertexFormat);
+				UINT newBuffeSize = oldBuffeSize + _numVerts;
 				iinitData.pSysMem = new VertexFormat[newBuffeSize];
-				//this is fucking wierd but it works for whatever reason
-				iinitData.pSysMem = (char*)iinitData.pSysMem - 4;
 				memcpy((char *)(iinitData.pSysMem) + ibd.ByteWidth, verts, sizeof(VertexFormat) * _numVerts);
 				ibd.ByteWidth += sizeof(VertexFormat) * _numVerts;
 				ID3D11Buffer *newVertexBufferPtr;
@@ -53,7 +51,7 @@ namespace MonkeyEngine
 				d3DeviceContext->CopySubresourceRegion(newVertexBufferPtr, 0, 0, 0, 0, m_D3VertexBuffer, 0, 0);
 				//ReleaseCOM(vertexBufferPtr);
 				m_D3VertexBuffer = newVertexBufferPtr;
-				delete[] iinitData.pSysMem;
+				delete[] ((VertexFormat*)iinitData.pSysMem);
 				ret = oldBuffeSize;
 			}
 			return (UINT)ret;

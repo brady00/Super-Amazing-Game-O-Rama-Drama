@@ -63,7 +63,7 @@ namespace MonkeyEngine
 		bool CompRenderer::Load(MERenderer::BlendStateManager::BStates* _BlendState,
 			MERenderer::RasterizerStateManager::RasterStates* _RasterState,
 			MERenderer::DepthStencilStateManager::DSStates* _DSState,
-			MERenderer::VERTEX* _vVerticies,
+			void* _vVerticies,
 			unsigned int* _uiNumVerticies,
 			unsigned int* _vIndicies,
 			unsigned int* _uiNumIndicies,

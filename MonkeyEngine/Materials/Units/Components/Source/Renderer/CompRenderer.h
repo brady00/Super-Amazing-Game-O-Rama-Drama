@@ -46,7 +46,7 @@ namespace MonkeyEngine
 			virtual bool Load(MERenderer::BlendStateManager::BStates* m_BlendState,
 				MERenderer::RasterizerStateManager::RasterStates* m_RasterState,
 				MERenderer::DepthStencilStateManager::DSStates* m_DSState,
-				MERenderer::VERTEX* m_vVerticies,
+				void* m_vVerticies,
 				unsigned int* m_uiNumVerticies,
 				unsigned int* m_vIndicies,
 				unsigned int* m_uiNumIndicies,

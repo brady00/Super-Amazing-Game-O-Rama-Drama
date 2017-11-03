@@ -6,7 +6,7 @@ void* operator new(std::size_t count)
 }
 void* operator new[](std::size_t count)
 {
-	return MonkeyEngine::MemoryManager::GetInstance()->Allocate(count);
+	return MonkeyEngine::MemoryManager::GetInstance()->Allocate(count + 4);
 }
 void operator delete(void* const ptr)
 {

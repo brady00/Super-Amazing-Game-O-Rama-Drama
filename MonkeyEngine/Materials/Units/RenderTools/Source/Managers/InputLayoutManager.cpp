@@ -125,6 +125,8 @@ namespace MonkeyEngine
 				{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			};
+			d3Device->CreateInputLayout(vertexPosNormTexDesc, VERTEX_POSNORMTEX_numElements, vs_byte_code, vs_byte_code_size, &m_pInputLayouts[eVERTEX_POSNORMTEX]);
+			delete[] vs_byte_code;
 
 			//VERTEX_POSNORMTEXCOLOR
 			load.open("Assets/ShaderCSO/POSNORMTEXCOLOR_VS.cso", std::ios_base::binary);

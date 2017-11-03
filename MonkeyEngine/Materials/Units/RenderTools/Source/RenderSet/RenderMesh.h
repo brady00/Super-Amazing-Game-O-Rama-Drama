@@ -15,7 +15,6 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		struct VERTEX;
 		class RenderTexture;
 		class RENDERTOOLS_EXPORT RenderMesh : public RenderNode
 		{

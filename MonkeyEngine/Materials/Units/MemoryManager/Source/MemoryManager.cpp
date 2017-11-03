@@ -1,5 +1,5 @@
 #include "MemoryManager.h"
-
+#include <cassert>
 
 namespace MonkeyEngine
 {
@@ -87,8 +87,7 @@ namespace MonkeyEngine
 		Output.open("MemoryMangerDebug.txt", std::ios_base::app);
 		Output << "Data Location: " << (void*)Return << " Data Size: " << count << "\n";
 		Output.close();
-		if (!HeapWalk())
-			int x = 0;
+		HeapWalk();
 		return Return;
 	}
 	void MemoryManager::Shutdown()
@@ -184,8 +183,7 @@ namespace MonkeyEngine
 		temp += sizeof(Header);
 		if (((Header*)m_pMemory)->size == MemorySize && m_bShuttingDown)
 			Shutdown();
-		if (!HeapWalk())
-			int x = 0;
+		HeapWalk();
 	}
 
 	bool MemoryManager::HeapWalk()
@@ -204,6 +202,7 @@ namespace MonkeyEngine
 				if (((Footer*)temp)->size != size)
 				{
 					temp -= size;
+					assert(false, "HeapCorruption");
 					return false;
 				}
 				temp += sizeof(Footer);
@@ -211,6 +210,7 @@ namespace MonkeyEngine
 		}
 		catch (std::exception e)
 		{
+			assert(false, "HeapCorruption");
 			return false;
 		}
 		return true;
