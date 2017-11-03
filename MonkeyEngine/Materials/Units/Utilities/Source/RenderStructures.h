@@ -18,9 +18,26 @@ namespace MonkeyEngine
 		{
 		public:
 			enum RState { GAME_RENDERING = 0, EDITOR_RENDERING, VR_RENDERING, STATE_COUNT };
-			static RState RENDERSTRUCTURES_EXPORT GetRenderState();
-			static void RENDERSTRUCTURES_EXPORT SetRenderState(RState State);
+		private:
 			static RState state;
+		public:
+			//////////////////////////////////////////////////////
+			//			in: void								//
+			//			out: RState								//
+			//				The Current State of the Renderer	//
+			//			desc: Gets the Current state of the		//
+			//				Renderer							//
+			//////////////////////////////////////////////////////
+			static RState RENDERSTRUCTURES_EXPORT GetRenderState();
+			//////////////////////////////////////////////////////
+			//			in: RState								//
+			//				What to change the Renderer's state	//
+			//				too									//
+			//			out: void								//
+			//			desc: Sets the Current state of the		//
+			//				Renderer							//
+			//////////////////////////////////////////////////////
+			static void RENDERSTRUCTURES_EXPORT SetRenderState(RState State);
 		};
 
 		struct VERTEX_POS

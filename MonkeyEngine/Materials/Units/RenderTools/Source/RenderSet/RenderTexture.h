@@ -25,7 +25,26 @@ namespace MonkeyEngine
 		public:
 			RenderTexture();
 			~RenderTexture();
+			//////////////////////////////////////////////////////
+			//			in: ID3D11DeviceContext*				//
+			//				The Current Renderer's Device		//
+			//				Context								//
+			//			out: void								//
+			//			desc: Updates the ShaderResourceViews	//
+			//				on the rendering pipeline			//
+			//////////////////////////////////////////////////////
 			void Draw(ID3D11DeviceContext* d3DeviceContext);
+			//////////////////////////////////////////////////////
+			//			in: Material*							//
+			//				A material to make into				//
+			//				ShaderResourceViews					//
+			//			in: ID3D11Device*						//
+			//				The Current Renderer's Device*		//
+			//			out: bool								//
+			//				Whether it succeeded or not			//
+			//			desc: Used during Scene Loading to set	//
+			//				up the ShaderResourceViews			//
+			//////////////////////////////////////////////////////
 			bool Load(Material* _Material, ID3D11Device* d3Device);
 			const std::string& GetTextureFileName();
 			void AddShape(RenderShape*);
