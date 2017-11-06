@@ -21,22 +21,15 @@ namespace MonkeyEngine
 		private:
 			static RState state;
 		public:
-			//////////////////////////////////////////////////////
-			//			in: void								//
-			//			out: RState								//
-			//				The Current State of the Renderer	//
-			//			desc: Gets the Current state of the		//
-			//				Renderer							//
-			//////////////////////////////////////////////////////
+			//in: void								
+			//out: RState							
+			//	The Current State of the Renderer	
+			//desc: Gets the Current state of the Renderer							
 			static RState RENDERSTRUCTURES_EXPORT GetRenderState();
-			//////////////////////////////////////////////////////
-			//			in: RState								//
-			//				What to change the Renderer's state	//
-			//				too									//
-			//			out: void								//
-			//			desc: Sets the Current state of the		//
-			//				Renderer							//
-			//////////////////////////////////////////////////////
+			//in: RState							
+			//	What to change the Renderer's state	too									
+			//out: void								
+			//desc: Sets the Current state of the Renderer							
 			static void RENDERSTRUCTURES_EXPORT SetRenderState(RState State);
 		};
 

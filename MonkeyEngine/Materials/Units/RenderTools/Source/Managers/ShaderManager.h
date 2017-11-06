@@ -43,13 +43,31 @@ namespace MonkeyEngine
 			ShaderManager &operator=(const ShaderManager &&) { return *this; }
 			ID3D11VertexShader* m_d3VertexShaders[eShader_VS_MAX];
 			ID3D11PixelShader* m_d3PixelShaders[eShader_PS_MAX];
+			bool LoadShaderData(char **byteCode, size_t &byteCodeSize, const char *fileName);
 		public:
 			~ShaderManager();
+			//in: void			
+			//out: ShaderManager*								
+			//	The only instance of the ShaderManager
+			//desc: returns the only instance of the ShaderManager
 			static ShaderManager* GetInstance();
+			//in: ID3D11Device*
+			//	The current Renderer's Device
+			//out: void								
+			//desc: Creates all of the Shaders used by the Engine
 			void CreateShaders(ID3D11Device* d3Device);
+			//in: VertexShaderType
+			//	The VertexShaderType used to define the VertexShader
+			//out: ID3D11VertexShader*
+			//	The VertexShader defined by the VertexShaderType
+			//desc: Gets the VertexShader defined by the VertexShaderType
 			ID3D11VertexShader* GetVertexShader(VertexShaderType _Type);
+			//in: PixelShaderType
+			//	The PixelShaderType used to define the PixelShader
+			//out: ID3D11PixelShader*
+			//	The VertexShader defined by the PixelShaderType
+			//desc: Gets the PixelShader defined by the PixelShaderType
 			ID3D11PixelShader* GetPixelShader(PixelShaderType _Type);
-			bool LoadShaderData(char **byteCode, size_t &byteCodeSize, const char *fileName);
 		};
 	}
 }

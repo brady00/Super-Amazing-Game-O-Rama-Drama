@@ -27,7 +27,7 @@ namespace MonkeyEngine
 		//in: void								 
 		//out: float							
 		//    The Change in time since the start of the Program					
-		//desc: Gets the Time change between frames							
+		//desc: Gets the Time change between frames
 		static float GetTimeSinceStart();
 	};
 }

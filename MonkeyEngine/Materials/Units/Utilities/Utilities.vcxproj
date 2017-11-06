@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Property.h" />
     <ClInclude Include="Source\RenderStructures.h" />
     <ClInclude Include="Source\Time.h" />
   </ItemGroup>
