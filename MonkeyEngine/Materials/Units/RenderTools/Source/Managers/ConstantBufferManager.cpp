@@ -22,11 +22,6 @@ namespace MonkeyEngine
 			return&m_pInstance;
 		}
 
-		void ConstantBufferManager::DeleteInstance()
-		{
-
-		}
-
 		void ConstantBufferManager::CreateBuffers(ID3D11Device* d3Device)
 		{
 			m_PerObjectCBuffer.Create(d3Device);
