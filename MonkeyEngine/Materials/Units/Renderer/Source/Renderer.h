@@ -36,7 +36,7 @@ namespace MonkeyEngine
 			static unsigned int m_ActiveCamera;
 			static Camera* m_DebugCamera;
 			XMFLOAT4X4 m_DebugCameraViewMatrix;
-			DefferedRenderTarget* m_pDeferredRenderTarget;
+			DefferedRenderTarget* m_pSceneTarget;
 			__int64	m_dPrevFrame = 0;
 			float m_fFPS = 0.0f;
 			static ID3D11Device* m_d3Device;

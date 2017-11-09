@@ -98,7 +98,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\Math\Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir);$(ProjectDir)..\Math\Source\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -127,7 +127,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\Math\Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir);$(ProjectDir)..\Math\Source\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -155,7 +155,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\Math\Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir);$(ProjectDir)..\Math\Source\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -183,7 +183,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\Math\Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Components\Source\;$(ProjectDir)..\MonkeyEngine\Source\;$(ProjectDir)..\Renderer\Source\;$(ProjectDir)..\RenderTools\Source\;$(ProjectDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir);$(ProjectDir)..\Math\Source\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -215,10 +215,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ComponentPanel.cpp" />
-    <ClCompile Include="GameWindow.cpp" />
-    <ClCompile Include="Editor.cpp" />
-    <ClCompile Include="TransformPanel.cpp" />
+    <ClCompile Include="Components\ComponentPanel.cpp" />
+    <ClCompile Include="Windows\GameWindow.cpp" />
+    <ClCompile Include="Windows\Editor.cpp" />
+    <ClCompile Include="Components\TransformPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComponentPanel.h">
@@ -230,7 +230,7 @@
     <ClInclude Include="Editor.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="StringToVariableDictionary.h" />
+    <ClInclude Include="Utilities\StringToVariableDictionary.h" />
     <ClInclude Include="TransformPanel.h">
       <FileType>CppClass</FileType>
     </ClInclude>

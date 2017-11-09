@@ -47,14 +47,14 @@ namespace MonkeyEngine
 		{
 			m_Material = _Material;
 			VERTEX_POS data[8];
-			data[0].position = { -0.5f, 0.5f, 0.5f };
-			data[1].position = { 0.5f, 0.5f, 0.5f };
-			data[2].position = { 0.5f, 0.5f, -0.5f };
-			data[3].position = { -0.5f, 0.5f, -0.5f };
-			data[4].position = { -0.5f, -0.5f, 0.5f };
-			data[5].position = { 0.5f, -0.5f, 0.5f };
-			data[6].position = { 0.5f, -0.5f, -0.5f };
-			data[7].position = { -0.5f, -0.5f, -0.5f };
+			data[0].position = { -1.0f, 1.0f, 1.0f };
+			data[1].position = { 1.0f, 1.0f, 1.0f };
+			data[2].position = { 1.0f, 1.0f, -1.0f };
+			data[3].position = { -1.0f, 1.0f, -1.0f };
+			data[4].position = { -1.0f, -1.0f, 1.0f };
+			data[5].position = { 1.0f, -1.0f, 1.0f };
+			data[6].position = { 1.0f, -1.0f, -1.0f };
+			data[7].position = { -1.0f, -1.0f, -1.0f };
 			VERTEX_POSCOLOR data2[8];
 			data2[0].position = data[0].position;
 			data2[0].color = m_Material.Color;
@@ -123,7 +123,7 @@ namespace MonkeyEngine
 
 		void Skybox::Draw(ID3D11DeviceContext* d3DeviceContext)
 		{
-			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_Default, d3DeviceContext);
+			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_LessEqual, d3DeviceContext);
 			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL, d3DeviceContext);
 			BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default, d3DeviceContext);
 			UINT stride;

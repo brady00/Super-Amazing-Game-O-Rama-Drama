@@ -1,5 +1,6 @@
 #include "VertexLayouts.hlsli"
 #include "ShaderBuffers/ConstantBuffers.h"
+#include "ShaderBuffers/LightBuffers.h"
 
 Texture2D colorTexture : register(t0);
 Texture2D normalTexture : register(t1);
@@ -15,18 +16,12 @@ float4 main(TwoDVertexOut vertIn) : SV_TARGET
 	
 	colors = colorTexture.Sample(Sampler, vertIn.texCoord);
 	//normals = normalTexture.Sample(Sampler, vertIn.texCoord);
-	//bool comp = (colors.x == normals.x && colors.y == normals.y && colors.z == normals.z);
-	//if (!comp)
-	//{
-	//	lightDir = -(float3(0.0f, -1.0f, 0));
-	//	float Dot = dot(normals.xyz, lightDir);
-	//	lightIntensity = saturate(Dot);
-	//	outputColor = saturate(colors * lightIntensity);
-	//}
-	//else
-	//{
-	//	outputColor = colors;
-	//}
+	
+	//lightDir = -DirLight.direction;
+	//float Dot = dot(normals.xyz, lightDir);
+	//lightIntensity = saturate(Dot);
+	//outputColor = saturate(colors * lightIntensity);
+
 	//return outputColor;
 	return colors;
 }

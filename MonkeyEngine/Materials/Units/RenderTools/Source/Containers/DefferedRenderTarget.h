@@ -1,6 +1,7 @@
 #pragma once
 #include "RenderToolsDLL.h"
 #include <d3d11.h>
+#include <DirectXMath.h>
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -53,6 +54,11 @@ namespace MonkeyEngine
 			//out: void
 			//desc: Sets the D3D Objects to make this the RenderTarget of the Graphics Pipeline
 			void SetAsRenderTarget(ID3D11DepthStencilView* _StencilView, ID3D11DeviceContext* _DeviceContext);
+			//in: XMFLOAT4
+			//	The color to clear the RenderTarget too
+			//out: void
+			//desc: Clears the RenderTarget to the Given Color
+			void Clear(ID3D11DeviceContext* _DeviceContext, float* color);
 		};
 	}
 }

@@ -155,8 +155,8 @@ namespace MonkeyEngine
 		{
 			d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(VertexFormat::eVERTEX_POSTEX));
 			BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default, d3DeviceContext);
-			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL, d3DeviceContext);
-			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_NoDepth, d3DeviceContext);
+			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_Default, d3DeviceContext);
+			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_LessEqual, d3DeviceContext);
 			UINT Stride = sizeof(VERTEX_POSTEX);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionTexBuffer().GetVertexBuffer();
@@ -182,8 +182,11 @@ namespace MonkeyEngine
 
 		void DefferedRenderTarget::SetAsRenderTarget(ID3D11DepthStencilView* _StencilView, ID3D11DeviceContext* _DeviceContext)
 		{
-			float color[] = { 0,0,1,1 };
 			_DeviceContext->OMSetRenderTargets(m_uiBufferCount, m_d3GBufferTargetView, _StencilView);
+		}
+
+		void DefferedRenderTarget::Clear(ID3D11DeviceContext* _DeviceContext, float* color)
+		{
 			for (unsigned int i = 0; i < m_uiBufferCount; i++)
 				_DeviceContext->ClearRenderTargetView(m_d3GBufferTargetView[i], color);
 		}

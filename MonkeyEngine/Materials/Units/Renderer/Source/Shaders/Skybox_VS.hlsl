@@ -11,5 +11,6 @@ SKYBOX_VS_OUT main( VERTEX_POS fromVertexBuffer )
 
 	sendToRasterizer.projectedCoordinate = temppos;
 	sendToRasterizer.initialCoordinate = fromVertexBuffer.position;
+	sendToRasterizer.projectedCoordinate.z = sendToRasterizer.projectedCoordinate.w;
 	return sendToRasterizer;
 }
