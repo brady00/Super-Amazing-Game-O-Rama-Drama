@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "Transform\Transform.h"
 #include "Renderer/CompRenderer.h"
+#include "Behaviour\Light.h"
 #include "Factory\ComponentObjectFactory.h"
 #include "Renderer\SkinnedMeshRenderer.h"
 #include "DebugCamera\DebugCamera.h"
@@ -24,7 +25,8 @@ namespace MonkeyEngine
 			{ "Transform", &FileIO::LoadTranform },
 			{ "MeshRenderer", &FileIO::LoadMeshRenderer },
 			{ "SkinnedMeshRenderer", &FileIO::LoadSkinnedMeshRenderer },
-			{ "Camera", &FileIO::LoadCamera }
+			{ "Camera", &FileIO::LoadCamera },
+			{ "Light", &FileIO::LoadLight }
 		};
 
 		const std::unordered_map<std::string, MEObject::GameObject::COMPONENT_ID> FileIO::componentIDS =
@@ -32,7 +34,8 @@ namespace MonkeyEngine
 			{ "Transform", MEObject::GameObject::COMPONENT_ID::eTransform },
 			{ "MeshRenderer", MEObject::GameObject::COMPONENT_ID::eMeshRenderer },
 			{ "SkinnedMeshRenderer", MEObject::GameObject::COMPONENT_ID::eSkinnedMeshRenderer },
-			{ "Camera", MEObject::GameObject::COMPONENT_ID::eCamera }
+			{ "Camera", MEObject::GameObject::COMPONENT_ID::eCamera },
+			{ "Light", MEObject::GameObject::COMPONENT_ID::eLight }
 		};
 
 		FileIO::FileIO()
@@ -847,6 +850,37 @@ namespace MonkeyEngine
 			material->InsertFirstChild(texture);
 			material->InsertAfterChild(texture, color);
 			return true;
+		}
+
+		bool FileIO::LoadLight(XMLElement* _ObjectRoot, MEObject::Component*& _Object)
+		{
+			DirectionalLightCBuffer dirlight;
+			PointLightCBuffer pointlight;
+			SpotLightCBuffer spotlight;
+			const char* Type = _ObjectRoot->Attribute("Type");
+			if (strcmp(Type, "Directional"))
+			{
+				XMLElement* child = _ObjectRoot->FirstChildElement();
+				dirlight.direction.x = child->FloatAttribute("X");
+				dirlight.direction.y = child->FloatAttribute("Y");
+				dirlight.direction.z = child->FloatAttribute("Z");
+			}
+			else if (strcmp(Type, "Point"))
+			{
+
+			}
+			else if (strcmp(Type, "Spot"))
+			{
+
+			}
+			((MEObject::Light*)_Object)->Load(LightType::eDirectionalLight, dirlight, pointlight, spotlight);
+			Renderer::GetLights().push_back((Light*)_Object);
+			return true;
+		}
+
+		bool FileIO::SaveLight(XMLElement* _ObjectRoot, tinyxml2::XMLDocument& doc, MEObject::Component* _Object)
+		{
+
 		}
 
 		bool FileIO::LoadVertexBuffer(VertexFormat format, MERenderer::RenderMesh* mesh, Material* material)

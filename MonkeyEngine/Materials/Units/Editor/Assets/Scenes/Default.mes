@@ -22,6 +22,16 @@
             </Skybox>
         </Camera>
     </GameObject>
+  <GameObject Name="Light" Static="true" Active="true" Layer="2">
+    <Transform>
+      <Position X="0" Y="0" Z="0"/>
+      <Rotation X="0" Y="0" Z="0"/>
+      <Scale X="1" Y="1" Z="1"/>
+    </Transform>
+    <Light Type="Directional">
+      <Direction X="0" Y="-1" Z="1"/>
+    </Light>
+  </GameObject>
     <GameObject Name="f" Static="false" Active="true" Layer="1">
         <Transform>
             <Position X="0" Y="0" Z="0"/>

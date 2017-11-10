@@ -76,5 +76,15 @@ namespace MonkeyEngine
 				break;
 			}
 		}
+
+		LightType Light::GetType()
+		{
+			return Type;
+		}
+
+		void Light::SetType(LightType type)
+		{
+			Type = type;
+		}
 	}
 }
