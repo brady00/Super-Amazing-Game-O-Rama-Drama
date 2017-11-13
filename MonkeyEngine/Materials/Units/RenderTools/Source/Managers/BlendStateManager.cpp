@@ -1,6 +1,6 @@
 #include "BlendStateManager.h"
 #include "RenderStructures.h"
-
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -35,7 +35,9 @@ namespace MonkeyEngine
 			if (state >= BS_COUNT)
 				return false;
 			UINT SampleMask = 0xffffffff;
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->OMSetBlendState(m_vBlendStates[state], 0, SampleMask);
+			CriticalRegion::Exit(d3DeviceContext);
 			m_eCurrentState = state;
 			return true;
 		}

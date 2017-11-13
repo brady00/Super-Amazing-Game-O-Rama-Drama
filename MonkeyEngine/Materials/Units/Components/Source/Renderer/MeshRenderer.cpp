@@ -2,6 +2,7 @@
 #include "Managers/ConstantBufferManager.h"
 #include "Transform/Transform.h"
 #include "Behaviour/Animation.h"
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MEObject
@@ -13,11 +14,13 @@ namespace MonkeyEngine
 			temp.world = GetTransform()->GetMatrix();
 			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&temp, sizeof(temp), d3DeviceContext);
 			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
 			if (!m_vIndicies)
 				d3DeviceContext->Draw(*m_uiNumVerticies, *m_iBaseVertexLocation);
 			else
 				d3DeviceContext->DrawIndexed(*m_uiNumIndicies, *m_uiStartIndexLocation, *m_iBaseVertexLocation);
+			CriticalRegion::Exit(d3DeviceContext);
 		}
 
 		bool MeshRenderer::Load(MERenderer::BlendStateManager::BStates* _BlendState,

@@ -4,6 +4,7 @@
 #include "Time.h"
 #include "Transform\Transform.h"
 #include "Factory\ComponentObjectFactory.h"
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -47,7 +48,9 @@ namespace MonkeyEngine
 			XMStoreFloat4x4(&tempBuffer.InvViewProj, XMMatrixMultiply(XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_xmViewMatrix)), XMLoadFloat4x4(&m_xmProjMatrix)));
 			ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().Update(&tempBuffer, sizeof(tempBuffer), d3DeviceContext);
 			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->VSSetConstantBuffers(tempBuffer.REGISTER_SLOT, 1, &buf);
+			CriticalRegion::Exit(d3DeviceContext);
 		}
 
 		void DebugCamera::Resize(float _WindowHeight, float _WindowWidth)
@@ -129,7 +132,9 @@ namespace MonkeyEngine
 			XMStoreFloat4x4(&tempBuffer.InvViewProj, XMMatrixMultiply(XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_xmViewMatrix)), XMLoadFloat4x4(&m_xmProjMatrix)));
 			ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().Update(&tempBuffer, sizeof(tempBuffer), d3DeviceContext);
 			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->VSSetConstantBuffers(tempBuffer.REGISTER_SLOT, 1, &buf);
+			CriticalRegion::Exit(d3DeviceContext);
 
 			m_Resize = false;
 			m_RunOnce = false;

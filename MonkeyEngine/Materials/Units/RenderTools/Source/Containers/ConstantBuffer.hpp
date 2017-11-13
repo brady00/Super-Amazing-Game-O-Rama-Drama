@@ -1,3 +1,6 @@
+#ifndef EDITOR
+#include "CriticalRegion.h"
+#endif
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -46,9 +49,11 @@ namespace MonkeyEngine
 		{
 			D3D11_MAPPED_SUBRESOURCE edit;
 			BufferType* temp = (BufferType*)_ConstBuffer;
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->Map(m_D3ConstantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &edit);
 			memcpy(edit.pData, temp, _Size);
 			d3DeviceContext->Unmap(m_D3ConstantBuffer, 0);
+			CriticalRegion::Exit(d3DeviceContext);
 		}
 
 		template <typename BufferType>

@@ -1,7 +1,7 @@
 #pragma warning(disable: 4561)
 #include "Camera.h"
 #include "Transform\Transform.h"
-
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MEObject
@@ -40,7 +40,9 @@ namespace MonkeyEngine
 			XMStoreFloat4x4(&tempBuffer.InvViewProj, XMMatrixMultiply(XMMatrixInverse(nullptr, XMLoadFloat4x4(&GetTransform()->GetMatrix())), XMLoadFloat4x4(&ProjectionMatrix)));
 			ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().Update(&tempBuffer, sizeof(tempBuffer), d3DeviceContext);
 			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetConstantBuffer();
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->VSSetConstantBuffers(tempBuffer.REGISTER_SLOT, 1, &buf);
+			CriticalRegion::Exit(d3DeviceContext);
 		}
 	}
 }

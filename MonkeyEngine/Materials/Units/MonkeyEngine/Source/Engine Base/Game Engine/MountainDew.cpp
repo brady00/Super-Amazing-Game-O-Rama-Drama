@@ -12,7 +12,6 @@
 #include "Time.h"
 #include "FileIO.h"
 #include "DebugCamera\DebugCamera.h"
-#include "vld.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR commandLine, int nCmdShow)
 {

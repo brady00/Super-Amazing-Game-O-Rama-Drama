@@ -3,6 +3,7 @@
 #include "../Managers/InputLayoutManager.h"
 #include "../Containers/IndexBuffer.h"
 #include "../Managers/ShaderManager.h"
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -46,7 +47,9 @@ namespace MonkeyEngine
 					vertbuff = VertexBufferManager::GetInstance()->GetPositionColorBuffer().GetVertexBuffer();
 				else
 					vertbuff = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+				CriticalRegion::Exit(d3DeviceContext);
 				break;
 			}
 			case MERenderer::eVERTEX_POSTEX:
@@ -58,7 +61,9 @@ namespace MonkeyEngine
 					vertbuff = VertexBufferManager::GetInstance()->GetPositionTexColorBuffer().GetVertexBuffer();
 				else
 					vertbuff = VertexBufferManager::GetInstance()->GetPositionTexBuffer().GetVertexBuffer();
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+				CriticalRegion::Exit(d3DeviceContext);
 				break;
 			}
 			case MERenderer::eVERTEX_POSNORMTEX:
@@ -70,7 +75,9 @@ namespace MonkeyEngine
 					vertbuff = VertexBufferManager::GetInstance()->GetPosNormTexColorBuffer().GetVertexBuffer();
 				else
 					vertbuff = VertexBufferManager::GetInstance()->GetPosNormTexBuffer().GetVertexBuffer();	
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+				CriticalRegion::Exit(d3DeviceContext);
 				break;
 			}
 			case MERenderer::eVERTEX_POSNORMTANTEX:
@@ -82,7 +89,9 @@ namespace MonkeyEngine
 					vertbuff = VertexBufferManager::GetInstance()->GetPosNormTanTexColorBuffer().GetVertexBuffer();
 				else
 					vertbuff = VertexBufferManager::GetInstance()->GetPosNormTanTexBuffer().GetVertexBuffer();
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+				CriticalRegion::Exit(d3DeviceContext);
 				break;
 			}
 			case MERenderer::eVERTEX_POSBONEWEIGHT:
@@ -94,7 +103,9 @@ namespace MonkeyEngine
 					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightColorBuffer().GetVertexBuffer();
 				else
 					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightBuffer().GetVertexBuffer();
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+				CriticalRegion::Exit(d3DeviceContext);
 				break;
 			}
 			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
@@ -106,7 +117,9 @@ namespace MonkeyEngine
 					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexColorBuffer().GetVertexBuffer();
 				else
 					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTexBuffer().GetVertexBuffer();
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+				CriticalRegion::Exit(d3DeviceContext);
 				break;
 			}
 			case MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
@@ -124,7 +137,9 @@ namespace MonkeyEngine
 					Stride = sizeof(VERTEX_POSBONEWEIGHTNORMTANTEX);
 					vertbuff = VertexBufferManager::GetInstance()->GetPosBoneWeightNormTanTexBuffer().GetVertexBuffer();
 				}
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
+				CriticalRegion::Exit(d3DeviceContext);
 				break;
 			}
 			default:
@@ -132,12 +147,14 @@ namespace MonkeyEngine
 			}
 			//index buffer
 			ID3D11Buffer* indexbuff = IndexBuffer::GetInstance()->GetIndicies();
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->IASetIndexBuffer(indexbuff, DXGI_FORMAT_R32_UINT, 0);
 			//primitive topology
 			d3DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			//shaders
 			d3DeviceContext->VSSetShader(ShaderManager::GetInstance()->GetVertexShader((ShaderManager::VertexShaderType)m_eVertexFormat), 0, 0);
 			d3DeviceContext->PSSetShader(ShaderManager::GetInstance()->GetPixelShader(ShaderManager::PixelShaderType::eShader_PS_TEXTURE_GBUFFER_BUMP), 0, 0);
+			CriticalRegion::Exit(d3DeviceContext);
 			//d3DeviceContext->GSSetShader(ShaderManager::GetInstance()->GetGeometryShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 			//d3DeviceContext->DSSetShader(ShaderManager::GetInstance()->GetDomainShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);
 			//d3DeviceContext->HSSetShader(ShaderManager::GetInstance()->GetHullShader((ShaderManager::ShaderType)m_eVertexFormat), 0, 0);

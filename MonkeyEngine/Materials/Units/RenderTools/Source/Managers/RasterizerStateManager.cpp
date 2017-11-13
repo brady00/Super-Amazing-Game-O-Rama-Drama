@@ -1,6 +1,6 @@
 #include "RasterizerStateManager.h"
 #include "RenderStructures.h"
-
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -34,7 +34,9 @@ namespace MonkeyEngine
 		{
 			if (state >= RS_COUNT)
 				return false;
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->RSSetState(m_vRasterStates[state]);
+			CriticalRegion::Exit(d3DeviceContext);
 			m_eCurrentState = state;
 			return true;
 		}

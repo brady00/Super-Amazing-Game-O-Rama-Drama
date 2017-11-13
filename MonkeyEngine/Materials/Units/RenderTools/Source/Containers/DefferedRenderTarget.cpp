@@ -150,13 +150,16 @@ namespace MonkeyEngine
 
 		void DefferedRenderTarget::Update(ID3D11DeviceContext* d3DeviceContext)
 		{
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(VertexFormat::eVERTEX_POSTEX));
+			CriticalRegion::Exit(d3DeviceContext);
 			BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default, d3DeviceContext);
 			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL, d3DeviceContext);
 			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_NoDepth, d3DeviceContext);
 			UINT Stride = sizeof(VERTEX_POSTEX);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionTexBuffer().GetVertexBuffer();
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->IASetVertexBuffers(0, 1, &vertbuff, &Stride, &Offset);
 			d3DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			d3DeviceContext->VSSetShader(ShaderManager::GetInstance()->GetVertexShader((ShaderManager::VertexShaderType)VertexFormat::eVERTEX_POSTEX), 0, 0);
@@ -164,6 +167,7 @@ namespace MonkeyEngine
 			d3DeviceContext->PSSetShaderResources(0, 2, m_d3GBufferShaderView);
 			d3DeviceContext->PSSetSamplers(0, 1, &m_d3SamplerState);
 			d3DeviceContext->Draw(6, m_uiStartVert);
+			CriticalRegion::Exit(d3DeviceContext);
 		}
 
 		void DefferedRenderTarget::Shutdown()
@@ -180,9 +184,11 @@ namespace MonkeyEngine
 		void DefferedRenderTarget::SetAsRenderTarget(ID3D11DepthStencilView* _StencilView, ID3D11DeviceContext* _DeviceContext)
 		{
 			float color[] = { 0,0,1,1 };
+			CriticalRegion::Enter(_DeviceContext);
 			_DeviceContext->OMSetRenderTargets(m_uiBufferCount, m_d3GBufferTargetView, _StencilView);
 			for (unsigned int i = 0; i < m_uiBufferCount; i++)
 				_DeviceContext->ClearRenderTargetView(m_d3GBufferTargetView[i], color);
+			CriticalRegion::Exit(_DeviceContext);
 		}
 	}
 }

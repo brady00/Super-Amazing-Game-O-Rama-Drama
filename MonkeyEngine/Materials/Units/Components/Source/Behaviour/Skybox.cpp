@@ -5,6 +5,7 @@
 #include "Managers/BlendStateManager.h"
 #include "RenderStructures.h"
 #include "Transform\Transform.h"
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MEObject
@@ -129,25 +130,34 @@ namespace MonkeyEngine
 			UINT stride;
 			if (m_Material.m_d3DiffuseTexture)
 			{
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POS));
+				CriticalRegion::Exit(d3DeviceContext);
 				m_VertexBuffer = VertexBufferManager::GetInstance()->GetPositionBuffer().GetVertexBuffer();
 				stride = sizeof(VERTEX_POS);
 			}
 			else
 			{
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(eVERTEX_POSCOLOR));
+				CriticalRegion::Exit(d3DeviceContext);
 				m_VertexBuffer = VertexBufferManager::GetInstance()->GetPositionColorBuffer().GetVertexBuffer();
 				stride = sizeof(VERTEX_POSCOLOR);
 			}
 			UINT offset = 0;
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
+			CriticalRegion::Exit(d3DeviceContext);
 			m_IndexBuffer = IndexBuffer::GetInstance()->GetIndicies();
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+			CriticalRegion::Exit(d3DeviceContext);
 			m_cbPerObject.world._41 = GetTransform()->GetPosition().x;
 			m_cbPerObject.world._42 = GetTransform()->GetPosition().y;
 			m_cbPerObject.world._43 = GetTransform()->GetPosition().z;
 			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&m_cbPerObject, sizeof(cbPerObject), d3DeviceContext);
 			m_ObjectConstantBuffer = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->VSSetConstantBuffers(0, 1, &m_ObjectConstantBuffer);
 			if (m_Material.m_d3DiffuseTexture)
 			{
@@ -165,6 +175,7 @@ namespace MonkeyEngine
 				d3DeviceContext->DrawIndexed(36, m_StartIndexLocation, m_BaseVertexLocationTexture);
 			else
 				d3DeviceContext->DrawIndexed(36, m_StartIndexLocation, m_BaseVertexLocationColor);
+			CriticalRegion::Exit(d3DeviceContext);
 		}
 	}
 }

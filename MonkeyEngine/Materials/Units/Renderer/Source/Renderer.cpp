@@ -3,13 +3,14 @@
 #include "Managers\ConstantBufferManager.h"
 #include "Containers\DefferedRenderTarget.h"
 #include "RenderSet\RenderContext.h"
+#include "CriticalRegion.h"
 #include "Managers\ShaderManager.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
 		ID3D11Device* Renderer::m_d3Device = nullptr;
-		ID3D11DeviceContext* Renderer::m_d3DeviceContext = nullptr;
+		ID3D11DeviceContext* Renderer::m_d3DeviceContext;
 		IDXGISwapChain*	Renderer::m_d3SwapChain = nullptr;
 		ID3D11RenderTargetView* Renderer::m_d3BackBufferTargetView = nullptr;
 		ID3D11Texture2D* Renderer::m_d3DepthBuffer = nullptr;
@@ -65,6 +66,7 @@ namespace MonkeyEngine
 #else
 			UINT flags = NULL;
 #endif
+			CriticalRegion::Enter(m_d3DeviceContext);
 			D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE, NULL, flags, NULL, NULL, D3D11_SDK_VERSION, &desc, &m_d3SwapChain, &m_d3Device, NULL, &m_d3DeviceContext);
 			m_d3SwapChain->GetBuffer(0, __uuidof(BackBuffer), reinterpret_cast<void**>(&BackBuffer));
 			m_d3Device->CreateRenderTargetView(BackBuffer, NULL, &m_d3BackBufferTargetView);
@@ -98,6 +100,9 @@ namespace MonkeyEngine
 			depthViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 			depthViewDesc.Texture2D.MipSlice = 0;
 			m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
+			CriticalRegion::Exit(m_d3DeviceContext);
+
+			
 
 			m_pDeferredRenderTarget = new DefferedRenderTarget;
 			m_pDeferredRenderTarget->Initialize(m_d3Device, m_d3DeviceContext, _ScreenHeight, _ScreenWidth);
@@ -167,8 +172,10 @@ namespace MonkeyEngine
 			m_dPrevFrame = li.QuadPart;
 			if (false)
 				m_fFPS = 1.0f / DeltaTime;
+			CriticalRegion::Enter(m_d3DeviceContext);
 			m_d3DeviceContext->RSSetViewports(1, &m_d3ViewPort);
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+			CriticalRegion::Exit(m_d3DeviceContext);
 			m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
 
 			if(RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
@@ -178,16 +185,20 @@ namespace MonkeyEngine
 				m_vCameras[m_ActiveCamera]->Draw(m_d3DeviceContext);
 				m_vCameras[m_ActiveCamera]->GetSkybox()->Draw(m_d3DeviceContext);
 			}
+			CriticalRegion::Enter(m_d3DeviceContext);
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+			CriticalRegion::Exit(m_d3DeviceContext);
 
 			m_pNonTranparentObjects->Draw(m_d3DeviceContext);
 			m_pTransparentObjects->Draw(m_d3DeviceContext);
 			//draw lights
 			//set backbuffer
 			float color[] = { 0,0,1,1 };
+			CriticalRegion::Enter(m_d3DeviceContext);
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 			m_d3DeviceContext->OMSetRenderTargets(1, &m_d3BackBufferTargetView, m_d3DepthStencilView);
 			m_d3DeviceContext->ClearRenderTargetView(m_d3BackBufferTargetView, color);
+			CriticalRegion::Exit(m_d3DeviceContext);
 
 			//draw quad
 			m_pDeferredRenderTarget->Update(m_d3DeviceContext);

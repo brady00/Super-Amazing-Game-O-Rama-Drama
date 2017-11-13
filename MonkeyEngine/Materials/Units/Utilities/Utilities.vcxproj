@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\CriticalRegion.h" />
     <ClInclude Include="Source\MemoryManager.h" />
     <ClInclude Include="Source\Property.h" />
     <ClInclude Include="Source\RenderStructures.h" />
     <ClInclude Include="Source\Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\CriticalRegion.cpp" />
     <ClCompile Include="Source\MemoryManager.cpp" />
     <ClCompile Include="Source\RenderStructures.cpp" />
     <ClCompile Include="Source\Time.cpp" />
@@ -101,7 +103,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>RENDERSTRUCTURES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>RENDERSTRUCTURES_EXPORTS;CRITICALREGION_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

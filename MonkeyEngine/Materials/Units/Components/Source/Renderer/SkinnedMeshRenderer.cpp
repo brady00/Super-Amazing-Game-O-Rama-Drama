@@ -1,6 +1,7 @@
 #include "SkinnedMeshRenderer.h"
 #include "Managers/ConstantBufferManager.h"
 #include "Transform/Transform.h"
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MEObject
@@ -13,8 +14,10 @@ namespace MonkeyEngine
 			memcpy(temp.BoneMatricies, &m_CurrentSkeleton.mJoints[0], m_CurrentSkeleton.mJoints.size() * sizeof(XMFLOAT4X4));
 			ConstantBufferManager::GetInstance()->GetPerSkinnedObjectCBuffer().Update(&temp, sizeof(temp), d3DeviceContext);
 			ID3D11Buffer* buf = ConstantBufferManager::GetInstance()->GetPerSkinnedObjectCBuffer().GetConstantBuffer();
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->VSSetConstantBuffers(temp.REGISTER_SLOT, 1, &buf);
 			d3DeviceContext->DrawIndexed(*m_uiNumIndicies, *m_uiStartIndexLocation, *m_iBaseVertexLocation);
+			CriticalRegion::Exit(d3DeviceContext);
 		}
 
 		SkinnedMeshRenderer::~SkinnedMeshRenderer()

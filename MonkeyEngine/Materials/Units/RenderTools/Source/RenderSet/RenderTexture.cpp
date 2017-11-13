@@ -1,6 +1,7 @@
 #include "RenderTexture.h"
 #include "../TextureLoaders/WICTextureLoader.h"
 #include "../TextureLoaders/DDSTextureLoader.h"
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -30,8 +31,10 @@ namespace MonkeyEngine
 		void RenderTexture::Draw(ID3D11DeviceContext* d3DeviceContext)
 		{
 
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->PSSetShaderResources(0, 1, &m_Material->m_d3DiffuseTexture);
 			d3DeviceContext->PSSetSamplers(0, 1, &m_d3SamplerState);
+			CriticalRegion::Exit(d3DeviceContext);
 			m_pRenderShapes->Draw(d3DeviceContext);
 		}
 		

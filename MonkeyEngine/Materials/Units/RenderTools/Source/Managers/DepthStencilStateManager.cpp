@@ -1,6 +1,6 @@
 #include "DepthStencilStateManager.h"
 #include "RenderStructures.h"
-
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -34,7 +34,9 @@ namespace MonkeyEngine
 		{
 			if (state >= DSS_COUNT)
 				return false;
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->OMSetDepthStencilState(m_vDepthStates[state], m_vStencilRefs[state]);
+			CriticalRegion::Exit(d3DeviceContext);
 			m_eCurrentState = state;
 			return true;
 		}

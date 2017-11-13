@@ -1,5 +1,5 @@
 #include "IndexBuffer.h"
-
+#include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -50,7 +50,9 @@ namespace MonkeyEngine
 				ibd.ByteWidth += sizeof(UINT) * _numIndices;
 				ID3D11Buffer *newIndexBufferPtr;
 				d3Device->CreateBuffer(&ibd, &iinitData, &newIndexBufferPtr);
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->CopySubresourceRegion(newIndexBufferPtr, 0, 0, 0, 0, m_d3IndexBuffer, 0, 0);
+				CriticalRegion::Exit(d3DeviceContext);
 				//ReleaseCOM(indexBufferPtr);
 				m_d3IndexBuffer = newIndexBufferPtr;
 				delete[] iinitData.pSysMem;

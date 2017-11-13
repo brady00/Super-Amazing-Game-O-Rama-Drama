@@ -1,7 +1,7 @@
 #include "RenderContext.h"
 #include "RenderMesh.h"
 #include "RenderSet.h"
-
+#include "CriticalRegion.h"
 
 namespace MonkeyEngine
 {
@@ -21,7 +21,9 @@ namespace MonkeyEngine
 		{
 			//context switching
 			//input layout
+			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(m_VertexFormat));
+			CriticalRegion::Exit(d3DeviceContext);
 			//blend state
 			BlendStateManager::GetInstance()->ApplyState(m_BlendState, d3DeviceContext);
 			//rasterizer

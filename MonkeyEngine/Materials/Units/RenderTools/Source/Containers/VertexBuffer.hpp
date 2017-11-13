@@ -48,7 +48,9 @@ namespace MonkeyEngine
 				ibd.ByteWidth += sizeof(VertexFormat) * _numVerts;
 				ID3D11Buffer *newVertexBufferPtr;
 				d3Device->CreateBuffer(&ibd, &iinitData, &newVertexBufferPtr);
+				CriticalRegion::Enter(d3DeviceContext);
 				d3DeviceContext->CopySubresourceRegion(newVertexBufferPtr, 0, 0, 0, 0, m_D3VertexBuffer, 0, 0);
+				CriticalRegion::Exit(d3DeviceContext);
 				//ReleaseCOM(vertexBufferPtr);
 				m_D3VertexBuffer = newVertexBufferPtr;
 				delete[] iinitData.pSysMem;

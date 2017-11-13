@@ -5,10 +5,12 @@
     <ClInclude Include="Source\RenderStructures.h" />
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\Property.h" />
+    <ClInclude Include="Source\CriticalRegion.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MemoryManager.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\RenderStructures.cpp" />
+    <ClCompile Include="Source\CriticalRegion.cpp" />
   </ItemGroup>
 </Project>
