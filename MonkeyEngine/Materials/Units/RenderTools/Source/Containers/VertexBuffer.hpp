@@ -53,7 +53,7 @@ namespace MonkeyEngine
 				CriticalRegion::Exit(d3DeviceContext);
 				//ReleaseCOM(vertexBufferPtr);
 				m_D3VertexBuffer = newVertexBufferPtr;
-				delete[] iinitData.pSysMem;
+				delete[] ((VertexFormat*)iinitData.pSysMem);
 				ret = oldBuffeSize;
 			}
 			return (UINT)ret;

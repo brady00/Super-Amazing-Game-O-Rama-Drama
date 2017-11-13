@@ -3,6 +3,7 @@
 #include <vector>
 #pragma warning(disable: 4793)
 #include <DirectXMath.h>
+#include "Float3/Float3.h"
 #ifdef RENDERSTRUCTURES_EXPORTS
 #define RENDERSTRUCTURES_EXPORT __declspec(dllexport)
 #else
@@ -10,127 +11,134 @@
 #endif
 namespace MonkeyEngine
 {
+	using namespace MEMath;
 	namespace MERenderer
 	{
 		class RenderState
 		{
 		public:
 			enum RState { GAME_RENDERING = 0, EDITOR_RENDERING, VR_RENDERING, STATE_COUNT };
-			static RState RENDERSTRUCTURES_EXPORT RenderState::GetRenderState();
-			static void RENDERSTRUCTURES_EXPORT SetRenderState(RState State);
 		private:
 			static RState state;
+		public:
+			//in: void								
+			//out: RState							
+			//	The Current State of the Renderer	
+			//desc: Gets the Current state of the Renderer							
+			static RState RENDERSTRUCTURES_EXPORT GetRenderState();
+			//in: RState							
+			//	What to change the Renderer's state	too									
+			//out: void								
+			//desc: Sets the Current state of the Renderer							
+			static void RENDERSTRUCTURES_EXPORT SetRenderState(RState State);
 		};
-		struct VERTEX
-		{
 
-		};
-		struct VERTEX_POS : public VERTEX
+		struct VERTEX_POS
 		{
-			DirectX::XMFLOAT3 position;
+			Float3 position;
 		};
-		struct VERTEX_POSCOLOR : public VERTEX
+		struct VERTEX_POSCOLOR
 		{
-			DirectX::XMFLOAT3 position;
+			Float3 position;
 			DirectX::XMFLOAT4 color;
 		};
-		struct VERTEX_POSTEX : public VERTEX
+		struct VERTEX_POSTEX
 		{
-			DirectX::XMFLOAT3 position;
+			Float3 position;
 			DirectX::XMFLOAT2 texcoord;
 		};
-		struct VERTEX_POSTEXCOLOR : public VERTEX
+		struct VERTEX_POSTEXCOLOR
 		{
-			DirectX::XMFLOAT3 position;
-			DirectX::XMFLOAT2 texcoord;
-			DirectX::XMFLOAT4 color;
-		};
-		struct VERTEX_POSNORMTEX : public VERTEX
-		{
-			DirectX::XMFLOAT3 position;
-			DirectX::XMFLOAT3 normal;
-			DirectX::XMFLOAT2 texcoord;
-		};
-		struct VERTEX_POSNORMTEXCOLOR : public VERTEX
-		{
-			DirectX::XMFLOAT3 position;
-			DirectX::XMFLOAT3 normal;
+			Float3 position;
 			DirectX::XMFLOAT2 texcoord;
 			DirectX::XMFLOAT4 color;
 		};
-		struct VERTEX_POSNORMTANTEX : public VERTEX
+		struct VERTEX_POSNORMTEX
 		{
-			DirectX::XMFLOAT3 position;
-			DirectX::XMFLOAT3 normal;
+			Float3 position;
+			Float3 normal;
 			DirectX::XMFLOAT2 texcoord;
-			DirectX::XMFLOAT3 tangent;
+		};
+		struct VERTEX_POSNORMTEXCOLOR
+		{
+			Float3 position;
+			Float3 normal;
+			DirectX::XMFLOAT2 texcoord;
+			DirectX::XMFLOAT4 color;
+		};
+		struct VERTEX_POSNORMTANTEX
+		{
+			Float3 position;
+			Float3 normal;
+			DirectX::XMFLOAT2 texcoord;
+			Float3 tangent;
 			float determinant;
 		};
-		struct VERTEX_POSNORMTANTEXCOLOR : public VERTEX
+		struct VERTEX_POSNORMTANTEXCOLOR
 		{
-			DirectX::XMFLOAT3 position;
-			DirectX::XMFLOAT3 normal;
+			Float3 position;
+			Float3 normal;
 			DirectX::XMFLOAT2 texcoord;
-			DirectX::XMFLOAT3 tangent;
+			Float3 tangent;
 			float determinant;
 			DirectX::XMFLOAT4 color;
 		};
-		struct VERTEX_POSBONEWEIGHT : public VERTEX
+		struct VERTEX_POSBONEWEIGHT
 		{
-			DirectX::XMFLOAT3 position;
+			Float3 position;
 			DirectX::XMINT4   bone;
 			DirectX::XMFLOAT4 weights;
 		};
-		struct VERTEX_POSBONEWEIGHTCOLOR : public VERTEX
+		struct VERTEX_POSBONEWEIGHTCOLOR
 		{
-			DirectX::XMFLOAT3 position;
+			Float3 position;
 			DirectX::XMINT4   bone;
 			DirectX::XMFLOAT4 weights;
 			DirectX::XMFLOAT4 color;
 		};
-		struct VERTEX_POSBONEWEIGHTNORMTEX : public VERTEX
+		struct VERTEX_POSBONEWEIGHTNORMTEX
 		{
-			DirectX::XMFLOAT3 position;
+			Float3 position;
 			DirectX::XMINT4   bones;
 			DirectX::XMFLOAT4 weights;
-			DirectX::XMFLOAT3 normal;
+			Float3 normal;
 			DirectX::XMFLOAT2 texcoord;
 			VERTEX_POSBONEWEIGHTNORMTEX() { bones.x = bones.y = bones.z = bones.w = -1; }
 
 		};
-		struct VERTEX_POSBONEWEIGHTNORMTEXCOLOR : public VERTEX
+		struct VERTEX_POSBONEWEIGHTNORMTEXCOLOR
 		{
-			DirectX::XMFLOAT3 position;
+			Float3 position;
 			DirectX::XMINT4   bones;
 			DirectX::XMFLOAT4 weights;
-			DirectX::XMFLOAT3 normal;
+			Float3 normal;
 			DirectX::XMFLOAT2 texcoord;
 			DirectX::XMFLOAT4 color;
 			VERTEX_POSBONEWEIGHTNORMTEXCOLOR() { bones.x = bones.y = bones.z = bones.w = -1; }
 
 		};
-		struct VERTEX_POSBONEWEIGHTNORMTANTEX : public VERTEX
+		struct VERTEX_POSBONEWEIGHTNORMTANTEX
 		{
-			DirectX::XMFLOAT3 position;
-			DirectX::XMFLOAT3 normal;
+			Float3 position;
+			Float3 normal;
 			DirectX::XMFLOAT2 texcoord;
 			DirectX::XMINT4   bones;
 			DirectX::XMFLOAT4 weights;
-			DirectX::XMFLOAT3 tangent;
+			Float3 tangent;
 			float determinant;
-			DirectX::XMFLOAT3 binormal;
+			Float3 binormal;
 			VERTEX_POSBONEWEIGHTNORMTANTEX() { bones.x = bones.y = bones.z = bones.w = -1; }
 		};
-		struct VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR : public VERTEX
+		struct VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR
 		{
-			DirectX::XMFLOAT3 position;
-			DirectX::XMFLOAT3 normal;
+			Float3 position;
+			Float3 normal;
 			DirectX::XMFLOAT2 texcoord;
 			DirectX::XMINT4   bones;
 			DirectX::XMFLOAT4 weights;
-			DirectX::XMFLOAT3 tangent;
+			Float3 tangent;
 			float determinant;
-			DirectX::XMFLOAT3 binormal;
+			Float3 binormal;
 			DirectX::XMFLOAT4 color;
 			VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR() { bones.x = bones.y = bones.z = bones.w = -1; }
 		};
@@ -140,9 +148,9 @@ namespace MonkeyEngine
 
 		public:
 			std::string mName;
-			DirectX::XMFLOAT3 mAmbient;
-			DirectX::XMFLOAT3 mDiffuse;
-			DirectX::XMFLOAT3 mEmissive;
+			Float3 mAmbient;
+			Float3 mDiffuse;
+			Float3 mEmissive;
 			double mTransparencyFactor;
 			std::string mDiffuseMapName;
 			ID3D11ShaderResourceView*	m_d3DiffuseTexture;
@@ -154,8 +162,8 @@ namespace MonkeyEngine
 			ID3D11ShaderResourceView*	m_d3NormalTexture;
 			std::string mSpecularMapName;
 			ID3D11ShaderResourceView*	m_d3SpecularTexture;
-			DirectX::XMFLOAT3 mSpecular;
-			DirectX::XMFLOAT3 mReflection;
+			Float3 mSpecular;
+			Float3 mReflection;
 			double mSpecularPower;
 			double mShininess;
 			double mReflectionFactor;

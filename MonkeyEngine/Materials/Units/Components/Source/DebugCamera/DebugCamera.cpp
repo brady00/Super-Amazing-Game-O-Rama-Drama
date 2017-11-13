@@ -21,9 +21,9 @@ namespace MonkeyEngine
 			ThrowAwayObject->AddComponent((Component*)ThrowAwayTransform, GameObject::eTransform);
 			ThrowAwayObject->AddComponent((Component*)m_Skybox, GameObject::eSkybox);
 			m_Mousesensitivity = m_MovementSpeed = 1.0f;
-			ThrowAwayTransform->GetPosition() = XMFLOAT3(0, 0, 0);
-			ThrowAwayTransform->GetRotation() = XMFLOAT3(0, 0, 0);
-			ThrowAwayTransform->GetScale() = XMFLOAT3(1, 1, 1);
+			ThrowAwayTransform->GetPosition() = Float3(0, 0, 0);
+			ThrowAwayTransform->GetRotation() = Float3(0, 0, 0);
+			ThrowAwayTransform->GetScale() = Float3(1, 1, 1);
 			ThrowAwayTransform->UpdateTransform();
 		}
 
@@ -41,7 +41,7 @@ namespace MonkeyEngine
 		void DebugCamera::Initialize(ID3D11Device* d3Device, ID3D11DeviceContext* d3DeviceContext, float _WindowHeight, float _WindowWidth)
 		{
 			m_xmViewMatrix = XMFLOAT4X4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(90.0f), _WindowWidth / _WindowHeight, 0.1f, 99999.9f));
+			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(90.0f), _WindowWidth / _WindowHeight, 0.01f, 99999.9f));
 			GetCursorPos(&m_pPrevMousePos);
 			cbPerCamera tempBuffer = ConstantBufferManager::GetInstance()->GetPerCameraCBuffer().GetBufferValue();
 			XMStoreFloat4x4(&tempBuffer.ViewProj, XMMatrixMultiply(XMLoadFloat4x4(&m_xmViewMatrix), XMLoadFloat4x4(&m_xmProjMatrix)));
@@ -56,7 +56,7 @@ namespace MonkeyEngine
 		void DebugCamera::Resize(float _WindowHeight, float _WindowWidth)
 		{
 			m_Resize = true;
-			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(90), (_WindowWidth / _WindowHeight), 0.1f, 99999.9f));
+			XMStoreFloat4x4(&m_xmProjMatrix, XMMatrixPerspectiveFovLH(XMConvertToRadians(90), (_WindowWidth / _WindowHeight), 0.01f, 99999.9f));
 		}
 
 		void DebugCamera::Update(ID3D11DeviceContext* d3DeviceContext)
@@ -138,7 +138,7 @@ namespace MonkeyEngine
 
 			m_Resize = false;
 			m_RunOnce = false;
-			XMFLOAT3& temp = ThrowAwayTransform->GetPosition();
+			Float3& temp = ThrowAwayTransform->GetPosition();
 			temp.x = m_xmViewMatrix._41;
 			temp.y = m_xmViewMatrix._42;
 			temp.z = m_xmViewMatrix._43;

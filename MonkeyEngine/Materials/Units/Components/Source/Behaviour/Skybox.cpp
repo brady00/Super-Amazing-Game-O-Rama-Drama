@@ -21,7 +21,7 @@ namespace MonkeyEngine
 			m_PixelShaderColor = nullptr;
 			m_PixelShaderTexture = nullptr;
 			m_Layout = nullptr;
-			XMStoreFloat4x4(&m_cbPerObject.world, XMMatrixIdentity());
+			XMStoreFloat4x4(&m_cbPerObject, XMMatrixIdentity());
 		}
 
 		Skybox::~Skybox()
@@ -48,14 +48,14 @@ namespace MonkeyEngine
 		{
 			m_Material = _Material;
 			VERTEX_POS data[8];
-			data[0].position = { -0.5f, 0.5f, 0.5f };
-			data[1].position = { 0.5f, 0.5f, 0.5f };
-			data[2].position = { 0.5f, 0.5f, -0.5f };
-			data[3].position = { -0.5f, 0.5f, -0.5f };
-			data[4].position = { -0.5f, -0.5f, 0.5f };
-			data[5].position = { 0.5f, -0.5f, 0.5f };
-			data[6].position = { 0.5f, -0.5f, -0.5f };
-			data[7].position = { -0.5f, -0.5f, -0.5f };
+			data[0].position = { -1.0f, 1.0f, 1.0f };
+			data[1].position = { 1.0f, 1.0f, 1.0f };
+			data[2].position = { 1.0f, 1.0f, -1.0f };
+			data[3].position = { -1.0f, 1.0f, -1.0f };
+			data[4].position = { -1.0f, -1.0f, 1.0f };
+			data[5].position = { 1.0f, -1.0f, 1.0f };
+			data[6].position = { 1.0f, -1.0f, -1.0f };
+			data[7].position = { -1.0f, -1.0f, -1.0f };
 			VERTEX_POSCOLOR data2[8];
 			data2[0].position = data[0].position;
 			data2[0].color = m_Material.Color;
@@ -124,7 +124,7 @@ namespace MonkeyEngine
 
 		void Skybox::Draw(ID3D11DeviceContext* d3DeviceContext)
 		{
-			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_Default, d3DeviceContext);
+			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_LessEqual, d3DeviceContext);
 			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL, d3DeviceContext);
 			BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default, d3DeviceContext);
 			UINT stride;
@@ -155,8 +155,9 @@ namespace MonkeyEngine
 			m_cbPerObject.world._41 = GetTransform()->GetPosition().x;
 			m_cbPerObject.world._42 = GetTransform()->GetPosition().y;
 			m_cbPerObject.world._43 = GetTransform()->GetPosition().z;
-			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&m_cbPerObject, sizeof(cbPerObject), d3DeviceContext);
-			m_ObjectConstantBuffer = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
+			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&m_cbPerObject, sizeof(cbPerObject), d3DeviceContext)			cbPerObject temp;
+			temp.world = m_cbPerObject;
+			ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().Update(&temp, sizeof(cbPerObject), d3DeviceContext);			m_ObjectConstantBuffer = ConstantBufferManager::GetInstance()->GetPerObjectCBuffer().GetConstantBuffer();
 			CriticalRegion::Enter(d3DeviceContext);
 			d3DeviceContext->VSSetConstantBuffers(0, 1, &m_ObjectConstantBuffer);
 			if (m_Material.m_d3DiffuseTexture)

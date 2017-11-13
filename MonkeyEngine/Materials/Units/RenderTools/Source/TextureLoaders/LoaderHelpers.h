@@ -15,9 +15,9 @@
 
 #pragma once
 
+#include "pch.h"
 #include "DDS.h"
 #include "DDSTextureLoader.h"
-
 
 namespace DirectX
 {

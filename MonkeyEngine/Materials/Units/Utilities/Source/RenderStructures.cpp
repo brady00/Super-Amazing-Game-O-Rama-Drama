@@ -4,8 +4,8 @@ namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		RenderState::RState RenderState::state = RState::EDITOR_RENDERING;
-
+		RenderState::RState RenderState::state = RenderState::RState::EDITOR_RENDERING;
+		
 		RenderState::RState RenderState::GetRenderState()
 		{
 			return state;

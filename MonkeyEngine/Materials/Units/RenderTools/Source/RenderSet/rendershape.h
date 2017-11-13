@@ -14,12 +14,16 @@ namespace MonkeyEngine
 	namespace MERenderer
 	{
 		
-		class RenderShape : public RenderNode
+		class _declspec(dllexport) RenderShape : public RenderNode
 		{
 		public:
 			RenderShape() {};
 			~RenderShape() {};
-			virtual void Draw(ID3D11DeviceContext* d3DeviceContext, unsigned int EngineState) {};
+			//in: ID3D11DeviceContext*
+			//	The current Renderer's DeviceContext*
+			//out: void					
+			//desc: Draws the the object to the screen	
+			virtual void Draw(ID3D11DeviceContext* d3DeviceContext) {};
 		};
 
 

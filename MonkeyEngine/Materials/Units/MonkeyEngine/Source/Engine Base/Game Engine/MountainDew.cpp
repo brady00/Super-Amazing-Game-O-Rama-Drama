@@ -12,6 +12,7 @@
 #include "Time.h"
 #include "FileIO.h"
 #include "DebugCamera\DebugCamera.h"
+#include "MemoryManager.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR commandLine, int nCmdShow)
 {
@@ -95,6 +96,7 @@ namespace MonkeyEngine
 
 	void MountainDew::Shutdown()
 	{
+		MemoryManager::GetInstance()->m_bShuttingDown = true;
 		m_pScene->Shutdown();
 		delete m_pScene;
 		//m_pSettings->Shutdown(); // Called in Settings Destructor

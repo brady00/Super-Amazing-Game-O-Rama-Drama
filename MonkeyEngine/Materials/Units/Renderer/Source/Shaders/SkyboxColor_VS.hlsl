@@ -11,5 +11,6 @@ SKYBOXCOLOR_VS_OUT main( VERTEX_POSCOLOR fromVertexBuffer )
 
 	sendToRasterizer.projectedCoordinate = temppos;
 	sendToRasterizer.color = fromVertexBuffer.color;
+	sendToRasterizer.projectedCoordinate.z = sendToRasterizer.projectedCoordinate.w;
 	return sendToRasterizer;
 }

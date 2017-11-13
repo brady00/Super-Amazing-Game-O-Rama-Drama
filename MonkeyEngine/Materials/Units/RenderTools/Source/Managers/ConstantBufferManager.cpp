@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ConstantBufferManager.h"
 
 namespace MonkeyEngine
@@ -19,11 +20,6 @@ namespace MonkeyEngine
 		{
 			static ConstantBufferManager m_pInstance;
 			return&m_pInstance;
-		}
-
-		void ConstantBufferManager::DeleteInstance()
-		{
-
 		}
 
 		void ConstantBufferManager::CreateBuffers(ID3D11Device* d3Device)

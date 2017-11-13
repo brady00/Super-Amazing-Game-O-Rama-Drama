@@ -1,14 +1,14 @@
+#include "stdafx.h"
 #include "IndexBuffer.h"
 #include "CriticalRegion.h"
 namespace MonkeyEngine
 {
 	namespace MERenderer
 	{
-		IndexBuffer *IndexBuffer::m_pInstance = 0;
 
 		IndexBuffer::IndexBuffer(void)
 		{
-			m_pInstance = 0;
+
 		}
 
 		IndexBuffer::~IndexBuffer(void)
@@ -22,16 +22,8 @@ namespace MonkeyEngine
 
 		IndexBuffer* IndexBuffer::GetInstance()
 		{
-			if (!m_pInstance)
-			{
-				m_pInstance = new IndexBuffer;
-			}
-			return m_pInstance;
-		}
-
-		void IndexBuffer::DeleteInstance()
-		{
-			delete m_pInstance;
+			static IndexBuffer m_pInstance;
+			return &m_pInstance;
 		}
 
 		UINT IndexBuffer::AddIndicies(const UINT *_indices, UINT _numIndices, ID3D11Device* d3Device, ID3D11DeviceContext* d3DeviceContext)

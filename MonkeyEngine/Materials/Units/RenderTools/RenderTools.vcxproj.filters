@@ -84,6 +84,7 @@
     <ClCompile Include="Source\Managers\VertexBufferManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\TextureLoaders\dds.h">
@@ -183,5 +184,6 @@
       <Filter>ShaderBuffers</Filter>
     </ClInclude>
     <ClInclude Include="Source\RenderToolsDLL.h" />
+    <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>
 </Project>

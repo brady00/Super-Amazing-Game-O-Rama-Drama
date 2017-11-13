@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "RenderMesh.h"
 #include "RenderTexture.h"
 #include "../Managers/InputLayoutManager.h"
@@ -17,7 +18,54 @@ namespace MonkeyEngine
 		{
 			if (m_vVerticies)
 			{
-				delete[] m_vVerticies;
+				switch (m_eVertexFormat)
+				{
+				case MonkeyEngine::MERenderer::eVERTEX_POS:
+					delete[] ((VERTEX_POS*)m_vVerticies);
+					break; 
+				case MonkeyEngine::MERenderer::eVERTEX_POSCOLOR:
+					delete[]((VERTEX_POSCOLOR*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSTEX:
+					delete[]((VERTEX_POSTEX*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSTEXCOLOR:
+					delete[]((VERTEX_POSTEXCOLOR*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSNORMTEX:
+					delete[]((VERTEX_POSNORMTEX*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSNORMTEXCOLOR:
+					delete[]((VERTEX_POSNORMTEXCOLOR*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSNORMTANTEX:
+					delete[]((VERTEX_POSNORMTANTEX*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSNORMTANTEXCOLOR:
+					delete[]((VERTEX_POSNORMTANTEXCOLOR*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSBONEWEIGHT:
+					delete[]((VERTEX_POSBONEWEIGHT*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSBONEWEIGHTCOLOR:
+					delete[]((VERTEX_POSBONEWEIGHTCOLOR*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSBONEWEIGHTNORMTEX:
+					delete[]((VERTEX_POSBONEWEIGHTNORMTEX*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSBONEWEIGHTNORMTEXCOLOR:
+					delete[]((VERTEX_POSBONEWEIGHTNORMTEXCOLOR*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEX:
+					delete[]((VERTEX_POSBONEWEIGHTNORMTANTEX*)m_vVerticies);
+					break;
+				case MonkeyEngine::MERenderer::eVERTEX_POSBONEWEIGHTNORMTANTEXCOLOR:
+					delete[]((VERTEX_POSBONEWEIGHTNORMTANTEXCOLOR*)m_vVerticies);
+					break;
+				default:
+					break;
+				}
+				
 				m_vVerticies = nullptr;
 			}
 			if (m_vIndicies)

@@ -2,12 +2,13 @@
 #pragma warning(disable: 4561)
 #include <d3d11.h>
 #pragma warning(disable: 4793)
-#include <DirectXMath.h>
+#include "Float3/Float3.h"
 #include "Behaviour.h"
 #include "Skybox.h"
 using namespace DirectX;
 namespace MonkeyEngine
 {
+	using namespace MEMath;
 	namespace MEObject
 	{
 		
@@ -55,10 +56,10 @@ namespace MonkeyEngine
 			//StereoTargetMask StereoTargetEye;
 			int TargetDisplay;
 			//RenderTarget targetTexture;
-			XMFLOAT3 TrasparencySortAxis;
+			Float3 TrasparencySortAxis;
 			bool UseJitteredProjectionMatrixForTransparentRendering;
 			bool UseOcclusionCulling;
-			XMFLOAT3 Velocity;
+			Float3 Velocity;
 			XMFLOAT4X4 WorldToCameraMatrix;
 		protected: 
 			Skybox* m_Skybox;
@@ -66,7 +67,7 @@ namespace MonkeyEngine
 			Camera();
 			~Camera() {};
 			void AddCommandBuffer(/*CameraEvent, CommandBuffer*/);
-			void CalculateFrustumCorners(/*Rect*/XMFLOAT4 viewport, float x/*MonoOrStereoscropicEye*/, XMFLOAT3* outCorners);
+			void CalculateFrustumCorners(/*Rect*/XMFLOAT4 viewport, float x/*MonoOrStereoscropicEye*/, Float3* outCorners);
 			XMFLOAT4X4 CalculateObliqueMatrix(XMFLOAT4 clipPlane);
 			void CopyFrom(Camera* other);
 			std::vector</*CommandBuffer*/void> GetCommandBuffers(/*CameraEvent*/);
@@ -86,18 +87,18 @@ namespace MonkeyEngine
 			void ResetStereoViewMatrices();
 			void ResetTransparencySortSettings();
 			void ResetWorldToCameraMatrix();
-			/*Ray*/void ScreenPointToRay(XMFLOAT3 position);
-			XMFLOAT3 ScreenToViewportPoint(XMFLOAT3 position);
-			XMFLOAT3 ScreenToWorldPoint(XMFLOAT3 position);
+			/*Ray*/void ScreenPointToRay(Float3 position);
+			Float3 ScreenToViewportPoint(Float3 position);
+			Float3 ScreenToWorldPoint(Float3 position);
 			void SetReplacementShader(/*Shader*/string ReplacementTag);
 			void SetStereoProjectionMatrix(/*StereoscopicEye*/ XMFLOAT4X4 matrix);
 			void SetStereoViewMatrix(/*StereoscopicEye*/ XMFLOAT4X4 matrix);
 			void SetTargetBuffers(/*RenderBuffer colorBuffer, RenderBuffer depthBuffer*/);
-			XMFLOAT3 ViewportPointToRay(XMFLOAT3 position);
-			XMFLOAT3 ViewportToScreenPoint(XMFLOAT3 position);
-			XMFLOAT3 ViewportToWorldPoint(XMFLOAT3 position);
-			XMFLOAT3 WorldToScreenPoint(XMFLOAT3 position);
-			XMFLOAT3 WorldToViewportPoint(XMFLOAT3 position);
+			Float3 ViewportPointToRay(Float3 position);
+			Float3 ViewportToScreenPoint(Float3 position);
+			Float3 ViewportToWorldPoint(Float3 position);
+			Float3 WorldToScreenPoint(Float3 position);
+			Float3 WorldToViewportPoint(Float3 position);
 			/*Callback*/void OnPostRender();
 			/*Callback*/void OnPreCull();
 			/*Callback*/void OnPreRender();

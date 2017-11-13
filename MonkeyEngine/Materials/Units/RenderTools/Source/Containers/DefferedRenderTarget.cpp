@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DefferedRenderTarget.h"
 #include "Managers/DepthStencilStateManager.h"
 #include "Managers/VertexBufferManager.h"
@@ -7,8 +8,10 @@
 #include "Managers/ShaderManager.h"
 #include "Managers/ConstantBufferManager.h"
 #include "RenderStructures.h"
+#include "Float3/Float3.h"
 namespace MonkeyEngine
 {
+	using namespace MEMath;
 	namespace MERenderer
 	{
 
@@ -58,17 +61,23 @@ namespace MonkeyEngine
 			top = (float)(_ScreenHeight / 2.0f);
 			bottom = top - (float)_ScreenHeight;
 
-			vertices[0].position = DirectX::XMFLOAT3(-1, -1, 0.0f);
+
+			vertices[0].position = Float3(-1, -1, 0.0f);
 			vertices[0].texcoord = DirectX::XMFLOAT2(0.0f, 1.0f);
-			vertices[1].position = DirectX::XMFLOAT3(-1, 1, 0.0f);
+
+			vertices[1].position = Float3(-1, 1, 0.0f);
 			vertices[1].texcoord = DirectX::XMFLOAT2(0.0f, 0.0f);
-			vertices[2].position = DirectX::XMFLOAT3(1, -1, 0.0f);
+
+			vertices[2].position = Float3(1, -1, 0.0f);
 			vertices[2].texcoord = DirectX::XMFLOAT2(1.0f, 1.0f);
-			vertices[3].position = DirectX::XMFLOAT3(1, -1, 0.0f);
+
+			vertices[3].position = Float3(1, -1, 0.0f);
 			vertices[3].texcoord = DirectX::XMFLOAT2(1.0f, 1.0f);
-			vertices[4].position = DirectX::XMFLOAT3(-1, 1, 0.0f);
+
+			vertices[4].position = Float3(-1, 1, 0.0f);
 			vertices[4].texcoord = DirectX::XMFLOAT2(0.0f, 0.0f);
-			vertices[5].position = DirectX::XMFLOAT3(1, 1, 0.0f);
+
+			vertices[5].position = Float3(1, 1, 0.0f);
 			vertices[5].texcoord = DirectX::XMFLOAT2(1.0f, 0.0f);
 
 			m_uiStartVert = VertexBufferManager::GetInstance()->GetPositionTexBuffer().AddVerts(vertices, 6, _Device, d3DeviceContext);
@@ -154,8 +163,8 @@ namespace MonkeyEngine
 			d3DeviceContext->IASetInputLayout(InputLayoutManager::GetInstance()->GetInputLayout(VertexFormat::eVERTEX_POSTEX));
 			CriticalRegion::Exit(d3DeviceContext);
 			BlendStateManager::GetInstance()->ApplyState(BlendStateManager::BS_Default, d3DeviceContext);
-			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_NOCULL, d3DeviceContext);
-			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_NoDepth, d3DeviceContext);
+			RasterizerStateManager::GetInstance()->ApplyState(RasterizerStateManager::RS_Default, d3DeviceContext);
+			DepthStencilStateManager::GetInstance()->ApplyState(DepthStencilStateManager::DSS_LessEqual, d3DeviceContext);
 			UINT Stride = sizeof(VERTEX_POSTEX);
 			UINT Offset = 0;
 			ID3D11Buffer* vertbuff = VertexBufferManager::GetInstance()->GetPositionTexBuffer().GetVertexBuffer();
@@ -183,9 +192,12 @@ namespace MonkeyEngine
 
 		void DefferedRenderTarget::SetAsRenderTarget(ID3D11DepthStencilView* _StencilView, ID3D11DeviceContext* _DeviceContext)
 		{
-			float color[] = { 0,0,1,1 };
 			CriticalRegion::Enter(_DeviceContext);
 			_DeviceContext->OMSetRenderTargets(m_uiBufferCount, m_d3GBufferTargetView, _StencilView);
+		}
+
+		void DefferedRenderTarget::Clear(ID3D11DeviceContext* _DeviceContext, float* color)
+		{
 			for (unsigned int i = 0; i < m_uiBufferCount; i++)
 				_DeviceContext->ClearRenderTargetView(m_d3GBufferTargetView[i], color);
 			CriticalRegion::Exit(_DeviceContext);

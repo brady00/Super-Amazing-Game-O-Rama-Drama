@@ -1,9 +1,9 @@
 #pragma once
+#pragma pack (push, 1)
 #pragma warning(disable: 4561)
 #pragma warning(disable: 4793)
 #pragma warning(disable: 4251)
 #include <string>
-#include "MemoryManager.h"
 using namespace std;
 namespace MonkeyEngine
 {
@@ -23,22 +23,6 @@ namespace MonkeyEngine
 			void SetName(std::string _Name);
 			unsigned int GetFlags();
 			void SetFlags(unsigned int _Flags);
-			void* operator new(std::size_t count)
-			{
-				return MonkeyEngine::MemoryManager::GetInstance()->Allocate(count);
-			}
-			void* operator new[](std::size_t count)
-			{
-				return MonkeyEngine::MemoryManager::GetInstance()->Allocate(count);
-			}
-			void operator delete(void* const ptr) noexcept
-			{
-				MonkeyEngine::MemoryManager::GetInstance()->DeAllocate(ptr);
-			}
-			void operator delete[](void* ptr)
-			{
-				MonkeyEngine::MemoryManager::GetInstance()->DeAllocate(ptr);
-			}
 		private:
 			virtual void Initialize() {};
 			virtual void Update() {};
@@ -46,3 +30,4 @@ namespace MonkeyEngine
 		};
 	}
 }
+#pragma pack (pop)

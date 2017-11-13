@@ -1,22 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="GameWindow.cpp" />
-    <ClCompile Include="Editor.cpp" />
-    <ClCompile Include="TransformPanel.cpp" />
-    <ClCompile Include="ComponentPanel.cpp" />
+    <ClCompile Include="Components\TransformPanel.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ComponentPanel.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\GameWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\Editor.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="TransformPanel.h" />
     <ClInclude Include="ComponentPanel.h" />
-    <ClInclude Include="StringToVariableDictionary.h" />
+    <ClInclude Include="Utilities\StringToVariableDictionary.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameWindow.resx" />
     <EmbeddedResource Include="Editor.resx" />
     <EmbeddedResource Include="TransformPanel.resx" />
     <EmbeddedResource Include="ComponentPanel.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{f0e0966e-e25f-4910-822d-ddb593f480f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{9c0f96dd-dc53-4d42-a4d4-27d306bb60b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{68650285-2181-4682-9c59-5aa385f66378}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

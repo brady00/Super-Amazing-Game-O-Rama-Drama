@@ -35,7 +35,7 @@ namespace MonkeyEngine
 #endif
 		Renderer::Renderer()
 		{
-			
+
 		}
 
 
@@ -102,10 +102,8 @@ namespace MonkeyEngine
 			m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
 			CriticalRegion::Exit(m_d3DeviceContext);
 
-			
-
-			m_pDeferredRenderTarget = new DefferedRenderTarget;
-			m_pDeferredRenderTarget->Initialize(m_d3Device, m_d3DeviceContext, _ScreenHeight, _ScreenWidth);
+			m_pSceneTarget = new DefferedRenderTarget;
+			m_pSceneTarget->Initialize(m_d3Device, m_d3DeviceContext, _ScreenHeight, _ScreenWidth);
 			BlendStateManager::GetInstance()->CreateStates(m_d3Device);
 			ConstantBufferManager::GetInstance()->CreateBuffers(m_d3Device);
 			DepthStencilStateManager::GetInstance()->CreateStates(m_d3Device);
@@ -161,11 +159,12 @@ namespace MonkeyEngine
 			m_d3Device->CreateDepthStencilView(m_d3DepthBuffer, &depthViewDesc, &m_d3DepthStencilView);
 
 			// Render Target
-			m_pDeferredRenderTarget->ResizeBuffers(m_d3Device, _ScreenHeight, _ScreenWidth);
+			m_pSceneTarget->ResizeBuffers(m_d3Device, _ScreenHeight, _ScreenWidth);
 		}
 
 		void Renderer::Update()
 		{
+			float color[4] = { 0,0,0,0 };
 			LARGE_INTEGER li;
 			QueryPerformanceCounter(&li);
 			float DeltaTime = (float)(double(li.QuadPart - m_dPrevFrame) / 10000.0);
@@ -174,26 +173,21 @@ namespace MonkeyEngine
 				m_fFPS = 1.0f / DeltaTime;
 			CriticalRegion::Enter(m_d3DeviceContext);
 			m_d3DeviceContext->RSSetViewports(1, &m_d3ViewPort);
+			m_pSceneTarget->SetAsRenderTarget(GetDepthStencilView(), GetDeviceContext());
+			m_pSceneTarget->Clear(GetDeviceContext(), color);
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-			CriticalRegion::Exit(m_d3DeviceContext);
-			m_pDeferredRenderTarget->SetAsRenderTarget(m_d3DepthStencilView, m_d3DeviceContext);
-
-			if(RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
+			m_pNonTranparentObjects->Draw(m_d3DeviceContext);
+			m_pTransparentObjects->Draw(m_d3DeviceContext);
+			//draw lights
+			//draw skybox
+			if (RenderState::GetRenderState() == RenderState::EDITOR_RENDERING)
 				m_DebugCamera->GetSkybox()->Draw(m_d3DeviceContext);
 			else
 			{
 				m_vCameras[m_ActiveCamera]->Draw(m_d3DeviceContext);
 				m_vCameras[m_ActiveCamera]->GetSkybox()->Draw(m_d3DeviceContext);
 			}
-			CriticalRegion::Enter(m_d3DeviceContext);
-			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-			CriticalRegion::Exit(m_d3DeviceContext);
-
-			m_pNonTranparentObjects->Draw(m_d3DeviceContext);
-			m_pTransparentObjects->Draw(m_d3DeviceContext);
-			//draw lights
-			//set backbuffer
-			float color[] = { 0,0,1,1 };
+			//draw lights			//set backbuffer
 			CriticalRegion::Enter(m_d3DeviceContext);
 			m_d3DeviceContext->ClearDepthStencilView(m_d3DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 			m_d3DeviceContext->OMSetRenderTargets(1, &m_d3BackBufferTargetView, m_d3DepthStencilView);
@@ -201,7 +195,7 @@ namespace MonkeyEngine
 			CriticalRegion::Exit(m_d3DeviceContext);
 
 			//draw quad
-			m_pDeferredRenderTarget->Update(m_d3DeviceContext);
+			m_pSceneTarget->Update(m_d3DeviceContext);
 			m_d3SwapChain->Present(0, 0);
 		}
 
@@ -216,8 +210,8 @@ namespace MonkeyEngine
 			//delete m_pSkybox;
 			delete m_pNonTranparentObjects;
 			delete m_pTransparentObjects;
-			m_pDeferredRenderTarget->Shutdown();
-			delete m_pDeferredRenderTarget;
+			m_pSceneTarget->Shutdown();
+			delete m_pSceneTarget;
 			ReleaseCOM(m_d3Device);
 			ReleaseCOM(m_d3DeviceContext);
 			ReleaseCOM(m_d3SwapChain);

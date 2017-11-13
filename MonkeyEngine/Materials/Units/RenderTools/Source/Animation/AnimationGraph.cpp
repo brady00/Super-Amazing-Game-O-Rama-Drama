@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "AnimationGraph.h"
 #include "Time.h"
 

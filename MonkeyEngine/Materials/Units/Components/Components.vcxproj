@@ -93,12 +93,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Math\Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Utilities.lib;RenderTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MemoryOverloads\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Math\Binary\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;RenderTools.lib;Math.lib;MemoryOverloads.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -106,12 +106,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Math\Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Utilities.lib;RenderTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MemoryOverloads\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Math\Binary\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;RenderTools.lib;Math.lib;MemoryOverloads.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -121,14 +121,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Math\Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Utilities.lib;RenderTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MemoryOverloads\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Math\Binary\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;RenderTools.lib;Math.lib;MemoryOverloads.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -138,14 +138,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\;$(ProjcetDir)..\Math\Source\;$(ProjcetDir)..\Utilities\Source\;$(ProjectDir)..\MemoryOverloads\Source\;$(ProjectDir)..\RenderTools\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Utilities.lib;RenderTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\_BuiltUnits\Utilities\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\RenderTools\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\MemoryOverloads\Binary\$(Platform)\$(Configuration)\;$(ProjectDir)..\..\_BuiltUnits\Math\Binary\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Utilities.lib;RenderTools.lib;Math.lib;MemoryOverloads.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

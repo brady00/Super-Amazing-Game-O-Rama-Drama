@@ -36,7 +36,7 @@ namespace MonkeyEngine
 			ID3D11PixelShader* m_PixelShaderColor;
 			ID3D11InputLayout* m_Layout;
 			Material m_Material;
-			cbPerObject m_cbPerObject;
+			XMFLOAT4X4 m_cbPerObject;
 			UINT m_StartIndexLocation;
 			UINT m_BaseVertexLocationTexture;
 			UINT m_BaseVertexLocationColor;

@@ -1,6 +1,7 @@
 #pragma once
 #include "RenderToolsDLL.h"
 #include <d3d11.h>
+#include <DirectXMath.h>
 namespace MonkeyEngine
 {
 	namespace MERenderer
@@ -18,12 +19,46 @@ namespace MonkeyEngine
 		public:
 			DefferedRenderTarget();
 			~DefferedRenderTarget();
-
+			//in: ID3D11Device*
+			//	The current Renderer's Device
+			//in: ID3D11DeviceContext*
+			//	The current Renderer's DeviceContext
+			//in: UINT
+			//	The Width of the Screen
+			//in: UINT
+			//	The Height of the Screen
+			//out: void
+			//desc: Creates the necessasry D3D Objects to render to a texture
 			void Initialize(ID3D11Device* _Device, ID3D11DeviceContext* d3DeviceContext, UINT _ScreenHeight, UINT _ScreenWidth);
+			//in: void
+			//out: void
+			//desc: Draws the 2D texture to the screen
 			void Update(ID3D11DeviceContext* d3DeviceContext);
+			//in: void
+			//out: void
+			//desc: Cleans up all D3D memory
 			void Shutdown();
+			//in: ID3D11Device*
+			//	The current Renderer's Device
+			//in: UINT
+			//	The Width of the Screen
+			//in: UINT
+			//	The Height of the Screen
+			//out: void
+			//desc: Reinitalizes with the new ScreenHeight and ScreenWidth
 			void ResizeBuffers(ID3D11Device* _Device, UINT _ScreenHeight, UINT _ScreenWidth);
+			//in: ID3D11DepthStencilView*
+			//	The current Renderer's DepthStencilView
+			//in: ID3D11DeviceContext*
+			//	The Width of the Screen
+			//out: void
+			//desc: Sets the D3D Objects to make this the RenderTarget of the Graphics Pipeline
 			void SetAsRenderTarget(ID3D11DepthStencilView* _StencilView, ID3D11DeviceContext* _DeviceContext);
+			//in: XMFLOAT4
+			//	The color to clear the RenderTarget too
+			//out: void
+			//desc: Clears the RenderTarget to the Given Color
+			void Clear(ID3D11DeviceContext* _DeviceContext, float* color);
 		};
 	}
 }

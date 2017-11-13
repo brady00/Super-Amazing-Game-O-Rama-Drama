@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "RasterizerStateManager.h"
 #include "RenderStructures.h"
 #include "CriticalRegion.h"

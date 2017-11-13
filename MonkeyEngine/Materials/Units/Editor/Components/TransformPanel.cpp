@@ -5,7 +5,7 @@ namespace Editor
 {
 	void TransformPanel::CreatePanel(Panel^ InspectorBackgroundPanel, unsigned int Index)
 	{
-		XMFLOAT3 pos, rot, scale;
+		Float3 pos, rot, scale;
 		pos = ((MonkeyEngine::MEObject::Transform*)Comp)->GetPosition();
 		rot = ((MonkeyEngine::MEObject::Transform*)Comp)->GetRotation();
 		scale = ((MonkeyEngine::MEObject::Transform*)Comp)->GetScale();

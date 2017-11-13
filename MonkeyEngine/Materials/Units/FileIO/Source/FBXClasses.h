@@ -1,14 +1,14 @@
 #pragma once
 #pragma warning(disable: 4793)
-#include <DirectXMath.h>
-using namespace DirectX;
+#include "Float3/Float3.h"
 namespace MonkeyEngine
 {
+	using namespace MEMath;
 	namespace MERenderer
 	{
 		struct CtrlPoint
 		{
-			XMFLOAT3 mPosition;
+			Float3 mPosition;
 		};
 
 		struct Triangle
